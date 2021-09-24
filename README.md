@@ -11,8 +11,9 @@ This program was developed in PyCharm with Python 3.10.0rc2, the purpose of this
 - pyserial
 
 ### PCB Block Diagram
-Figure below shows a overall block diagram of the evaluation board.
-![PCB](https://user-images.githubusercontent.com/4018299/134605114-46d5608e-b49d-4c2c-bdfc-4da76c55a3bb.png)
+Figure below shows a overall component markings of the evaluation board.
+![PCB](https://user-images.githubusercontent.com/4018299/134605757-104c7f77-8836-4417-b8e7-61fecc7c144b.png)
+
 
 ### Voltage Sources
 | Voltage Source | Regulator Type | Power/Value Control Method | Voltage Range | Step Resolution  | Max Supported Current |                
