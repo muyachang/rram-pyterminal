@@ -16,16 +16,16 @@ Figure below shows a overall component markings of the evaluation board.
 
 
 ### Voltage Sources
-| Voltage Source | Regulator Type | Power/Value Control Method | Voltage Range | Step Resolution  | Max Supported Current |                
-| :----:         | :----:         | :----:                     | :----:        | :----:           | :----:                |
-| 3V3 Always On  | LDO            | -  /Potentiometer          | 0.73 ~ VCC V  | -                | 25 mA                 |
-| VDD            | LDO            | I2C/Potentiometer          | 0.73 ~ VCC V  | -                | 300 mA                |
-| AVDD_SRAM      | LDO            | I2C/Potentiometer          | 0.73 ~ VCC V  | -                | 300 mA                |
-| 3V3            | DC/DC          | I2C/I2C                    | 2.06 ~ 4.00 V | 62.50 mV         | 1.5 A                 |
-| AVDD_WR        | DC/DC          | I2C/I2C                    | 1.08 ~ 4.00 V | 32.63 & 62.50 mV | 1.5 A                 |
-| AVDD_WL        | DC/DC          | I2C/I2C                    | 0.83 ~ 3.08 V | 25.00 & 48.13 mV | 2.5 A                 |
-| AVDD_RRAM      | DC/DC          | I2C/I2C                    | 0.83 ~ 1.60 V | 25.00 mV         | 2.5 A                 |
-
+| Voltage Source | Regulator Type | Power/Value Control Method | Voltage Range (V) | Step Resolution (mV) | Max Supported Current |                
+| :----:         | :----:         | :----:                     | :----:            | :----:               | :----:                |
+| 3V3 Always On  | LDO            | -  /Potentiometer          | 0.73 ~ VCC        | -                    | 25 mA                 |
+| VDD            | LDO            | I2C/Potentiometer          | 0.73 ~ VCC        | -                    | 300 mA                |
+| AVDD_SRAM      | LDO            | I2C/Potentiometer          | 0.73 ~ VCC        | -                    | 300 mA                |
+| 3V3            | DC/DC          | I2C/I2C                    | 2.06 ~ 4.00       | 62.50                | 1.5 A                 |
+| AVDD_WR        | DC/DC          | I2C/I2C                    | 1.08 ~ 4.00       | 32.63 & 62.50        | 1.5 A                 |
+| AVDD_WL        | DC/DC          | I2C/I2C                    | 0.83 ~ 3.08       | 25.00 & 48.13        | 2.5 A                 |
+| AVDD_RRAM      | DC/DC          | I2C/I2C                    | 0.83 ~ 1.60       | 25.00                | 2.5 A                 |
+    
 ### DAC Sources
 There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them can be 0 ~ 3V3 with 12 bit resolution.
 - **VTGT_BL**: Target voltage for the bit lines. (Nominal range: 80 ~ 200 mV)
