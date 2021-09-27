@@ -1,9 +1,11 @@
+import glob
 import time
 import sys
 import serial
 from Lib import DEMO, ASCII, RRAM
 from Board import EEPROM, PM, LED, DF, DAC, TC
 import USER
+
 
 class PyTerminal:
     
@@ -13,12 +15,12 @@ class PyTerminal:
         for i, p in enumerate(available_ports):
             print('Port[' + str(i) + '] = ' + p)
         input("Enter the index of the port: ")
-        self.ser = serial.Serial(port = available_ports[0], baudrate = 115200, timeout = 3)
+        self.ser = serial.Serial(port=available_ports[0], baudrate=115200, timeout=3)
             
     def __del__(self):
         self.ser.close()
         
-    def sendCommand(self, command, verbal):
+    def send_command(self, command, verbal):
         # Send out the command and Give it some time to process
         self.ser.reset_output_buffer()
         self.ser.write(str.encode(command + '\n'))
@@ -26,16 +28,21 @@ class PyTerminal:
         
         # Wait for EOT
         response = b''
-        while(1):
+        while 1:
             char = self.ser.read(1)            
-            if     char == ASCII.EOT: break
-            elif   char == b''      : print('Read Timeout'); break
-            elif verbal == True     : print(char.decode('utf-8'), end = '', flush = True)
+            if char == ASCII.EOT:
+                break
+            elif char == b'':
+                print('Read Timeout')
+                break
+            elif verbal:
+                print(char.decode('utf-8'), end='', flush=True)
             response += char
         self.ser.reset_input_buffer()
         return response.decode('utf-8')
 
-    def list_ports(self):
+    @staticmethod
+    def list_ports():
         """ Lists serial port names
 
         :raises EnvironmentError:
@@ -63,15 +70,15 @@ class PyTerminal:
                 pass
         return result
 
-    
-    def unknown(self, parameters):
+    @staticmethod
+    def unknown(parameters):
         print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
     
-    def decodeCommand(self, command):
+    def decode_command(self, command):
         try:
             # Split the command and fill up to 8 list elements
             parameters = command.split()
-            for i in range(len(parameters),8):
+            for i in range(len(parameters), 8):
                 parameters.append('')
                 
             if   parameters[0] == "PM"    :     PM.decode(self, parameters)
@@ -89,4 +96,4 @@ class PyTerminal:
         except serial.SerialException:
             self.ser.close()
             self.ser.open()
-            self.decodeCommand(command)
+            self.decode_command(command)
