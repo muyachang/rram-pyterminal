@@ -87,7 +87,9 @@ CM_RRAM_WRITE          = b'\x4C'.decode('utf-8')
 CM_RRAM_ADC            = b'\x4F'.decode('utf-8')
 CM_RRAM_PG             = b'\x50'.decode('utf-8')
 CM_RRAM_ECC            = b'\x51'.decode('utf-8')
-                      
+
+CM_VECTOR_PID          = b'\x41'.decode('utf-8')
+
 # argv[2]             
 CM_RRAM_SET            = b'\x41'.decode('utf-8')
 CM_RRAM_GET            = b'\x42'.decode('utf-8')
