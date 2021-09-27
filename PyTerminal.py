@@ -2,7 +2,7 @@ import glob
 import time
 import sys
 import serial
-from Lib import DEMO, ASCII, RRAM
+from Lib import DEMO, ASCII, RRAM, VECTOR
 from Board import EEPROM, PM, LED, DF, DAC, TC
 import USER
 
@@ -89,6 +89,7 @@ class PyTerminal:
             elif parameters[0] == "TC"    :     TC.decode(self, parameters)
             elif parameters[0] == "DEMO"  :   DEMO.decode(self, parameters)
             elif parameters[0] == "RRAM"  :   RRAM.decode(self, parameters)
+            elif parameters[0] == "VECTOR": VECTOR.decode(self, parameters)
             elif parameters[0] == "USER"  :   USER.decode(self, parameters)
             else: self.unknown(parameters)
         

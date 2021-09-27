@@ -2,7 +2,7 @@ import CommandMap as CM
 
 
 def print_id(pyterminal, verbal):
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PID, False)
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PID, verbal)
 
 
 def status(pyterminal, verbal):
