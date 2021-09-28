@@ -14,6 +14,10 @@ def clear(pyterminal):
 
 
 def calibrate(pyterminal, low, high, tolerance, verbal):
+    # Save the current configurations
+    old_offset = RRAM.adc(pyterminal, 'get', 'offset', '', False)
+    old_step = RRAM.adc(pyterminal, 'get', 'step', '', False)
+
     # Enable Calibration mode and Read mode
     RRAM.adc(pyterminal, 'set', 'cal', '1', True)
     RRAM.read(pyterminal, 'set', 'enable', '1', True)
@@ -35,7 +39,7 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
         offset_mid = (offset_low+offset_high)/2
         RRAM.adc(pyterminal, 'set', 'offset', str(offset_mid), True)
         RRAM.read(pyterminal, 'toggle', '', '', True)
-        adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+        adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
         if verbal:
             print('adc_raw: ' + adc_raw)
         if adc_raw == '0x7FFF':
@@ -43,7 +47,7 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
             DAC.set_voltage_source(pyterminal, str(int(low) + int(tolerance)), 'ADC_CAL')
             time.sleep(0.25)
             RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
             if verbal:
                 print('adc_raw (+tole): ' + adc_raw)
             if adc_raw == '0x7FFE':
@@ -55,7 +59,7 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
             DAC.set_voltage_source(pyterminal, str(int(low) - int(tolerance)), 'ADC_CAL')
             time.sleep(0.25)
             RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
             if verbal:
                 print('adc_raw (-tole): ' + adc_raw)
             if adc_raw == '0x7FFF':
@@ -79,7 +83,7 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
         step_mid = (step_low+step_high)/2
         RRAM.adc(pyterminal, 'set', 'step', str(step_mid), True)
         RRAM.read(pyterminal, 'toggle', '', '', True)
-        adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+        adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
         if verbal:
             print('adc_raw: ' + adc_raw)
         if adc_raw == '0x0000':
@@ -87,7 +91,7 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
             DAC.set_voltage_source(pyterminal, str(int(high) - int(tolerance)), 'ADC_CAL')
             time.sleep(0.25)
             RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
             if verbal:
                 print('adc_raw (-tole): ' + adc_raw)
             if adc_raw == '0x4000':
@@ -99,7 +103,7 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
             DAC.set_voltage_source(pyterminal, str(int(high) + int(tolerance)), 'ADC_CAL')
             time.sleep(0.25)
             RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
             if verbal:
                 print('adc_raw (+tole): ' + adc_raw)
             if adc_raw == '0x0000':
@@ -109,17 +113,24 @@ def calibrate(pyterminal, low, high, tolerance, verbal):
         else:
             step_low = round(step_mid)
         
-    offset = round((offset_high+offset_low)/2)
-    step = round((step_high+step_low)/2)
-    if verbal:
-        print('(offset, step) = (' + str(offset) + ', ' + str(step) + ')')
-    
+    new_offset = round((offset_high+offset_low)/2)
+    new_step = round((step_high+step_low)/2)
+
     # Disable Calibration mode and Read mode
     RRAM.read(pyterminal, 'set', 'enable', '0', True)
     RRAM.adc(pyterminal, 'set', 'cal', '0', True)
-    
+
+    # Ask if the user wants to update the ADC config
+    print('Old (Offset, Step) = (' + str(old_offset) + ', ' + str(old_step) + ')')
+    print('New (Offset, Step) = (' + str(new_offset) + ', ' + str(new_step) + ')')
+    update = input('Do you want to update (Y/N)? ')
+    if update.lower() == 'y':
+        conf_ADC(pyterminal, str(new_offset), str(new_step), '0x7FFF', True)
+    else:
+        conf_ADC(pyterminal, str(old_offset), str(old_step), '0x7FFF', True)
+
     # Return the offset and the step
-    return offset, step
+    return new_offset, new_step
 
 
 def list_reference_voltages(pyterminal, low, high, step, verbal):
@@ -138,11 +149,11 @@ def list_reference_voltages(pyterminal, low, high, step, verbal):
         DAC.set_voltage_source(pyterminal, str(adc_cal), 'ADC_CAL')
         time.sleep(0.25)
         RRAM.read(pyterminal, 'toggle', '', '', True)
-        new_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+        new_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
         RRAM.read(pyterminal, 'toggle', '', '', True)
-        new_raw2 = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+        new_raw2 = RRAM.adc(pyterminal, 'get', 'raw', '', False)
         RRAM.read(pyterminal, 'toggle', '', '', True)
-        new_raw3 = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+        new_raw3 = RRAM.adc(pyterminal, 'get', 'raw', '', False)
         if new_raw == new_raw2 and new_raw2 == new_raw3 and int(new_raw, 0) < int(cur_raw, 0):
             if verbal:
                 print(cur_raw + ' -> ' + new_raw + ' @ ' + str(adc_cal) + ' mV', flush=True)
@@ -194,7 +205,7 @@ def read(pyterminal, verbal):
     RRAM.read(pyterminal, 'toggle', '', '', True)
     RRAM.read(pyterminal, 'set', 'enable', '0', True)
     
-    adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)[:-1]
+    adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
     if verbal:
         print('adc_raw: ' + adc_raw)
     return adc_raw    
@@ -264,18 +275,13 @@ def check_on_off(pyterminal, address):
     RRAM.module(pyterminal, 'set', '0', True)
     clear(pyterminal)
     
-    # Calibrate ADC
-    #(offset, step) = calibrate(PT, '50', '800', '5', False)
-    #confADC(PT, str(offset), str(step), '0x7FFF', True)
-    #conf_ADC(pyterminal, '62', '4', '0x7FFF', True)
-
     # Choose the right lane
     RRAM.lane(pyterminal, 'set', str(math.floor(int(address) / 32)), True)
     
     # Form 1 cells
-    #conf_write_voltages(pyterminal, '1700', '3200', True)
-    #conf_write(pyterminal, address, '1', '1600', True)
-    #write(pyterminal, True)
+    conf_write_voltages(pyterminal, '1700', '3200', True)
+    conf_write(pyterminal, address, '1', '1600', True)
+    write(pyterminal, True)
     
     # Set 1 cells and read it
     conf_write_voltages(pyterminal, '1700', '1700', True)

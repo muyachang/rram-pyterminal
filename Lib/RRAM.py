@@ -2,7 +2,7 @@ import CommandMap as CM
 
 
 def print_id(pyterminal, verbal):
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PID, verbal)
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PID, verbal)
 
 
 def status(pyterminal, verbal):
@@ -11,19 +11,19 @@ def status(pyterminal, verbal):
 
 def lane(pyterminal, action, target, verbal):
     if   action == 'set':        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_LANE + ' ' + CM.CM_RRAM_SET + ' ' + target, verbal)
-    elif action == 'get': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_LANE + ' ' + CM.CM_RRAM_GET, verbal)
+    elif action == 'get': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_LANE + ' ' + CM.CM_RRAM_GET, verbal))
     else: unknown(['RRAM', 'lane', action, target])
 
 
 def group(pyterminal, action, target, verbal):
     if   action == 'set':        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_GROUP + ' ' + CM.CM_RRAM_SET + ' ' + target, verbal)
-    elif action == 'get': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_GROUP + ' ' + CM.CM_RRAM_GET, verbal)
+    elif action == 'get': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_GROUP + ' ' + CM.CM_RRAM_GET, verbal))
     else: unknown(['RRAM', 'group', action, target])
 
 
 def module(pyterminal, action, target, verbal):
     if   action == 'set':        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MODULE + ' ' + CM.CM_RRAM_SET + ' ' + target, verbal)
-    elif action == 'get': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MODULE + ' ' + CM.CM_RRAM_GET, verbal)
+    elif action == 'get': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MODULE + ' ' + CM.CM_RRAM_GET, verbal))
     else: unknown(['RRAM', 'module', action, target])
 
 
@@ -35,7 +35,7 @@ def mask(pyterminal, action, target, verbal):
 
 def address(pyterminal, action, target, verbal):
     if   action == 'set':        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADDRESS + ' ' + CM.CM_RRAM_SET + ' ' + target, verbal)
-    elif action == 'get': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADDRESS + ' ' + CM.CM_RRAM_GET, verbal)
+    elif action == 'get': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADDRESS + ' ' + CM.CM_RRAM_GET, verbal))
     else: unknown(['RRAM', 'address', action, target])
 
 
@@ -48,11 +48,11 @@ def read(pyterminal, action, action_type, target, verbal):
         elif action_type == 'data'   :        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_SET + ' ' + CM.CM_RRAM_READ_DATA + ' ' + target, verbal)
         else: unknown(['RRAM', 'read', action, action_type, target])
     elif action == 'get':
-        if   action_type == 'enable' : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_ENABLE, verbal)
-        elif action_type == 'status' : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_STATUS, verbal)
-        elif action_type == 'cycle'  : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_CYCLE, verbal)
-        elif action_type == 'source' : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_SOURCE, verbal)
-        elif action_type == 'counter': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_COUNTER, verbal)
+        if   action_type == 'enable' : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_ENABLE, verbal))
+        elif action_type == 'status' : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_STATUS, verbal))
+        elif action_type == 'cycle'  : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_CYCLE, verbal))
+        elif action_type == 'source' : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_SOURCE, verbal))
+        elif action_type == 'counter': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_COUNTER, verbal))
         elif action_type == 'data'   : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_READ + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_READ_DATA, verbal)
         else: unknown(['RRAM', 'read', action, action_type, target])
     elif action == 'toggle':
@@ -66,10 +66,10 @@ def mac(pyterminal, action, action_type, target, verbal):
         elif action_type == 'resolution':        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_SET + ' ' + CM.CM_RRAM_MAC_RESOLUTION + ' ' + target, verbal)
         else: unknown(['RRAM', 'mac', action, action_type, target])
     elif action == 'get':
-        if   action_type == 'status'    : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_STATUS, verbal)
-        elif action_type == 'mode'      : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_MODE, verbal)
-        elif action_type == 'resolution': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_RESOLUTION, verbal)
-        elif action_type == 'result'    : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_RESULT, verbal)
+        if   action_type == 'status'    : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_STATUS, verbal))
+        elif action_type == 'mode'      : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_MODE, verbal))
+        elif action_type == 'resolution': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_RESOLUTION, verbal))
+        elif action_type == 'result'    : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MAC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_MAC_RESULT, verbal))
         else: unknown(['RRAM', 'mac', action, action_type, target])
     else: unknown(['RRAM', 'mac', action, action_type, target])
 
@@ -81,10 +81,10 @@ def write(pyterminal, action, action_type, target, verbal):
         elif action_type == 'mode'  :        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_SET + ' ' + CM.CM_RRAM_WRITE_MODE + ' ' + target, verbal)
         else: unknown(['RRAM', 'write', action, action_type, target])
     elif action == 'get':
-        if   action_type == 'enable': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_ENABLE, verbal)
-        elif action_type == 'status': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_STATUS, verbal)
-        elif action_type == 'cycle' : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_CYCLE, verbal)
-        elif action_type == 'mode'  : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_MODE, verbal)
+        if   action_type == 'enable': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_ENABLE, verbal))
+        elif action_type == 'status': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_STATUS, verbal))
+        elif action_type == 'cycle' : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_CYCLE, verbal))
+        elif action_type == 'mode'  : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_WRITE_MODE, verbal))
         else: unknown(['RRAM', 'write', action, action_type, target])
     elif action == 'trigger':
         pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_WRITE + ' ' + CM.CM_RRAM_TRIGGER, verbal)
@@ -101,11 +101,11 @@ def adc(pyterminal, action, action_type, target, verbal):
         else: unknown(['RRAM', 'adc', action, action_type, target])
     elif action == 'get':
         if   action_type == 'raw'   : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_RAW, verbal)
-        elif action_type == 'step'  : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_STEP, verbal)
-        elif action_type == 'offset': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_OFFSET, verbal)
+        elif action_type == 'step'  : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_STEP, verbal))
+        elif action_type == 'offset': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_OFFSET, verbal))
         elif action_type == 'comp'  : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_COMP, verbal)
-        elif action_type == 'hbias' : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_HBIAS, verbal)
-        elif action_type == 'cal'   : return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_CAL, verbal)
+        elif action_type == 'hbias' : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_HBIAS, verbal))
+        elif action_type == 'cal'   : return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ADC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ADC_CAL, verbal))
         else:
             unknown(['RRAM', 'adc', action, action_type, target])
     else: unknown(['RRAM', 'adc', action, action_type, target])
@@ -117,7 +117,7 @@ def pg(pyterminal, action, action_type, target, verbal):
         else:
             unknown(['RRAM', 'pg', action, action_type, target])
     elif action == 'get':
-        if   action_type == 'disable': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PG + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_PG_DISABLE, verbal)
+        if   action_type == 'disable': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PG + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_PG_DISABLE, verbal))
         else:
             unknown(['RRAM', 'pg', action, action_type, target])
     else: unknown(['RRAM', 'pg', action, action_type, target])
@@ -129,7 +129,7 @@ def ecc(pyterminal, action, action_type, target, verbal):
         else:
             unknown(['RRAM', 'ecc', action, action_type, target])
     elif action == 'get':
-        if   action_type == 'enable': return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ECC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ECC_ENABLE, verbal)
+        if   action_type == 'enable': return int(pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ECC + ' ' + CM.CM_RRAM_GET + ' ' + CM.CM_RRAM_ECC_ENABLE, verbal))
         else:
             unknown(['RRAM', 'ecc', action, action_type, target])
     elif action == 'clear':

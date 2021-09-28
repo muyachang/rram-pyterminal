@@ -4,7 +4,7 @@ from PyTerminal import PyTerminal
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    PT = PyTerminal()
+    pyterminal = PyTerminal()
 
     print('<< TC Terminal >>')
     while 1:
@@ -12,4 +12,4 @@ if __name__ == '__main__':
         if command == 'exit':
             exit()
         elif command != '':
-            PT.decode_command(command)
+            pyterminal.decode_command(command)

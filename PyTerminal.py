@@ -31,6 +31,9 @@ class PyTerminal:
         while 1:
             char = self.ser.read(1)            
             if char == ASCII.EOT:
+                # For readability, we insert \n for some cases
+                if verbal and response != b'' and response.decode('utf-8')[-1] != '\n':
+                    print('')
                 break
             elif char == b'':
                 print('Read Timeout')
