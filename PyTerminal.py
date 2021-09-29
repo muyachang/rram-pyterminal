@@ -14,8 +14,8 @@ class PyTerminal:
         available_ports = self.list_ports()
         for i, p in enumerate(available_ports):
             print('Port[' + str(i) + '] = ' + p)
-        input("Enter the index of the port: ")
-        self.ser = serial.Serial(port=available_ports[0], baudrate=115200, timeout=3)
+        index = input("Enter the index of the port: ")
+        self.ser = serial.Serial(port=available_ports[int(index)], baudrate=115200, timeout=3)
             
     def __del__(self):
         self.ser.close()
