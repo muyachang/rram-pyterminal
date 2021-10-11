@@ -57,23 +57,18 @@ CM_LED_DISABLE        = b'\x42'.decode('utf-8')
 CM_LED_TOGGLE         = b'\x43'.decode('utf-8')
                       
 CM_TC_CONNECT         = b'\x41'.decode('utf-8')
-CM_TC_READ            = b'\x42'.decode('utf-8')
-CM_TC_WRITE           = b'\x43'.decode('utf-8')
+CM_TC_DISCONNECT      = b'\x42'.decode('utf-8')
+CM_TC_READ            = b'\x43'.decode('utf-8')
+CM_TC_WRITE           = b'\x44'.decode('utf-8')
+CM_TC_LIST            = b'\x45'.decode('utf-8')
+CM_TC_SAVE            = b'\x46'.decode('utf-8')
+CM_TC_LOAD            = b'\x47'.decode('utf-8')
                       
 CM_DEMO_LIST          = b'\x41'.decode('utf-8')
 CM_DEMO_LOAD          = b'\x42'.decode('utf-8')
 CM_DEMO_RUN           = b'\x43'.decode('utf-8')
-CM_DEMO_ANALYZE       = b'\x44'.decode('utf-8')    
+CM_DEMO_ANALYZE       = b'\x44'.decode('utf-8')
 
-
-######################
-# RRAM Testchip Part #
-######################
-# argv[0]
-#define CM_RRAM     0x48 // Need to match with Atmel
-#define CM_VECTOR   0x49 // Need to match with Atmel
-
-# argv[1]
 CM_RRAM_PID            = b'\x41'.decode('utf-8')
 CM_RRAM_STATUS         = b'\x42'.decode('utf-8')
 CM_RRAM_LANE           = b'\x43'.decode('utf-8')
@@ -87,6 +82,24 @@ CM_RRAM_WRITE          = b'\x4C'.decode('utf-8')
 CM_RRAM_ADC            = b'\x4F'.decode('utf-8')
 CM_RRAM_PG             = b'\x50'.decode('utf-8')
 CM_RRAM_ECC            = b'\x51'.decode('utf-8')
+
+CM_RRAM_API_CONF_FORM  = b'\x52'.decode('utf-8')
+CM_RRAM_API_FORM       = b'\x53'.decode('utf-8')
+CM_RRAM_API_CONF_SET   = b'\x54'.decode('utf-8')
+CM_RRAM_API_SET        = b'\x55'.decode('utf-8')
+CM_RRAM_API_CONF_RESET = b'\x56'.decode('utf-8')
+CM_RRAM_API_RESET      = b'\x57'.decode('utf-8')
+CM_RRAM_API_CONF_READ  = b'\x58'.decode('utf-8')
+CM_RRAM_API_READ       = b'\x59'.decode('utf-8')
+CM_RRAM_API_CONF_ADC   = b'\x5A'.decode('utf-8')
+CM_RRAM_API_CONF_MAC   = b'\x5B'.decode('utf-8')
+CM_RRAM_API_CAL_VREF   = b'\x5C'.decode('utf-8')
+CM_RRAM_API_SWEEP_VREF = b'\x5D'.decode('utf-8')
+CM_RRAM_API_LIST_VREF  = b'\x5E'.decode('utf-8')
+CM_RRAM_API_CAL_DREF   = b'\x5F'.decode('utf-8')
+CM_RRAM_API_SWEEP_DREF = b'\x60'.decode('utf-8')
+CM_RRAM_API_LIST_DREF  = b'\x61'.decode('utf-8')
+CM_RRAM_API_CHECK_CELL = b'\x62'.decode('utf-8')
 
 CM_VECTOR_PID          = b'\x41'.decode('utf-8')
 

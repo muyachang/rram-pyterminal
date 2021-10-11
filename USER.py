@@ -5,6 +5,7 @@ from Board import PM, DAC
 
 
 def clear(pyterminal):
+    # Clear up some registers
     RRAM.read(pyterminal, 'set', 'enable', '1', True)
     RRAM.read(pyterminal, 'set', 'counter', '7', True)
     RRAM.read(pyterminal, 'toggle', '', '', True)
@@ -12,296 +13,77 @@ def clear(pyterminal):
     RRAM.read(pyterminal, 'toggle', '', '', True)
     RRAM.read(pyterminal, 'set', 'enable', '0', True)
 
-
-def calibrate(pyterminal, low, high, tolerance, verbal):
-    # Save the current configurations
-    old_offset = RRAM.adc(pyterminal, 'get', 'offset', '', False)
-    old_step = RRAM.adc(pyterminal, 'get', 'step', '', False)
-
-    # Enable Calibration mode and Read mode
-    RRAM.adc(pyterminal, 'set', 'cal', '1', True)
-    RRAM.read(pyterminal, 'set', 'enable', '1', True)
-    
-    # Enable the comparators
-    conf_ADC(pyterminal, '0', '0', '0x7FFF', True)
-    
-    # Set DAC to 'low'
-    DAC.set_voltage_source(pyterminal, low, 'ADC_CAL')
-    time.sleep(1)
-    # Binary search for lower bound
-    offset_low = 0
-    offset_high = 63
-    if verbal:
-        print(' << Looking for the best offset >> ')
-    while offset_high - offset_low > 2:
-        if verbal:
-            print('low: ' + str(offset_low) + '; high: ' + str(offset_high))
-        offset_mid = (offset_low+offset_high)/2
-        RRAM.adc(pyterminal, 'set', 'offset', str(offset_mid), True)
-        RRAM.read(pyterminal, 'toggle', '', '', True)
-        adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-        if verbal:
-            print('adc_raw: ' + adc_raw)
-        if adc_raw == '0x7FFF':
-            # Set DAC to 'low' + 'tolerance'
-            DAC.set_voltage_source(pyterminal, str(int(low) + int(tolerance)), 'ADC_CAL')
-            time.sleep(0.25)
-            RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-            if verbal:
-                print('adc_raw (+tole): ' + adc_raw)
-            if adc_raw == '0x7FFE':
-                break
-            else:
-                offset_low = round(offset_mid)
-        elif adc_raw == '0x7FFE':
-            # Set DAC to 'low' - 'tolerance'
-            DAC.set_voltage_source(pyterminal, str(int(low) - int(tolerance)), 'ADC_CAL')
-            time.sleep(0.25)
-            RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-            if verbal:
-                print('adc_raw (-tole): ' + adc_raw)
-            if adc_raw == '0x7FFF':
-                break
-            else:
-                offset_high = round(offset_mid)
-        else:
-            offset_high = round(offset_mid)
-            
-    # Set DAC to 'high'
-    DAC.set_voltage_source(pyterminal, high, 'ADC_CAL')
-    time.sleep(1)
-    # Binary search for upper bound
-    step_low = 0
-    step_high = 63
-    if verbal:
-        print(' << Looking for the best step >> ')
-    while step_high - step_low > 2:
-        if verbal:
-            print('low: ' + str(step_low) + '; high: ' + str(step_high))
-        step_mid = (step_low+step_high)/2
-        RRAM.adc(pyterminal, 'set', 'step', str(step_mid), True)
-        RRAM.read(pyterminal, 'toggle', '', '', True)
-        adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-        if verbal:
-            print('adc_raw: ' + adc_raw)
-        if adc_raw == '0x0000':
-            # Set DAC to 'high' - 'tolerance'
-            DAC.set_voltage_source(pyterminal, str(int(high) - int(tolerance)), 'ADC_CAL')
-            time.sleep(0.25)
-            RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-            if verbal:
-                print('adc_raw (-tole): ' + adc_raw)
-            if adc_raw == '0x4000':
-                break
-            else:
-                step_high = round(step_mid)
-        elif adc_raw == '0x4000':
-            # Set DAC to 'high' + 'tolerance'
-            DAC.set_voltage_source(pyterminal, str(int(high) + int(tolerance)), 'ADC_CAL')
-            time.sleep(0.25)
-            RRAM.read(pyterminal, 'toggle', '', '', True)
-            adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-            if verbal:
-                print('adc_raw (+tole): ' + adc_raw)
-            if adc_raw == '0x0000':
-                break
-            else:
-                step_low = round(step_mid)
-        else:
-            step_low = round(step_mid)
-        
-    new_offset = round((offset_high+offset_low)/2)
-    new_step = round((step_high+step_low)/2)
-
-    # Disable Calibration mode and Read mode
-    RRAM.read(pyterminal, 'set', 'enable', '0', True)
-    RRAM.adc(pyterminal, 'set', 'cal', '0', True)
-
-    # Ask if the user wants to update the ADC config
-    print('Old (Offset, Step) = (' + str(old_offset) + ', ' + str(old_step) + ')')
-    print('New (Offset, Step) = (' + str(new_offset) + ', ' + str(new_step) + ')')
-    update = input('Do you want to update (Y/N)? ')
-    if update.lower() == 'y':
-        conf_ADC(pyterminal, str(new_offset), str(new_step), '0x7FFF', True)
-    else:
-        conf_ADC(pyterminal, str(old_offset), str(old_step), '0x7FFF', True)
-
-    # Return the offset and the step
-    return new_offset, new_step
+    # Configurations
+    RRAM.conf_form(pyterminal, '3200', '1700', '1600', True)
+    RRAM.conf_set(pyterminal, '1700', '1700', '2', True)
+    RRAM.conf_reset(pyterminal, '2500', '2500', '160', True)
+    RRAM.conf_read(pyterminal, '1100', '3', True)
 
 
-def list_reference_voltages(pyterminal, low, high, step, verbal):
-    # Enable Calibration mode and Read mode
-    RRAM.adc(pyterminal, 'set', 'cal', '1', True)
-    RRAM.read(pyterminal, 'set', 'enable', '1', True)
-    
-    # First DAC set may take longer
-    DAC.set_voltage_source(pyterminal, low, 'ADC_CAL')
-    time.sleep(1)
-    
-    reference_voltages = []
-    cur_raw = '0x7FFF'
-    # Sweep from 0 mV to 1000 mV
-    for adc_cal in range(int(low), int(high), int(step)):
-        DAC.set_voltage_source(pyterminal, str(adc_cal), 'ADC_CAL')
-        time.sleep(0.25)
-        RRAM.read(pyterminal, 'toggle', '', '', True)
-        new_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-        RRAM.read(pyterminal, 'toggle', '', '', True)
-        new_raw2 = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-        RRAM.read(pyterminal, 'toggle', '', '', True)
-        new_raw3 = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-        if new_raw == new_raw2 and new_raw2 == new_raw3 and int(new_raw, 0) < int(cur_raw, 0):
-            if verbal:
-                print(cur_raw + ' -> ' + new_raw + ' @ ' + str(adc_cal) + ' mV', flush=True)
-            cur_raw = new_raw
-            reference_voltages.append(adc_cal)
-            if new_raw == '0x0000':
-                break
-    
-    # Disable Calibration mode and Read mode
-    RRAM.read(pyterminal, 'set', 'enable', '0', True)
-    RRAM.adc(pyterminal, 'set', 'cal', '0', True)
-    
-    # Return the VRefs
-    return reference_voltages
+def sweep_on_state_cells(pyterminal, col):
+    # Set first 9 cells
+    for i in range(0, 9):
+        RRAM.set(pyterminal, str(i * 256 + int(col)), True)
 
+    # Rest second 9 cells
+    for i in range(9, 18):
+        RRAM.reset(pyterminal, str(i * 256 + int(col)), True)
 
-def conf_write_voltages(pyterminal, AVDD_WL, AVDD_WR, verbal):
-    PM.set_source(pyterminal, AVDD_WR, 'AVDD_WR')
-    PM.set_source(pyterminal, AVDD_WL, 'AVDD_WL')
-    time.sleep(1)
-
-
-def conf_write(pyterminal, address, mode, cycle, verbal):
-    RRAM.address(pyterminal, 'set', address, True)
-    RRAM.write(pyterminal, 'set', 'cycle', cycle, True)
-    RRAM.write(pyterminal, 'set', 'mode', mode, True)
-
-
-def write(pyterminal, verbal):
-    RRAM.write(pyterminal, 'set', 'enable', '1', True)
-    RRAM.write(pyterminal, 'trigger', '', '', True)
-    RRAM.write(pyterminal, 'set', 'enable', '0', True)
-
-
-def conf_read_voltages(pyterminal, AVDD_WL, verbal):
-    PM.set_source(pyterminal, AVDD_WL, 'AVDD_WL')
-    time.sleep(1)
-
-
-def conf_read(pyterminal, address, cycle, counter, data, verbal):
-    RRAM.address(pyterminal, 'set', address, True)
-    RRAM.read(pyterminal, 'set', 'cycle', cycle, True)
-    RRAM.read(pyterminal, 'set', 'counter', counter, True)
-    RRAM.read(pyterminal, 'set', 'data', data, True)
-
-
-def read(pyterminal, verbal):
-    RRAM.read(pyterminal, 'set', 'enable', '1', True)
-    RRAM.read(pyterminal, 'toggle', '', '', True)
-    RRAM.read(pyterminal, 'set', 'enable', '0', True)
-    
-    adc_raw = RRAM.adc(pyterminal, 'get', 'raw', '', False)
-    if verbal:
-        print('adc_raw: ' + adc_raw)
-    return adc_raw    
-
-
-def conf_ADC(pyterminal, offset, step, comp, verbal):
-    RRAM.adc(pyterminal, 'set', 'offset', offset, True)
-    RRAM.adc(pyterminal, 'set', 'step', step, True)
-    RRAM.adc(pyterminal, 'set', 'comp', comp, True)
-
-
-def conf_MAC(pyterminal, mode, resolution, verbal):
-    RRAM.mac(pyterminal, 'set', 'mode', mode, True)
-    RRAM.mac(pyterminal, 'set', 'resolution', resolution, True)
+    # Read 10 cells (0 On-State ~ 9 On-State)
+    for i in range(0, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x1FF', True)
+    print('')
+    for i in range(1, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x0FF', True)
+    print('')
+    for i in range(2, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x07F', True)
+    print('')
+    for i in range(3, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x03F', True)
+    print('')
+    for i in range(4, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x01F', True)
+    print('')
+    for i in range(5, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x00F', True)
+    print('')
+    for i in range(6, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x007', True)
+    print('')
+    for i in range(7, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x003', True)
+    print('')
+    for i in range(8, 10):
+        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x001', True)
+    print('')
 
 
 def sweep_reference_voltages(pyterminal):
+    print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
+    print('| Module | Offset | Step |  VRef[0] |  VRef[1] |  VRef[2] |  VRef[3] |  VRef[4] |  VRef[5] |  VRef[6] |  VRef[7] |  VRef[8] |  VRef[9] | VRef[10] | VRef[11] | VRef[12] | VRef[13] | VRef[14] |')
+    print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
     for module in range(0, 288):
-        print(f'Module: {module:3} ==> ', end='')
         # Set to the new module and clear it
         RRAM.module(pyterminal, 'set', str(module), True)
         clear(pyterminal)
         # Find the (offset, step)
-        (offset, step) = calibrate(pyterminal, '50', '700', '5', False)
+        response = RRAM.calibrate_voltage_references(pyterminal, str(module), '50', '700', '5', False)
+        offset = int(response.split()[0])
+        step = int(response.split()[1])
+
         # Find the VRef
-        conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
-        VRef = list_reference_voltages(pyterminal, '0', '1000', '2', False)
-        # Print them out
-        print(f'(Offset, Step) = ({offset:3}, {step:3}) ==> ', end='')
-        print(VRef)
+        RRAM.conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
+        response = RRAM.list_voltage_references(pyterminal, str(module), '0', '1000', '2', False)
+        vrefs = response.split()
+
+        # Print out the result
+        print(f'| {module:>6} | {offset:>6} | {step:>4} |', end='')
+        for i in range(0, 15):
+            print(f' {vrefs[i]:>8} |', end='')
+        print('')
 
 
-def sweep_on_state_cells(pyterminal):
-    RRAM.module(pyterminal, 'set', '0', True)
-    clear(pyterminal)
-    
-    # Calibrate ADC
-    (offset, step) = calibrate(pyterminal, '50', '800', '5', False)
-    conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
-        
-    # Form 18 cells
-    conf_write_voltages(pyterminal, '1600', '3000', True)
-    for address in range(0, 18):
-        conf_write(pyterminal, str(address * 256), '1', '1600', True)
-        write(pyterminal, True)
-    
-    # Set first 9 cells
-    conf_write_voltages(pyterminal, '2400', '2400', True)
-    for address in range(0, 9):
-        conf_write(pyterminal, str(address * 256), '1', '2', True)
-        write(pyterminal, True)
-       
-    # Rest second 9 cells
-    conf_write_voltages(pyterminal, '2800', '2800', True)
-    for address in range(9, 18):
-        conf_write(pyterminal, str(address * 256), '0', '160', True)
-        write(pyterminal, True)
-
-    # Read 10 cells (0 On-State ~ 9 On-State)
-    conf_read_voltages(pyterminal, '1700', True)
-    for address in range(0, 10):
-        conf_read(pyterminal, str(address * 256), '3', '0', '0x1FF', True)
-        read(pyterminal, True)
-
-
-def check_on_off(pyterminal, address):
-    RRAM.module(pyterminal, 'set', '0', True)
-    clear(pyterminal)
-    
-    # Choose the right lane
-    RRAM.lane(pyterminal, 'set', str(math.floor(int(address) / 32)), True)
-    
-    # Form 1 cells
-    conf_write_voltages(pyterminal, '1700', '3200', True)
-    conf_write(pyterminal, address, '1', '1600', True)
-    write(pyterminal, True)
-    
-    # Set 1 cells and read it
-    conf_write_voltages(pyterminal, '1700', '1700', True)
-    conf_write(pyterminal, address, '1', '2', True)
-    write(pyterminal, True)
-    
-    conf_read_voltages(pyterminal, '1100', True)
-    conf_read(pyterminal, address, '3', '0', '0x001', True)
-    print('After SET  , ', end='')
-    read(pyterminal, True)
-        
-    # Rest 1 cells and read it
-    conf_write_voltages(pyterminal, '2500', '2500', True)
-    conf_write(pyterminal, address, '0', '160', True)
-    write(pyterminal, True)
-    
-    conf_read_voltages(pyterminal, '1100', True)
-    conf_read(pyterminal, address, '3', '0', '0x001', True)
-    print('After RESET, ', end='')
-    read(pyterminal, True)
 
 
 def unknown(parameters):
@@ -310,17 +92,6 @@ def unknown(parameters):
 
 def decode(pyterminal, parameters):
     if   parameters[1] == 'clear'            : clear                   (pyterminal)
-    elif parameters[1] == 'calibrate'        : calibrate               (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'listVRef'         : list_reference_voltages (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'confWriteVoltages': conf_write_voltages     (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'confWrite'        : conf_write              (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'write'            : write                   (pyterminal, True)
-    elif parameters[1] == 'confReadVoltages' : conf_read_voltages      (pyterminal, parameters[2], True)
-    elif parameters[1] == 'confRead'         : conf_read               (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'read'             : read                    (pyterminal, True)
-    elif parameters[1] == 'confADC'          : conf_ADC                (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'confMAC'          : conf_MAC                (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'checkOnOff'       : check_on_off            (pyterminal, parameters[2])
-    elif parameters[1] == 'func1'            : sweep_reference_voltages(pyterminal)
-    elif parameters[1] == 'func2'            : sweep_on_state_cells    (pyterminal)
+    elif parameters[1] == 'cim'              : sweep_on_state_cells    (pyterminal, parameters[2])
+    elif parameters[1] == 'sweep_VRef'       : sweep_reference_voltages(pyterminal)
     else: unknown(parameters)

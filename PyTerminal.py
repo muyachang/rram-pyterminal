@@ -15,7 +15,7 @@ class PyTerminal:
         for i, p in enumerate(available_ports):
             print('Port[' + str(i) + '] = ' + p)
         index = input("Enter the index of the port: ")
-        self.ser = serial.Serial(port=available_ports[int(index)], baudrate=115200, timeout=3)
+        self.ser = serial.Serial(port=available_ports[int(index)], baudrate=115200, timeout=20)
             
     def __del__(self):
         self.ser.close()
@@ -81,7 +81,7 @@ class PyTerminal:
         try:
             # Split the command and fill up to 8 list elements
             parameters = command.split()
-            for i in range(len(parameters), 8):
+            for i in range(len(parameters), 16):
                 parameters.append('')
                 
             if   parameters[0] == "PM"    :     PM.decode(self, parameters)
