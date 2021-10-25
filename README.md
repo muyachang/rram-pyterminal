@@ -155,7 +155,7 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | conf_reset     | [AVDD_WR] | [AVDD_WL]    | [cycle]  |             |                                                   
 | RRAM    | reset          | [type]    | [number]     |          |             |                                                  
 | RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |             |                                                   
-| RRAM    | read_raw       | [address] | [counter]    | [data]   |             | 
+| RRAM    | read_raw       | [type]    | [number]     |[counter] | [data]      |
 | RRAM    | conf_ADC       | [offset]  | [step]       | [comp]   |             |                                                   
 | RRAM    | conf_MAC       | [mode]    | [resolution] |          |             |                                                   
 | RRAM    | calibrate_VRef | [index]   | [low]        | [high]   | [tolerance] |                                                 
