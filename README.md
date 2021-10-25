@@ -33,7 +33,7 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 
 ### Command List
 | argv[0] | argv[1]        | argv[2]   | argv[3]      | argv[4]  | argv[5]     | Explanation                                                     
-| :----:  | :----:         | :----:    | :----:       | :----:   | :---        | :---                                                           
+| :----:  | :----:         | :----:    | :----:       | :----:   | :----:      | :---                                                           
 | PM      | list           |           |              |          |             | List current status for each voltage sources                    
 | PM      | clear          |           |              |          |             | Clear the IRQ register (Might not be used often)                
 | PM      | status         |           |              |          |             | Print out the IRQ register value                                
