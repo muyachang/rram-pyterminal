@@ -162,3 +162,11 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | sweep_VRef     | [index]   | [low]        | [high]   | [step]      |                                            
 | RRAM    | list_VRef      | [index]   |              |          |             |                                      
 | RRAM    | check          | [type]    | [number]     |          |             |                                               
+
+### Suggested Form/Set/Reset/Read Parameters
+| Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles
+| :----: | :----:      | :----:      | :----:
+| Form   | 3200        | 1600        | 100   
+| Set    | 1600        | 1600        | 2  
+| Reset  | 2500        | 2500        | 160   
+| Read   | N/A         | 1100        | 5   
