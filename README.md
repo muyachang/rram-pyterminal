@@ -82,9 +82,13 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | LED     | enable         | [target]  |              |          |             | Enable the specified LED ([target] can be "TX" or "RX")         
 | LED     | disable        | [target]  |              |          |             | Disable the specified LED ([target] can be "TX" or "RX")        
 | LED     | toggle         | [target]  |              |          |             | Toggle the specified LED ([target] can be "TX" or "RX")         
-| TC      | connect        |           |              |          |             | Connect with the testchip and print out the Device ID           
+| TC      | connect        |           |              |          |             | Connect with the testchip and print out the Device ID         
+| TC      | disconnect     |           |              |          |             |
 | TC      | read           | [address] |              |          |             | Read the value of [address]                                     
-| TC      | write          | [address] | [value]      |          |             | Write [value] to  [address]                                     
+| TC      | write          | [address] | [value]      |          |             | Write [value] to  [address]         
+| TC      | list           |           |              |          |             |         
+| TC      | save           | [number]  |              |          |             |         
+| TC      | load           | [number]  |              |          |             |                                     
 | DEMO    | list           |           |              |          |             | List available demos                                            
 | DEMO    | load           | [number]  |              |          |             | Load demo [number] to the RRAM testchip                         
 | DEMO    | run            |           |              |          |             | Move master role to RRAM testchip and reset the testchip        
