@@ -167,6 +167,6 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles
 | :----: | :----:      | :----:      | :----:
 | Form   | 3200        | 1600        | 160   
-| Set    | 1600        | 1600        | 2  
+| Set    | 1600        | 1600        | 16  
 | Reset  | 2500        | 2500        | 160   
 | Read   | N/A         | 1100        | 5   
