@@ -5,6 +5,7 @@ import serial
 from Lib import DEMO, ASCII, RRAM, VECTOR
 from Board import EEPROM, PM, LED, DF, DAC, TC
 import USER
+import CommandMap as CM
 
 
 class PyTerminal:
@@ -16,13 +17,17 @@ class PyTerminal:
             print('Port[' + str(i) + '] = ' + p)
         index = input("Enter the index of the port: ")
         self.ser = serial.Serial(port=available_ports[int(index)], baudrate=115200, timeout=20)
-            
+
+        # Fix the problem so that we don't have to init the TC every time we relaunch PyTerminal
+        self.ser.write(str.encode(CM.CM_RRAM + ' \n'))
+
     def __del__(self):
         self.ser.close()
         
     def send_command(self, command, verbal):
         # Send out the command and Give it some time to process
         self.ser.reset_output_buffer()
+        self.ser.reset_input_buffer()
         self.ser.write(str.encode(command + '\n'))
         time.sleep(0.001)
         
@@ -41,7 +46,7 @@ class PyTerminal:
             elif verbal:
                 print(char.decode('utf-8'), end='', flush=True)
             response += char
-        self.ser.reset_input_buffer()
+
         return response.decode('utf-8')
 
     @staticmethod
@@ -83,7 +88,7 @@ class PyTerminal:
             parameters = command.split()
             for i in range(len(parameters), 16):
                 parameters.append('')
-                
+
             if   parameters[0] == "PM"    :     PM.decode(self, parameters)
             elif parameters[0] == "DAC"   :    DAC.decode(self, parameters)
             elif parameters[0] == "DF"    :     DF.decode(self, parameters)
