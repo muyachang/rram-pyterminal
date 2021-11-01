@@ -22,12 +22,12 @@ def list_configs(pyterminal, verbal):
     pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_LIST, verbal)
 
 
-def save_config(pyterminal, target, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + target + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
+def save_config(pyterminal, number, verbal):
+    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + number + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
 
 
-def load_config(pyterminal, target, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + target, verbal)
+def load_config(pyterminal, number, verbal):
+    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + number, verbal)
 
 
 def unknown(parameters):
