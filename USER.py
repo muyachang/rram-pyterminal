@@ -1,4 +1,5 @@
 import random
+import time
 from Lib import RRAM
 
 
@@ -43,20 +44,30 @@ def sweep_chip_VRef(pyterminal):
     for module in range(0, 288):
         # Set to the new module and clear it
         RRAM.module(pyterminal, 'set', str(module), True)
+        time.sleep(1)
         clear(pyterminal)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_voltage_references(pyterminal, str(module), '120', '800', '5', False)
-        offset = int(response.split()[0])
-        step = int(response.split()[1])
+        trial = 3
+        while trial:
+            response = RRAM.calibrate_voltage_references(pyterminal, str(module), '120', '750', '5', False)
+            offset = int(response.split()[0])
+            step = int(response.split()[1])
+            if offset != -1 and step != -1:
+                break
+            time.sleep(1)
+            trial -= 1
 
         # Config the ADC and Sweep the VRef
-        RRAM.conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
-        RRAM.sweep_voltage_references(pyterminal, str(module), '0', '1000', '3', True)
+        if trial:
+            RRAM.conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
+            RRAM.sweep_voltage_references(pyterminal, str(module), '50', '850', '2', True)
 
-        # Find the VRef
-        response = RRAM.list_voltage_references(pyterminal, str(module), False)
-        vrefs = response.split()
+            # Find the VRef
+            response = RRAM.list_voltage_references(pyterminal, str(module), False)
+            vrefs = response.split('\n')[3].split('|')[2:17]
+        else:
+            vrefs = [''] * 15
 
         # Print out the result
         print(f'| {module:>6} | {offset:>6} | {step:>4} |', end='')
