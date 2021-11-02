@@ -211,37 +211,25 @@ def reset(pyterminal, type, number, verbal):
                 pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + str(addr), verbal)
 
 
+def write_byte(pyterminal, addr, value, verbal):
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_WRITE_BYTE + ' ' + addr + ' ' + value, verbal)
+
+
+def write_byte_iter(pyterminal, addr, value, verbal):
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_WRITE_BYTE_ITER + ' ' + addr + ' ' + value, verbal)
+
+
 def conf_read(pyterminal, AVDD_WL, cycle, verbal):
     pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_READ + ' ' + AVDD_WL + ' ' + cycle, verbal)
 
 
-def read_raw(pyterminal, type, number, counter, data, verbal):
-    if type == 'cell':
-        addr = int(number)
-        response = pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_READ + ' ' + str(addr) + ' ' + counter + ' ' + data, False)
-        if verbal:
-            print(f'{addr:>6} : {response:>10}')
-        return response
-    elif type == 'row':
-        for col in range(0, 256):
-            addr = int(number)*256 + col
-            response = pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_READ + ' ' + str(addr) + ' ' + counter + ' ' + data, False)
-            if verbal:
-                print(f'{addr:>6} : {response:>10}')
-    elif type == 'col':
-        for row in range(0, 256):
-            addr = row*256 + int(number)
-            response = pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_READ + ' ' + str(addr) + ' ' + counter + ' ' + data, False)
-            if verbal:
-                print(f'{addr:>6} : {response:>10}')
-    elif type == 'module':
-        for row in range(0, 256):
-            print('row: ' + str(row))
-            for col in range(0, 256):
-                addr = row*256 + col
-                response = pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_READ + ' ' + str(addr) + ' ' + counter + ' ' + data, False)
-                if verbal:
-                    print(f'{addr:>6} : {response:>10}')
+def read_lane(pyterminal, addr, data, verbal):
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_READ_LANE + ' ' + addr + ' ' + data, verbal)
+
+
+def read_byte(pyterminal, addr, counter, data, verbal):
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_READ_BYTE + ' ' + addr + ' ' + counter + ' ' + data, verbal)
+
 
 def conf_ADC(pyterminal, offset, step, comp, verbal):
     pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_ADC + ' ' + offset + ' ' + step + ' ' + comp, verbal)
@@ -261,6 +249,14 @@ def sweep_voltage_references(pyterminal, index, low, high, step, verbal):
 
 def list_voltage_references(pyterminal, index, verbal):
     return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VREF + ' ' + index, verbal)
+
+
+def calibrate_decoder_references(pyterminal, index, target, verbal):
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_DREF + ' ' + index + ' ' + target, verbal)
+
+
+def list_decoder_references(pyterminal, index, verbal):
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_DREF + ' ' + index, verbal)
 
 
 def check(pyterminal, type, number, verbal):
@@ -285,38 +281,44 @@ def check(pyterminal, type, number, verbal):
                 response = pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CHECK_CELL + ' ' + str(addr), False)
                 print(f'{addr:>6} : {response:>10}')
 
+
 def unknown(parameters):
     print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
 
 
 def decode(pyterminal, parameters):
     # Driver functions
-    if   parameters[1] == 'id'            : print_id                    (pyterminal, True)
-    elif parameters[1] == 'status'        : status                      (pyterminal, True)
-    elif parameters[1] == 'lane'          : lane                        (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'group'         : group                       (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'module'        : module                      (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'mask'          : mask                        (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'address'       : address                     (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'read'          : read                        (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'mac'           : mac                         (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'write'         : write                       (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'adc'           : adc                         (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'pg'            : pg                          (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'ecc'           : ecc                         (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    if   parameters[1] == 'id'             : print_id                    (pyterminal, True)
+    elif parameters[1] == 'status'         : status                      (pyterminal, True)
+    elif parameters[1] == 'lane'           : lane                        (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'group'          : group                       (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'module'         : module                      (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'mask'           : mask                        (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'address'        : address                     (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'read'           : read                        (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'mac'            : mac                         (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'write'          : write                       (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'adc'            : adc                         (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'pg'             : pg                          (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'ecc'            : ecc                         (pyterminal, parameters[2], parameters[3], parameters[4], True)
     # API functions
-    elif parameters[1] == 'conf_form'     : conf_form                   (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'form'          : form                        (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'conf_set'      : conf_set                    (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'set'           : set                         (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'conf_reset'    : conf_reset                  (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'reset'         : reset                       (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'conf_read'     : conf_read                   (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'read_raw'      : read_raw                    (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'conf_ADC'      : conf_ADC                    (pyterminal, parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'conf_MAC'      : conf_MAC                    (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'calibrate_VRef': calibrate_voltage_references(pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'sweep_VRef'    : sweep_voltage_references    (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'list_VRef'     : list_voltage_references     (pyterminal, parameters[2], True)
-    elif parameters[1] == 'check'         : check                       (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'conf_form'      : conf_form                   (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'form'           : form                        (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'conf_set'       : conf_set                    (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'set'            : set                         (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'conf_reset'     : conf_reset                  (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'reset'          : reset                       (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'write_byte'     : write_byte                  (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'write_byte_iter': write_byte_iter             (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'conf_read'      : conf_read                   (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'read_lane'      : read_lane                   (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'read_byte'      : read_byte                   (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'conf_ADC'       : conf_ADC                    (pyterminal, parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'conf_MAC'       : conf_MAC                    (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'calibrate_VRef' : calibrate_voltage_references(pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'sweep_VRef'     : sweep_voltage_references    (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'list_VRef'      : list_voltage_references     (pyterminal, parameters[2], True)
+    elif parameters[1] == 'calibrate_DRef' : calibrate_decoder_references(pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'list_DRef'      : list_decoder_references     (pyterminal, parameters[2], True)
+    elif parameters[1] == 'check'          : check                       (pyterminal, parameters[2], parameters[3], True)
     else: unknown(parameters)
