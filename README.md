@@ -148,7 +148,6 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | ecc            | get       | enable       |          |             | Get ECC mode (1: Enabled, 0: Disabled)                          
 | RRAM    | ecc            | clear     |              |          |             | Clear ECC flag                                                  
 | RRAM    | ecc            | check     |              |          |             | Check ECC flag
-                                                  
 | RRAM    | conf_form      | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for FORM operations                                                  
 | RRAM    | form           | [type]    | [number]     |          |             | Perform FORM operations. (ex. "form cell 2", "form row 3", "form col 4", "form module")                                                 
 | RRAM    | conf_set       | [AVDD_WR] | [AVDD_WL]    | [cycle]  |             | Configure (AVDD_WR, AVDD_WL, cycle, times) for SET operations                                                  
