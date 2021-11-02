@@ -1,7 +1,5 @@
-import time
-import math
+import random
 from Lib import RRAM
-from Board import PM, DAC
 
 
 def clear(pyterminal):
@@ -13,53 +11,32 @@ def clear(pyterminal):
     RRAM.read(pyterminal, 'toggle', '', '', True)
     RRAM.read(pyterminal, 'set', 'enable', '0', True)
 
-    # Configurations
-    RRAM.conf_form(pyterminal, '3200', '1700', '1600', True)
-    RRAM.conf_set(pyterminal, '1700', '1700', '2', True)
-    RRAM.conf_reset(pyterminal, '2500', '2500', '160', True)
-    RRAM.conf_read(pyterminal, '1100', '3', True)
+
+def read(pyterminal, type, number):
+    if type == 'cell':
+        addr = int(number)
+        response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
+        print(f'{addr:>6} : {response:>10}')
+    elif type == 'row':
+        for col in range(0, 256):
+            addr = int(number)*256 + col
+            response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
+            print(f'{addr:>6} : {response:>10}')
+    elif type == 'col':
+        for row in range(0, 256):
+            addr = row*256 + int(number)
+            response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
+            print(f'{addr:>6} : {response:>10}')
+    elif type == 'module':
+        for row in range(0, 256):
+            print('row: ' + str(row))
+            for col in range(0, 256):
+                addr = row*256 + col
+                response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
+                print(f'{addr:>6} : {response:>10}')
 
 
-def sweep_on_state_cells(pyterminal, col):
-    # Set first 9 cells
-    for i in range(0, 9):
-        RRAM.set(pyterminal, str(i * 256 + int(col)), True)
-
-    # Rest second 9 cells
-    for i in range(9, 18):
-        RRAM.reset(pyterminal, str(i * 256 + int(col)), True)
-
-    # Read 10 cells (0 On-State ~ 9 On-State)
-    for i in range(0, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x1FF', True)
-    print('')
-    for i in range(1, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x0FF', True)
-    print('')
-    for i in range(2, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x07F', True)
-    print('')
-    for i in range(3, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x03F', True)
-    print('')
-    for i in range(4, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x01F', True)
-    print('')
-    for i in range(5, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x00F', True)
-    print('')
-    for i in range(6, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x007', True)
-    print('')
-    for i in range(7, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x003', True)
-    print('')
-    for i in range(8, 10):
-        RRAM.read_raw(pyterminal, str(i * 256 + int(col)), '0', '0x001', True)
-    print('')
-
-
-def sweep_reference_voltages(pyterminal):
+def sweep_chip_VRef(pyterminal):
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
     print('| Module | Offset | Step |  VRef[0] |  VRef[1] |  VRef[2] |  VRef[3] |  VRef[4] |  VRef[5] |  VRef[6] |  VRef[7] |  VRef[8] |  VRef[9] | VRef[10] | VRef[11] | VRef[12] | VRef[13] | VRef[14] |')
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
@@ -67,14 +44,18 @@ def sweep_reference_voltages(pyterminal):
         # Set to the new module and clear it
         RRAM.module(pyterminal, 'set', str(module), True)
         clear(pyterminal)
+
         # Find the (offset, step)
-        response = RRAM.calibrate_voltage_references(pyterminal, str(module), '50', '700', '5', False)
+        response = RRAM.calibrate_voltage_references(pyterminal, str(module), '120', '800', '5', False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
-        # Find the VRef
+        # Config the ADC and Sweep the VRef
         RRAM.conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
-        response = RRAM.list_voltage_references(pyterminal, str(module), '0', '1000', '2', False)
+        RRAM.sweep_voltage_references(pyterminal, str(module), '0', '1000', '3', True)
+
+        # Find the VRef
+        response = RRAM.list_voltage_references(pyterminal, str(module), False)
         vrefs = response.split()
 
         # Print out the result
@@ -84,6 +65,83 @@ def sweep_reference_voltages(pyterminal):
         print('')
 
 
+def test_write_byte(pyterminal, row, num):
+    row = int(row)
+    num = int(num)
+    for col in range(0, num):
+        addr = row * 256 + col
+        value = random.randint(-128, 127)
+        print('Writing ' + str(value) + '  to  ' + str(addr))
+        RRAM.write_byte_iter(pyterminal, str(addr), str(value), False)
+        readout = RRAM.read_byte(pyterminal, str(addr), '0', '0x1', False)
+        print('Reading ' + str(readout) + ' from ' + str(addr))
+        print('')
+
+
+def test_bit_cim(pyterminal, addr):
+    # Reset first 9 cells
+    for row in range(0, 9):
+        RRAM.reset(pyterminal, 'cell', str(int(addr) + row*256), True)
+
+    # Set second 9 cells
+    for row in range(9, 18):
+        RRAM.set(pyterminal, 'cell', str(int(addr) + row*256), True)
+
+    # Compute-In-Memory
+    raws = [[0] * 10 for i in range(10)]
+    for value in range(0, 10):
+        for ones in range(1, 10):
+            if value <= ones:
+                row_offset = 9 - ones + value
+                raws[value][ones] = RRAM.read_lane(pyterminal, str(int(addr) + row_offset*256), str(hex(2**ones - 1)), False)
+
+    # Print it out nicely
+    print('-----------------------------------------------------------------------------------------------')
+    print('| Value\Ones |      1 |      2 |      3 |      4 |      5 |      6 |      7 |      8 |      9 |')
+    print('-----------------------------------------------------------------------------------------------')
+    for value in reversed(range(0, 10)):
+        print(f'| {value:>10} |', end='')
+        for ones in range(1, 10):
+            if value > ones:
+                print('        |', end='')
+            else:
+                print(f' {raws[value][ones]:>6} |', end='')
+        print('')
+    print('-----------------------------------------------------------------------------------------------')
+
+
+def test_byte_cim(pyterminal, row, col, num):
+    row = int(row)
+    col = int(col)
+    num = int(num)
+    values = [0] * num
+    goldens = [0] * (2**num)
+    readouts = [0] * (2**num)
+
+    # Write the values
+    for n in range(num):
+        addr = (row+n) * 256 + col
+        values[n] = random.randint(-128, 127)
+        print(f'Writing {values[n]:>4} to ( {row+n:>3}, {col:>3})')
+        RRAM.write_byte_iter(pyterminal, str(addr), str(values[n]), False)
+
+    # Compute the goldens
+    for n in range(1, 2**num):
+        for i in range(num):
+            if n & 2**i:
+                goldens[n] += values[i]
+
+    # CIM
+    for n in range(1, 2**num):
+        readouts[n] = int(RRAM.read_byte(pyterminal, str(row*256 + col), '0', hex(n), False))
+
+    # Print the result nicely
+    print('----------------------------------------')
+    print('| Data | Readout | Golden | Difference |')
+    print('----------------------------------------')
+    for n in range(1, 2**num):
+        print(f'| {hex(n):>4} | {readouts[n]:>7} | {goldens[n]:>6} | {goldens[n]-readouts[n]:>10} |')
+    print('----------------------------------------')
 
 
 def unknown(parameters):
@@ -91,7 +149,10 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
-    if   parameters[1] == 'clear'            : clear                   (pyterminal)
-    elif parameters[1] == 'cim'              : sweep_on_state_cells    (pyterminal, parameters[2])
-    elif parameters[1] == 'sweep_VRef'       : sweep_reference_voltages(pyterminal)
+    if   parameters[1] == 'clear'            : clear          (pyterminal)
+    elif parameters[1] == 'read'             : read           (pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef(pyterminal)
+    elif parameters[1] == 'test_write_byte'  : test_write_byte(pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'test_bit_cim'     : test_bit_cim   (pyterminal, parameters[2])
+    elif parameters[1] == 'test_byte_cim'    : test_byte_cim  (pyterminal, parameters[2], parameters[3], parameters[4])
     else: unknown(parameters)
