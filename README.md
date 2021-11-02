@@ -1,6 +1,6 @@
 # rram-pyterminal
 
-This program was developed in PyCharm with Python 3.10.0rc2, the purpose of this program is provide an interactive and simple platform for end users to get hands on the RRAM chip.
+This program was developed in PyCharm with Python 3.10.0rc2, the purpose of this program is provide an interactive and simple platform for end users to get hands on the RRAM test chip.
 
 ## Quickstart Guide
 
@@ -28,7 +28,7 @@ Figure below shows a overall component markings of the evaluation board.
     
 ### DAC Sources
 There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them can be 0 ~ 3V3 with 12 bit resolution.
-- **VTGT_BL**: Target voltage for the bit lines. (Nominal range: 80 ~ 200 mV)
+- **VTGT_BL**: Target voltage for the bit lines. (Nominal range: 80 ~ 120 mV)
 - **ADC_CAL**: Used for ADC calibration mode, where the input of ADC would be this voltage source instead of bit lines.
 
 ### Command List
@@ -147,26 +147,31 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | ecc            | set       | enable       | [number] |             | Set ECC mode (1: Enabled, 0: Disabled)                          
 | RRAM    | ecc            | get       | enable       |          |             | Get ECC mode (1: Enabled, 0: Disabled)                          
 | RRAM    | ecc            | clear     |              |          |             | Clear ECC flag                                                  
-| RRAM    | ecc            | check     |              |          |             | Check ECC flag                                                  
-| RRAM    | conf_form      | [AVDD_WR] | [AVDD_WL]    | [cycle]  |             |                                                   
-| RRAM    | form           | [type]    | [number]     |          |             |                                                  
-| RRAM    | conf_set       | [AVDD_WR] | [AVDD_WL]    | [cycle]  |             |                                                   
-| RRAM    | set            | [type]    | [number]     |          |             |                                                  
-| RRAM    | conf_reset     | [AVDD_WR] | [AVDD_WL]    | [cycle]  |             |                                                   
-| RRAM    | reset          | [type]    | [number]     |          |             |                                                  
-| RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |             |                                                   
-| RRAM    | read_raw       | [type]    | [number]     |[counter] | [data]      |
-| RRAM    | conf_ADC       | [offset]  | [step]       | [comp]   |             |                                                   
-| RRAM    | conf_MAC       | [mode]    | [resolution] |          |             |                                                   
-| RRAM    | calibrate_VRef | [index]   | [low]        | [high]   | [tolerance] |                                                 
-| RRAM    | sweep_VRef     | [index]   | [low]        | [high]   | [step]      |                                            
-| RRAM    | list_VRef      | [index]   |              |          |             |                                      
-| RRAM    | check          | [type]    | [number]     |          |             |                                               
+| RRAM    | ecc            | check     |              |          |             | Check ECC flag
+| RRAM    | conf_form      | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for FORM operations                                                  
+| RRAM    | form           | [type]    | [number]     |          |             | Perform FORM operations. (ex. "form cell 2", "form row 3", "form col 4", "form module")                                                 
+| RRAM    | conf_set       | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for SET operations                                                  
+| RRAM    | set            | [type]    | [number]     |          |             | Perform SET operations. (ex. "set cell 2", "set row 3", "set col 4", "set module")                                                      
+| RRAM    | conf_reset     | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for RESET operations                                                  
+| RRAM    | reset          | [type]    | [number]     |          |             | Perform RESET operations. (ex. "reset cell 2", "reset row 3", "reset col 4", "reset module")                                                       
+| RRAM    | write_byte     | [addr]    | [value]      |          |             | Write [value] to [addr], simpler version of write.                                                  
+| RRAM    | write_byte_iter| [addr]    | [value]      |          |             | Write [value] to [addr] with iterative verification, more complex version of write.
+| RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |             | Configure (AVDD_WL, cycle) for READ operations
+| RRAM    | read_lane      | [addr]    | [data]       |          |             | Read [addr] with [data] WLs turned on (Only that lane is being read)
+| RRAM    | read_byte      | [addr]    | [counter]    | [data]   |             | Read the whole byte at [addr] with [data] WLs turned on (8 lanes are being read)
+| RRAM    | conf_ADC       | [offset]  | [step]       | [comp]   |             | Configure (Offset, Step, Comparator) for ADCs                                                  
+| RRAM    | conf_MAC       | [mode]    | [resolution] |          |             | Configure (Mode, Resolution) for MACs                                                  
+| RRAM    | calibrate_VRef | [index]   | [low]        | [high]   | [tolerance] | Calibrate reference voltages for module [index] so the range is between [low]~[high] with tolerance [tolerance]
+| RRAM    | sweep_VRef     | [index]   | [low]        | [high]   | [step]      | Sweep ADC_CAL from [low]~[high] with step [step] to get 15 reference voltages for module [index]
+| RRAM    | list_VRef      | [index]   |              |          |             | List reference voltages of module [index]
+| RRAM    | calibrate_DRef | [index]   | [ones]       |          |             | Calibrate decoder reference levels for [ones] WLs turned on simultaneously. (Omitting [ones] parameter to perform calibration for [ones] = 1~9)  
+| RRAM    | list_DRef      | [index]   |              |          |             | List decoder reference levels of module [index]
+| RRAM    | check          | [type]    | [number]     |          |             | Check the status of cells, i.e. perform set and reset one after another to make sure the cells are responsive.
 
 ### Suggested Form/Set/Reset/Read Parameters
-| Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles
-| :----: | :----:      | :----:      | :----:
-| Form   | 3200        | 1600        | 160   
-| Set    | 1600        | 1600        | 16  
-| Reset  | 2500        | 2500        | 160   
-| Read   | N/A         | 1100        | 5   
+| Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times
+| :----: | :----:      | :----:      | :----: | :----:      
+| Form   | 3200        | 1600        | 20     | 4        
+| Set    | 2200        | 2200        | 100    | 20        
+| Reset  | 2800        | 2800        | 200    | 80        
+| Read   | N/A         | 1100        | 5      | N/A         
