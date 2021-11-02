@@ -68,32 +68,38 @@ def sweep_chip_VRef(pyterminal):
 def test_write_byte(pyterminal, row, num):
     row = int(row)
     num = int(num)
+    print('-----------------------------------------------')
+    print('| ( row, col) | Golden | Readout | Difference |')
+    print('-----------------------------------------------')
     for col in range(0, num):
         addr = row * 256 + col
-        value = random.randint(-128, 127)
-        print('Writing ' + str(value) + '  to  ' + str(addr))
-        RRAM.write_byte_iter(pyterminal, str(addr), str(value), False)
-        readout = RRAM.read_byte(pyterminal, str(addr), '0', '0x1', False)
-        print('Reading ' + str(readout) + ' from ' + str(addr))
-        print('')
+        golden = random.randint(-128, 127)
+        RRAM.write_byte_iter(pyterminal, str(addr), str(golden), False)
+        readout = int(RRAM.read_byte(pyterminal, str(addr), '0', '0x1', False))
+        print(f'| ( {row:>3}, {col:>3}) | {golden:>6} | {readout:>7} | {golden-readout:>10} |')
+    print('-----------------------------------------------')
 
+def test_bit_cim(pyterminal, row, col):
+    row = int(row)
+    col = int(col)
 
-def test_bit_cim(pyterminal, addr):
     # Reset first 9 cells
-    for row in range(0, 9):
-        RRAM.reset(pyterminal, 'cell', str(int(addr) + row*256), True)
+    for row_offset in range(0, 9):
+        addr = (row+row_offset) * 256 + col
+        RRAM.reset(pyterminal, 'cell', str(addr), True)
 
     # Set second 9 cells
-    for row in range(9, 18):
-        RRAM.set(pyterminal, 'cell', str(int(addr) + row*256), True)
+    for row_offset in range(9, 18):
+        addr = (row+row_offset) * 256 + col
+        RRAM.set(pyterminal, 'cell', str(addr), True)
 
     # Compute-In-Memory
-    raws = [[0] * 10 for i in range(10)]
+    raws = [[''] * 10 for i in range(10)]
     for value in range(0, 10):
-        for ones in range(1, 10):
-            if value <= ones:
-                row_offset = 9 - ones + value
-                raws[value][ones] = RRAM.read_lane(pyterminal, str(int(addr) + row_offset*256), str(hex(2**ones - 1)), False)
+        for ones in range(max(1, value), 10):
+            row_offset = 9 - ones + value
+            addr = (row + row_offset) * 256 + col
+            raws[value][ones] = RRAM.read_lane(pyterminal, str(addr), str(hex(2**ones - 1)), False)
 
     # Print it out nicely
     print('-----------------------------------------------------------------------------------------------')
@@ -102,10 +108,7 @@ def test_bit_cim(pyterminal, addr):
     for value in reversed(range(0, 10)):
         print(f'| {value:>10} |', end='')
         for ones in range(1, 10):
-            if value > ones:
-                print('        |', end='')
-            else:
-                print(f' {raws[value][ones]:>6} |', end='')
+            print(f' {raws[value][ones]:>6} |', end='')
         print('')
     print('-----------------------------------------------------------------------------------------------')
 
@@ -153,6 +156,6 @@ def decode(pyterminal, parameters):
     elif parameters[1] == 'read'             : read           (pyterminal, parameters[2], parameters[3])
     elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef(pyterminal)
     elif parameters[1] == 'test_write_byte'  : test_write_byte(pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'test_bit_cim'     : test_bit_cim   (pyterminal, parameters[2])
+    elif parameters[1] == 'test_bit_cim'     : test_bit_cim   (pyterminal, parameters[2], parameters[3])
     elif parameters[1] == 'test_byte_cim'    : test_byte_cim  (pyterminal, parameters[2], parameters[3], parameters[4])
     else: unknown(parameters)
