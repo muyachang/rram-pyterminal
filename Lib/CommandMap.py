@@ -2,6 +2,7 @@
 # Atmel Part #
 ##############
 # argv[0]
+CM_BOARD              = b'\x40'.decode('utf-8')
 CM_PM                 = b'\x41'.decode('utf-8')
 CM_DAC                = b'\x42'.decode('utf-8')
 CM_DF                 = b'\x43'.decode('utf-8')
@@ -12,7 +13,9 @@ CM_DEMO               = b'\x47'.decode('utf-8')
 CM_RRAM               = b'\x48'.decode('utf-8')
 CM_VECTOR             = b'\x49'.decode('utf-8')
                       
-# argv[1]             
+# argv[1]
+CM_BOARD_VERSION      = b'\x41'.decode('utf-8')
+
 CM_PM_CLEAR           = b'\x41'.decode('utf-8')
 CM_PM_STATUS          = b'\x42'.decode('utf-8')
 CM_PM_SAVE            = b'\x43'.decode('utf-8')

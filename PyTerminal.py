@@ -3,7 +3,7 @@ import time
 import sys
 import serial
 from Lib import DEMO, ASCII, RRAM, VECTOR
-from Board import EEPROM, PM, LED, DF, DAC, TC
+from Board import EEPROM, PM, LED, DF, DAC, TC, BOARD
 import USER
 import CommandMap as CM
 
@@ -89,7 +89,8 @@ class PyTerminal:
             for i in range(len(parameters), 16):
                 parameters.append('')
 
-            if   parameters[0] == "PM"    :     PM.decode(self, parameters)
+            if   parameters[0] == "BOARD" :  BOARD.decode(self, parameters)
+            elif parameters[0] == "PM"    :     PM.decode(self, parameters)
             elif parameters[0] == "DAC"   :    DAC.decode(self, parameters)
             elif parameters[0] == "DF"    :     DF.decode(self, parameters)
             elif parameters[0] == "EEPROM": EEPROM.decode(self, parameters)
