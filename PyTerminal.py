@@ -1,6 +1,4 @@
-import glob
 import time
-import sys
 import serial
 from Lib import DEMO, ASCII, RRAM, VECTOR
 from Board import EEPROM, PM, LED, DF, DAC, TC, BOARD
