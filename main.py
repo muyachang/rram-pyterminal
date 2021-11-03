@@ -4,7 +4,6 @@ if __name__ == '__main__':
     pyterminal = PyTerminal()
 
     if pyterminal.connect():
-        print('<< TC Terminal >>')
         while 1:
             command = input("ICSRL> ")
             if command == 'exit':
