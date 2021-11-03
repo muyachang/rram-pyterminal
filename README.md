@@ -2,11 +2,6 @@
 
 This program was developed in PyCharm with Python 3.10.0rc2, the purpose of this program is provide an interactive and simple platform for end users to get hands on the RRAM test chip.
 
-## Quickstart Guide
-
-
-## Important Information
-
 ### Required Python Packages
 - pyserial
 
