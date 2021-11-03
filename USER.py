@@ -74,6 +74,7 @@ def sweep_chip_VRef(pyterminal):
         for i in range(0, 15):
             print(f' {vrefs[i]:>8} |', end='')
         print('')
+    print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
 
 
 def test_write_byte(pyterminal, row, num):
@@ -89,6 +90,7 @@ def test_write_byte(pyterminal, row, num):
         readout = int(RRAM.read_byte(pyterminal, str(addr), '0', '0x1', False))
         print(f'| ( {row:>3}, {col:>3}) | {golden:>6} | {readout:>7} | {golden-readout:>10} |')
     print('-----------------------------------------------')
+
 
 def test_bit_cim(pyterminal, row, col):
     row = int(row)
