@@ -1,15 +1,15 @@
 from PyTerminal import PyTerminal
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     pyterminal = PyTerminal()
 
-    print('<< TC Terminal >>')
-    while 1:
-        command = input("ICSRL> ")
-        if command == 'exit':
-            exit()
-        elif command != '':
-            pyterminal.decode_command(command)
+    if pyterminal.connect():
+        print('<< TC Terminal >>')
+        while 1:
+            command = input("ICSRL> ")
+            if command == 'exit':
+                exit()
+            elif command != '':
+                pyterminal.decode_command(command)
+    else:
+        print('[ERROR] Connection failed, could not find the board')

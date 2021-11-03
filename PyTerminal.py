@@ -7,23 +7,34 @@ from Board import EEPROM, PM, LED, DF, DAC, TC, BOARD
 import USER
 import CommandMap as CM
 
+VID = '0x03EB'    # Atmel
+PID = '0x204B'    # LUFA USB to Serial Demo Application
+BAUDRATE = 115200 #
+TIMEOUT = 20      # Seconds
 
 class PyTerminal:
-    
     def __init__(self):
-        print('Available ports:')
-        available_ports = self.list_ports()
-        for i, p in enumerate(available_ports):
-            print('Port[' + str(i) + '] = ' + p)
-        index = input("Enter the index of the port: ")
-        self.ser = serial.Serial(port=available_ports[int(index)], baudrate=115200, timeout=20)
-
-        # Fix the problem so that we don't have to init the TC every time we relaunch PyTerminal
-        self.ser.write(str.encode(CM.CM_RRAM + ' \n'))
+        self.ser = serial.Serial()
 
     def __del__(self):
-        self.ser.close()
-        
+        self.ser.__del__()
+
+    def connect(self):
+        from serial.tools import list_ports
+        for port in list_ports.comports():
+            if port.vid == int(VID, 0) and port.pid == int(PID, 0):
+                self.ser = serial.Serial(port.name, baudrate=BAUDRATE, timeout=TIMEOUT)
+                try:
+                    version = BOARD.version(self, False)
+                    print('[INFO] Evaluation board with version ' + version + ' connected')
+                    # Fix the problem so that we don't have to init the TC every time we relaunch PyTerminal
+                    self.ser.write(str.encode(CM.CM_RRAM + ' \n'))
+                    return True
+                except:
+                    print('[ERROR] Unable to retrieve board version')
+                    break
+        return False
+
     def send_command(self, command, verbal):
         # Send out the command and Give it some time to process
         self.ser.reset_output_buffer()
@@ -50,38 +61,9 @@ class PyTerminal:
         return response.decode('utf-8')
 
     @staticmethod
-    def list_ports():
-        """ Lists serial port names
-
-        :raises EnvironmentError:
-            On unsupported or unknown platforms
-        :returns:
-            A list of the serial ports available on the system
-        """
-        if sys.platform.startswith('win'):
-            ports = ['COM%s' % (i + 1) for i in range(256)]
-        elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
-            # this excludes your current terminal "/dev/tty"
-            ports = glob.glob('/dev/tty[A-Za-z]*')
-        elif sys.platform.startswith('darwin'):
-            ports = glob.glob('/dev/tty.*')
-        else:
-            raise EnvironmentError('Unsupported platform')
-
-        result = []
-        for port in ports:
-            try:
-                s = serial.Serial(port)
-                s.close()
-                result.append(port)
-            except (OSError, serial.SerialException):
-                pass
-        return result
-
-    @staticmethod
     def unknown(parameters):
         print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
-    
+
     def decode_command(self, command):
         try:
             # Split the command and fill up to 8 list elements
