@@ -8,7 +8,7 @@ import CommandMap as CM
 VID = '0x03EB'    # Atmel
 PID = '0x204B'    # LUFA USB to Serial Demo Application
 BAUDRATE = 115200 #
-TIMEOUT = 20      # Seconds
+TIMEOUT = 3      # Seconds
 
 class PyTerminal:
     def __init__(self):
@@ -33,17 +33,24 @@ class PyTerminal:
                     break
         return False
 
+    def alive(self):
+        try:
+            self.ser.inWaiting()
+            return True
+        except:
+            return self.connect()
+
     def send_command(self, command, verbal):
         # Send out the command and Give it some time to process
         self.ser.reset_output_buffer()
         self.ser.reset_input_buffer()
         self.ser.write(str.encode(command + '\n'))
         time.sleep(0.001)
-        
+
         # Wait for EOT
         response = b''
         while 1:
-            char = self.ser.read(1)            
+            char = self.ser.read(1)
             if char == ASCII.EOT:
                 # For readability, we insert \n for some cases
                 if verbal and response != b'' and response.decode('utf-8')[-1] != '\n':
