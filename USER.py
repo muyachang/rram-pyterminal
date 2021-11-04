@@ -37,6 +37,9 @@ def read(pyterminal, type, number):
                 print(f'{addr:>6} : {response:>10}')
 
 
+def calibrate_VTGT_BL(pyterminal):
+    print('calibrating VTGT_BL ...')
+
 def sweep_chip_VRef(pyterminal):
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
     print('| Module | Offset | Step |  VRef[0] |  VRef[1] |  VRef[2] |  VRef[3] |  VRef[4] |  VRef[5] |  VRef[6] |  VRef[7] |  VRef[8] |  VRef[9] | VRef[10] | VRef[11] | VRef[12] | VRef[13] | VRef[14] |')
@@ -167,6 +170,7 @@ def unknown(parameters):
 def decode(pyterminal, parameters):
     if   parameters[1] == 'clear'            : clear          (pyterminal)
     elif parameters[1] == 'read'             : read           (pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(pyterminal)
     elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef(pyterminal)
     elif parameters[1] == 'test_write_byte'  : test_write_byte(pyterminal, parameters[2], parameters[3])
     elif parameters[1] == 'test_bit_cim'     : test_bit_cim   (pyterminal, parameters[2], parameters[3])
