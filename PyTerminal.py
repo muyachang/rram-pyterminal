@@ -24,7 +24,7 @@ class PyTerminal:
                 self.ser = serial.Serial(port.name, baudrate=BAUDRATE, timeout=TIMEOUT)
                 try:
                     version = BOARD.version(self, False)
-                    print('[INFO] Evaluation board with version ' + version + ' connected')
+                    print('[INFO] Evaluation board with version ' + version + ' connected @ ' + port.name)
                     # Fix the problem so that we don't have to init the TC every time we relaunch PyTerminal
                     self.ser.write(str.encode(CM.CM_RRAM + ' \n'))
                     return True
@@ -35,7 +35,7 @@ class PyTerminal:
 
     def alive(self):
         try:
-            self.ser.inWaiting()
+            self.ser.in_waiting
             return True
         except:
             return self.connect()
@@ -94,3 +94,6 @@ class PyTerminal:
             self.ser.close()
             self.ser.open()
             self.decode_command(command)
+        except Exception as e:
+            print('[ERROR] Wrong command format')
+            print(e)
