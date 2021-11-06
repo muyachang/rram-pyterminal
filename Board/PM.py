@@ -9,76 +9,77 @@ VoltDict = {'3V3'      : b'\x41'.decode('utf-8'),
             
 
 def list_sources(pyterminal):
-    for k, v in VoltDict.items():
-        response = pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_GET + ' ' + v, False)
-        source_status = 'ON' if response.split()[0] == '1' else 'OFF'
-        value = 'unadjustable' if response.split()[1] == '-1' else response.split()[1] + ' mV'
-        print(f' - {k:>10}({source_status:>3}): {value:}')
+    print('-------------------------------------')
+    print('| Output Name | Status | Value (mV) |')
+    print('-------------------------------------')
+    for key, value in VoltDict.items():
+        response = pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_GET + ' ' + value, False)
+        output_status = 'On' if response.split()[0] == '1' else 'Off'
+        output_value = 'Analog' if response.split()[1] == '-1' else response.split()[1]
+        print(f'| {key:>11} | {output_status:>6} | {output_value:>10} |')
+    print('-------------------------------------')
 
 
-def clear(pyterminal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_CLEAR, True)
+def clear(pyterminal, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_CLEAR, verbal)
 
 
-def status(pyterminal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_STATUS, True)
+def status(pyterminal, verbal):
+    return pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_STATUS, verbal)
 
 
-def save(pyterminal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SAVE, True)
+def save(pyterminal, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SAVE, verbal)
     
 
-def load(pyterminal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_LOAD, True)
+def load(pyterminal, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_LOAD, verbal)
     
 
-def allon(pyterminal):
+def allon(pyterminal, verbal):
     for k, v in VoltDict.items():
-        pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_ENABLE + ' ' + v, True)
+        pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_ENABLE + ' ' + v, verbal)
         
 
-def alloff(pyterminal):
+def alloff(pyterminal, verbal):
     for k, v in VoltDict.items():
-        pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_DISABLE + ' ' + v, True)
+        pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_DISABLE + ' ' + v, verbal)
     
 
-def reset(pyterminal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_RESET, True)
+def reset(pyterminal, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_RESET, verbal)
     
 
-def enable(pyterminal, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_ENABLE + ' ' + VoltDict[target], True)
+def enable(pyterminal, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_ENABLE + ' ' + VoltDict[target], verbal)
     
 
-def disable(pyterminal, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_DISABLE + ' ' + VoltDict[target], True)
+def disable(pyterminal, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_DISABLE + ' ' + VoltDict[target], verbal)
     
 
-def increment(pyterminal, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_INCR + ' ' + VoltDict[target], True)
+def increment(pyterminal, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_INCR + ' ' + VoltDict[target], verbal)
     
 
-def decrement(pyterminal, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_DECR + ' ' + VoltDict[target], True)
+def decrement(pyterminal, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_DECR + ' ' + VoltDict[target], verbal)
     
 
-def plus(pyterminal, value, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_PLUS + ' ' + value + ' ' + VoltDict[target], True)
+def plus(pyterminal, value, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_PLUS + ' ' + str(value) + ' ' + VoltDict[target], verbal)
     
 
-def minus(pyterminal, value, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_MINUS + ' ' + value + ' ' + VoltDict[target], True)
+def minus(pyterminal, value, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_MINUS + ' ' + str(value) + ' ' + VoltDict[target], verbal)
     
 
-def set_source(pyterminal, value, target):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET + ' ' + value + ' ' + VoltDict[target], True)
+def set_source(pyterminal, value, target, verbal):
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET + ' ' + str(value) + ' ' + VoltDict[target], verbal)
     
 
-def get_source(pyterminal, target):
-    response = pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_GET + ' ' + VoltDict[target], False)
-    source_status = 'ON' if response.split()[0] == '1' else 'OFF'
-    value = 'unadjustable' if response.split()[1] == '-1' else response.split()[1] + ' mV'
-    print(f'{target}({source_status}): {value:}')
+def get_source(pyterminal, target, verbal):
+    return pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_GET + ' ' + VoltDict[target], verbal).split()
 
 
 def unknown(parameters):
@@ -87,20 +88,20 @@ def unknown(parameters):
 
 def decode(pyterminal, parameters):
     if   parameters[1] == 'list'   : list_sources(pyterminal)
-    elif parameters[1] == 'clear'  : clear       (pyterminal)
-    elif parameters[1] == 'status' : status      (pyterminal)
-    elif parameters[1] == 'save'   : save        (pyterminal)
-    elif parameters[1] == 'load'   : load        (pyterminal)
-    elif parameters[1] == 'allon'  : allon       (pyterminal)
-    elif parameters[1] == 'alloff' : alloff      (pyterminal)
-    elif parameters[1] == 'reset'  : reset       (pyterminal)
-    elif parameters[1] == 'enable' : enable      (pyterminal, parameters[2])
-    elif parameters[1] == 'disable': disable     (pyterminal, parameters[2])
-    elif parameters[1] == '++'     : increment   (pyterminal, parameters[2])
-    elif parameters[1] == '--'     : decrement   (pyterminal, parameters[2])
-    elif parameters[1] == '+'      : plus        (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == '-'      : minus       (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'set'    : set_source  (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'get'    : get_source  (pyterminal, parameters[2])
+    elif parameters[1] == 'clear'  : clear       (pyterminal,                                    True)
+    elif parameters[1] == 'status' : status      (pyterminal,                                    True)
+    elif parameters[1] == 'save'   : save        (pyterminal,                                    True)
+    elif parameters[1] == 'load'   : load        (pyterminal,                                    True)
+    elif parameters[1] == 'allon'  : allon       (pyterminal,                                    True)
+    elif parameters[1] == 'alloff' : alloff      (pyterminal,                                    True)
+    elif parameters[1] == 'reset'  : reset       (pyterminal,                                    True)
+    elif parameters[1] == 'enable' : enable      (pyterminal,     parameters[2],                 True)
+    elif parameters[1] == 'disable': disable     (pyterminal,     parameters[2],                 True)
+    elif parameters[1] == '++'     : increment   (pyterminal,     parameters[2],                 True)
+    elif parameters[1] == '--'     : decrement   (pyterminal,     parameters[2],                 True)
+    elif parameters[1] == '+'      : plus        (pyterminal, int(parameters[2]), parameters[3], True)
+    elif parameters[1] == '-'      : minus       (pyterminal, int(parameters[2]), parameters[3], True)
+    elif parameters[1] == 'set'    : set_source  (pyterminal, int(parameters[2]), parameters[3], True)
+    elif parameters[1] == 'get'    : get_source  (pyterminal,     parameters[2],                 True)
     else: unknown(parameters)
     
