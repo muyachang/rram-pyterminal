@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def connect(pyterminal, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_CONNECT, verbal)
+    return pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_CONNECT, verbal)
 
 
 def disconnect(pyterminal, verbal):
@@ -11,11 +11,11 @@ def disconnect(pyterminal, verbal):
 
 
 def read(pyterminal, address, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_READ + ' ' + address, verbal)
+    return pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_READ + ' ' + str(address), verbal)
 
 
 def write(pyterminal, address, value, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_WRITE + ' ' + address + ' ' + value, verbal)
+    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_WRITE + ' ' + str(address) + ' ' + str(value), verbal)
 
 
 def list_configs(pyterminal, verbal):
@@ -23,11 +23,11 @@ def list_configs(pyterminal, verbal):
 
 
 def save_config(pyterminal, number, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + number + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
+    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + str(number) + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
 
 
 def load_config(pyterminal, number, verbal):
-    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + number, verbal)
+    pyterminal.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + str(number), verbal)
 
 
 def unknown(parameters):
@@ -35,11 +35,11 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
-    if   parameters[1] == 'connect'   : connect     (pyterminal, True)
-    elif parameters[1] == 'disconnect': disconnect  (pyterminal, True)
-    elif parameters[1] == 'read'      : read        (pyterminal, parameters[2], True)
-    elif parameters[1] == 'write'     : write       (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'list'      : list_configs(pyterminal, True)
-    elif parameters[1] == 'save'      : save_config (pyterminal, parameters[2], True)
-    elif parameters[1] == 'load'      : load_config (pyterminal, parameters[2], True)
+    if   parameters[1] == 'connect'   : connect     (pyterminal,                                               True)
+    elif parameters[1] == 'disconnect': disconnect  (pyterminal,                                               True)
+    elif parameters[1] == 'read'      : read        (pyterminal, int(parameters[2], 0),                        True)
+    elif parameters[1] == 'write'     : write       (pyterminal, int(parameters[2], 0), int(parameters[3], 0), True)
+    elif parameters[1] == 'list'      : list_configs(pyterminal,                                               True)
+    elif parameters[1] == 'save'      : save_config (pyterminal, int(parameters[2]   ),                        True)
+    elif parameters[1] == 'load'      : load_config (pyterminal, int(parameters[2]   ),                        True)
     else: unknown(parameters)
