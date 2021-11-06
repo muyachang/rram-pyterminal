@@ -1,5 +1,7 @@
 import random
 import time
+
+import DAC
 from Lib import RRAM
 
 
@@ -37,8 +39,64 @@ def read(pyterminal, type, number):
                 print(f'{addr:>6} : {response:>10}')
 
 
-def calibrate_VTGT_BL(pyterminal):
+def calibrate_VTGT_BL(pyterminal, row, col):
     print('calibrating VTGT_BL ...')
+
+    # Reset first 9 cells
+    print('Resetting ... ', end='')
+    for row_offset in range(0, 9):
+        addr = (int(row)+row_offset) * 256 + int(col)
+        RRAM.reset(pyterminal, 'cell', str(addr), True)
+
+    # Set second 9 cells
+    print('Setting ... ')
+    for row_offset in range(9, 18):
+        addr = (int(row)+row_offset) * 256 + int(col)
+        RRAM.set(pyterminal, 'cell', str(addr), True)
+
+    trial = 5
+    cal_low = 0
+    cal_high = 1100
+    vtgt_bl = 0
+
+    while cal_high > cal_low and trial:
+        vtgt_bl = int((cal_low + cal_high)/2.0)
+        DAC.set_voltage_source(pyterminal, str(vtgt_bl), 'VTGT_BL')
+        raw_high = RRAM.read_lane(pyterminal, str((int(row)+9)*256+int(col)), '0x1FF', False)
+        print('cal_low: ' + str(cal_low) + ' ; cal_high: ' + str(cal_high) + ' ; raw_high: ' + raw_high, end='')
+        if int(raw_high, 0) < int('0x4000', 0):
+            trial = 5
+            cal_high = vtgt_bl
+        elif int(raw_high, 0) > int('0x4000', 0):
+            trial = 5
+            cal_low = vtgt_bl
+        else:
+            trial -= 1
+        print(' ; trial: ' + str(trial))
+
+    print('VTGT_BL: ' + str(vtgt_bl))
+    test_bit_cim(pyterminal, row, col, True)
+
+
+def calibrate_VTGT_BL_linear(pyterminal, row, col):
+    print('calibrating VTGT_BL ...')
+
+    trial = 5
+    vtgt_bl = 50
+
+    while trial:
+        DAC.set_voltage_source(pyterminal, str(vtgt_bl), 'VTGT_BL')
+        raw_low = RRAM.read_lane(pyterminal, str(int(row)*256+int(col)), '0x1', False)
+        raw_high = RRAM.read_lane(pyterminal, str((int(row)+9)*256+int(col)), '0x1FF', False)
+        if raw_high == '0x4000':
+            trial -= 1
+        else:
+            trial = 5
+            vtgt_bl += 2
+
+    print('VTGT_BL: ' + str(vtgt_bl))
+    test_bit_cim(pyterminal, row, col, True)
+
 
 def sweep_chip_VRef(pyterminal):
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
@@ -95,7 +153,7 @@ def test_write_byte(pyterminal, row, num):
     print('-----------------------------------------------')
 
 
-def test_bit_cim(pyterminal, row, col):
+def test_bit_cim(pyterminal, row, col, verbal):
     row = int(row)
     col = int(col)
 
@@ -118,15 +176,18 @@ def test_bit_cim(pyterminal, row, col):
             raws[value][ones] = RRAM.read_lane(pyterminal, str(addr), str(hex(2**ones - 1)), False)
 
     # Print it out nicely
-    print('-----------------------------------------------------------------------------------------------')
-    print('| Value\Ones |      1 |      2 |      3 |      4 |      5 |      6 |      7 |      8 |      9 |')
-    print('-----------------------------------------------------------------------------------------------')
-    for value in reversed(range(0, 10)):
-        print(f'| {value:>10} |', end='')
-        for ones in range(1, 10):
-            print(f' {raws[value][ones]:>6} |', end='')
-        print('')
-    print('-----------------------------------------------------------------------------------------------')
+    if verbal:
+        print('-----------------------------------------------------------------------------------------------')
+        print('| Value\Ones |      1 |      2 |      3 |      4 |      5 |      6 |      7 |      8 |      9 |')
+        print('-----------------------------------------------------------------------------------------------')
+        for value in reversed(range(0, 10)):
+            print(f'| {value:>10} |', end='')
+            for ones in range(1, 10):
+                print(f' {raws[value][ones]:>6} |', end='')
+            print('')
+        print('-----------------------------------------------------------------------------------------------')
+
+    return raws
 
 
 def test_byte_cim(pyterminal, row, col, num):
@@ -168,11 +229,11 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
-    if   parameters[1] == 'clear'            : clear          (pyterminal)
-    elif parameters[1] == 'read'             : read           (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(pyterminal)
-    elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef(pyterminal)
-    elif parameters[1] == 'test_write_byte'  : test_write_byte(pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'test_bit_cim'     : test_bit_cim   (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'test_byte_cim'    : test_byte_cim  (pyterminal, parameters[2], parameters[3], parameters[4])
+    if   parameters[1] == 'clear'            : clear            (pyterminal)
+    elif parameters[1] == 'read'             : read             (pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef  (pyterminal)
+    elif parameters[1] == 'test_write_byte'  : test_write_byte  (pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'test_bit_cim'     : test_bit_cim     (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'test_byte_cim'    : test_byte_cim    (pyterminal, parameters[2], parameters[3], parameters[4])
     else: unknown(parameters)
