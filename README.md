@@ -17,6 +17,7 @@ PyTerminal was developed in PyCharm with Python 3.10.0rc2, the purpose of this i
 
 
 ### Voltage Sources
+<center>
 | Voltage Source | Regulator Type | Power/Value Control Method | Voltage Range (V) | Step Resolution (mV) | Max Supported Current |                
 | :----:         | :----:         | :----:                     | :----:            | :----:               | :----:                |
 | 3V3 Always On  | LDO            | -  /Potentiometer          | 0.73 ~ VCC        | -                    | 25 mA                 |
@@ -26,7 +27,8 @@ PyTerminal was developed in PyCharm with Python 3.10.0rc2, the purpose of this i
 | AVDD_WR        | DC/DC          | I2C/I2C                    | 1.08 ~ 4.00       | 32.63 & 62.50        | 1.5 A                 |
 | AVDD_WL        | DC/DC          | I2C/I2C                    | 0.83 ~ 3.08       | 25.00 & 48.13        | 2.5 A                 |
 | AVDD_RRAM      | DC/DC          | I2C/I2C                    | 0.83 ~ 1.60       | 25.00                | 2.5 A                 |
-    
+</center>
+
 ### DAC Sources
 There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them can be 0 ~ 3V3 with 12 bit resolution.
 - **VTGT_BL**: Target voltage for the bit lines. (Nominal range: 80 ~ 120 mV)
@@ -34,6 +36,7 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 
 ### Command List
 The detail description of the functions below are inside each .py files
+<center>
 | argv[0] | argv[1]        | argv[2]   | argv[3]      | argv[4]  | argv[5]    
 | :----:  | :----:         | :----:    | :----:       | :----:   | :----:     
 | BOARD   | version        |           |              |          |            
@@ -169,12 +172,15 @@ The detail description of the functions below are inside each .py files
 | RRAM    | list_VRef      | [index]   |              |          |            
 | RRAM    | sweep_DRef     | [index]   | [ones]       |          |            
 | RRAM    | list_DRef      | [index]   |              |          |            
-| RRAM    | check          | [level]   | [number]     |          |            
+| RRAM    | check          | [level]   | [number]     |          |
+</center>            
 
 ### Suggested Form/Set/Reset/Read Parameters
+<center>
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times
 | :----: | :----:      | :----:      | :----: | :----:      
 | Form   | 3200        | 1600        | 20     | 4        
 | Set    | 2200        | 2200        | 100    | 20        
 | Reset  | 2800        | 2800        | 200    | 80        
-| Read   | N/A         | 1100        | 5      | N/A         
+| Read   | N/A         | 1100        | 5      | N/A
+</center>         
