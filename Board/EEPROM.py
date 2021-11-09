@@ -34,6 +34,12 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
+    """ Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    """
     if   parameters[1] == 'read' : read (pyterminal, parameters[2],                True)
     elif parameters[1] == 'write': write(pyterminal, parameters[2], parameters[3], True)
     else: unknown(parameters)

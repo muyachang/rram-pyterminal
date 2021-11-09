@@ -562,6 +562,12 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
+    """ Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    """
     # Driver functions
     if   parameters[1] == 'id'             : id                          (pyterminal,                                                             True)
     elif parameters[1] == 'status'         : status                      (pyterminal,                                                             True)

@@ -52,6 +52,12 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
+    """ Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    """
     if   parameters[1] == 'list'   : list_demos(pyterminal,                True)
     elif parameters[1] == 'load'   : load      (pyterminal, parameters[2], True)
     elif parameters[1] == 'run'    : run       (pyterminal,                True)

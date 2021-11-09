@@ -12,9 +12,17 @@ TIMEOUT = 3      # Seconds
 
 class PyTerminal:
     def __init__(self):
+        """ Constructor for the class
+
+        Keyword arguments:
+        """
         self.ser = serial.Serial()
 
     def __del__(self):
+        """ Constructor for the class
+
+        Keyword arguments:
+        """
         self.ser.__del__()
 
     def connect(self):
@@ -89,6 +97,11 @@ class PyTerminal:
         print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
 
     def decode_command(self, command):
+        """ Split the command and decode it based on the first parameter
+
+        Keyword arguments:
+        command -- the original human readable command
+        """
         try:
             # Split the command and fill up to 8 list elements
             parameters = command.split()

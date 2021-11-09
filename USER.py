@@ -286,6 +286,12 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
+    """ Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    """
     if   parameters[1] == 'clear'            : clear            (pyterminal)
     elif parameters[1] == 'read'             : read             (pyterminal, parameters[2], parameters[3])
     elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(pyterminal, parameters[2], parameters[3])

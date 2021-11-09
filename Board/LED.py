@@ -44,6 +44,12 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
+    """ Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    """
     if   parameters[1] == 'enable' : enable (pyterminal, parameters[2], True)
     elif parameters[1] == 'disable': disable(pyterminal, parameters[2], True)
     elif parameters[1] == 'toggle' : toggle (pyterminal, parameters[2], True)

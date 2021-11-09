@@ -98,6 +98,12 @@ def unknown(parameters):
             
             
 def decode(pyterminal, parameters):
+    """ Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    """
     if   parameters[1] == 'list': list_sources(pyterminal                                    )
     elif parameters[1] == '++'  : increment   (pyterminal, parameters[2],                True)
     elif parameters[1] == '--'  : decrement   (pyterminal, parameters[2],                True)

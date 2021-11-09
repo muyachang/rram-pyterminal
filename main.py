@@ -1,6 +1,10 @@
 from PyTerminal import PyTerminal
 
 if __name__ == '__main__':
+    """ Initialize PyTerminal and try to connect to a board and start up the terminal
+
+    Keyword arguments:
+    """
 
     pyterminal = PyTerminal()
 
