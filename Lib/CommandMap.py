@@ -102,7 +102,7 @@ CM_RRAM_API_CONF_MAC        = b'\x5E'.decode('utf-8')
 CM_RRAM_API_CAL_VREF        = b'\x5F'.decode('utf-8')
 CM_RRAM_API_SWEEP_VREF      = b'\x60'.decode('utf-8')
 CM_RRAM_API_LIST_VREF       = b'\x61'.decode('utf-8')
-CM_RRAM_API_CAL_DREF        = b'\x62'.decode('utf-8')
+CM_RRAM_API_SWEEP_DREF      = b'\x62'.decode('utf-8')
 CM_RRAM_API_LIST_DREF       = b'\x63'.decode('utf-8')
 CM_RRAM_API_CHECK_CELL      = b'\x64'.decode('utf-8')
 

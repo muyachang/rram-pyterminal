@@ -6,6 +6,11 @@ from Lib import RRAM
 
 
 def clear(pyterminal):
+    """ Clear the RRAM module when it's just awakened
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    """
     # Clear up some registers
     RRAM.read(pyterminal, 'set', 'enable', '1', True)
     RRAM.read(pyterminal, 'set', 'counter', '7', True)
@@ -15,22 +20,29 @@ def clear(pyterminal):
     RRAM.read(pyterminal, 'set', 'enable', '0', True)
 
 
-def read(pyterminal, type, number):
-    if type == 'cell':
+def read(pyterminal, level, number):
+    """ A handy read function to read through one or more RRAM cells
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    level -- could be 'cell', 'row', 'col', 'module'
+    number -- target number
+    """
+    if level == 'cell':
         addr = int(number)
         response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
         print(f'{addr:>6} : {response:>10}')
-    elif type == 'row':
+    elif level == 'row':
         for col in range(0, 256):
             addr = int(number)*256 + col
             response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
             print(f'{addr:>6} : {response:>10}')
-    elif type == 'col':
+    elif level == 'col':
         for row in range(0, 256):
             addr = row*256 + int(number)
             response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
             print(f'{addr:>6} : {response:>10}')
-    elif type == 'module':
+    elif level == 'module':
         for row in range(0, 256):
             print('row: ' + str(row))
             for col in range(0, 256):
@@ -40,6 +52,13 @@ def read(pyterminal, type, number):
 
 
 def calibrate_VTGT_BL(pyterminal, row, col):
+    """ Calibrate VTGT_BL for the decoder reference levels are between '0xFFFF'~'0x4000'
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    row -- from '0'~'255'
+    col -- from '0'~'255'
+    """
     print('calibrating VTGT_BL ...')
 
     # Reset first 9 cells
@@ -79,6 +98,13 @@ def calibrate_VTGT_BL(pyterminal, row, col):
 
 
 def calibrate_VTGT_BL_linear(pyterminal, row, col):
+    """ Calibrate VTGT_BL for the decoder reference levels are between '0xFFFF'~'0x4000', linear version
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    row -- from '0'~'255'
+    col -- from '0'~'255'
+    """
     print('calibrating VTGT_BL ...')
 
     trial = 5
@@ -99,6 +125,11 @@ def calibrate_VTGT_BL_linear(pyterminal, row, col):
 
 
 def sweep_chip_VRef(pyterminal):
+    """ Sweep reference voltages for the whole chip
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    """
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
     print('| Module | Offset | Step |  VRef[0] |  VRef[1] |  VRef[2] |  VRef[3] |  VRef[4] |  VRef[5] |  VRef[6] |  VRef[7] |  VRef[8] |  VRef[9] | VRef[10] | VRef[11] | VRef[12] | VRef[13] | VRef[14] |')
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
@@ -139,6 +170,13 @@ def sweep_chip_VRef(pyterminal):
 
 
 def test_write_byte(pyterminal, row, num):
+    """ Test function for writing a byte at (row, col)
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    row -- from '0'~'255'
+    col -- from '0'~'255'
+    """
     row = int(row)
     num = int(num)
     print('-----------------------------------------------')
@@ -153,7 +191,14 @@ def test_write_byte(pyterminal, row, num):
     print('-----------------------------------------------')
 
 
-def test_bit_cim(pyterminal, row, col, verbal):
+def test_bit_cim(pyterminal, row, col):
+    """ Test function for computer in memory (CIM) at bit level
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    row -- from '0'~'255'
+    col -- from '0'~'255'
+    """
     row = int(row)
     col = int(col)
 
@@ -176,21 +221,28 @@ def test_bit_cim(pyterminal, row, col, verbal):
             raws[value][ones] = RRAM.read_lane(pyterminal, str(addr), str(hex(2**ones - 1)), False)
 
     # Print it out nicely
-    if verbal:
-        print('-----------------------------------------------------------------------------------------------')
-        print('| Value\Ones |      1 |      2 |      3 |      4 |      5 |      6 |      7 |      8 |      9 |')
-        print('-----------------------------------------------------------------------------------------------')
-        for value in reversed(range(0, 10)):
-            print(f'| {value:>10} |', end='')
-            for ones in range(1, 10):
-                print(f' {raws[value][ones]:>6} |', end='')
-            print('')
-        print('-----------------------------------------------------------------------------------------------')
+    print('-----------------------------------------------------------------------------------------------')
+    print('| Value\Ones |      1 |      2 |      3 |      4 |      5 |      6 |      7 |      8 |      9 |')
+    print('-----------------------------------------------------------------------------------------------')
+    for value in reversed(range(0, 10)):
+        print(f'| {value:>10} |', end='')
+        for ones in range(1, 10):
+            print(f' {raws[value][ones]:>6} |', end='')
+        print('')
+    print('-----------------------------------------------------------------------------------------------')
 
     return raws
 
 
 def test_byte_cim(pyterminal, row, col, num):
+    """ Test function for computer in memory (CIM) at byte level
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    row -- from '0'~'255'
+    col -- from '0'~'255'
+    num -- from '1'~'9'
+    """
     row = int(row)
     col = int(col)
     num = int(num)
@@ -225,6 +277,11 @@ def test_byte_cim(pyterminal, row, col, num):
 
 
 def unknown(parameters):
+    """ Print out the unknown command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    """
     print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
 
 
@@ -234,6 +291,6 @@ def decode(pyterminal, parameters):
     elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(pyterminal, parameters[2], parameters[3])
     elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef  (pyterminal)
     elif parameters[1] == 'test_write_byte'  : test_write_byte  (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'test_bit_cim'     : test_bit_cim     (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'test_bit_cim'     : test_bit_cim     (pyterminal, parameters[2], parameters[3])
     elif parameters[1] == 'test_byte_cim'    : test_byte_cim    (pyterminal, parameters[2], parameters[3], parameters[4])
     else: unknown(parameters)
