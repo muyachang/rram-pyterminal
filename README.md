@@ -1,6 +1,6 @@
 # rram-pyterminal
 
-This program was developed in PyCharm with Python 3.10.0rc2, the purpose of this program is provide an interactive and simple platform for end users to get hands on the RRAM test chip.
+PyTerminal was developed in PyCharm with Python 3.10.0rc2, the purpose of this is to provide an interactive and simple platform for end users to get hands on the RRAM test chip.
 
 ### Required Python Packages
 - pyserial
