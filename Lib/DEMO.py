@@ -6,7 +6,7 @@ def list_demos(pyterminal, verbal):
 
 
 def load(pyterminal, target, verbal):
-    pyterminal.send_command(CM.CM_DEMO + ' ' + CM.CM_DEMO_LOAD + ' ' + str(target), verbal)
+    pyterminal.send_command(CM.CM_DEMO + ' ' + CM.CM_DEMO_LOAD + ' ' + target, verbal)
 
 
 def run(pyterminal, verbal):
@@ -22,8 +22,8 @@ def unknown(parameters):
 
 
 def decode(pyterminal, parameters):
-    if   parameters[1] == 'list'   : list_demos(pyterminal,                     True)
-    elif parameters[1] == 'load'   : load      (pyterminal, int(parameters[2]), True)
-    elif parameters[1] == 'run'    : run       (pyterminal,                     True)
-    elif parameters[1] == 'analyze': analyze   (pyterminal,                     True)
+    if   parameters[1] == 'list'   : list_demos(pyterminal,                True)
+    elif parameters[1] == 'load'   : load      (pyterminal, parameters[2], True)
+    elif parameters[1] == 'run'    : run       (pyterminal,                True)
+    elif parameters[1] == 'analyze': analyze   (pyterminal,                True)
     else: unknown(parameters)

@@ -20,18 +20,18 @@ def reset(pyterminal, verbal):
 
 
 def read(pyterminal, level, number, verbal):
-    print(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + str(number))
-    pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + str(number), verbal)
+    print(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + number)
+    pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + number, verbal)
 
 
 def write(pyterminal, address, value, verbal):
-    print(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + str(address) + ' ' + str(value))
-    pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + str(address) + ' ' + str(value), verbal)
+    print(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + address + ' ' + value)
+    pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + address + ' ' + value, verbal)
 
 
 def erase(pyterminal, level, number, verbal):
-    print(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + str(number))
-    pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + str(number), verbal)
+    print(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + number)
+    pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + number, verbal)
 
 
 def protect(pyterminal, action, sector, verbal):
@@ -48,9 +48,9 @@ def protect(pyterminal, action, sector, verbal):
         for sector in range(0, 64):
             pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_REMOVE + ' ' + str(sector), verbal)
     elif action == 'add':
-        pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_ADD + ' ' + str(sector), verbal)
+        pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_ADD + ' ' + sector, verbal)
     elif action == 'remove':
-        pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_REMOVE + ' ' + str(sector), verbal)
+        pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_REMOVE + ' ' + sector, verbal)
 
 
 def blank_check(pyterminal, verbal):
@@ -62,12 +62,12 @@ def unknown(parameters):
           
 
 def decode(pyterminal, parameters):
-    if   parameters[1] == 'status'     : status     (pyterminal,                                                      True)
-    elif parameters[1] == 'id'         : get_id     (pyterminal,                                                      True)
-    elif parameters[1] == 'reset'      : reset      (pyterminal,                                                      True)
-    elif parameters[1] == 'read'       : read       (pyterminal,     parameters[2]    , int(parameters[3]       , 0), True)
-    elif parameters[1] == 'write'      : write      (pyterminal, int(parameters[2], 0), int(parameters[3]       , 0), True)
-    elif parameters[1] == 'erase'      : erase      (pyterminal,     parameters[2]    , int(parameters[3]       , 0), True)
-    elif parameters[1] == 'protect'    : protect    (pyterminal,     parameters[2]    , int(parameters[3] or '0', 0), True)
-    elif parameters[1] == 'blank_check': blank_check(pyterminal,                                                      True)
+    if   parameters[1] == 'status'     : status     (pyterminal,                               True)
+    elif parameters[1] == 'id'         : get_id     (pyterminal,                               True)
+    elif parameters[1] == 'reset'      : reset      (pyterminal,                               True)
+    elif parameters[1] == 'read'       : read       (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'write'      : write      (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'erase'      : erase      (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'protect'    : protect    (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'blank_check': blank_check(pyterminal,                               True)
     else: unknown(parameters)

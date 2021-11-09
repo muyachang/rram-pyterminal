@@ -23,15 +23,15 @@ def decrement(pyterminal, target, verbal):
 
 
 def plus(pyterminal, value, target, verbal):
-    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_PLUS + ' ' + str(value) + ' ' + DACDict[target], verbal)
+    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_PLUS + ' ' + value + ' ' + DACDict[target], verbal)
 
 
 def minus(pyterminal, value, target, verbal):
-    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_MINUS + ' ' + str(value) + ' ' + DACDict[target], verbal)
+    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_MINUS + ' ' + value + ' ' + DACDict[target], verbal)
 
 
 def set_source(pyterminal, value, target, verbal):
-    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_SET + ' ' + str(value) + ' ' + DACDict[target], verbal)
+    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_SET + ' ' + value + ' ' + DACDict[target], verbal)
 
 
 def get_source(pyterminal, target, verbal):
@@ -43,11 +43,11 @@ def unknown(parameters):
             
             
 def decode(pyterminal, parameters):
-    if   parameters[1] == 'list': list_sources(pyterminal                                         )
-    elif parameters[1] == '++'  : increment   (pyterminal,     parameters[2],                 True)
-    elif parameters[1] == '--'  : decrement   (pyterminal,     parameters[2],                 True)
-    elif parameters[1] == '+'   : plus        (pyterminal, int(parameters[2]), parameters[3], True)
-    elif parameters[1] == '-'   : minus       (pyterminal, int(parameters[2]), parameters[3], True)
-    elif parameters[1] == 'set' : set_source  (pyterminal, int(parameters[2]), parameters[3], True)
-    elif parameters[1] == 'get' : get_source  (pyterminal,     parameters[2],                 True)
+    if   parameters[1] == 'list': list_sources(pyterminal                                    )
+    elif parameters[1] == '++'  : increment   (pyterminal, parameters[2],                True)
+    elif parameters[1] == '--'  : decrement   (pyterminal, parameters[2],                True)
+    elif parameters[1] == '+'   : plus        (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == '-'   : minus       (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'set' : set_source  (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'get' : get_source  (pyterminal, parameters[2],                True)
     else: unknown(parameters)

@@ -67,15 +67,15 @@ def decrement(pyterminal, target, verbal):
     
 
 def plus(pyterminal, value, target, verbal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_PLUS + ' ' + str(value) + ' ' + VoltDict[target], verbal)
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_PLUS + ' ' + value + ' ' + VoltDict[target], verbal)
     
 
 def minus(pyterminal, value, target, verbal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_MINUS + ' ' + str(value) + ' ' + VoltDict[target], verbal)
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_MINUS + ' ' + value + ' ' + VoltDict[target], verbal)
     
 
 def set_source(pyterminal, value, target, verbal):
-    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET + ' ' + str(value) + ' ' + VoltDict[target], verbal)
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET + ' ' + value + ' ' + VoltDict[target], verbal)
     
 
 def get_source(pyterminal, target, verbal):
@@ -88,20 +88,20 @@ def unknown(parameters):
 
 def decode(pyterminal, parameters):
     if   parameters[1] == 'list'   : list_sources(pyterminal)
-    elif parameters[1] == 'clear'  : clear       (pyterminal,                                    True)
-    elif parameters[1] == 'status' : status      (pyterminal,                                    True)
-    elif parameters[1] == 'save'   : save        (pyterminal,                                    True)
-    elif parameters[1] == 'load'   : load        (pyterminal,                                    True)
-    elif parameters[1] == 'allon'  : allon       (pyterminal,                                    True)
-    elif parameters[1] == 'alloff' : alloff      (pyterminal,                                    True)
-    elif parameters[1] == 'reset'  : reset       (pyterminal,                                    True)
-    elif parameters[1] == 'enable' : enable      (pyterminal,     parameters[2],                 True)
-    elif parameters[1] == 'disable': disable     (pyterminal,     parameters[2],                 True)
-    elif parameters[1] == '++'     : increment   (pyterminal,     parameters[2],                 True)
-    elif parameters[1] == '--'     : decrement   (pyterminal,     parameters[2],                 True)
-    elif parameters[1] == '+'      : plus        (pyterminal, int(parameters[2]), parameters[3], True)
-    elif parameters[1] == '-'      : minus       (pyterminal, int(parameters[2]), parameters[3], True)
-    elif parameters[1] == 'set'    : set_source  (pyterminal, int(parameters[2]), parameters[3], True)
-    elif parameters[1] == 'get'    : get_source  (pyterminal,     parameters[2],                 True)
+    elif parameters[1] == 'clear'  : clear       (pyterminal,                               True)
+    elif parameters[1] == 'status' : status      (pyterminal,                               True)
+    elif parameters[1] == 'save'   : save        (pyterminal,                               True)
+    elif parameters[1] == 'load'   : load        (pyterminal,                               True)
+    elif parameters[1] == 'allon'  : allon       (pyterminal,                               True)
+    elif parameters[1] == 'alloff' : alloff      (pyterminal,                               True)
+    elif parameters[1] == 'reset'  : reset       (pyterminal,                               True)
+    elif parameters[1] == 'enable' : enable      (pyterminal, parameters[2],                True)
+    elif parameters[1] == 'disable': disable     (pyterminal, parameters[2],                True)
+    elif parameters[1] == '++'     : increment   (pyterminal, parameters[2],                True)
+    elif parameters[1] == '--'     : decrement   (pyterminal, parameters[2],                True)
+    elif parameters[1] == '+'      : plus        (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == '-'      : minus       (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'set'    : set_source  (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'get'    : get_source  (pyterminal, parameters[2],                True)
     else: unknown(parameters)
     
