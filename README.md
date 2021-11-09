@@ -145,11 +145,11 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | ecc            | clear     |              |          |             | Clear ECC flag                                                  
 | RRAM    | ecc            | check     |              |          |             | Check ECC flag
 | RRAM    | conf_form      | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for FORM operations                                                  
-| RRAM    | form           | [type]    | [number]     |          |             | Perform FORM operations. (ex. "form cell 2", "form row 3", "form col 4", "form module")                                                 
+| RRAM    | form           | [level]   | [number]     |          |             | Perform FORM operations. (ex. "form cell 2", "form row 3", "form col 4", "form module")                                                 
 | RRAM    | conf_set       | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for SET operations                                                  
-| RRAM    | set            | [type]    | [number]     |          |             | Perform SET operations. (ex. "set cell 2", "set row 3", "set col 4", "set module")                                                      
+| RRAM    | set            | [level]   | [number]     |          |             | Perform SET operations. (ex. "set cell 2", "set row 3", "set col 4", "set module")                                                      
 | RRAM    | conf_reset     | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for RESET operations                                                  
-| RRAM    | reset          | [type]    | [number]     |          |             | Perform RESET operations. (ex. "reset cell 2", "reset row 3", "reset col 4", "reset module")                                                       
+| RRAM    | reset          | [level]   | [number]     |          |             | Perform RESET operations. (ex. "reset cell 2", "reset row 3", "reset col 4", "reset module")                                                       
 | RRAM    | write_byte     | [addr]    | [value]      |          |             | Write [value] to [addr], simpler version of write.                                                  
 | RRAM    | write_byte_iter| [addr]    | [value]      |          |             | Write [value] to [addr] with iterative verification, more complex version of write.
 | RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |             | Configure (AVDD_WL, cycle) for READ operations
