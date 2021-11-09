@@ -38,7 +38,7 @@ def unknown(parameters):
     """ Print out the unknown command
 
     Keyword arguments:
-    pyterminal -- current connected COM port
+    parameters -- the split version of the command
     """
     print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
 

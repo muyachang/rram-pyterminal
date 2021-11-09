@@ -18,6 +18,11 @@ class PyTerminal:
         self.ser.__del__()
 
     def connect(self):
+        """ Automatically connect to the board based on the VID and PID information, and get the board version to make
+            sure the correct board is connected.
+
+        Keyword arguments:
+        """
         from serial.tools import list_ports
         for port in list_ports.comports():
             if port.vid == int(VID, 0) and port.pid == int(PID, 0):
@@ -34,6 +39,10 @@ class PyTerminal:
         return False
 
     def alive(self):
+        """ Check if the board is still connected, if not we try to connect it again
+
+        Keyword arguments:
+        """
         try:
             self.ser.in_waiting
             return True
@@ -41,6 +50,11 @@ class PyTerminal:
             return self.connect()
 
     def send_command(self, command, verbal):
+        """ Send the command to the board through COM port, print the response, and return the response.
+
+        Keyword arguments:
+        verbal -- whether to print the response or not
+        """
         # Send out the command and Give it some time to process
         self.ser.reset_output_buffer()
         self.ser.reset_input_buffer()
@@ -67,6 +81,11 @@ class PyTerminal:
 
     @staticmethod
     def unknown(parameters):
+        """ Print out the unknown command
+
+        Keyword arguments:
+        parameters -- the split version of the command
+        """
         print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
 
     def decode_command(self, command):
