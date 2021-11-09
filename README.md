@@ -5,9 +5,15 @@ This program was developed in PyCharm with Python 3.10.0rc2, the purpose of this
 ### Required Python Packages
 - pyserial
 
-### PCB Block Diagram
-Figure below shows a overall component markings of the evaluation board.
-![PCB](https://user-images.githubusercontent.com/4018299/134605757-104c7f77-8836-4417-b8e7-61fecc7c144b.png)
+### Evaluation Board
+#### Structure
+![Structure](https://user-images.githubusercontent.com/4018299/140850588-7cd2da58-717a-46f9-90fd-8df5c18abf03.png)
+#### Block Diagram
+![Block Diagram](https://user-images.githubusercontent.com/4018299/140850607-568fab2c-8d2b-47f8-9299-e08c622d739e.png)
+#### Mother Board
+![Mother Board](https://user-images.githubusercontent.com/4018299/140850611-f4fd9769-1034-425f-a181-0ed47ddad647.png)
+#### Daughter Board
+![Daughter Board](https://user-images.githubusercontent.com/4018299/140850609-052c539d-31b6-4576-bfc6-f63140e24af5.png)
 
 
 ### Voltage Sources
