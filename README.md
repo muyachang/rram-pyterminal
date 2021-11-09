@@ -150,11 +150,11 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | set            | [level]   | [number]     |          |             | Perform SET operations. (ex. "set cell 2", "set row 3", "set col 4", "set module")                                                      
 | RRAM    | conf_reset     | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for RESET operations                                                  
 | RRAM    | reset          | [level]   | [number]     |          |             | Perform RESET operations. (ex. "reset cell 2", "reset row 3", "reset col 4", "reset module")                                                       
-| RRAM    | write_byte     | [addr]    | [value]      |          |             | Write [value] to [addr], simpler version of write.                                                  
-| RRAM    | write_byte_iter| [addr]    | [value]      |          |             | Write [value] to [addr] with iterative verification, more complex version of write.
+| RRAM    | write_byte     | [address] | [value]      |          |             | Write [value] to [address], simpler version of write.                                                  
+| RRAM    | write_byte_iter| [address] | [value]      |          |             | Write [value] to [address] with iterative verification, more complex version of write.
 | RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |             | Configure (AVDD_WL, cycle) for READ operations
-| RRAM    | read_lane      | [addr]    | [data]       |          |             | Read [addr] with [data] WLs turned on (Only that lane is being read)
-| RRAM    | read_byte      | [addr]    | [counter]    | [data]   |             | Read the whole byte at [addr] with [data] WLs turned on (8 lanes are being read)
+| RRAM    | read_lane      | [address] | [data]       |          |             | Read [address] with [data] WLs turned on (Only that lane is being read)
+| RRAM    | read_byte      | [address] | [counter]    | [data]   |             | Read the whole byte at [address] with [data] WLs turned on (8 lanes are being read)
 | RRAM    | conf_ADC       | [offset]  | [step]       | [comp]   |             | Configure (Offset, Step, Comparator) for ADCs                                                  
 | RRAM    | conf_MAC       | [mode]    | [resolution] |          |             | Configure (Mode, Resolution) for MACs                                                  
 | RRAM    | calibrate_VRef | [index]   | [low]        | [high]   | [tolerance] | Calibrate reference voltages for module [index] so the range is between [low]~[high] with tolerance [tolerance]
