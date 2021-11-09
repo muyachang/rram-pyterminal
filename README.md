@@ -162,7 +162,7 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | list_VRef      | [index]   |              |          |             | List reference voltages of module [index]
 | RRAM    | calibrate_DRef | [index]   | [ones]       |          |             | Calibrate decoder reference levels for [ones] WLs turned on simultaneously. (Omitting [ones] parameter to perform calibration for [ones] = 1~9)  
 | RRAM    | list_DRef      | [index]   |              |          |             | List decoder reference levels of module [index]
-| RRAM    | check          | [type]    | [number]     |          |             | Check the status of cells, i.e. perform set and reset one after another to make sure the cells are responsive.
+| RRAM    | check          | [level]   | [number]     |          |             | Check the status of cells, i.e. perform set and reset one after another to make sure the cells are responsive.
 
 ### Suggested Form/Set/Reset/Read Parameters
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times
