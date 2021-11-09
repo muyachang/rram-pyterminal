@@ -145,24 +145,24 @@ There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them ca
 | RRAM    | ecc            | clear     |              |          |             | Clear ECC flag                                                  
 | RRAM    | ecc            | check     |              |          |             | Check ECC flag
 | RRAM    | conf_form      | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for FORM operations                                                  
-| RRAM    | form           | [type]    | [number]     |          |             | Perform FORM operations. (ex. "form cell 2", "form row 3", "form col 4", "form module")                                                 
+| RRAM    | form           | [level]   | [number]     |          |             | Perform FORM operations. (ex. "form cell 2", "form row 3", "form col 4", "form module")                                                 
 | RRAM    | conf_set       | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for SET operations                                                  
-| RRAM    | set            | [type]    | [number]     |          |             | Perform SET operations. (ex. "set cell 2", "set row 3", "set col 4", "set module")                                                      
+| RRAM    | set            | [level]   | [number]     |          |             | Perform SET operations. (ex. "set cell 2", "set row 3", "set col 4", "set module")                                                      
 | RRAM    | conf_reset     | [AVDD_WR] | [AVDD_WL]    | [cycle]  | [times]     | Configure (AVDD_WR, AVDD_WL, cycle, times) for RESET operations                                                  
-| RRAM    | reset          | [type]    | [number]     |          |             | Perform RESET operations. (ex. "reset cell 2", "reset row 3", "reset col 4", "reset module")                                                       
-| RRAM    | write_byte     | [addr]    | [value]      |          |             | Write [value] to [addr], simpler version of write.                                                  
-| RRAM    | write_byte_iter| [addr]    | [value]      |          |             | Write [value] to [addr] with iterative verification, more complex version of write.
+| RRAM    | reset          | [level]   | [number]     |          |             | Perform RESET operations. (ex. "reset cell 2", "reset row 3", "reset col 4", "reset module")                                                       
+| RRAM    | write_byte     | [address] | [value]      |          |             | Write [value] to [address], simpler version of write.                                                  
+| RRAM    | write_byte_iter| [address] | [value]      |          |             | Write [value] to [address] with iterative verification, more complex version of write.
 | RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |             | Configure (AVDD_WL, cycle) for READ operations
-| RRAM    | read_lane      | [addr]    | [data]       |          |             | Read [addr] with [data] WLs turned on (Only that lane is being read)
-| RRAM    | read_byte      | [addr]    | [counter]    | [data]   |             | Read the whole byte at [addr] with [data] WLs turned on (8 lanes are being read)
+| RRAM    | read_lane      | [address] | [data]       |          |             | Read [address] with [data] WLs turned on (Only that lane is being read)
+| RRAM    | read_byte      | [address] | [counter]    | [data]   |             | Read the whole byte at [address] with [data] WLs turned on (8 lanes are being read)
 | RRAM    | conf_ADC       | [offset]  | [step]       | [comp]   |             | Configure (Offset, Step, Comparator) for ADCs                                                  
 | RRAM    | conf_MAC       | [mode]    | [resolution] |          |             | Configure (Mode, Resolution) for MACs                                                  
 | RRAM    | calibrate_VRef | [index]   | [low]        | [high]   | [tolerance] | Calibrate reference voltages for module [index] so the range is between [low]~[high] with tolerance [tolerance]
 | RRAM    | sweep_VRef     | [index]   | [low]        | [high]   | [step]      | Sweep ADC_CAL from [low]~[high] with step [step] to get 15 reference voltages for module [index]
 | RRAM    | list_VRef      | [index]   |              |          |             | List reference voltages of module [index]
-| RRAM    | calibrate_DRef | [index]   | [ones]       |          |             | Calibrate decoder reference levels for [ones] WLs turned on simultaneously. (Omitting [ones] parameter to perform calibration for [ones] = 1~9)  
+| RRAM    | sweep_DRef     | [index]   | [ones]       |          |             | Sweep decoder reference levels for [ones] WLs turned on simultaneously. (Omitting [ones] parameter to perform sweeping for [ones] = 1~9)  
 | RRAM    | list_DRef      | [index]   |              |          |             | List decoder reference levels of module [index]
-| RRAM    | check          | [type]    | [number]     |          |             | Check the status of cells, i.e. perform set and reset one after another to make sure the cells are responsive.
+| RRAM    | check          | [level]   | [number]     |          |             | Check the status of cells, i.e. perform set and reset one after another to make sure the cells are responsive.
 
 ### Suggested Form/Set/Reset/Read Parameters
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times
