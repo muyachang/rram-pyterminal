@@ -20,17 +20,14 @@ def reset(pyterminal, verbal):
 
 
 def read(pyterminal, level, number, verbal):
-    print(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + number)
     pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + number, verbal)
 
 
 def write(pyterminal, address, value, verbal):
-    print(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + address + ' ' + value)
     pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + address + ' ' + value, verbal)
 
 
 def erase(pyterminal, level, number, verbal):
-    print(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + number)
     pyterminal.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + number, verbal)
 
 
