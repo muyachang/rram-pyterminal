@@ -52,8 +52,11 @@ The detail description of the functions below are inside each .py files
 | PM      | +              | [value]   | [target]     |          |            
 | PM      | -              | [value]   | [target]     |          |            
 | PM      | set            | [value]   | [target]     |          |            
+| PM      | set_safe       | [value]   | [target]     |          |            
 | PM      | get            | [target]  |              |          |            
 | DAC     | list           |           |              |          |            
+| DAC     | save           |           |              |          |            
+| DAC     | load           |           |              |          |            
 | DAC     | ++             | [target]  |              |          |            
 | DAC     | --             | [target]  |              |          |            
 | DAC     | +              | [value]   | [target]     |          |            
