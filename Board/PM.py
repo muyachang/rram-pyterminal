@@ -177,7 +177,19 @@ def set_source(pyterminal, value, target, verbal):
     verbal -- whether to print the response or not
     """
     pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET + ' ' + value + ' ' + VoltDict[target], verbal)
-    
+
+
+def set_safe_source(pyterminal, value, target, verbal):
+    """ Set 'target' voltage source to 'value' mV 'safely' by disabling it first, and enabling last to avoid overshoot
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    value -- voltage (mV)
+    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
+    verbal -- whether to print the response or not
+    """
+    pyterminal.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET_SAFE + ' ' + value + ' ' + VoltDict[target], verbal)
+
 
 def get_source(pyterminal, target, verbal):
     """ Get the current voltage of 'target' source
@@ -206,21 +218,22 @@ def decode(pyterminal, parameters):
     pyterminal -- current connected COM port
     parameters -- split version of the command
     """
-    if   parameters[1] == 'list'   : list_sources(pyterminal)
-    elif parameters[1] == 'clear'  : clear       (pyterminal,                               True)
-    elif parameters[1] == 'status' : status      (pyterminal,                               True)
-    elif parameters[1] == 'save'   : save        (pyterminal,                               True)
-    elif parameters[1] == 'load'   : load        (pyterminal,                               True)
-    elif parameters[1] == 'allon'  : allon       (pyterminal,                               True)
-    elif parameters[1] == 'alloff' : alloff      (pyterminal,                               True)
-    elif parameters[1] == 'reset'  : reset       (pyterminal,                               True)
-    elif parameters[1] == 'enable' : enable      (pyterminal, parameters[2],                True)
-    elif parameters[1] == 'disable': disable     (pyterminal, parameters[2],                True)
-    elif parameters[1] == '++'     : increment   (pyterminal, parameters[2],                True)
-    elif parameters[1] == '--'     : decrement   (pyterminal, parameters[2],                True)
-    elif parameters[1] == '+'      : plus        (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == '-'      : minus       (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'set'    : set_source  (pyterminal, parameters[2], parameters[3], True)
-    elif parameters[1] == 'get'    : get_source  (pyterminal, parameters[2],                True)
+    if   parameters[1] == 'list'    : list_sources   (pyterminal)
+    elif parameters[1] == 'clear'   : clear          (pyterminal,                               True)
+    elif parameters[1] == 'status'  : status         (pyterminal,                               True)
+    elif parameters[1] == 'save'    : save           (pyterminal,                               True)
+    elif parameters[1] == 'load'    : load           (pyterminal,                               True)
+    elif parameters[1] == 'allon'   : allon          (pyterminal,                               True)
+    elif parameters[1] == 'alloff'  : alloff         (pyterminal,                               True)
+    elif parameters[1] == 'reset'   : reset          (pyterminal,                               True)
+    elif parameters[1] == 'enable'  : enable         (pyterminal, parameters[2],                True)
+    elif parameters[1] == 'disable' : disable        (pyterminal, parameters[2],                True)
+    elif parameters[1] == '++'      : increment      (pyterminal, parameters[2],                True)
+    elif parameters[1] == '--'      : decrement      (pyterminal, parameters[2],                True)
+    elif parameters[1] == '+'       : plus           (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == '-'       : minus          (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'set'     : set_source     (pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'set_safe': set_safe_source(pyterminal, parameters[2], parameters[3], True)
+    elif parameters[1] == 'get'     : get_source     (pyterminal, parameters[2],                True)
     else: unknown(parameters)
     
