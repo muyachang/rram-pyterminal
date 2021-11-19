@@ -19,6 +19,26 @@ def list_sources(pyterminal):
     print('---------------------------')
 
 
+def save(pyterminal, verbal):
+    """ Save the current levels of the DAC to the EEPROM
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    verbal -- whether to print the response or not
+    """
+    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_SAVE, verbal)
+
+
+def load(pyterminal, verbal):
+    """ Load the current levels of the DAC from the EEPROM
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    verbal -- whether to print the response or not
+    """
+    pyterminal.send_command(CM.CM_DAC + ' ' + CM.CM_DAC_LOAD, verbal)
+
+
 def increment(pyterminal, target, verbal):
     """ Increase the 'target' source by 1 in it's binary format
 
@@ -105,6 +125,8 @@ def decode(pyterminal, parameters):
     parameters -- split version of the command
     """
     if   parameters[1] == 'list': list_sources(pyterminal                                    )
+    elif parameters[1] == 'save': save        (pyterminal,                               True)
+    elif parameters[1] == 'load': load        (pyterminal,                               True)
     elif parameters[1] == '++'  : increment   (pyterminal, parameters[2],                True)
     elif parameters[1] == '--'  : decrement   (pyterminal, parameters[2],                True)
     elif parameters[1] == '+'   : plus        (pyterminal, parameters[2], parameters[3], True)
