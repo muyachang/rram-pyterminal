@@ -1,6 +1,6 @@
 import time
 import serial
-from Lib import DEMO, ASCII, RRAM, VECTOR
+from Lib import DEMO, ASCII, RRAM, VECTOR, DNN
 from Board import EEPROM, PM, LED, DF, DAC, TC, BOARD
 import USER
 import CommandMap as CM
@@ -67,7 +67,6 @@ class PyTerminal:
         self.ser.reset_output_buffer()
         self.ser.reset_input_buffer()
         self.ser.write(str.encode(command + '\n'))
-        time.sleep(0.001)
 
         # Wait for EOT
         response = b''
@@ -118,6 +117,7 @@ class PyTerminal:
             elif parameters[0] == "DEMO"  :   DEMO.decode(self, parameters)
             elif parameters[0] == "RRAM"  :   RRAM.decode(self, parameters)
             elif parameters[0] == "VECTOR": VECTOR.decode(self, parameters)
+            elif parameters[0] == "DNN"   :    DNN.decode(self, parameters)
             elif parameters[0] == "USER"  :   USER.decode(self, parameters)
             else: self.unknown(parameters)
         
