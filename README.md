@@ -181,3 +181,6 @@ The detail description of the functions below are inside each .py files
 | Set    | 2200        | 2200        | 100    | 20        
 | Reset  | 2800        | 2800        | 200    | 80        
 | Read   | N/A         | 1100        | 5      | N/A
+
+#### Firmware Update
+To update the firmwares, please refer to [rram-programmer](https://github.com/muyachang/rram-programmer)
