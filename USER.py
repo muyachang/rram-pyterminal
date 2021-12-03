@@ -1,128 +1,9 @@
 import random
 import time
+from ctypes import c_int8
 
-import DAC
+import DAC, DNN
 from Lib import RRAM
-
-
-def clear(pyterminal):
-    """ Clear the RRAM module when it's just awakened
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    """
-    # Clear up some registers
-    RRAM.read(pyterminal, 'set', 'enable', '1', True)
-    RRAM.read(pyterminal, 'set', 'counter', '7', True)
-    RRAM.read(pyterminal, 'toggle', '', '', True)
-    RRAM.read(pyterminal, 'set', 'counter', '0', True)
-    RRAM.read(pyterminal, 'toggle', '', '', True)
-    RRAM.read(pyterminal, 'set', 'enable', '0', True)
-
-
-def read(pyterminal, level, number):
-    """ A handy read function to read through one or more RRAM cells
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    level -- could be 'cell', 'row', 'col', 'module'
-    number -- target number
-    """
-    if level == 'cell':
-        addr = int(number)
-        response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
-        print(f'{addr:>6} : {response:>10}')
-    elif level == 'row':
-        for col in range(0, 256):
-            addr = int(number)*256 + col
-            response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
-            print(f'{addr:>6} : {response:>10}')
-    elif level == 'col':
-        for row in range(0, 256):
-            addr = row*256 + int(number)
-            response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
-            print(f'{addr:>6} : {response:>10}')
-    elif level == 'module':
-        for row in range(0, 256):
-            print('row: ' + str(row))
-            for col in range(0, 256):
-                addr = row*256 + col
-                response = RRAM.read_lane(pyterminal, str(addr), '0x1', False)
-                print(f'{addr:>6} : {response:>10}')
-
-
-def calibrate_VTGT_BL(pyterminal, row, col):
-    """ Calibrate VTGT_BL for the decoder reference levels are between '0xFFFF'~'0x4000'
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    row -- from '0'~'255'
-    col -- from '0'~'255'
-    """
-    print('calibrating VTGT_BL ...')
-
-    # Reset first 9 cells
-    print('Resetting ... ', end='')
-    for row_offset in range(0, 9):
-        addr = (int(row)+row_offset) * 256 + int(col)
-        RRAM.reset(pyterminal, 'cell', str(addr), True)
-
-    # Set second 9 cells
-    print('Setting ... ')
-    for row_offset in range(9, 18):
-        addr = (int(row)+row_offset) * 256 + int(col)
-        RRAM.set(pyterminal, 'cell', str(addr), True)
-
-    trial = 5
-    cal_low = 0
-    cal_high = 1100
-    vtgt_bl = 0
-
-    while cal_high > cal_low and trial:
-        vtgt_bl = int((cal_low + cal_high)/2.0)
-        DAC.set_voltage_source(pyterminal, str(vtgt_bl), 'VTGT_BL')
-        raw_high = RRAM.read_lane(pyterminal, str((int(row)+9)*256+int(col)), '0x1FF', False)
-        print('cal_low: ' + str(cal_low) + ' ; cal_high: ' + str(cal_high) + ' ; raw_high: ' + raw_high, end='')
-        if int(raw_high, 0) < int('0x4000', 0):
-            trial = 5
-            cal_high = vtgt_bl
-        elif int(raw_high, 0) > int('0x4000', 0):
-            trial = 5
-            cal_low = vtgt_bl
-        else:
-            trial -= 1
-        print(' ; trial: ' + str(trial))
-
-    print('VTGT_BL: ' + str(vtgt_bl))
-    test_bit_cim(pyterminal, row, col, True)
-
-
-def calibrate_VTGT_BL_linear(pyterminal, row, col):
-    """ Calibrate VTGT_BL for the decoder reference levels are between '0xFFFF'~'0x4000', linear version
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    row -- from '0'~'255'
-    col -- from '0'~'255'
-    """
-    print('calibrating VTGT_BL ...')
-
-    trial = 5
-    vtgt_bl = 50
-
-    while trial:
-        DAC.set_voltage_source(pyterminal, str(vtgt_bl), 'VTGT_BL')
-        raw_low = RRAM.read_lane(pyterminal, str(int(row)*256+int(col)), '0x1', False)
-        raw_high = RRAM.read_lane(pyterminal, str((int(row)+9)*256+int(col)), '0x1FF', False)
-        if raw_high == '0x4000':
-            trial -= 1
-        else:
-            trial = 5
-            vtgt_bl += 2
-
-    print('VTGT_BL: ' + str(vtgt_bl))
-    test_bit_cim(pyterminal, row, col, True)
-
 
 def sweep_chip_VRef(pyterminal):
     """ Sweep reference voltages for the whole chip
@@ -135,31 +16,21 @@ def sweep_chip_VRef(pyterminal):
     print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
     for module in range(0, 288):
         # Set to the new module and clear it
-        RRAM.module(pyterminal, 'set', str(module), True)
+        RRAM.switch(pyterminal, str(module), True)
         time.sleep(1)
-        clear(pyterminal)
 
         # Find the (offset, step)
-        trial = 3
-        while trial:
-            response = RRAM.calibrate_voltage_references(pyterminal, str(module), '120', '750', '5', False)
-            offset = int(response.split()[0])
-            step = int(response.split()[1])
-            if offset != -1 and step != -1:
-                break
-            time.sleep(1)
-            trial -= 1
+        response = RRAM.calibrate_voltage_references(pyterminal, str(module), '120', '700', '5', False)
+        offset = int(response.split()[0])
+        step = int(response.split()[1])
 
         # Config the ADC and Sweep the VRef
-        if trial:
-            RRAM.conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', True)
-            RRAM.sweep_voltage_references(pyterminal, str(module), '50', '850', '2', True)
+        RRAM.conf_ADC(pyterminal, str(offset), str(step), '0x7FFF', False)
+        RRAM.sweep_voltage_references(pyterminal, str(module), '0', '900', '2', False)
 
-            # Find the VRef
-            response = RRAM.list_voltage_references(pyterminal, str(module), False)
-            vrefs = response.split('\n')[3].split('|')[2:17]
-        else:
-            vrefs = [''] * 15
+        # Find the VRef
+        response = RRAM.list_voltage_references(pyterminal, str(module), False)
+        vrefs = response.split('\n')[3].split('|')[2:17]
 
         # Print out the result
         print(f'| {module:>6} | {offset:>6} | {step:>4} |', end='')
@@ -292,11 +163,10 @@ def decode(pyterminal, parameters):
     pyterminal -- current connected COM port
     parameters -- split version of the command
     """
-    if   parameters[1] == 'clear'            : clear            (pyterminal)
-    elif parameters[1] == 'read'             : read             (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'sweep_chip_VRef'  : sweep_chip_VRef  (pyterminal)
-    elif parameters[1] == 'test_write_byte'  : test_write_byte  (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'test_bit_cim'     : test_bit_cim     (pyterminal, parameters[2], parameters[3])
-    elif parameters[1] == 'test_byte_cim'    : test_byte_cim    (pyterminal, parameters[2], parameters[3], parameters[4])
+    if   parameters[1] == 'sweep_chip_VRef'    : sweep_chip_VRef    (pyterminal)
+    elif parameters[1] == 'test_write_byte'    : test_write_byte    (pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'test_bit_cim'       : test_bit_cim       (pyterminal, parameters[2], parameters[3])
+    elif parameters[1] == 'test_byte_cim'      : test_byte_cim      (pyterminal, parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == 'mnist_write_weights': mnist_write_weights(pyterminal)
+    elif parameters[1] == 'mnist_inference'    : mnist_inference    (pyterminal)
     else: unknown(parameters)
