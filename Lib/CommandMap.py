@@ -115,6 +115,11 @@ CM_RRAM_API_SWEEP_DREF      = b'\x67'.decode('utf-8')
 CM_RRAM_API_LIST_DREF       = b'\x68'.decode('utf-8')
 CM_RRAM_API_CHECK_CELL      = b'\x69'.decode('utf-8')
 
+CM_RRAM_API_LEVEL_CELL      = b'\x41'.decode('utf-8')
+CM_RRAM_API_LEVEL_ROW       = b'\x42'.decode('utf-8')
+CM_RRAM_API_LEVEL_COL       = b'\x43'.decode('utf-8')
+CM_RRAM_API_LEVEL_MODULE    = b'\x44'.decode('utf-8')
+
 CM_VECTOR_PID               = b'\x41'.decode('utf-8')
 
 CM_DNN_CLEAN_INPUT          = b'\x41'.decode('utf-8')
