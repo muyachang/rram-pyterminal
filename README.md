@@ -177,9 +177,9 @@ The detail description of the functions below are inside each .py files
 ### Suggested Form/Set/Reset/Read Parameters
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times
 | :----: | :----:      | :----:      | :----: | :----:      
-| Form   | 3200        | 1600        | 20     | 4        
-| Set    | 2200        | 2200        | 100    | 10        
-| Reset  | 2800        | 2800        | 200    | 40        
+| Form   | 3200        | 1600        | 20     | 2     
+| Set    | 2200        | 2200        | 100    | 2        
+| Reset  | 2800        | 2800        | 200    | 8        
 | Read   | N/A         | 1100        | 5      | N/A
 
 ### Firmware Update

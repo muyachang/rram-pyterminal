@@ -147,6 +147,120 @@ def test_byte_cim(pyterminal, row, col, num):
     print('----------------------------------------')
 
 
+def mnist_write_weights(pyterminal):
+    # For 256_10
+    #   Layer 1: 5
+
+    # For 256_32_10
+    # Layer 1: 9
+    # Layer 2: 12
+
+    # Some configuration
+    folder_dir = 'D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST_MLP\data_256_32_10'
+
+    # Read the layer 1 weights
+    RRAM.module(pyterminal, 'set', '9', False)
+    RRAM.conf_ADC(pyterminal, '1', '12', '0x7FFF', False)
+    weight_path = folder_dir + '\\fc1.txt'
+    f = open(weight_path, 'r')
+    count = 0
+    print('-----------------------------------------------')
+    print('| ( row, col) | Golden | Readout | Difference |')
+    print('-----------------------------------------------')
+    for line in f:
+        for w in line.split():
+            row = count % 256 # fc1
+            col = int(count/256) # fc1
+            addr = row * 256 + col
+            golden = int(w)
+            #print(f'{golden:>4} @ ({row:>3}, {col:>3})')
+            RRAM.write_byte_iter(pyterminal, str(addr), str(golden), True)
+            readout = int(RRAM.read_byte(pyterminal, str(addr), '0', '0x1', False))
+            print(f'| ( {row:>3}, {col:>3}) | {golden:>6} | {readout:>7} | {golden-readout:>10} |')
+            count += 1
+    print('-----------------------------------------------')
+
+    #  Read the layer 2 weights
+    RRAM.module(pyterminal, 'set', '12', False)
+    RRAM.conf_ADC(pyterminal, '8', '28', '0x7FFF', False)
+    weight_path = folder_dir + '\\fc2.txt'
+    f = open(weight_path, 'r')
+    count = 0
+    print('-----------------------------------------------')
+    print('| ( row, col) | Golden | Readout | Difference |')
+    print('-----------------------------------------------')
+    for line in f:
+        for w in line.split():
+            row = count % 32 # fc2
+            col = int(count/32) # fc2
+            addr = row * 256 + col
+            golden = int(w)
+            #print(f'{golden:>4} @ ({row:>3}, {col:>3})')
+            RRAM.write_byte_iter(pyterminal, str(addr), str(golden), True)
+            readout = int(RRAM.read_byte(pyterminal, str(addr), '0', '0x1', False))
+            print(f'| ( {row:>3}, {col:>3}) | {golden:>6} | {readout:>7} | {golden-readout:>10} |')
+            count += 1
+    print('-----------------------------------------------')
+
+
+def mnist_inference(pyterminal):
+
+    # Some configuration
+    folder_dir = 'D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST_MLP\data_256_32_10'
+    num_WL = 1
+
+    # Read labels
+    label_path = folder_dir + '\labels.txt'
+    f = open(label_path, 'r')
+    labels = f.readline().split()
+    f.close()
+
+    # Read predictions
+    pred_path = folder_dir + '\predictions.txt'
+    f = open(pred_path, 'r')
+    sim_preds = f.readline().split()
+    f.close()
+
+    # Read quantizations
+    fc1_q = 0
+    fc2_q = 0
+    q_path = folder_dir + '\\fc1_q.txt'
+    f = open(q_path, 'r')
+    fc1_q = f.readline().split()
+    f.close()
+    q_path = folder_dir + '\\fc2_q.txt'
+    f = open(q_path, 'r')
+    fc2_q = f.readline().split()
+    f.close()
+
+    # Read the image and do th inference
+    print( '---------------------------')
+    print(f'| Index | Gold | Sim | TC |')
+    print( '---------------------------')
+    tc_preds = []
+    for index in range(1000):
+        # Read the image
+        image_path = folder_dir + '\image' + str(index) + '.txt'
+        image = []
+        f = open(image_path, 'r')
+        for line in f:
+            image.extend(line.split())
+        f.close()
+
+        # Write the image
+        DNN.clean_input(pyterminal, True)
+        for i in range(256):
+            if image[i] != '0':
+                DNN.config_input(pyterminal, str(i), image[i], True)
+
+        # Inference
+        tc_preds.append(DNN.forward(pyterminal, '1', False))
+
+        # Print the result
+        print(f'| {index:>5} | {labels[index]:>4} | {sim_preds[index]:>3} | {tc_preds[index]:>2} |')
+    print( '---------------------------')
+
+
 def unknown(parameters):
     """ Print out the unknown command
 
