@@ -279,22 +279,13 @@ def form(pyterminal, level, number, verbal):
     verbal -- whether to print the response or not
     """
     if level == 'cell':
-        addr = int(number)
-        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + str(addr), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + CM.CM_RRAM_API_LEVEL_CELL + ' ' + number, verbal)
     elif level == 'row':
-        for col in range(0, 256):
-            addr = int(number)*256 + col
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + str(addr), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + CM.CM_RRAM_API_LEVEL_ROW + ' ' + number, verbal)
     elif level == 'col':
-        for row in range(0, 256):
-            addr = row*256 + int(number)
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + str(addr), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + CM.CM_RRAM_API_LEVEL_COL + ' ' + number, verbal)
     elif level == 'module':
-        for row in range(0, 256):
-            print('row: ' + str(row))
-            for col in range(0, 256):
-                addr = row*256 + col
-                pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + str(addr), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_FORM + ' ' + CM.CM_RRAM_API_LEVEL_MODULE + ' ' + number, verbal)
 
 
 def conf_set(pyterminal, AVDD_WR, AVDD_WL, cycle, times, verbal):
@@ -321,22 +312,13 @@ def set(pyterminal, level, number, verbal):
     verbal -- whether to print the response or not
     """
     if level == 'cell':
-        address = int(number)
-        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + CM.CM_RRAM_API_LEVEL_CELL + ' ' + number, verbal)
     elif level == 'row':
-        for col in range(0, 256):
-            address = int(number)*256 + col
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + CM.CM_RRAM_API_LEVEL_ROW + ' ' + number, verbal)
     elif level == 'col':
-        for row in range(0, 256):
-            address = row*256 + int(number)
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + CM.CM_RRAM_API_LEVEL_COL + ' ' + number, verbal)
     elif level == 'module':
-        for row in range(0, 256):
-            print('row: ' + str(row))
-            for col in range(0, 256):
-                address = row*256 + col
-                pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET + ' ' + CM.CM_RRAM_API_LEVEL_MODULE + ' ' + number, verbal)
 
 
 def conf_reset(pyterminal, AVDD_WR, AVDD_WL, cycle, times, verbal):
@@ -363,22 +345,13 @@ def reset(pyterminal, level, number, verbal):
     verbal -- whether to print the response or not
     """
     if level == 'cell':
-        address = int(number)
-        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + CM.CM_RRAM_API_LEVEL_CELL + ' ' + number, verbal)
     elif level == 'row':
-        for col in range(0, 256):
-            address = int(number)*256 + col
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + CM.CM_RRAM_API_LEVEL_ROW + ' ' + number, verbal)
     elif level == 'col':
-        for row in range(0, 256):
-            address = row*256 + int(number)
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + CM.CM_RRAM_API_LEVEL_COL + ' ' + number, verbal)
     elif level == 'module':
-        for row in range(0, 256):
-            print('row: ' + str(row))
-            for col in range(0, 256):
-                address = row*256 + col
-                pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + str(address), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_RESET + ' ' + CM.CM_RRAM_API_LEVEL_MODULE + ' ' + number, verbal)
 
 
 def set_reset(pyterminal, level, number, times, verbal):
@@ -392,22 +365,13 @@ def set_reset(pyterminal, level, number, times, verbal):
     verbal -- whether to print the response or not
     """
     if level == 'cell':
-        address = int(number)
-        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + str(address) + ' ' + str(times), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + CM.CM_RRAM_API_LEVEL_CELL + ' ' + number + ' ' + times, verbal)
     elif level == 'row':
-        for col in range(0, 256):
-            address = int(number)*256 + col
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + str(address) + ' ' + str(times), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + CM.CM_RRAM_API_LEVEL_ROW + ' ' + number + ' ' + times, verbal)
     elif level == 'col':
-        for row in range(0, 256):
-            address = row*256 + int(number)
-            pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + str(address) + ' ' + str(times), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + CM.CM_RRAM_API_LEVEL_COL + ' ' + number + ' ' + times, verbal)
     elif level == 'module':
-        for row in range(0, 256):
-            print('row: ' + str(row))
-            for col in range(0, 256):
-                address = row*256 + col
-                pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + str(address) + ' ' + str(times), verbal)
+        pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SET_RESET + ' ' + CM.CM_RRAM_API_LEVEL_MODULE + ' ' + number + ' ' + times, verbal)
 
 
 def write_byte(pyterminal, address, value, verbal):
