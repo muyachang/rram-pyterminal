@@ -178,8 +178,8 @@ The detail description of the functions below are inside each .py files
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times
 | :----: | :----:      | :----:      | :----: | :----:      
 | Form   | 3200        | 1600        | 20     | 4        
-| Set    | 2200        | 2200        | 100    | 20        
-| Reset  | 2800        | 2800        | 200    | 80        
+| Set    | 2200        | 2200        | 100    | 10        
+| Reset  | 2800        | 2800        | 200    | 40        
 | Read   | N/A         | 1100        | 5      | N/A
 
 ### Firmware Update
