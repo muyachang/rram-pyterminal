@@ -398,16 +398,15 @@ def write_byte_iter(pyterminal, address, value, verbal):
     pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_WRITE_BYTE_ITER + ' ' + address + ' ' + value, verbal)
 
 
-def conf_read(pyterminal, AVDD_WL, cycle, verbal):
+def conf_read(pyterminal, cycle, verbal):
     """ Configure READ operation
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    AVDD_WL -- AVDD_WL voltage
     cycle -- number of clock cycles per pulse
     verbal -- whether to print the response or not
     """
-    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_READ + ' ' + AVDD_WL + ' ' + cycle, verbal)
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_READ + ' ' + cycle, verbal)
 
 
 def read_lane(pyterminal, address, data, verbal):
@@ -628,7 +627,7 @@ def decode(pyterminal, parameters):
     elif parameters[1] == 'reset'            : reset                       (pyterminal, parameters[2], parameters[3],                               True)
     elif parameters[1] == 'write_byte'       : write_byte                  (pyterminal, parameters[2], parameters[3],                               True)
     elif parameters[1] == 'write_byte_iter'  : write_byte_iter             (pyterminal, parameters[2], parameters[3],                               True)
-    elif parameters[1] == 'conf_read'        : conf_read                   (pyterminal, parameters[2], parameters[3],                               True)
+    elif parameters[1] == 'conf_read'        : conf_read                   (pyterminal, parameters[2],                                              True)
     elif parameters[1] == 'read_lane'        : read_lane                   (pyterminal, parameters[2], parameters[3],                               True)
     elif parameters[1] == 'read_byte'        : read_byte                   (pyterminal, parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'conf_ADC'         : conf_ADC                    (pyterminal, parameters[2], parameters[3], parameters[4],                True)
