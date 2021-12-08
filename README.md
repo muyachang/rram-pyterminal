@@ -162,7 +162,7 @@ The detail description of the functions below are inside each .py files
 | RRAM    | reset          | [level]   | [number]     |          |            
 | RRAM    | write_byte     | [address] | [value]      |          |            
 | RRAM    | write_byte_iter| [address] | [value]      |          |            
-| RRAM    | conf_read      | [AVDD_WL] | [cycle]      |          |            
+| RRAM    | conf_read      | [cycle]   |              |          |    
 | RRAM    | read_lane      | [address] | [data]       |          |            
 | RRAM    | read_byte      | [address] | [counter]    | [data]   |            
 | RRAM    | conf_ADC       | [offset]  | [step]       | [comp]   |            
