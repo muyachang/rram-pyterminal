@@ -459,98 +459,90 @@ def conf_MAC(pyterminal, mode, resolution, verbal):
     pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_MAC + ' ' + mode + ' ' + resolution, verbal)
 
 
-def calibrate_voltage_references(pyterminal, index, low, high, tolerance, verbal):
-    """ Calibrate the internally generated reference voltages so the range would be approx. ('low', 'high') for 'index' module
+def calibrate_voltage_references(pyterminal, low, high, tolerance, verbal):
+    """ Calibrate the internally generated reference voltages so the range would be approx. ('low', 'high') for the current module
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     low -- lower bound of the reference voltages
     high -- upper bound of the reference voltages
     tolerance -- means ideally the first extreme reference voltage should be within 'tolerance' from either 'low' or 'high'
     verbal -- whether to print the response or not
     """
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_VREF + ' ' + index + ' ' + low + ' ' + high + ' ' + tolerance, verbal)
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_VREF + ' ' + low + ' ' + high + ' ' + tolerance, verbal)
 
 
-def sweep_voltage_references(pyterminal, index, low, high, step, verbal):
-    """ Sweep the ADC_CAL and look for all 15 internally generated reference voltages for 'index' module
+def sweep_voltage_references(pyterminal, low, high, step, verbal):
+    """ Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     low -- starting voltage for ADC_CAL
     high -- ending voltage for ADC_CAL
     step -- step for ADC_CAL
     verbal -- whether to print the response or not
     """
-    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWEEP_VREF + ' ' + index + ' ' + low + ' ' + high + ' ' + step, verbal)
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWEEP_VREF + ' ' + low + ' ' + high + ' ' + step, verbal)
 
 
-def list_voltage_references(pyterminal, index, verbal):
-    """ List 15 internally generated reference voltages of 'index' module, sweep_voltage_references needs to be done in advance
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
-    verbal -- whether to print the response or not
-    """
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VREF + ' ' + index, verbal)
-
-
-def calibrate_vtgt_bl(pyterminal, index, verbal):
-    """ Calibrate VTGT_BL for 'index' module
+def list_voltage_references(pyterminal, verbal):
+    """ List 15 internally generated reference voltages of the current module, sweep_voltage_references needs to be done in advance
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     verbal -- whether to print the response or not
     """
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_VTGT_BL + ' ' + index, verbal)
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VREF, verbal)
 
 
-def save_vtgt_bl(pyterminal, index, vtgt_bl, verbal):
-    """ Save the VTGT_BL for 'index' module
+def calibrate_vtgt_bl(pyterminal, verbal):
+    """ Calibrate VTGT_BL for the current module
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     verbal -- whether to print the response or not
     """
-    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SAVE_VTGT_BL + ' ' + index + ' ' + vtgt_bl, verbal)
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_VTGT_BL, verbal)
 
 
-def list_vtgt_bl(pyterminal, index, verbal):
-    """ List saved VTGT_BL of 'index' module
+def conf_vtgt_bl(pyterminal, vtgt_bl, verbal):
+    """ Save the VTGT_BL for the current module
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     verbal -- whether to print the response or not
     """
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VTGT_BL + ' ' + index, verbal)
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_VTGT_BL + ' ' + vtgt_bl, verbal)
 
-def sweep_decoder_references(pyterminal, index, ones, verbal):
+
+def list_vtgt_bl(pyterminal, verbal):
+    """ List saved VTGT_BL of the current module
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    verbal -- whether to print the response or not
+    """
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VTGT_BL, verbal)
+
+def sweep_decoder_references(pyterminal, ones, verbal):
     """ Calibrate decoder reference levels
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     ones -- could be omit or '0'~'9', omit means do the calibration for all '1'~'9'
     verbal -- whether to print the response or not
     """
-    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWEEP_DREF + ' ' + index + ' ' + ones, verbal)
+    pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWEEP_DREF + ' ' + ones, verbal)
 
 
-def list_decoder_references(pyterminal, index, verbal):
-    """ List decoder reference levels of 'index' module
+def list_decoder_references(pyterminal, verbal):
+    """ List decoder reference levels of the current module
 
     Keyword arguments:
     pyterminal -- current connected COM port
-    index -- from '0' ~ '287', the target RRAM module
     verbal -- whether to print the response or not
     """
-    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_DREF + ' ' + index, verbal)
+    return pyterminal.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_DREF, verbal)
 
 
 def check(pyterminal, level, number, verbal):
@@ -632,13 +624,13 @@ def decode(pyterminal, parameters):
     elif parameters[1] == 'read_byte'        : read_byte                   (pyterminal, parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'conf_ADC'         : conf_ADC                    (pyterminal, parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'conf_MAC'         : conf_MAC                    (pyterminal, parameters[2], parameters[3],                               True)
-    elif parameters[1] == 'calibrate_VRef'   : calibrate_voltage_references(pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'sweep_VRef'       : sweep_voltage_references    (pyterminal, parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'list_VRef'        : list_voltage_references     (pyterminal, parameters[2],                                              True)
-    elif parameters[1] == 'calibrate_VTGT_BL': calibrate_vtgt_bl           (pyterminal, parameters[2],                                              True)
-    elif parameters[1] == 'save_VTGT_BL'     : save_vtgt_bl                (pyterminal, parameters[2], parameters[3],                               True)
-    elif parameters[1] == 'list_VTGT_BL'     : list_vtgt_bl                (pyterminal, parameters[2],                                              True)
-    elif parameters[1] == 'sweep_DRef'       : sweep_decoder_references    (pyterminal, parameters[2], parameters[3],                               True)
-    elif parameters[1] == 'list_DRef'        : list_decoder_references     (pyterminal, parameters[2],                                              True)
+    elif parameters[1] == 'calibrate_VRef'   : calibrate_voltage_references(pyterminal, parameters[2], parameters[3], parameters[4],                True)
+    elif parameters[1] == 'sweep_VRef'       : sweep_voltage_references    (pyterminal, parameters[2], parameters[3], parameters[4],                True)
+    elif parameters[1] == 'list_VRef'        : list_voltage_references     (pyterminal,                                                             True)
+    elif parameters[1] == 'calibrate_VTGT_BL': calibrate_vtgt_bl           (pyterminal,                                                             True)
+    elif parameters[1] == 'conf_vtgt_bl'     : conf_vtgt_bl                (pyterminal, parameters[2],                                              True)
+    elif parameters[1] == 'list_VTGT_BL'     : list_vtgt_bl                (pyterminal,                                                             True)
+    elif parameters[1] == 'sweep_DRef'       : sweep_decoder_references    (pyterminal, parameters[2],                                              True)
+    elif parameters[1] == 'list_DRef'        : list_decoder_references     (pyterminal,                                                             True)
     elif parameters[1] == 'check'            : check                       (pyterminal, parameters[2], parameters[3],                               True)
     else: unknown(parameters)
