@@ -1,46 +1,35 @@
-from Lib import CommandMap as CM
+import CommandMap as CM
+import PyTerminal as PT
 
 
-def read(pyterminal, address, verbal):
+def read(address, verbal):
     """ Read the value from 'address'
 
     Keyword arguments:
-    pyterminal -- current connected COM port
     address -- address to be read from
     verbal -- whether to print the response or not
     """
-    return pyterminal.send_command(CM.CM_EEPROM + ' ' + CM.CM_EEPROM_READ + ' ' + address, verbal)
+    return PT.send_command(CM.CM_EEPROM + ' ' + CM.CM_EEPROM_READ + ' ' + address, verbal)
 
 
-def write(pyterminal, address, value, verbal):
+def write(address, value, verbal):
     """ Write 'value' to 'address'
 
     Keyword arguments:
-    pyterminal -- current connected COM port
     address -- address to be written to
     value -- value to be written to
     verbal -- whether to print the response or not
     """
-    pyterminal.send_command(CM.CM_EEPROM + ' ' + CM.CM_EEPROM_WRITE + ' ' + address + ' ' + value, verbal)
+    PT.send_command(CM.CM_EEPROM + ' ' + CM.CM_EEPROM_WRITE + ' ' + address + ' ' + value, verbal)
 
 
-def unknown(parameters):
-    """ Print out the unknown command
+def decode(parameters):
+    """ Decode the command
 
-    Keyword arguments:
-    parameters -- the split version of the command
+    Args:
+        parameters (list): Command in List form.
     """
-    print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
-
-
-def decode(pyterminal, parameters):
-    """ Decode the split version of the command
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    parameters -- split version of the command
-    """
-    if   parameters[1] == 'read' : read (pyterminal, parameters[2],                True)
-    elif parameters[1] == 'write': write(pyterminal, parameters[2], parameters[3], True)
-    else: unknown(parameters)
+    if   parameters[1] == 'read' : read (parameters[2],                True)
+    elif parameters[1] == 'write': write(parameters[2], parameters[3], True)
+    else: PT.unknown(parameters)
         

@@ -1,31 +1,22 @@
-from Lib import CommandMap as CM
+import CommandMap as CM
+import PyTerminal as PT
 
-
-def version(pyterminal, verbal):
+def version(verbal):
     """ Return the version of Atmel firmware
 
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The version of Atmel firmware Modules.
     """
-    return pyterminal.send_command(CM.CM_BOARD + ' ' + CM.CM_BOARD_VERSION, verbal)
+    return PT.send_command(CM.CM_BOARD + ' ' + CM.CM_BOARD_VERSION, verbal)
 
 
-def unknown(parameters):
-    """ Print out the unknown command
+def decode(parameters):
+    """ Decode the command
 
-    Keyword arguments:
-    parameters -- the split version of the command
+    Args:
+        parameters (list): Command in List form.
     """
-    print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
-
-
-def decode(pyterminal, parameters):
-    """ Decode the split version of the command
-
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    parameters -- split version of the command
-    """
-    if   parameters[1] == 'version': version(pyterminal, True)
-    else: unknown(parameters)
+    if   parameters[1] == 'version': version(True)
+    else: PT.unknown(parameters)
