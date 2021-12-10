@@ -18,7 +18,7 @@ platform for end users to get hands on our RRAM test chip.
 
 
 ### Voltage Sources
-| **Voltage Source** | **Regulator Type** | Power/Value Control Method | Voltage Range (V) | Step Resolution (mV) | Max Supported Current |                
+| Voltage Source | Regulator Type | Power/Value Control Method | Voltage Range (V) | Step Resolution (mV) | Max Supported Current |                
 | :----:         | :----:         | :----:                     | :----:            | :----:               | :----:                |
 | 3V3 Always On  | LDO            | -  /Potentiometer          | 0.73 ~ VCC        | -                    | 25 mA                 |
 | VDD            | LDO            | I2C/Potentiometer          | 0.73 ~ VCC        | -                    | 300 mA                |
