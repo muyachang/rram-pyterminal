@@ -17,6 +17,7 @@ platform for end users to get hands on our RRAM test chip.
       ![Daughter Board](https://user-images.githubusercontent.com/4018299/140850609-052c539d-31b6-4576-bfc6-f63140e24af5.png)
 
 - ### Voltage Sources
+
     | Voltage Source | Regulator Type | Power/Value<br/>Control | Voltage Range (V) | Resolution (mV) | Max Supported Current |                
     | :----:         | :----:         | :----:                  | :----:            | :----:          | :----:                |
     | `3V3 AO`       | LDO            | -  /Pot                 | 0.73 ~ VCC        | -               | 25 mA                 |
@@ -48,6 +49,7 @@ platform for end users to get hands on our RRAM test chip.
     - [DNN](https://muyachang.github.io/rram-pyterminal/docs/Lib/DNN.html)
 
 - ### Suggested Parameters
+
     | Type   | AVDD_WR (mV) | AVDD_WL (mV) | Cycles | Times
     | :----: | :----:       | :----:       | :----: | :----:      
     | FORM   | 3200         | 1600         | 20     | 2     
