@@ -15,7 +15,7 @@ def id (verbal):
 
 
 def status(verbal):
-    """ **[Low Leve]** Get the status of the RRAM modules
+    """ **[Low Level]** Get the status of the RRAM modules
 
     Args:
         verbal (bool): Whether to print the response or not.
@@ -26,7 +26,7 @@ def status(verbal):
 
 
 def lane(action, target, verbal):
-    """ **[Low Leve]** Set/Get the selected ADC lane
+    """ **[Low Level]** Set/Get the selected ADC lane
 
     Args:
         action (str): Could be *set* or *get*
@@ -41,7 +41,7 @@ def lane(action, target, verbal):
 
 
 def group(action, target, verbal):
-    """ **[Low Leve]** Set/Get the selected group for the Vector module
+    """ **[Low Level]** Set/Get the selected group for the Vector module
 
     Args:
         action (str): Could be *set* or *get*
@@ -56,7 +56,7 @@ def group(action, target, verbal):
 
 
 def module(action, target, verbal):
-    """ **[Low Leve]** Set/Get the selected RRAM module
+    """ **[Low Level]** Set/Get the selected RRAM module
 
     Args:
         action (str): Could be *set* or *get*
@@ -71,7 +71,7 @@ def module(action, target, verbal):
 
 
 def mask(action, target, verbal):
-    """ **[Low Leve]** Set/Get the RRAM module selection mask register
+    """ **[Low Level]** Set/Get the RRAM module selection mask register
 
     Args:
         action (str): Could be *set* or *get*
@@ -86,7 +86,7 @@ def mask(action, target, verbal):
 
 
 def address(action, target, verbal):
-    """ **[Low Leve]** Set/Get the RRAM module address register
+    """ **[Low Level]** Set/Get the RRAM module address register
 
     Args:
         action (str): Could be *set* or *get*
@@ -101,7 +101,7 @@ def address(action, target, verbal):
 
 
 def read(action, action_type, target, verbal):
-    """ **[Low Leve]** Configure read related settings
+    """ **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -132,7 +132,7 @@ def read(action, action_type, target, verbal):
 
 
 def mac(action, action_type, target, verbal):
-    """ **[Low Leve]** Configure mac related settings
+    """ **[Low Level]** Configure mac related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -156,7 +156,7 @@ def mac(action, action_type, target, verbal):
 
 
 def write(action, action_type, target, verbal):
-    """ **[Low Leve]** Configure read related settings
+    """ **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -183,7 +183,7 @@ def write(action, action_type, target, verbal):
 
 
 def adc(action, action_type, target, verbal):
-    """ **[Low Leve]** Configure ADC related settings
+    """ **[Low Level]** Configure ADC related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -213,7 +213,7 @@ def adc(action, action_type, target, verbal):
 
 
 def pg(action, action_type, target, verbal):
-    """ **[Low Leve]** Configure power gating related settings
+    """ **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -235,7 +235,7 @@ def pg(action, action_type, target, verbal):
 
 
 def ecc(action, action_type, target, verbal):
-    """ **[Low Leve]** Configure power gating related settings
+    """ **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set*, *get*, *clear*, or *check*
