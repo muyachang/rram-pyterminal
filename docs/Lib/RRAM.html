@@ -43,7 +43,7 @@ def id (verbal):
 
 
 def status(verbal):
-    &#34;&#34;&#34; **[Low Leve]** Get the status of the RRAM modules
+    &#34;&#34;&#34; **[Low Level]** Get the status of the RRAM modules
 
     Args:
         verbal (bool): Whether to print the response or not.
@@ -54,7 +54,7 @@ def status(verbal):
 
 
 def lane(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the selected ADC lane
+    &#34;&#34;&#34; **[Low Level]** Set/Get the selected ADC lane
 
     Args:
         action (str): Could be *set* or *get*
@@ -69,7 +69,7 @@ def lane(action, target, verbal):
 
 
 def group(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the selected group for the Vector module
+    &#34;&#34;&#34; **[Low Level]** Set/Get the selected group for the Vector module
 
     Args:
         action (str): Could be *set* or *get*
@@ -84,7 +84,7 @@ def group(action, target, verbal):
 
 
 def module(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the selected RRAM module
+    &#34;&#34;&#34; **[Low Level]** Set/Get the selected RRAM module
 
     Args:
         action (str): Could be *set* or *get*
@@ -99,7 +99,7 @@ def module(action, target, verbal):
 
 
 def mask(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the RRAM module selection mask register
+    &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module selection mask register
 
     Args:
         action (str): Could be *set* or *get*
@@ -114,7 +114,7 @@ def mask(action, target, verbal):
 
 
 def address(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the RRAM module address register
+    &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module address register
 
     Args:
         action (str): Could be *set* or *get*
@@ -129,7 +129,7 @@ def address(action, target, verbal):
 
 
 def read(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure read related settings
+    &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -160,7 +160,7 @@ def read(action, action_type, target, verbal):
 
 
 def mac(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure mac related settings
+    &#34;&#34;&#34; **[Low Level]** Configure mac related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -184,7 +184,7 @@ def mac(action, action_type, target, verbal):
 
 
 def write(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure read related settings
+    &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -211,7 +211,7 @@ def write(action, action_type, target, verbal):
 
 
 def adc(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure ADC related settings
+    &#34;&#34;&#34; **[Low Level]** Configure ADC related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -241,7 +241,7 @@ def adc(action, action_type, target, verbal):
 
 
 def pg(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure power gating related settings
+    &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -263,7 +263,7 @@ def pg(action, action_type, target, verbal):
 
 
 def ecc(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure power gating related settings
+    &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set*, *get*, *clear*, or *check*
@@ -676,7 +676,7 @@ def decode(parameters):
 <span>def <span class="ident">adc</span></span>(<span>action, action_type, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Configure ADC related settings</p>
+<div class="desc"><p><strong>[Low Level]</strong> Configure ADC related settings</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -695,7 +695,7 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def adc(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure ADC related settings
+    &#34;&#34;&#34; **[Low Level]** Configure ADC related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -728,7 +728,7 @@ def decode(parameters):
 <span>def <span class="ident">address</span></span>(<span>action, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Set/Get the RRAM module address register</p>
+<div class="desc"><p><strong>[Low Level]</strong> Set/Get the RRAM module address register</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -745,7 +745,7 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def address(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the RRAM module address register
+    &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module address register
 
     Args:
         action (str): Could be *set* or *get*
@@ -1164,7 +1164,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">ecc</span></span>(<span>action, action_type, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Configure power gating related settings</p>
+<div class="desc"><p><strong>[Low Level]</strong> Configure power gating related settings</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1183,7 +1183,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def ecc(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure power gating related settings
+    &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set*, *get*, *clear*, or *check*
@@ -1248,7 +1248,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">group</span></span>(<span>action, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Set/Get the selected group for the Vector module</p>
+<div class="desc"><p><strong>[Low Level]</strong> Set/Get the selected group for the Vector module</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1265,7 +1265,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def group(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the selected group for the Vector module
+    &#34;&#34;&#34; **[Low Level]** Set/Get the selected group for the Vector module
 
     Args:
         action (str): Could be *set* or *get*
@@ -1311,7 +1311,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">lane</span></span>(<span>action, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Set/Get the selected ADC lane</p>
+<div class="desc"><p><strong>[Low Level]</strong> Set/Get the selected ADC lane</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1328,7 +1328,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def lane(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the selected ADC lane
+    &#34;&#34;&#34; **[Low Level]** Set/Get the selected ADC lane
 
     Args:
         action (str): Could be *set* or *get*
@@ -1427,7 +1427,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">mac</span></span>(<span>action, action_type, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Configure mac related settings</p>
+<div class="desc"><p><strong>[Low Level]</strong> Configure mac related settings</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1446,7 +1446,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mac(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure mac related settings
+    &#34;&#34;&#34; **[Low Level]** Configure mac related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -1473,7 +1473,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">mask</span></span>(<span>action, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Set/Get the RRAM module selection mask register</p>
+<div class="desc"><p><strong>[Low Level]</strong> Set/Get the RRAM module selection mask register</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1490,7 +1490,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mask(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the RRAM module selection mask register
+    &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module selection mask register
 
     Args:
         action (str): Could be *set* or *get*
@@ -1508,7 +1508,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">module</span></span>(<span>action, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Set/Get the selected RRAM module</p>
+<div class="desc"><p><strong>[Low Level]</strong> Set/Get the selected RRAM module</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1525,7 +1525,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def module(action, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Set/Get the selected RRAM module
+    &#34;&#34;&#34; **[Low Level]** Set/Get the selected RRAM module
 
     Args:
         action (str): Could be *set* or *get*
@@ -1543,7 +1543,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">pg</span></span>(<span>action, action_type, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Configure power gating related settings</p>
+<div class="desc"><p><strong>[Low Level]</strong> Configure power gating related settings</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1562,7 +1562,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pg(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure power gating related settings
+    &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -1587,7 +1587,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">read</span></span>(<span>action, action_type, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Configure read related settings</p>
+<div class="desc"><p><strong>[Low Level]</strong> Configure read related settings</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1606,7 +1606,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def read(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure read related settings
+    &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
@@ -1820,7 +1820,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">status</span></span>(<span>verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Get the status of the RRAM modules</p>
+<div class="desc"><p><strong>[Low Level]</strong> Get the status of the RRAM modules</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
@@ -1833,7 +1833,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def status(verbal):
-    &#34;&#34;&#34; **[Low Leve]** Get the status of the RRAM modules
+    &#34;&#34;&#34; **[Low Level]** Get the status of the RRAM modules
 
     Args:
         verbal (bool): Whether to print the response or not.
@@ -1935,7 +1935,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">write</span></span>(<span>action, action_type, target, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Low Leve]</strong> Configure read related settings</p>
+<div class="desc"><p><strong>[Low Level]</strong> Configure read related settings</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
@@ -1954,7 +1954,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def write(action, action_type, target, verbal):
-    &#34;&#34;&#34; **[Low Leve]** Configure read related settings
+    &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
