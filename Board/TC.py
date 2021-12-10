@@ -4,40 +4,42 @@ import PyTerminal as PT
 
 
 def connect(verbal):
-    """ Connect to the testchip (and halt it), and get its id (should be '0x2BA01477')
+    """ Connect to the testchip, halt it, and get its ID (should be `0x2BA01477`)
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The ID if the testchip (should be `0x2BA01477`)
     """
     return PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_CONNECT, verbal)
 
 
 def disconnect(verbal):
-    """ Unhalt from the testchip and disconnect from it
+    """ Unhalt the testchip and disconnect from it
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_DISCONNECT, verbal)
 
 
 def read(address, verbal):
-    """ Read the value from 'address'
+    """ Read the value from `address`
 
-    Keyword arguments:
-    address -- address to be read from
-    verbal -- whether to print the response or not
+    Args:
+        address (str): Address to be read from
+        verbal (bool): Whether to print the response or not.
     """
     return PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_READ + ' ' + address, verbal)
 
 
 def write(address, value, verbal):
-    """ Write 'value' to 'address'
+    """ Write `value` to `address`
 
-    Keyword arguments:
-    address -- address to be written to
-    value -- value to be written to
-    verbal -- whether to print the response or not
+    Args:
+        address (str): Address to be written to
+        value (str): Value to be written to
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_WRITE + ' ' + address + ' ' + value, verbal)
 
@@ -45,28 +47,28 @@ def write(address, value, verbal):
 def list_configs(verbal):
     """ List the testchip configurations
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_LIST, verbal)
 
 
 def save_config(number, verbal):
-    """ Save the testchip configuration to 'number' slot
+    """ Save the testchip configuration to slot `number`
 
-    Keyword arguments:
-    number -- slot number, from 0~9
-    verbal -- whether to print the response or not
+    Args:
+        number (str): Slot number, from `0`~`9`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + number + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
 
 
 def load_config(number, verbal):
-    """ Load the testchip configuration from 'number' slot
+    """ Load the testchip configuration from slot `number`
 
-    Keyword arguments:
-    number -- slot number, from 0~9
-    verbal -- whether to print the response or not
+    Args:
+        number (str): Slot number, from `0`~`9`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + number, verbal)
 

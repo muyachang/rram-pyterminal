@@ -5,18 +5,18 @@ import PyTerminal as PT
 def list_demos(verbal):
     """ List the available DEMO applications
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DEMO + ' ' + CM.CM_DEMO_LIST, verbal)
 
 
 def load(number, verbal):
-    """ Load the 'target' DEMO application
+    """ Load DEMO application #*number*
 
-    Keyword arguments:
-    number -- DEMO application number, from 0~23
-    verbal -- whether to print the response or not
+    Args:
+        number (str): DEMO application number, from *0*~*23*
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DEMO + ' ' + CM.CM_DEMO_LOAD + ' ' + number, verbal)
 
@@ -24,26 +24,26 @@ def load(number, verbal):
 def run(verbal):
     """ Run the application on the testchip. (i.e. reset the testchip)
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DEMO + ' ' + CM.CM_DEMO_RUN, verbal)
 
 
 def analyze(verbal):
-    """ Analyze the size of DEMO applications one by one, the purpose of this function was to speedup loading process
+    """ Analyze the sizes of DEMO applications to speedup the loading process
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DEMO + ' ' + CM.CM_DEMO_ANALYZE, verbal)
 
 
 def decode(parameters):
-    """ Decode the split version of the command
+    """ Decode the command
 
-    Keyword arguments:
-    parameters -- split version of the command
+    Args:
+        parameters (list): Command in List form.
     """
     if   parameters[1] == 'list'   : list_demos(               True)
     elif parameters[1] == 'load'   : load      (parameters[2], True)

@@ -3,19 +3,21 @@ import PyTerminal as PT
 
 
 def id(verbal):
-    """ Get the id of the Vector module
+    """ Get the ID of Vector module
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The ID of Vector module
     """
     return PT.send_command(CM.CM_VECTOR + ' ' + CM.CM_VECTOR_PID, verbal)
 
 
 def decode(parameters):
-    """ Decode the split version of the command
+    """ Decode the command
 
-    Keyword arguments:
-    parameters -- split version of the command
+    Args:
+        parameters (list): Command in List form.
     """
     if   parameters[1] == 'id'     : id(True)
     else: PT.unknown(parameters)

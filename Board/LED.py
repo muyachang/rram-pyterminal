@@ -3,31 +3,31 @@ import PyTerminal as PT
 
 
 def enable(target, verbal):
-    """ Enable 'target' LED source
+    """ Enable *target*
 
-    Keyword arguments:
-    target -- the target LED source (could be 'TX' or 'RX')
-    verbal -- whether to print the response or not
+    Args:
+        target (str): The target LED source (could be *TX* or *RX*)
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_LED + ' ' + CM.CM_LED_ENABLE + ' ' + target, verbal)
 
 
 def disable(target, verbal):
-    """ Disable 'target' LED source
+    """ Disable *target*
 
-    Keyword arguments:
-    target -- the target LED source (could be 'TX' or 'RX')
-    verbal -- whether to print the response or not
+    Args:
+        target (str): The target LED source (could be *TX* or *RX*)
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_LED + ' ' + CM.CM_LED_DISABLE + ' ' + target, verbal)
 
 
 def toggle(target, verbal):
-    """ Toggle 'target' LED source
+    """ Toggle *target*
 
-    Keyword arguments:
-    target -- the target LED source (could be 'TX' or 'RX')
-    verbal -- whether to print the response or not
+    Args:
+        target (str): The target LED source (could be *TX* or *RX*)
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_LED + ' ' + CM.CM_LED_TOGGLE + ' ' + target, verbal)
 

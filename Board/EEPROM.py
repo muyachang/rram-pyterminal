@@ -3,22 +3,24 @@ import PyTerminal as PT
 
 
 def read(address, verbal):
-    """ Read the value from 'address'
+    """ Read the value from *address*
 
-    Keyword arguments:
-    address -- address to be read from
-    verbal -- whether to print the response or not
+    Args:
+        address (str): Address to be written to
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of dataflash
     """
     return PT.send_command(CM.CM_EEPROM + ' ' + CM.CM_EEPROM_READ + ' ' + address, verbal)
 
 
 def write(address, value, verbal):
-    """ Write 'value' to 'address'
+    """ Write *value* to *address*
 
-    Keyword arguments:
-    address -- address to be written to
-    value -- value to be written to
-    verbal -- whether to print the response or not
+    Args:
+        address (str): Address to be written to
+        value (str): Value to be written to
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_EEPROM + ' ' + CM.CM_EEPROM_WRITE + ' ' + address + ' ' + value, verbal)
 

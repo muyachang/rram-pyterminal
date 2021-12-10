@@ -1,27 +1,32 @@
 import CommandMap as CM
 import PyTerminal as PT
 
-LevelDict = {'chip'  : b'\x41'.decode('utf-8'), 
-             'sector': b'\x42'.decode('utf-8'),
-             'block' : b'\x43'.decode('utf-8'),
-             'page'  : b'\x44'.decode('utf-8'),
-             'byte'  : b'\x45'.decode('utf-8')}
+dict = {'chip'  : b'\x41'.decode('utf-8'),
+        'sector': b'\x42'.decode('utf-8'),
+        'block' : b'\x43'.decode('utf-8'),
+        'page'  : b'\x44'.decode('utf-8'),
+        'byte'  : b'\x45'.decode('utf-8')}
+"""Dataflash memory hierarchy dictionary from *string* to *ASCII*"""
 
 
 def status(verbal):
-    """ Get the status of the dataflash
+    """ Get the status of dataflash
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of dataflash
     """
     return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_STATUS, verbal)
     
 
 def get_id(verbal):
-    """ Get the id of the dataflash
+    """ Get the ID of dataflash
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The ID of dataflash
     """
     return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ID, verbal)
 
@@ -29,52 +34,52 @@ def get_id(verbal):
 def reset(verbal):
     """ Software reset the dataflash
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_RESET, verbal)
 
 
 def read(level, number, verbal):
-    """ Read the data from the dataflash
+    """ Read the data from dataflash
 
-    Keyword arguments:
-    level -- could be 'byte', 'page', 'block', 'sector'
-    number -- target number
-    verbal -- whether to print the response or not
+    Args:
+        level (str): Could be *byte*, *page*, *block*, *sector*
+        number (str): Target number
+        verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + number, verbal)
+    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + dict[level] + ' ' + number, verbal)
 
 
 def write(address, value, verbal):
     """ Read the data from the dataflash
 
-    Keyword arguments:
-    address -- address to be written to
-    value -- value to be written to
-    verbal -- whether to print the response or not
+    Args:
+        address (str): Address to be written to
+        value (str): Value to be written to
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + address + ' ' + value, verbal)
 
 
 def erase(level, number, verbal):
-    """ Erase the data in the dataflash
+    """ Erase the data in dataflash
 
-    Keyword arguments:
-    level -- could be 'byte', 'page', 'block', 'sector'
-    number -- target number
-    verbal -- whether to print the response or not
+    Args:
+        level (str): Could be *byte*, *page*, *block*, *sector*
+        number (str): Target number
+        verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + number, verbal)
+    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + dict[level] + ' ' + number, verbal)
 
 
 def protect(action, sector, verbal):
     """ Configure the protect function in the dataflash
 
-    Keyword arguments:
-    action -- could be 'enable', 'disable', 'status', 'all', 'none', 'add', and 'remove'
-    sector -- target sector number, could be '0a', '0b', or '1'~'63'
-    verbal -- whether to print the response or not
+    Args:
+        action (str): Could be *enable*, *disable*, *status*, *all*, *none*, *add*, and *remove*
+        sector (str): Target sector number, could be *0a*, *0b*, or *1*~*63*
+        verbal (bool): Whether to print the response or not.
     """
     if   action == 'enable':
         PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_ENABLE, verbal)
@@ -95,10 +100,12 @@ def protect(action, sector, verbal):
 
 
 def blank_check(verbal):
-    """ Get the first nonzero address in the dataflash
+    """ Get the first nonzero address in dataflash
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The first nonzero address in dataflash
     """
     return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_BLANKCHECK, verbal)
           

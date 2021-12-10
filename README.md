@@ -28,12 +28,17 @@ PyTerminal was developed in PyCharm with Python 3.10.0rc2, the purpose of this i
 | AVDD_RRAM      | DC/DC          | I2C/I2C                    | 0.83 ~ 1.60       | 25.00                | 2.5 A                 |
 
 ### DAC Sources
-There're two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them can be 0 ~ 3V3 with 12 bit resolution.
-- **VTGT_BL**: Target voltage for the bit lines. (Nominal range: 80 ~ 120 mV)
+There are two DAC sources: "**VTGT_BL**" and "**ADC_CAL**", where each of them can be 0 ~ 3V3 with 12 bit resolution.
+- **VTGT_BL**: Target voltage for the bit lines. (Nominal range: 20 ~ 200 mV)
 - **ADC_CAL**: Used for ADC calibration mode, where the input of ADC would be this voltage source instead of bit lines.
 
 ### Command List
-The detail description of the functions below are inside each .py files
+The commands can first be categorized into two types (or mix of the two): 1) Low level component driver. 2) High level library.
+The detail command lists for each module are listed below: 
+
+#### Board component driver 
+    - BOARD
+2)  detail description of the functions below are inside each .py files
 
 ### Suggested Form/Set/Reset/Read Parameters
 | Type   | AVDD_WR(mV) | AVDD_WL(mV) | Cycles | Times

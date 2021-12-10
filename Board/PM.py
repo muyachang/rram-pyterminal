@@ -10,10 +10,7 @@ VoltDict = {'3V3'      : b'\x41'.decode('utf-8'),
             
 
 def list_sources():
-    """ List the available voltage sources
-
-    Keyword arguments:
-    """
+    """ List the available voltage sources """
     print('-------------------------------------')
     print('| Output Name | Status | Value (mV) |')
     print('-------------------------------------')
@@ -28,8 +25,8 @@ def list_sources():
 def clear(verbal):
     """ Clear the interrupt register in the voltage regulator
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_CLEAR, verbal)
 
@@ -37,8 +34,10 @@ def clear(verbal):
 def status(verbal):
     """ Get the current status of the voltage regulator
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The current status of the voltage regulator
     """
     return PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_STATUS, verbal)
 
@@ -46,8 +45,8 @@ def status(verbal):
 def save(verbal):
     """ Save the current configuration of the voltage regulator to the EEPROM
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_SAVE, verbal)
     
@@ -55,8 +54,8 @@ def save(verbal):
 def load(verbal):
     """ Load the configuration of the voltage regulator from the EEPROM
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_LOAD, verbal)
     
@@ -64,8 +63,8 @@ def load(verbal):
 def allon(verbal):
     """ Enable all the voltage sources
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     for k, v in VoltDict.items():
         PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_ENABLE + ' ' + v, verbal)
@@ -74,8 +73,8 @@ def allon(verbal):
 def alloff(verbal):
     """ Disable all the voltage sources
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     for k, v in VoltDict.items():
         PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_DISABLE + ' ' + v, verbal)
@@ -84,104 +83,104 @@ def alloff(verbal):
 def reset(verbal):
     """ Reset the voltage regulator, this will cause the board to disconnect
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_RESET, verbal)
     
 
 def enable(target, verbal):
-    """ Enable 'target' voltage source
+    """ Enable `target`
 
-    Keyword arguments:
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_ENABLE + ' ' + VoltDict[target], verbal)
     
 
 def disable(target, verbal):
-    """ Disable 'target' voltage source
+    """ Disable `target`
 
-    Keyword arguments:
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_DISABLE + ' ' + VoltDict[target], verbal)
     
 
 def increment(target, verbal):
-    """ Increase 'target' voltage source by 1 of its value register.
-        The real voltage change will depend on the feedback ratio
+    """ Increase `target` by 1 in it's binary format. (The real voltage change will depend on the feedback ratio)
 
-    Keyword arguments:
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_INCR + ' ' + VoltDict[target], verbal)
     
 
 def decrement(target, verbal):
-    """ Decrease 'target' voltage source by 1 of its value register.
-        The real voltage change will depend on the feedback ratio
+    """ Decrease `target` in it's binary format. (The real voltage change will depend on the feedback ratio)
 
-    Keyword arguments:
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_DECR + ' ' + VoltDict[target], verbal)
     
 
 def plus(value, target, verbal):
-    """ Increase 'target' voltage source by 'value' mV
+    """ Increase `target` by `value` mV
 
-    Keyword arguments:
-    value -- voltage (mV)
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        value (str): Voltage (mV)
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_PLUS + ' ' + value + ' ' + VoltDict[target], verbal)
     
 
 def minus(value, target, verbal):
-    """ Decrease 'target' voltage source by 'value' mV
+    """ Decrease `target` by `value` mV
 
-    Keyword arguments:
-    value -- voltage (mV)
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        value (str): Voltage (mV)
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_MINUS + ' ' + value + ' ' + VoltDict[target], verbal)
     
 
 def set_source(value, target, verbal):
-    """ Set 'target' voltage source to 'value' mV
+    """ Set `target` to `value` mV
 
-    Keyword arguments:
-    value -- voltage (mV)
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        value (str): Voltage (mV)
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET + ' ' + value + ' ' + VoltDict[target], verbal)
 
 
-def set_safe_source(value, target, verbal):
-    """ Set 'target' voltage source to 'value' mV 'safely' by disabling it first, and enabling last to avoid overshoot
+def set_source_safe(value, target, verbal):
+    """ Set `target` to `value` mV **safely** by disabling it first, and enabling last to avoid overshoot
 
-    Keyword arguments:
-    value -- voltage (mV)
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        value (str): Voltage (mV)
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_SET_SAFE + ' ' + value + ' ' + VoltDict[target], verbal)
 
 
 def get_source(target, verbal):
-    """ Get the current voltage of 'target' source
+    """ Get the current voltage value of `target`
 
-    Keyword arguments:
-    target -- target voltage source, could be '3V3', 'AVDD_WR', 'AVDD_WL', 'AVDD_RRAM', 'VDD', 'AVDD_SRAM'
-    verbal -- whether to print the response or not
+    Args:
+        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The current voltage value of *target*
     """
     return PT.send_command(CM.CM_PM + ' ' + CM.CM_PM_GET + ' ' + VoltDict[target], verbal).split()
 
@@ -207,7 +206,7 @@ def decode(parameters):
     elif parameters[1] == '+'       : plus           (parameters[2], parameters[3], True)
     elif parameters[1] == '-'       : minus          (parameters[2], parameters[3], True)
     elif parameters[1] == 'set'     : set_source     (parameters[2], parameters[3], True)
-    elif parameters[1] == 'set_safe': set_safe_source(parameters[2], parameters[3], True)
+    elif parameters[1] == 'set_safe': set_source_safe(parameters[2], parameters[3], True)
     elif parameters[1] == 'get'     : get_source     (parameters[2],                True)
     else: PT.unknown(parameters)
     

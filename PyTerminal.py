@@ -1,20 +1,18 @@
 import serial
+import CommandMap as CM
 import DEMO, ASCII, RRAM, VECTOR, DNN
 import EEPROM, PM, LED, DF, DAC, TC, BOARD
 import USER
-import CommandMap as CM
 
 VID = '0x03EB'    # Atmel
 PID = '0x204B'    # LUFA USB to Serial Demo Application
-BAUDRATE = 115200 #
+BAUDRATE = 115200 # Baudrate for COM port connections
 TIMEOUT = 3       # Seconds
 
 
 def connect():
     """ Automatically connect to the board based on the VID and PID information, and get the board version to make
         sure the correct board is connected.
-
-    Keyword arguments:
     """
     from serial.tools import list_ports
     for port in list_ports.comports():
@@ -34,8 +32,6 @@ def connect():
 
 def alive():
     """ Check if the board is still connected, if not we try to connect it again
-
-    Keyword arguments:
     """
     try:
         ser.in_waiting
@@ -46,8 +42,9 @@ def alive():
 def send_command(command, verbal):
     """ Send the command to the board through COM port, print the response, and return the response.
 
-    Keyword arguments:
-    verbal -- whether to print the response or not
+    Args:
+        verbal (bool): Whether to print the response or not.
+        parameters (list): Command in List form.
     """
     # Send out the command and Give it some time to process
     ser.reset_output_buffer()
@@ -76,8 +73,8 @@ def send_command(command, verbal):
 def unknown(parameters):
     """ Print out the unknown command
 
-    Keyword arguments:
-    parameters -- the split version of the command
+    Args:
+        parameters (list): Command in List form.
     """
     print('Unknown Command: ' + ' '.join(parameters) + '(From PyTerminal)')
 
@@ -85,8 +82,8 @@ def unknown(parameters):
 def decode_command(command):
     """ Split the command and decode it based on the first parameter
 
-    Keyword arguments:
-    command -- the original human readable command
+    Args:
+        command (str): Original human readable command
     """
     try:
         # Split the command and fill up to 8 list elements
