@@ -628,7 +628,7 @@ def decode(pyterminal, parameters):
     elif parameters[1] == 'sweep_VRef'       : sweep_voltage_references    (pyterminal, parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'list_VRef'        : list_voltage_references     (pyterminal,                                                             True)
     elif parameters[1] == 'calibrate_VTGT_BL': calibrate_vtgt_bl           (pyterminal,                                                             True)
-    elif parameters[1] == 'conf_vtgt_bl'     : conf_vtgt_bl                (pyterminal, parameters[2],                                              True)
+    elif parameters[1] == 'conf_VTGT_BL'     : conf_vtgt_bl                (pyterminal, parameters[2],                                              True)
     elif parameters[1] == 'list_VTGT_BL'     : list_vtgt_bl                (pyterminal,                                                             True)
     elif parameters[1] == 'sweep_DRef'       : sweep_decoder_references    (pyterminal, parameters[2],                                              True)
     elif parameters[1] == 'list_DRef'        : list_decoder_references     (pyterminal,                                                             True)
