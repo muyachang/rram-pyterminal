@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>DNN API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>DNN</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import CommandMap as CM
+import PyTerminal as PT
+
+def in_clear(verbal):
+    &#34;&#34;&#34; Clear the input image
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CLEAR, verbal)
+
+
+def in_conf_len(length, verbal):
+    &#34;&#34;&#34; Configure the length of input image
+
+    Args:
+        length (str): The length of input picture (assume the picture is square)
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CONF_LEN + &#39; &#39; + length, verbal)
+
+
+
+def in_fill(address, value, verbal):
+    &#34;&#34;&#34; Write `value` to `address`
+
+    Args:
+        address (str): Address to be written to
+        value (str): Value to be written to
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_FILL + &#39; &#39; + address + &#39; &#39; + value, verbal)
+
+
+def in_print(verbal):
+    &#34;&#34;&#34; Print the input image
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_PRINT, verbal)
+
+
+def nn_clear(verbal):
+    &#34;&#34;&#34; Clear the network
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CLEAR, verbal)
+
+
+def nn_conf_type(layer, type, verbal):
+    &#34;&#34;&#34; Configure layer type for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        type (str): Layer type, could be `0` for FC or `1` for Convolution
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_TYPE + &#39; &#39; + layer + &#39; &#39; + type, verbal)
+
+
+def nn_conf_rrams(layer, rrams, verbal):
+    &#34;&#34;&#34; Configure RRAM module location for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        rrams (str): RRAM Module number that this layer resides at
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_RRAMS + &#39; &#39; + layer + &#39; &#39; + rrams, verbal)
+
+
+def nn_conf_input(layer, input_length, input_channel, verbal):
+    &#34;&#34;&#34; Configure input for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        input_length (str): The length of input activation at `layer` (assume the activation is square)
+        input_channel (str): The channel of input activation at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_INPUT + &#39; &#39; + layer + &#39; &#39; + input_length + &#39; &#39; + input_channel, verbal)
+
+
+def nn_conf_kernel(layer, kernel_length, kernel_number, stride, verbal):
+    &#34;&#34;&#34; Configure kernel for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        kernel_length (str): The length of kernel at `layer`  (assume the activation is square)
+        kernel_number (str): The number of kernel at `layer`
+        stride (str): The stride of kernel at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)
+
+
+def nn_conf_act(layer, activation, verbal):
+    &#34;&#34;&#34; Configure activation setting for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        activation (str): Whether the output of `layer` is activation
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ACT + &#39; &#39; + layer + &#39; &#39; + activation, verbal)
+
+
+def nn_conf_quant(layer, q_scale, q_zero_point, verbal):
+    &#34;&#34;&#34; Configure Quantization for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        q_scale (str): Scale of the quantization at `layer`
+        q_zero_point (str): Zero Point of the quantization at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_QUANT + &#39; &#39; + layer + &#39; &#39; + q_scale + &#39; &#39; + q_zero_point, verbal)
+
+
+def nn_conf_ecc(layer, ecc, verbal):
+    &#34;&#34;&#34; Configure ECC for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        ecc (str): Whether the weights at `layer` is ECC enabled.
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ECC + &#39; &#39; + layer + &#39; &#39; + ecc, verbal)
+
+
+def nn_print       (verbal):
+    &#34;&#34;&#34; Print the network
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_PRINT, verbal)
+
+
+def forward(WL, verbal):
+    &#34;&#34;&#34; Run 1 forward inference
+
+    Args:
+        WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The prediction of inference
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_FORWARD + &#39; &#39; + WL, verbal)
+
+
+def decode(parameters):
+    &#34;&#34;&#34; Decode the command
+
+    Args:
+        parameters (list): Command in List form.
+    &#34;&#34;&#34;
+    if   parameters[1] == &#39;in_clear&#39;      : in_clear    (True)
+    elif parameters[1] == &#39;in_conf_len&#39;   : in_conf_len (parameters[2], True)
+    elif parameters[1] == &#39;in_fill&#39;       : in_fill     (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;in_print&#39;      : in_print    (True)
+
+    elif parameters[1] == &#39;nn_clear&#39;      : nn_clear       (True)
+    elif parameters[1] == &#39;nn_conf_type&#39;  : nn_conf_type   (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_rrams&#39; : nn_conf_rrams  (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_input&#39; : nn_conf_input  (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_kernel&#39;: nn_conf_kernel (parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == &#39;nn_conf_act&#39;   : nn_conf_act    (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_quant&#39; : nn_conf_quant  (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_ecc&#39;   : nn_conf_ecc    (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_print&#39;      : nn_print       (True)
+
+    elif parameters[1] == &#39;forward&#39;     : forward     (parameters[2], True)
+    else: PT.unknown(parameters)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="DNN.decode"><code class="name flex">
+<span>def <span class="ident">decode</span></span>(<span>parameters)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decode the command</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>parameters</code></strong> :&ensp;<code>list</code></dt>
+<dd>Command in List form.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decode(parameters):
+    &#34;&#34;&#34; Decode the command
+
+    Args:
+        parameters (list): Command in List form.
+    &#34;&#34;&#34;
+    if   parameters[1] == &#39;in_clear&#39;      : in_clear    (True)
+    elif parameters[1] == &#39;in_conf_len&#39;   : in_conf_len (parameters[2], True)
+    elif parameters[1] == &#39;in_fill&#39;       : in_fill     (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;in_print&#39;      : in_print    (True)
+
+    elif parameters[1] == &#39;nn_clear&#39;      : nn_clear       (True)
+    elif parameters[1] == &#39;nn_conf_type&#39;  : nn_conf_type   (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_rrams&#39; : nn_conf_rrams  (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_input&#39; : nn_conf_input  (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_kernel&#39;: nn_conf_kernel (parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == &#39;nn_conf_act&#39;   : nn_conf_act    (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_quant&#39; : nn_conf_quant  (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_ecc&#39;   : nn_conf_ecc    (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_print&#39;      : nn_print       (True)
+
+    elif parameters[1] == &#39;forward&#39;     : forward     (parameters[2], True)
+    else: PT.unknown(parameters)</code></pre>
+</details>
+</dd>
+<dt id="DNN.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>WL, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Run 1 forward inference</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>WL</code></strong> :&ensp;<code>str</code></dt>
+<dd>The Compute-In-Memory (CIM) scheme, could be <code>1</code>~<code>9</code></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The prediction of inference</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(WL, verbal):
+    &#34;&#34;&#34; Run 1 forward inference
+
+    Args:
+        WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The prediction of inference
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_FORWARD + &#39; &#39; + WL, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.in_clear"><code class="name flex">
+<span>def <span class="ident">in_clear</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clear the input image</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def in_clear(verbal):
+    &#34;&#34;&#34; Clear the input image
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CLEAR, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.in_conf_len"><code class="name flex">
+<span>def <span class="ident">in_conf_len</span></span>(<span>length, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure the length of input image</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>length</code></strong> :&ensp;<code>str</code></dt>
+<dd>The length of input picture (assume the picture is square)</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def in_conf_len(length, verbal):
+    &#34;&#34;&#34; Configure the length of input image
+
+    Args:
+        length (str): The length of input picture (assume the picture is square)
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CONF_LEN + &#39; &#39; + length, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.in_fill"><code class="name flex">
+<span>def <span class="ident">in_fill</span></span>(<span>address, value, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Write <code>value</code> to <code>address</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
+<dd>Address to be written to</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
+<dd>Value to be written to</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def in_fill(address, value, verbal):
+    &#34;&#34;&#34; Write `value` to `address`
+
+    Args:
+        address (str): Address to be written to
+        value (str): Value to be written to
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_FILL + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.in_print"><code class="name flex">
+<span>def <span class="ident">in_print</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the input image</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def in_print(verbal):
+    &#34;&#34;&#34; Print the input image
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_PRINT, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_clear"><code class="name flex">
+<span>def <span class="ident">nn_clear</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clear the network</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_clear(verbal):
+    &#34;&#34;&#34; Clear the network
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CLEAR, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_act"><code class="name flex">
+<span>def <span class="ident">nn_conf_act</span></span>(<span>layer, activation, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure activation setting for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>activation</code></strong> :&ensp;<code>str</code></dt>
+<dd>Whether the output of <code>layer</code> is activation</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_act(layer, activation, verbal):
+    &#34;&#34;&#34; Configure activation setting for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        activation (str): Whether the output of `layer` is activation
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ACT + &#39; &#39; + layer + &#39; &#39; + activation, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_ecc"><code class="name flex">
+<span>def <span class="ident">nn_conf_ecc</span></span>(<span>layer, ecc, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure ECC for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>ecc</code></strong> :&ensp;<code>str</code></dt>
+<dd>Whether the weights at <code>layer</code> is ECC enabled.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_ecc(layer, ecc, verbal):
+    &#34;&#34;&#34; Configure ECC for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        ecc (str): Whether the weights at `layer` is ECC enabled.
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ECC + &#39; &#39; + layer + &#39; &#39; + ecc, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_input"><code class="name flex">
+<span>def <span class="ident">nn_conf_input</span></span>(<span>layer, input_length, input_channel, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure input for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>input_length</code></strong> :&ensp;<code>str</code></dt>
+<dd>The length of input activation at <code>layer</code> (assume the activation is square)</dd>
+<dt><strong><code>input_channel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The channel of input activation at <code>layer</code></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_input(layer, input_length, input_channel, verbal):
+    &#34;&#34;&#34; Configure input for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        input_length (str): The length of input activation at `layer` (assume the activation is square)
+        input_channel (str): The channel of input activation at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_INPUT + &#39; &#39; + layer + &#39; &#39; + input_length + &#39; &#39; + input_channel, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_kernel"><code class="name flex">
+<span>def <span class="ident">nn_conf_kernel</span></span>(<span>layer, kernel_length, kernel_number, stride, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure kernel for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>kernel_length</code></strong> :&ensp;<code>str</code></dt>
+<dd>The length of kernel at <code>layer</code>
+(assume the activation is square)</dd>
+<dt><strong><code>kernel_number</code></strong> :&ensp;<code>str</code></dt>
+<dd>The number of kernel at <code>layer</code></dd>
+<dt><strong><code>stride</code></strong> :&ensp;<code>str</code></dt>
+<dd>The stride of kernel at <code>layer</code></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_kernel(layer, kernel_length, kernel_number, stride, verbal):
+    &#34;&#34;&#34; Configure kernel for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        kernel_length (str): The length of kernel at `layer`  (assume the activation is square)
+        kernel_number (str): The number of kernel at `layer`
+        stride (str): The stride of kernel at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_quant"><code class="name flex">
+<span>def <span class="ident">nn_conf_quant</span></span>(<span>layer, q_scale, q_zero_point, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure Quantization for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>q_scale</code></strong> :&ensp;<code>str</code></dt>
+<dd>Scale of the quantization at <code>layer</code></dd>
+<dt><strong><code>q_zero_point</code></strong> :&ensp;<code>str</code></dt>
+<dd>Zero Point of the quantization at <code>layer</code></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_quant(layer, q_scale, q_zero_point, verbal):
+    &#34;&#34;&#34; Configure Quantization for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        q_scale (str): Scale of the quantization at `layer`
+        q_zero_point (str): Zero Point of the quantization at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_QUANT + &#39; &#39; + layer + &#39; &#39; + q_scale + &#39; &#39; + q_zero_point, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_rrams"><code class="name flex">
+<span>def <span class="ident">nn_conf_rrams</span></span>(<span>layer, rrams, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure RRAM module location for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>rrams</code></strong> :&ensp;<code>str</code></dt>
+<dd>RRAM Module number that this layer resides at</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_rrams(layer, rrams, verbal):
+    &#34;&#34;&#34; Configure RRAM module location for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        rrams (str): RRAM Module number that this layer resides at
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_RRAMS + &#39; &#39; + layer + &#39; &#39; + rrams, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_type"><code class="name flex">
+<span>def <span class="ident">nn_conf_type</span></span>(<span>layer, type, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure layer type for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer type, could be <code>0</code> for FC or <code>1</code> for Convolution</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_type(layer, type, verbal):
+    &#34;&#34;&#34; Configure layer type for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        type (str): Layer type, could be `0` for FC or `1` for Convolution
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_TYPE + &#39; &#39; + layer + &#39; &#39; + type, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_print"><code class="name flex">
+<span>def <span class="ident">nn_print</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the network</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_print       (verbal):
+    &#34;&#34;&#34; Print the network
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_PRINT, verbal)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="DNN.decode" href="#DNN.decode">decode</a></code></li>
+<li><code><a title="DNN.forward" href="#DNN.forward">forward</a></code></li>
+<li><code><a title="DNN.in_clear" href="#DNN.in_clear">in_clear</a></code></li>
+<li><code><a title="DNN.in_conf_len" href="#DNN.in_conf_len">in_conf_len</a></code></li>
+<li><code><a title="DNN.in_fill" href="#DNN.in_fill">in_fill</a></code></li>
+<li><code><a title="DNN.in_print" href="#DNN.in_print">in_print</a></code></li>
+<li><code><a title="DNN.nn_clear" href="#DNN.nn_clear">nn_clear</a></code></li>
+<li><code><a title="DNN.nn_conf_act" href="#DNN.nn_conf_act">nn_conf_act</a></code></li>
+<li><code><a title="DNN.nn_conf_ecc" href="#DNN.nn_conf_ecc">nn_conf_ecc</a></code></li>
+<li><code><a title="DNN.nn_conf_input" href="#DNN.nn_conf_input">nn_conf_input</a></code></li>
+<li><code><a title="DNN.nn_conf_kernel" href="#DNN.nn_conf_kernel">nn_conf_kernel</a></code></li>
+<li><code><a title="DNN.nn_conf_quant" href="#DNN.nn_conf_quant">nn_conf_quant</a></code></li>
+<li><code><a title="DNN.nn_conf_rrams" href="#DNN.nn_conf_rrams">nn_conf_rrams</a></code></li>
+<li><code><a title="DNN.nn_conf_type" href="#DNN.nn_conf_type">nn_conf_type</a></code></li>
+<li><code><a title="DNN.nn_print" href="#DNN.nn_print">nn_print</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
