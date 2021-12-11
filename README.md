@@ -58,4 +58,4 @@ platform for end users to get hands on our RRAM test chip.
     | READ   | N/A          | N/A          | 5      | N/A
 
 - ## Firmware Update
-    To update the firmwares, please refer to [rram-programmer](https://github.com/muyachang/rram-programmer) repo.
+    To update the firmwares, please refer to [rram-programmer](https://muyachang.github.io/rram-programmer/) repo.
