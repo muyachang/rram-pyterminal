@@ -1,4 +1,5 @@
 import PyTerminal as PT
+from time import localtime, strftime
 
 if __name__ == '__main__':
     """ Initialize PyTerminal, try to connect to a board, and start up the terminal
@@ -6,7 +7,7 @@ if __name__ == '__main__':
 
     if PT.connect():
         while 1:
-            command = input("ICSRL> ")
+            command = input("(" + strftime("%H:%M:%S", localtime()) + ") ICSRL> ")
             if not PT.alive():
                 decision = input('[WARNING] Evaluation board lost, do you want to exit (Y/N)? ')
                 if decision.lower() == 'y':
