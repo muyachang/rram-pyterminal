@@ -105,47 +105,50 @@ def nn_conf_input(layer, input_length, input_channel, verbal):
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        input_length (str): The length of input activation at `layer` (assume the activation is square)
+        input_length (str): The length of input activation at `layer` (assume the intput is square)
         input_channel (str): The channel of input activation at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_INPUT + &#39; &#39; + layer + &#39; &#39; + input_length + &#39; &#39; + input_channel, verbal)
 
 
-def nn_conf_kernel(layer, kernel_length, kernel_number, stride, verbal):
+def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal):
     &#34;&#34;&#34; Configure kernel for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        kernel_length (str): The length of kernel at `layer`  (assume the activation is square)
+        kernel_length (str): The length of kernel at `layer`  (assume the kernel is square)
+        kernel_channel (str): The channel of kernel at `layer`
         kernel_number (str): The number of kernel at `layer`
         stride (str): The stride of kernel at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_channel + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)
 
 
-def nn_conf_act(layer, activation, verbal):
+def nn_conf_output(layer, output_length, output_channel, output_activation, verbal):
     &#34;&#34;&#34; Configure activation setting for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        activation (str): Whether the output of `layer` is activation
+        output_length (str): The length of output at `layer`  (assume the output is square)
+        output_channel (str): The channel of output at `layer`
+        output_activation (str): Output activation type at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ACT + &#39; &#39; + layer + &#39; &#39; + activation, verbal)
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT + &#39; &#39; + layer + &#39; &#39; + output_length + &#39; &#39; + output_channel + &#39; &#39; + output_activation, verbal)
 
 
-def nn_conf_quant(layer, q_scale, q_zero_point, verbal):
+def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal):
     &#34;&#34;&#34; Configure Quantization for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        q_scale (str): Scale of the quantization at `layer`
-        q_zero_point (str): Zero Point of the quantization at `layer`
+        output_q_scale (str): Output quantization scale at `layer`
+        output_q_zp (str): Output quantization zero point at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_QUANT + &#39; &#39; + layer + &#39; &#39; + q_scale + &#39; &#39; + q_zero_point, verbal)
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT_Q + &#39; &#39; + layer + &#39; &#39; + output_q_scale + &#39; &#39; + output_q_zp, verbal)
 
 
 def nn_conf_ecc(layer, ecc, verbal):
@@ -186,22 +189,22 @@ def decode(parameters):
     Args:
         parameters (list): Command in List form.
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;in_clear&#39;      : in_clear    (True)
-    elif parameters[1] == &#39;in_conf_len&#39;   : in_conf_len (parameters[2], True)
-    elif parameters[1] == &#39;in_fill&#39;       : in_fill     (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;in_print&#39;      : in_print    (True)
+    if   parameters[1] == &#39;in_clear&#39;        : in_clear        (True)
+    elif parameters[1] == &#39;in_conf_len&#39;     : in_conf_len     (parameters[2], True)
+    elif parameters[1] == &#39;in_fill&#39;         : in_fill         (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;in_print&#39;        : in_print        (True)
 
-    elif parameters[1] == &#39;nn_clear&#39;      : nn_clear       (True)
-    elif parameters[1] == &#39;nn_conf_type&#39;  : nn_conf_type   (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_rrams&#39; : nn_conf_rrams  (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_input&#39; : nn_conf_input  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_kernel&#39;: nn_conf_kernel (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;nn_conf_act&#39;   : nn_conf_act    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_quant&#39; : nn_conf_quant  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_ecc&#39;   : nn_conf_ecc    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_print&#39;      : nn_print       (True)
+    elif parameters[1] == &#39;nn_clear&#39;        : nn_clear        (True)
+    elif parameters[1] == &#39;nn_conf_type&#39;    : nn_conf_type    (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_rrams&#39;   : nn_conf_rrams   (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_input&#39;   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_kernel&#39;  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
+    elif parameters[1] == &#39;nn_conf_output&#39;  : nn_conf_output  (parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == &#39;nn_conf_output_q&#39;: nn_conf_output_q(parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_ecc&#39;     : nn_conf_ecc     (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_print&#39;        : nn_print        (True)
 
-    elif parameters[1] == &#39;forward&#39;     : forward     (parameters[2], True)
+    elif parameters[1] == &#39;forward&#39;         : forward         (parameters[2], True)
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -232,22 +235,22 @@ def decode(parameters):
     Args:
         parameters (list): Command in List form.
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;in_clear&#39;      : in_clear    (True)
-    elif parameters[1] == &#39;in_conf_len&#39;   : in_conf_len (parameters[2], True)
-    elif parameters[1] == &#39;in_fill&#39;       : in_fill     (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;in_print&#39;      : in_print    (True)
+    if   parameters[1] == &#39;in_clear&#39;        : in_clear        (True)
+    elif parameters[1] == &#39;in_conf_len&#39;     : in_conf_len     (parameters[2], True)
+    elif parameters[1] == &#39;in_fill&#39;         : in_fill         (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;in_print&#39;        : in_print        (True)
 
-    elif parameters[1] == &#39;nn_clear&#39;      : nn_clear       (True)
-    elif parameters[1] == &#39;nn_conf_type&#39;  : nn_conf_type   (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_rrams&#39; : nn_conf_rrams  (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_input&#39; : nn_conf_input  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_kernel&#39;: nn_conf_kernel (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;nn_conf_act&#39;   : nn_conf_act    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_quant&#39; : nn_conf_quant  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_ecc&#39;   : nn_conf_ecc    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_print&#39;      : nn_print       (True)
+    elif parameters[1] == &#39;nn_clear&#39;        : nn_clear        (True)
+    elif parameters[1] == &#39;nn_conf_type&#39;    : nn_conf_type    (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_rrams&#39;   : nn_conf_rrams   (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_conf_input&#39;   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_kernel&#39;  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
+    elif parameters[1] == &#39;nn_conf_output&#39;  : nn_conf_output  (parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == &#39;nn_conf_output_q&#39;: nn_conf_output_q(parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == &#39;nn_conf_ecc&#39;     : nn_conf_ecc     (parameters[2], parameters[3], True)
+    elif parameters[1] == &#39;nn_print&#39;        : nn_print        (True)
 
-    elif parameters[1] == &#39;forward&#39;     : forward     (parameters[2], True)
+    elif parameters[1] == &#39;forward&#39;         : forward         (parameters[2], True)
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
@@ -405,35 +408,6 @@ def decode(parameters):
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CLEAR, verbal)</code></pre>
 </details>
 </dd>
-<dt id="DNN.nn_conf_act"><code class="name flex">
-<span>def <span class="ident">nn_conf_act</span></span>(<span>layer, activation, verbal)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Configure activation setting for <code>layer</code></p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
-<dt><strong><code>activation</code></strong> :&ensp;<code>str</code></dt>
-<dd>Whether the output of <code>layer</code> is activation</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def nn_conf_act(layer, activation, verbal):
-    &#34;&#34;&#34; Configure activation setting for `layer`
-
-    Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        activation (str): Whether the output of `layer` is activation
-        verbal (bool): Whether to print the response or not.
-    &#34;&#34;&#34;
-    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ACT + &#39; &#39; + layer + &#39; &#39; + activation, verbal)</code></pre>
-</details>
-</dd>
 <dt id="DNN.nn_conf_ecc"><code class="name flex">
 <span>def <span class="ident">nn_conf_ecc</span></span>(<span>layer, ecc, verbal)</span>
 </code></dt>
@@ -473,7 +447,7 @@ def decode(parameters):
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
 <dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
 <dt><strong><code>input_length</code></strong> :&ensp;<code>str</code></dt>
-<dd>The length of input activation at <code>layer</code> (assume the activation is square)</dd>
+<dd>The length of input activation at <code>layer</code> (assume the intput is square)</dd>
 <dt><strong><code>input_channel</code></strong> :&ensp;<code>str</code></dt>
 <dd>The channel of input activation at <code>layer</code></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
@@ -488,7 +462,7 @@ def decode(parameters):
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        input_length (str): The length of input activation at `layer` (assume the activation is square)
+        input_length (str): The length of input activation at `layer` (assume the intput is square)
         input_channel (str): The channel of input activation at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
@@ -496,7 +470,7 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="DNN.nn_conf_kernel"><code class="name flex">
-<span>def <span class="ident">nn_conf_kernel</span></span>(<span>layer, kernel_length, kernel_number, stride, verbal)</span>
+<span>def <span class="ident">nn_conf_kernel</span></span>(<span>layer, kernel_length, kernel_channel, kernel_number, stride, verbal)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure kernel for <code>layer</code></p>
@@ -506,7 +480,9 @@ def decode(parameters):
 <dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
 <dt><strong><code>kernel_length</code></strong> :&ensp;<code>str</code></dt>
 <dd>The length of kernel at <code>layer</code>
-(assume the activation is square)</dd>
+(assume the kernel is square)</dd>
+<dt><strong><code>kernel_channel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The channel of kernel at <code>layer</code></dd>
 <dt><strong><code>kernel_number</code></strong> :&ensp;<code>str</code></dt>
 <dd>The number of kernel at <code>layer</code></dd>
 <dt><strong><code>stride</code></strong> :&ensp;<code>str</code></dt>
@@ -518,32 +494,36 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_kernel(layer, kernel_length, kernel_number, stride, verbal):
+<pre><code class="python">def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal):
     &#34;&#34;&#34; Configure kernel for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        kernel_length (str): The length of kernel at `layer`  (assume the activation is square)
+        kernel_length (str): The length of kernel at `layer`  (assume the kernel is square)
+        kernel_channel (str): The channel of kernel at `layer`
         kernel_number (str): The number of kernel at `layer`
         stride (str): The stride of kernel at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)</code></pre>
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_channel + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)</code></pre>
 </details>
 </dd>
-<dt id="DNN.nn_conf_quant"><code class="name flex">
-<span>def <span class="ident">nn_conf_quant</span></span>(<span>layer, q_scale, q_zero_point, verbal)</span>
+<dt id="DNN.nn_conf_output"><code class="name flex">
+<span>def <span class="ident">nn_conf_output</span></span>(<span>layer, output_length, output_channel, output_activation, verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure Quantization for <code>layer</code></p>
+<div class="desc"><p>Configure activation setting for <code>layer</code></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
 <dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
-<dt><strong><code>q_scale</code></strong> :&ensp;<code>str</code></dt>
-<dd>Scale of the quantization at <code>layer</code></dd>
-<dt><strong><code>q_zero_point</code></strong> :&ensp;<code>str</code></dt>
-<dd>Zero Point of the quantization at <code>layer</code></dd>
+<dt><strong><code>output_length</code></strong> :&ensp;<code>str</code></dt>
+<dd>The length of output at <code>layer</code>
+(assume the output is square)</dd>
+<dt><strong><code>output_channel</code></strong> :&ensp;<code>str</code></dt>
+<dd>The channel of output at <code>layer</code></dd>
+<dt><strong><code>output_activation</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output activation type at <code>layer</code></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Whether to print the response or not.</dd>
 </dl></div>
@@ -551,16 +531,49 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_quant(layer, q_scale, q_zero_point, verbal):
+<pre><code class="python">def nn_conf_output(layer, output_length, output_channel, output_activation, verbal):
+    &#34;&#34;&#34; Configure activation setting for `layer`
+
+    Args:
+        layer (str): Layer number, could be `0` ~ `19`
+        output_length (str): The length of output at `layer`  (assume the output is square)
+        output_channel (str): The channel of output at `layer`
+        output_activation (str): Output activation type at `layer`
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT + &#39; &#39; + layer + &#39; &#39; + output_length + &#39; &#39; + output_channel + &#39; &#39; + output_activation, verbal)</code></pre>
+</details>
+</dd>
+<dt id="DNN.nn_conf_output_q"><code class="name flex">
+<span>def <span class="ident">nn_conf_output_q</span></span>(<span>layer, output_q_scale, output_q_zp, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure Quantization for <code>layer</code></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
+<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dt><strong><code>output_q_scale</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output quantization scale at <code>layer</code></dd>
+<dt><strong><code>output_q_zp</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output quantization zero point at <code>layer</code></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal):
     &#34;&#34;&#34; Configure Quantization for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        q_scale (str): Scale of the quantization at `layer`
-        q_zero_point (str): Zero Point of the quantization at `layer`
+        output_q_scale (str): Output quantization scale at `layer`
+        output_q_zp (str): Output quantization zero point at `layer`
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_QUANT + &#39; &#39; + layer + &#39; &#39; + q_scale + &#39; &#39; + q_zero_point, verbal)</code></pre>
+    PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT_Q + &#39; &#39; + layer + &#39; &#39; + output_q_scale + &#39; &#39; + output_q_zp, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_rrams"><code class="name flex">
@@ -664,11 +677,11 @@ def decode(parameters):
 <li><code><a title="DNN.in_fill" href="#DNN.in_fill">in_fill</a></code></li>
 <li><code><a title="DNN.in_print" href="#DNN.in_print">in_print</a></code></li>
 <li><code><a title="DNN.nn_clear" href="#DNN.nn_clear">nn_clear</a></code></li>
-<li><code><a title="DNN.nn_conf_act" href="#DNN.nn_conf_act">nn_conf_act</a></code></li>
 <li><code><a title="DNN.nn_conf_ecc" href="#DNN.nn_conf_ecc">nn_conf_ecc</a></code></li>
 <li><code><a title="DNN.nn_conf_input" href="#DNN.nn_conf_input">nn_conf_input</a></code></li>
 <li><code><a title="DNN.nn_conf_kernel" href="#DNN.nn_conf_kernel">nn_conf_kernel</a></code></li>
-<li><code><a title="DNN.nn_conf_quant" href="#DNN.nn_conf_quant">nn_conf_quant</a></code></li>
+<li><code><a title="DNN.nn_conf_output" href="#DNN.nn_conf_output">nn_conf_output</a></code></li>
+<li><code><a title="DNN.nn_conf_output_q" href="#DNN.nn_conf_output_q">nn_conf_output_q</a></code></li>
 <li><code><a title="DNN.nn_conf_rrams" href="#DNN.nn_conf_rrams">nn_conf_rrams</a></code></li>
 <li><code><a title="DNN.nn_conf_type" href="#DNN.nn_conf_type">nn_conf_type</a></code></li>
 <li><code><a title="DNN.nn_print" href="#DNN.nn_print">nn_print</a></code></li>
