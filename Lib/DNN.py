@@ -77,47 +77,50 @@ def nn_conf_input(layer, input_length, input_channel, verbal):
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        input_length (str): The length of input activation at `layer` (assume the activation is square)
+        input_length (str): The length of input activation at `layer` (assume the intput is square)
         input_channel (str): The channel of input activation at `layer`
         verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_INPUT + ' ' + layer + ' ' + input_length + ' ' + input_channel, verbal)
 
 
-def nn_conf_kernel(layer, kernel_length, kernel_number, stride, verbal):
+def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal):
     """ Configure kernel for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        kernel_length (str): The length of kernel at `layer`  (assume the activation is square)
+        kernel_length (str): The length of kernel at `layer`  (assume the kernel is square)
+        kernel_channel (str): The channel of kernel at `layer`
         kernel_number (str): The number of kernel at `layer`
         stride (str): The stride of kernel at `layer`
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_KERNEL + ' ' + layer + ' ' + kernel_length + ' ' + kernel_number + ' ' + stride, verbal)
+    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_KERNEL + ' ' + layer + ' ' + kernel_length + ' ' + kernel_channel + ' ' + kernel_number + ' ' + stride, verbal)
 
 
-def nn_conf_act(layer, activation, verbal):
+def nn_conf_output(layer, output_length, output_channel, output_activation, verbal):
     """ Configure activation setting for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        activation (str): Whether the output of `layer` is activation
+        output_length (str): The length of output at `layer`  (assume the output is square)
+        output_channel (str): The channel of output at `layer`
+        output_activation (str): Output activation type at `layer`
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_ACT + ' ' + layer + ' ' + activation, verbal)
+    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_OUTPUT + ' ' + layer + ' ' + output_length + ' ' + output_channel + ' ' + output_activation, verbal)
 
 
-def nn_conf_quant(layer, q_scale, q_zero_point, verbal):
+def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal):
     """ Configure Quantization for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
-        q_scale (str): Scale of the quantization at `layer`
-        q_zero_point (str): Zero Point of the quantization at `layer`
+        output_q_scale (str): Output quantization scale at `layer`
+        output_q_zp (str): Output quantization zero point at `layer`
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_QUANT + ' ' + layer + ' ' + q_scale + ' ' + q_zero_point, verbal)
+    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_OUTPUT_Q + ' ' + layer + ' ' + output_q_scale + ' ' + output_q_zp, verbal)
 
 
 def nn_conf_ecc(layer, ecc, verbal):
@@ -158,20 +161,20 @@ def decode(parameters):
     Args:
         parameters (list): Command in List form.
     """
-    if   parameters[1] == 'in_clear'      : in_clear    (True)
-    elif parameters[1] == 'in_conf_len'   : in_conf_len (parameters[2], True)
-    elif parameters[1] == 'in_fill'       : in_fill     (parameters[2], parameters[3], True)
-    elif parameters[1] == 'in_print'      : in_print    (True)
+    if   parameters[1] == 'in_clear'        : in_clear        (True)
+    elif parameters[1] == 'in_conf_len'     : in_conf_len     (parameters[2], True)
+    elif parameters[1] == 'in_fill'         : in_fill         (parameters[2], parameters[3], True)
+    elif parameters[1] == 'in_print'        : in_print        (True)
 
-    elif parameters[1] == 'nn_clear'      : nn_clear       (True)
-    elif parameters[1] == 'nn_conf_type'  : nn_conf_type   (parameters[2], parameters[3], True)
-    elif parameters[1] == 'nn_conf_rrams' : nn_conf_rrams  (parameters[2], parameters[3], True)
-    elif parameters[1] == 'nn_conf_input' : nn_conf_input  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'nn_conf_kernel': nn_conf_kernel (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == 'nn_conf_act'   : nn_conf_act    (parameters[2], parameters[3], True)
-    elif parameters[1] == 'nn_conf_quant' : nn_conf_quant  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == 'nn_conf_ecc'   : nn_conf_ecc    (parameters[2], parameters[3], True)
-    elif parameters[1] == 'nn_print'      : nn_print       (True)
+    elif parameters[1] == 'nn_clear'        : nn_clear        (True)
+    elif parameters[1] == 'nn_conf_type'    : nn_conf_type    (parameters[2], parameters[3], True)
+    elif parameters[1] == 'nn_conf_rrams'   : nn_conf_rrams   (parameters[2], parameters[3], True)
+    elif parameters[1] == 'nn_conf_input'   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'nn_conf_kernel'  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
+    elif parameters[1] == 'nn_conf_output'  : nn_conf_output  (parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'nn_conf_output_q': nn_conf_output_q(parameters[2], parameters[3], parameters[4], True)
+    elif parameters[1] == 'nn_conf_ecc'     : nn_conf_ecc     (parameters[2], parameters[3], True)
+    elif parameters[1] == 'nn_print'        : nn_print        (True)
 
-    elif parameters[1] == 'forward'     : forward     (parameters[2], True)
+    elif parameters[1] == 'forward'         : forward         (parameters[2], True)
     else: PT.unknown(parameters)
