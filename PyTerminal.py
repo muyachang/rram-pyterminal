@@ -7,7 +7,7 @@ import USER
 VID = '0x03EB'    # Atmel
 PID = '0x204B'    # LUFA USB to Serial Demo Application
 BAUDRATE = 115200 # Baudrate for COM port connections
-TIMEOUT = 3       # Seconds
+TIMEOUT = 30       # Seconds
 
 
 def connect():
