@@ -5,6 +5,8 @@ platform for end users to get hands on our RRAM test chip.
 
 - ## Required Python Packages
   - pyserial
+  - numpy
+  - Pillow
 
 - ## Evaluation Board
   - ### Structure
