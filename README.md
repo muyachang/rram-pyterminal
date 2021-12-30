@@ -7,6 +7,7 @@ platform for end users to get hands on our RRAM test chip.
   - pyserial
   - numpy
   - Pillow
+  - torch
 
 - ## Evaluation Board
   - ### Structure
