@@ -1,5 +1,6 @@
 import serial
 import CommandMap as CM
+import MNIST
 import DEMO, ASCII, RRAM, VECTOR, DNN
 import EEPROM, PM, LED, DF, DAC, TC, BOARD
 import USER
@@ -103,6 +104,7 @@ def decode_command(command):
         elif parameters[0] == "VECTOR": VECTOR.decode(parameters)
         elif parameters[0] == "DNN"   :    DNN.decode(parameters)
         elif parameters[0] == "USER"  :   USER.decode(parameters)
+        elif parameters[0] == "MNIST" :  MNIST.decode(parameters)
         else: unknown(parameters)
 
     # If the atmel is reset, we need to reopen it again
