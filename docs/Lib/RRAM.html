@@ -42,17 +42,6 @@ def id (verbal):
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PID, verbal)
 
 
-def status(verbal):
-    &#34;&#34;&#34; **[Low Level]** Get the status of the RRAM modules
-
-    Args:
-        verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
-    &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_STATUS, verbal)
-
-
 def lane(action, target, verbal):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected ADC lane
 
@@ -286,6 +275,39 @@ def ecc(action, action_type, target, verbal):
     elif action == &#39;check&#39;:
         return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ECC + &#39; &#39; + CM.CM_RRAM_CHECK, verbal)
     else: PT.unknown([&#39;RRAM&#39;, &#39;ecc&#39;, action, action_type, target])
+
+
+def reg_status(verbal):
+    &#34;&#34;&#34; **[High Level]** Get the register status of the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)
+
+
+def env_status(verbal):
+    &#34;&#34;&#34; **[High Level]** Get the environment status of the system and the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)
+
+
+def mod_status(verbal):
+    &#34;&#34;&#34; **[High Level]** Get the module status of the RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)
 
 
 def switch(index, verbal):
@@ -625,7 +647,6 @@ def decode(parameters):
     &#34;&#34;&#34;
     # Driver functions
     if   parameters[1] == &#39;id&#39;               : id               (                                                            True)
-    elif parameters[1] == &#39;status&#39;           : status           (                                                            True)
     elif parameters[1] == &#39;lane&#39;             : lane             (parameters[2], parameters[3],                               True)
     elif parameters[1] == &#39;group&#39;            : group            (parameters[2], parameters[3],                               True)
     elif parameters[1] == &#39;module&#39;           : module           (parameters[2], parameters[3],                               True)
@@ -638,6 +659,9 @@ def decode(parameters):
     elif parameters[1] == &#39;pg&#39;               : pg               (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],                True)
     # API functions
+    elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                            True)
+    elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                            True)
+    elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                            True)
     elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                              True)
     elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                               True)
@@ -1120,7 +1144,6 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     &#34;&#34;&#34;
     # Driver functions
     if   parameters[1] == &#39;id&#39;               : id               (                                                            True)
-    elif parameters[1] == &#39;status&#39;           : status           (                                                            True)
     elif parameters[1] == &#39;lane&#39;             : lane             (parameters[2], parameters[3],                               True)
     elif parameters[1] == &#39;group&#39;            : group            (parameters[2], parameters[3],                               True)
     elif parameters[1] == &#39;module&#39;           : module           (parameters[2], parameters[3],                               True)
@@ -1133,6 +1156,9 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     elif parameters[1] == &#39;pg&#39;               : pg               (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],                True)
     # API functions
+    elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                            True)
+    elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                            True)
+    elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                            True)
     elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                              True)
     elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                               True)
@@ -1206,6 +1232,33 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     elif action == &#39;check&#39;:
         return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ECC + &#39; &#39; + CM.CM_RRAM_CHECK, verbal)
     else: PT.unknown([&#39;RRAM&#39;, &#39;ecc&#39;, action, action_type, target])</code></pre>
+</details>
+</dd>
+<dt id="RRAM.env_status"><code class="name flex">
+<span>def <span class="ident">env_status</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Get the environment status of the system and the currently selected RRAM modules</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The status of the RRAM Modules.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def env_status(verbal):
+    &#34;&#34;&#34; **[High Level]** Get the environment status of the system and the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.form"><code class="name flex">
@@ -1504,6 +1557,33 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     else: PT.unknown([&#39;RRAM&#39;, &#39;mask&#39;, action, target])</code></pre>
 </details>
 </dd>
+<dt id="RRAM.mod_status"><code class="name flex">
+<span>def <span class="ident">mod_status</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Get the module status of the RRAM modules</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The status of the RRAM Modules.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mod_status(verbal):
+    &#34;&#34;&#34; **[High Level]** Get the module status of the RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)</code></pre>
+</details>
+</dd>
 <dt id="RRAM.module"><code class="name flex">
 <span>def <span class="ident">module</span></span>(<span>action, target, verbal)</span>
 </code></dt>
@@ -1705,6 +1785,33 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_READ_LANE + &#39; &#39; + address + &#39; &#39; + data, verbal)</code></pre>
 </details>
 </dd>
+<dt id="RRAM.reg_status"><code class="name flex">
+<span>def <span class="ident">reg_status</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Get the register status of the currently selected RRAM modules</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The status of the RRAM Modules.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reg_status(verbal):
+    &#34;&#34;&#34; **[High Level]** Get the register status of the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)</code></pre>
+</details>
+</dd>
 <dt id="RRAM.reset"><code class="name flex">
 <span>def <span class="ident">reset</span></span>(<span>level, number, verbal)</span>
 </code></dt>
@@ -1814,33 +1921,6 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number + &#39; &#39; + times, verbal)</code></pre>
-</details>
-</dd>
-<dt id="RRAM.status"><code class="name flex">
-<span>def <span class="ident">status</span></span>(<span>verbal)</span>
-</code></dt>
-<dd>
-<div class="desc"><p><strong>[Low Level]</strong> Get the status of the RRAM modules</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The status of the RRAM Modules.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def status(verbal):
-    &#34;&#34;&#34; **[Low Level]** Get the status of the RRAM modules
-
-    Args:
-        verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
-    &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.sweep_DRef"><code class="name flex">
@@ -2065,6 +2145,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <li><code><a title="RRAM.conf_set" href="#RRAM.conf_set">conf_set</a></code></li>
 <li><code><a title="RRAM.decode" href="#RRAM.decode">decode</a></code></li>
 <li><code><a title="RRAM.ecc" href="#RRAM.ecc">ecc</a></code></li>
+<li><code><a title="RRAM.env_status" href="#RRAM.env_status">env_status</a></code></li>
 <li><code><a title="RRAM.form" href="#RRAM.form">form</a></code></li>
 <li><code><a title="RRAM.group" href="#RRAM.group">group</a></code></li>
 <li><code><a title="RRAM.id" href="#RRAM.id">id</a></code></li>
@@ -2074,15 +2155,16 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <li><code><a title="RRAM.list_VTGT_BL" href="#RRAM.list_VTGT_BL">list_VTGT_BL</a></code></li>
 <li><code><a title="RRAM.mac" href="#RRAM.mac">mac</a></code></li>
 <li><code><a title="RRAM.mask" href="#RRAM.mask">mask</a></code></li>
+<li><code><a title="RRAM.mod_status" href="#RRAM.mod_status">mod_status</a></code></li>
 <li><code><a title="RRAM.module" href="#RRAM.module">module</a></code></li>
 <li><code><a title="RRAM.pg" href="#RRAM.pg">pg</a></code></li>
 <li><code><a title="RRAM.read" href="#RRAM.read">read</a></code></li>
 <li><code><a title="RRAM.read_byte" href="#RRAM.read_byte">read_byte</a></code></li>
 <li><code><a title="RRAM.read_lane" href="#RRAM.read_lane">read_lane</a></code></li>
+<li><code><a title="RRAM.reg_status" href="#RRAM.reg_status">reg_status</a></code></li>
 <li><code><a title="RRAM.reset" href="#RRAM.reset">reset</a></code></li>
 <li><code><a title="RRAM.set" href="#RRAM.set">set</a></code></li>
 <li><code><a title="RRAM.set_reset" href="#RRAM.set_reset">set_reset</a></code></li>
-<li><code><a title="RRAM.status" href="#RRAM.status">status</a></code></li>
 <li><code><a title="RRAM.sweep_DRef" href="#RRAM.sweep_DRef">sweep_DRef</a></code></li>
 <li><code><a title="RRAM.sweep_VRef" href="#RRAM.sweep_VRef">sweep_VRef</a></code></li>
 <li><code><a title="RRAM.switch" href="#RRAM.switch">switch</a></code></li>
