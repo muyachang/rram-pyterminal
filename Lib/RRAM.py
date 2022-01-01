@@ -14,17 +14,6 @@ def id (verbal):
     return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PID, verbal)
 
 
-def status(verbal):
-    """ **[Low Level]** Get the status of the RRAM modules
-
-    Args:
-        verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
-    """
-    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_STATUS, verbal)
-
-
 def lane(action, target, verbal):
     """ **[Low Level]** Set/Get the selected ADC lane
 
@@ -258,6 +247,39 @@ def ecc(action, action_type, target, verbal):
     elif action == 'check':
         return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ECC + ' ' + CM.CM_RRAM_CHECK, verbal)
     else: PT.unknown(['RRAM', 'ecc', action, action_type, target])
+
+
+def reg_status(verbal):
+    """ **[High Level]** Get the register status of the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    """
+    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_REG_STATUS, verbal)
+
+
+def env_status(verbal):
+    """ **[High Level]** Get the environment status of the system and the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    """
+    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ENV_STATUS, verbal)
+
+
+def mod_status(verbal):
+    """ **[High Level]** Get the module status of the RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    Returns:
+        The status of the RRAM Modules.
+    """
+    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MOD_STATUS, verbal)
 
 
 def switch(index, verbal):
@@ -597,7 +619,6 @@ def decode(parameters):
     """
     # Driver functions
     if   parameters[1] == 'id'               : id               (                                                            True)
-    elif parameters[1] == 'status'           : status           (                                                            True)
     elif parameters[1] == 'lane'             : lane             (parameters[2], parameters[3],                               True)
     elif parameters[1] == 'group'            : group            (parameters[2], parameters[3],                               True)
     elif parameters[1] == 'module'           : module           (parameters[2], parameters[3],                               True)
@@ -610,6 +631,9 @@ def decode(parameters):
     elif parameters[1] == 'pg'               : pg               (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'ecc'              : ecc              (parameters[2], parameters[3], parameters[4],                True)
     # API functions
+    elif parameters[1] == 'reg_status'       : reg_status       (                                                            True)
+    elif parameters[1] == 'env_status'       : env_status       (                                                            True)
+    elif parameters[1] == 'mod_status'       : mod_status       (                                                            True)
     elif parameters[1] == 'switch'           : switch           (parameters[2],                                              True)
     elif parameters[1] == 'conf_form'        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == 'form'             : form             (parameters[2], parameters[3],                               True)
