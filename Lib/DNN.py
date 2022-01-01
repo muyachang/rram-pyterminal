@@ -98,17 +98,16 @@ def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, 
     PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_KERNEL + ' ' + layer + ' ' + kernel_length + ' ' + kernel_channel + ' ' + kernel_number + ' ' + stride, verbal)
 
 
-def nn_conf_output(layer, output_length, output_channel, output_activation, verbal):
+def nn_conf_output(layer, output_length, output_channel, verbal):
     """ Configure activation setting for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         output_length (str): The length of output at `layer`  (assume the output is square)
         output_channel (str): The channel of output at `layer`
-        output_activation (str): Output activation type at `layer`
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_OUTPUT + ' ' + layer + ' ' + output_length + ' ' + output_channel + ' ' + output_activation, verbal)
+    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_OUTPUT + ' ' + layer + ' ' + output_length + ' ' + output_channel, verbal)
 
 
 def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal):
@@ -171,7 +170,7 @@ def decode(parameters):
     elif parameters[1] == 'nn_conf_rrams'   : nn_conf_rrams   (parameters[2], parameters[3], True)
     elif parameters[1] == 'nn_conf_input'   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
     elif parameters[1] == 'nn_conf_kernel'  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
-    elif parameters[1] == 'nn_conf_output'  : nn_conf_output  (parameters[2], parameters[3], parameters[4], parameters[5], True)
+    elif parameters[1] == 'nn_conf_output'  : nn_conf_output  (parameters[2], parameters[3], parameters[4], True)
     elif parameters[1] == 'nn_conf_output_q': nn_conf_output_q(parameters[2], parameters[3], parameters[4], True)
     elif parameters[1] == 'nn_conf_ecc'     : nn_conf_ecc     (parameters[2], parameters[3], True)
     elif parameters[1] == 'nn_print'        : nn_print        (True)
