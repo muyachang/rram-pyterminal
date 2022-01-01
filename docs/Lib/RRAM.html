@@ -278,36 +278,30 @@ def ecc(action, action_type, target, verbal):
 
 
 def reg_status(verbal):
-    &#34;&#34;&#34; **[High Level]** Get the register status of the currently selected RRAM modules
+    &#34;&#34;&#34; **[High Level]** Print the register status of the RRAM accelerator
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)
 
 
 def env_status(verbal):
-    &#34;&#34;&#34; **[High Level]** Get the environment status of the system and the currently selected RRAM modules
+    &#34;&#34;&#34; **[High Level]** Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)
 
 
 def mod_status(verbal):
-    &#34;&#34;&#34; **[High Level]** Get the module status of the RRAM modules
+    &#34;&#34;&#34; **[High Level]** Print the module floorplan status
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)
 
 
 def switch(index, verbal):
@@ -1238,27 +1232,23 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">env_status</span></span>(<span>verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[High Level]</strong> Get the environment status of the system and the currently selected RRAM modules</p>
+<div class="desc"><p><strong>[High Level]</strong> Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Whether to print the response or not.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The status of the RRAM Modules.</p></div>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def env_status(verbal):
-    &#34;&#34;&#34; **[High Level]** Get the environment status of the system and the currently selected RRAM modules
+    &#34;&#34;&#34; **[High Level]** Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.form"><code class="name flex">
@@ -1561,27 +1551,23 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">mod_status</span></span>(<span>verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[High Level]</strong> Get the module status of the RRAM modules</p>
+<div class="desc"><p><strong>[High Level]</strong> Print the module floorplan status</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Whether to print the response or not.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The status of the RRAM Modules.</p></div>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mod_status(verbal):
-    &#34;&#34;&#34; **[High Level]** Get the module status of the RRAM modules
+    &#34;&#34;&#34; **[High Level]** Print the module floorplan status
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.module"><code class="name flex">
@@ -1789,27 +1775,23 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">reg_status</span></span>(<span>verbal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[High Level]</strong> Get the register status of the currently selected RRAM modules</p>
+<div class="desc"><p><strong>[High Level]</strong> Print the register status of the RRAM accelerator</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Whether to print the response or not.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>The status of the RRAM Modules.</p></div>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def reg_status(verbal):
-    &#34;&#34;&#34; **[High Level]** Get the register status of the currently selected RRAM modules
+    &#34;&#34;&#34; **[High Level]** Print the register status of the RRAM accelerator
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.reset"><code class="name flex">

@@ -250,36 +250,30 @@ def ecc(action, action_type, target, verbal):
 
 
 def reg_status(verbal):
-    """ **[High Level]** Get the register status of the currently selected RRAM modules
+    """ **[High Level]** Print the register status of the RRAM accelerator
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     """
-    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_REG_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_REG_STATUS, verbal)
 
 
 def env_status(verbal):
-    """ **[High Level]** Get the environment status of the system and the currently selected RRAM modules
+    """ **[High Level]** Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     """
-    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ENV_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ENV_STATUS, verbal)
 
 
 def mod_status(verbal):
-    """ **[High Level]** Get the module status of the RRAM modules
+    """ **[High Level]** Print the module floorplan status
 
     Args:
         verbal (bool): Whether to print the response or not.
-    Returns:
-        The status of the RRAM Modules.
     """
-    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MOD_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MOD_STATUS, verbal)
 
 
 def switch(index, verbal):
