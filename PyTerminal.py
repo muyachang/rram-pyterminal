@@ -1,7 +1,7 @@
 import serial
 import CommandMap as CM
 import MNIST
-import DEMO, ASCII, RRAM, VECTOR, DNN
+import DEMO, UTF8, RRAM, VECTOR, DNN
 import EEPROM, PM, LED, DF, DAC, TC, BOARD
 import USER
 
@@ -59,7 +59,7 @@ def send_command(command, verbal):
         if char == b'':
             print('Read Timeout')
             break
-        elif char == ASCII.EOT:
+        elif char == UTF8.EOT:
             # For readability, we insert \n for some cases
             if verbal and response != b'' and response.decode('utf-8')[-1] != '\n':
                 print('')
