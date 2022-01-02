@@ -56,16 +56,26 @@ def send_command(command, verbal):
     response = b''
     while 1:
         char = ser.read(1)
-        if char == ASCII.EOT:
+        if char == b'':
+            print('Read Timeout')
+            break
+        elif char == ASCII.EOT:
             # For readability, we insert \n for some cases
             if verbal and response != b'' and response.decode('utf-8')[-1] != '\n':
                 print('')
             break
-        elif char == b'':
-            print('Read Timeout')
-            break
-        elif verbal:
-            print(char.decode('utf-8'), end='', flush=True)
+        else:
+            if   char[0] & 0x80 == 0:
+                extra_byte = 0
+            elif char[0] & 0x20 == 0:
+                extra_byte = 1
+            elif char[0] & 0x10 == 0:
+                extra_byte = 2
+            elif char[0] & 0x08 == 0:
+                extra_byte = 3
+            char += ser.read(extra_byte)
+            if verbal:
+                print(char.decode('utf-8'), end='', flush=True)
         response += char
 
     return response.decode('utf-8')
