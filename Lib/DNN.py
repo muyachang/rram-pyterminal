@@ -61,15 +61,17 @@ def nn_conf_type(layer, type, verbal):
     PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_TYPE + ' ' + layer + ' ' + type, verbal)
 
 
-def nn_conf_rrams(layer, rrams, verbal):
+def nn_conf_rrams(layer, row, col, rrams, verbal):
     """ Configure RRAM module location for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
+        row (str): row index of the rram tiles
+        col (str): col index of the rram tiles
         rrams (str): RRAM Module number that this layer resides at
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_RRAMS + ' ' + layer + ' ' + rrams, verbal)
+    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_CONF_RRAMS + ' ' + layer + ' ' + row + ' ' + col + ' ' + rrams, verbal)
 
 
 def nn_conf_input(layer, input_length, input_channel, verbal):
@@ -138,8 +140,10 @@ def nn_print       (verbal):
 
     Args:
         verbal (bool): Whether to print the response or not.
+    Return:
+        String version of the network architecture
     """
-    PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_PRINT, verbal)
+    return PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_NN_PRINT, verbal)
 
 
 def forward(WL, verbal):
@@ -167,7 +171,7 @@ def decode(parameters):
 
     elif parameters[1] == 'nn_clear'        : nn_clear        (True)
     elif parameters[1] == 'nn_conf_type'    : nn_conf_type    (parameters[2], parameters[3], True)
-    elif parameters[1] == 'nn_conf_rrams'   : nn_conf_rrams   (parameters[2], parameters[3], True)
+    elif parameters[1] == 'nn_conf_rrams'   : nn_conf_rrams   (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == 'nn_conf_input'   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
     elif parameters[1] == 'nn_conf_kernel'  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
     elif parameters[1] == 'nn_conf_output'  : nn_conf_output  (parameters[2], parameters[3], parameters[4], True)
