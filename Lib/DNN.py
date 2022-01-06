@@ -20,7 +20,6 @@ def in_conf_len(length, verbal):
     PT.send_command(CM.CM_DNN + ' ' + CM.CM_DNN_IN_CONF_LEN + ' ' + length, verbal)
 
 
-
 def in_fill(address, value, verbal):
     """ Write `value` to `address`
 
