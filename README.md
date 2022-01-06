@@ -50,6 +50,8 @@ platform for end users to get hands on our RRAM test chip.
     - [RRAM](https://muyachang.github.io/rram-pyterminal/docs/Lib/RRAM.html)
     - [VECTOR](https://muyachang.github.io/rram-pyterminal/docs/Lib/VECTOR.html)
     - [DNN](https://muyachang.github.io/rram-pyterminal/docs/Lib/DNN.html)
+    - [TEST](https://muyachang.github.io/rram-pyterminal/docs/Lib/TEST.html)
+    - [USER](https://muyachang.github.io/rram-pyterminal/docs/Lib/USER.html)
 
 - ## Suggested Parameters
 
