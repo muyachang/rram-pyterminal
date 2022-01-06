@@ -1,0 +1,1667 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>MNIST API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MNIST</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import CommandMap as CM
+import PyTerminal as PT
+
+import importlib
+import random
+import time
+import numpy as np
+import io
+import torch
+import math
+
+import RRAM, DNN
+
+from tkinter import *
+from tkinter import font
+from functools import partial
+
+from PIL import Image, ImageTk
+
+
+class GUI:
+    def __init__(self):
+        self.master = Tk()
+        self.initUI()
+        self.master.resizable(False, False)
+        self.center(self.master)
+        self.master.mainloop()
+
+
+    def initUI(self):
+        self.master.title(&#34;MNIST GUI&#34;)
+
+        # Change default font
+        self.defaultFont = font.nametofont(&#34;TkDefaultFont&#34;)
+        self.defaultFont.configure(family=&#34;Arial&#34;, size=12)
+
+        # Control Panel
+        frm_controls = Frame(self.master, padx=5)
+        frm_controls.pack(side=LEFT)
+
+
+        frm_data_index = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_data_index.pack(pady=5)
+
+        lbl_data_index = Label(frm_data_index, text=&#39;Image Index&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_data_index.pack()
+
+        self.txt_data_index = Entry(frm_data_index, width=5, font=&#39;Arial 14&#39;)
+        self.txt_data_index.pack(side=LEFT, padx=5)
+
+        self.btn_random_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_random.png&#39;).resize((20, 20)))
+        btn_random = Button(frm_data_index, image=self.btn_random_icon, command=self.random_image)
+        btn_random.pack(side=RIGHT, padx=5)
+
+        self.btn_load_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
+        btn_load = Button(frm_data_index, image=self.btn_load_icon, command=self.load_image)
+        btn_load.pack(side=RIGHT, padx=5)
+
+
+        frm_network = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_network.pack(pady=5)
+
+        lbl_network = Label(frm_network, text=&#39;Network Type&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_network.pack()
+
+        networks = (&#39;MLP&#39;, &#39;MLP2&#39;)
+        #networks = (&#39;MLP&#39;)
+        self.network_var = StringVar(value=networks[0])
+        self.change_network(False)
+        op_network = OptionMenu(frm_network, self.network_var, *networks)
+        op_network.pack(side=LEFT, padx=5)
+
+        self.btn_display_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_display_network_icon.png&#39;).resize((20, 20)))
+        btn_print_network = Button(frm_network, image=self.btn_display_network_icon, command=partial(self.print_network, &#39;Current Network Architecture&#39;))
+        btn_print_network.pack(side=RIGHT, padx=5)
+
+        self.btn_config_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
+        btn_config_network = Button(frm_network, image=self.btn_config_network_icon, command=partial(self.change_network, True))
+        btn_config_network.pack(side=RIGHT, padx=5)
+
+
+        frm_wl_scheme = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_wl_scheme.pack(pady=5)
+
+        lbl_WL = Label(frm_wl_scheme, text=&#39;WL Scheme&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_WL.pack()
+
+        self.sld_WL = Scale(frm_wl_scheme, from_=1, to=9, orient=HORIZONTAL)
+        self.sld_WL.pack()
+
+
+        frm_operation = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_operation.pack(pady=5)
+
+        lbl_operation = Label(frm_operation, text=&#39;Operation&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_operation.pack()
+
+        self.btn_clear_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_clear.png&#39;).resize((20, 20)))
+        btn_clear = Button(frm_operation, image=self.btn_clear_icon, command=self.clear)
+        btn_clear.pack(side=LEFT, padx=5)
+
+        btn_inference = Button(frm_operation, text=&#34;Inference&#34;, command=self.inference, font=&#39;Arial 12&#39;)
+        btn_inference.pack(side=RIGHT, padx=5)
+
+
+        # Result Panel
+        frm_results = Frame(self.master, padx=5)
+        frm_results.pack(side=RIGHT)
+
+
+        frm_golden = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_golden.pack(pady=5)
+
+        lbl_golden = Label(frm_golden, text=&#39;Golden&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+        lbl_golden.pack()
+
+        self.text_golden = StringVar(value=&#39;N/A&#39;)
+        lbl_golden_var = Label(frm_golden, textvariable=self.text_golden, font=(&#39;Arial&#39;, 48))
+        lbl_golden_var.pack()
+
+
+        frm_duration = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_duration.pack(pady=5)
+
+        lbl_duration = Label(frm_duration, text=&#39;Duration (s)&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+        lbl_duration.pack()
+
+        self.text_duration = StringVar(value=&#39;N/A&#39;)
+        lbl_duration_var = Label(frm_duration, textvariable=self.text_duration, font=(&#39;Arial&#39;, 32))
+        lbl_duration_var.pack()
+
+
+        frm_prediction = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_prediction.pack(pady=5)
+
+        lbl_prediction = Label(frm_prediction, text=&#39;Prediction&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+        lbl_prediction.pack()
+
+        self.text_prediction = StringVar(value=&#39;N/A&#39;)
+        lbl_prediction_var = Label(frm_prediction, textvariable=self.text_prediction, font=(&#39;Arial&#39;, 48))
+        lbl_prediction_var.pack()
+
+
+        # Canvas Panel
+        self.old_x = None
+        self.old_y = None
+        self.c = Canvas(self.master, width=400, height=400, bg=&#39;white&#39;, borderwidth=10, relief=&#39;ridge&#39;)
+        self.c.bind(&#39;&lt;B1-Motion&gt;&#39;, self.paint)
+        self.c.bind(&#39;&lt;ButtonRelease-1&gt;&#39;, self.reset)
+        self.c.pack()
+
+
+    def center(self, win):
+        &#34;&#34;&#34;
+        centers a tkinter window
+        :param win: the main window or Toplevel window to center
+        &#34;&#34;&#34;
+        win.update_idletasks()
+        width = win.winfo_width()
+        frm_width = win.winfo_rootx() - win.winfo_x()
+        win_width = width + 2 * frm_width
+        height = win.winfo_height()
+        titlebar_height = win.winfo_rooty() - win.winfo_y()
+        win_height = height + titlebar_height + frm_width
+        x = win.winfo_screenwidth() // 2 - win_width // 2
+        y = win.winfo_screenheight() // 2 - win_height // 2
+        win.geometry(&#39;{}x{}+{}+{}&#39;.format(width, height, x, y))
+        win.deiconify()
+
+
+    def paint(self, e):
+        if self.old_x and self.old_y:
+            self.c.create_line(self.old_x, self.old_y, e.x, e.y, width=40, stipple=&#39;gray50&#39;, capstyle=ROUND)
+        self.old_x = e.x
+        self.old_y = e.y
+
+
+    def reset(self, e):
+        self.old_x = None
+        self.old_y = None
+
+
+    def clear(self):
+        self.c.delete(ALL)
+        self.text_golden.set(&#39;N/A&#39;)
+        self.text_prediction.set(&#39;N/A&#39;)
+        self.text_duration.set(&#39;N/A&#39;)
+        self.txt_data_index.delete(0, &#39;end&#39;)
+
+
+    def change_network(self, verbal):
+        network = self.network_var.get()
+        conf_network(network, False)
+        if verbal:
+            self.print_network(&#39;Network Architecture Updated&#39;)
+
+
+    def print_network(self, win_title):
+        win_network = Toplevel()
+        win_network.wm_title(win_title)
+        #self.master.eval(f&#39;tk::PlaceWindow {str(win_network)} center&#39;)
+
+        lbl_network_architecture = Label(win_network, text=DNN.nn_print(False), justify= LEFT, font=&#39;Courier 14 bold&#39;)
+        lbl_network_architecture.pack(fill=&#39;both&#39;, pady=5)
+
+        btn_clear = Button(win_network, text=&#34;Okay&#34;, command=win_network.destroy)
+        btn_clear.pack(pady=5)
+
+        self.center(win_network)
+
+
+    def load_image(self):
+        index = int(self.txt_data_index.get())
+
+        # Paint the image onto the canvas
+        tkimage = np.invert(4*images[index])
+        tkimage = Image.fromarray(tkimage)
+        tkimage = tkimage.resize((self.c.winfo_width(), self.c.winfo_height()))
+        self.tkimage = ImageTk.PhotoImage(image=tkimage)
+        self.c.create_image(0, 0, anchor=&#34;nw&#34;, image=self.tkimage)
+
+        # Load golden and clear prediction/duration
+        self.text_golden.set(targets[index])
+        self.text_prediction.set(&#39;N/A&#39;)
+        self.text_duration.set(&#39;N/A&#39;)
+
+
+    def random_image(self):
+        self.txt_data_index.delete(0, &#39;end&#39;)
+        self.txt_data_index.insert(0, str(random.randint(0, 10000)))
+        self.load_image()
+
+
+    def capture_image(self):
+        # Capture the image from Canvas
+        ps = self.c.postscript(colormode=&#39;gray&#39;)
+        image = Image.open(io.BytesIO(ps.encode(&#39;utf-8&#39;)))
+        image = image.convert(mode=&#39;L&#39;).resize((image_len, image_len))
+        image = np.uint8(image.getdata())
+        image = np.floor_divide(np.invert(image), 4)
+        image = np.reshape(image, (image_len, image_len))
+        return image
+
+
+    def inference(self):
+        # Clear the prediction and duration first
+        self.text_prediction.set(&#39;N/A&#39;)
+        self.text_duration.set(&#39;N/A&#39;)
+        self.master.update()
+
+        # Upload the image
+        if self.txt_data_index.get() != &#39;&#39;:
+            upload_image(str(self.txt_data_index.get()), False)
+        else:
+            image = self.capture_image()
+            DNN.in_conf_len(str(image_len), True)
+            for i in range(image_len):
+                for j in range(image_len):
+                    if image[i][j] != 0:
+                        DNN.in_fill(str(i*image_len+j), str(image[i][j]), True)
+
+        # Print the result
+        tick = time.time()
+        pred = DNN.forward(str(self.sld_WL.get()), False)
+        passed_time = time.time()-tick
+        self.text_duration.set(f&#39;{passed_time:.2f}&#39;)
+        self.text_prediction.set(pred)
+
+
+def conf_network(network, verbal):
+    &#34;&#34;&#34; Configure MNIST network type
+
+    Args:
+        network (str): Network type
+        verbal (bool): Whether to print the configured network or not.
+    &#34;&#34;&#34;
+
+    # Some global variabls
+    global folder_dir
+    global weights, targets, sim_preds
+    global images, image_len
+    global mapping
+    global layers
+
+    # Folder directory
+    if &#39;folder_dir&#39; in globals():
+        sys.path.remove(folder_dir)
+
+    if network == &#39;MLP&#39;:
+        folder_dir = &#39;D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST\data_256_fc32_fc10&#39;
+    elif network == &#39;MLP2&#39;:
+        folder_dir = &#39;D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST\data_484_fc64_fc10&#39;
+    elif network == &#39;CONV&#39;:
+        folder_dir = &#39;D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST\data_256_conv16_conv32_fc10&#39;
+
+    sys.path.append(folder_dir)
+
+    # Load network model
+    weights = torch.load(folder_dir + &#39;\\weights.pt&#39;)
+
+    # Read the mapping and run sanity check against weights
+    f = open(folder_dir + &#39;\\mapping.txt&#39;, &#39;r&#39;)
+    mapping = eval(f.readline())
+
+    # Load input data
+    images = np.uint8(torch.load(folder_dir + &#39;\\images.pt&#39;))
+    image_len = images.shape[1]
+
+    # Load targets
+    targets = np.uint8(torch.load(folder_dir + &#39;\\targets.pt&#39;))
+
+    # Load predictions
+    sim_preds = np.uint8(torch.load(folder_dir + &#39;\\sim_preds.pt&#39;))
+
+    # Load the model and configure the network
+    import model
+    model = importlib.reload(model)
+
+    layer = 0
+    layers = []
+    trainable_layer = 0
+    input_length = image_len
+    scale = 1
+
+    for name, module in model.Net.named_modules(model.Net()):
+        if isinstance(module, torch.ao.quantization.stubs.QuantStub) or \
+           isinstance(module, torch.ao.quantization.stubs.DeQuantStub) or \
+           isinstance(module, model.Net):
+            continue
+
+        layers.append({})
+        #print(f&#39;Name: {name}, Module: {module}&#39;)
+
+        # If it&#39;s a trainable layer (containing weights)
+        if hasattr(module, &#39;weight&#39;):
+            #print(f&#39;\tmapping layer {layer} to rram {mapping[trainable_layer][0]}&#39;)
+            layers[layer][&#39;rrams&#39;] = mapping[trainable_layer]
+            trainable_layer += 1
+            if isinstance(module, torch.nn.modules.linear.Linear):
+                layers[layer][&#39;weights&#39;] = weights[name + &#39;._packed_params._packed_params&#39;][0]
+                scale = int(weights[name + &#39;.scale&#39;]/weights[name + &#39;._packed_params._packed_params&#39;][0].q_scale())
+            elif isinstance(module, torch.nn.modules.conv.Conv2d):
+                layers[layer][&#39;weights&#39;] = weights[name + &#39;.weight&#39;]
+                scale = int(weights[name + &#39;.scale&#39;]/weights[name + &#39;.weight&#39;].q_scale())
+        else:
+            layers[layer][&#39;rrams&#39;] = []
+            layers[layer][&#39;weights&#39;] = []
+
+        if isinstance(module, torch.nn.modules.linear.Linear):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_LINEAR
+            layers[layer][&#39;input_length&#39;  ] = module.in_features
+            layers[layer][&#39;input_channel&#39; ] = 0
+            layers[layer][&#39;kernel_length&#39; ] = module.in_features
+            layers[layer][&#39;kernel_channel&#39;] = 0
+            layers[layer][&#39;kernel_number&#39; ] = module.out_features
+            layers[layer][&#39;stride&#39;        ] = 0
+            layers[layer][&#39;output_length&#39; ] = module.out_features
+            layers[layer][&#39;output_channel&#39;] = 0
+            layers[layer][&#39;output_q_scale&#39;] = 1
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+        elif isinstance(module, torch.nn.modules.conv.Conv2d):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_CONV
+            layers[layer][&#39;input_length&#39;  ] = input_length
+            layers[layer][&#39;input_channel&#39; ] = module.in_channels
+            layers[layer][&#39;kernel_length&#39; ] = module.kernel_size[0]
+            layers[layer][&#39;kernel_channel&#39;] = module.in_channels
+            layers[layer][&#39;kernel_number&#39; ] = module.out_channels
+            layers[layer][&#39;stride&#39;        ] = module.stride[0]
+            layers[layer][&#39;output_length&#39; ] = int((input_length - module.kernel_size[0])/module.stride[0] + 1)
+            layers[layer][&#39;output_channel&#39;] = module.out_channels
+            layers[layer][&#39;output_q_scale&#39;] = 1
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+        elif isinstance(module, torch.nn.modules.pooling.MaxPool2d):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_MAXPOOL
+            layers[layer][&#39;input_length&#39;  ] = input_length
+            layers[layer][&#39;input_channel&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;kernel_length&#39; ] = module.kernel_size
+            layers[layer][&#39;kernel_channel&#39;] = 1
+            layers[layer][&#39;kernel_number&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;stride&#39;        ] = module.stride
+            layers[layer][&#39;output_length&#39; ] = int((input_length - module.kernel_size)/module.stride + 1)
+            layers[layer][&#39;output_channel&#39;] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;output_q_scale&#39;] = 1
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+        elif isinstance(module, torch.nn.modules.activation.ReLU):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_RELU
+            layers[layer][&#39;input_length&#39;  ] = input_length
+            layers[layer][&#39;input_channel&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;kernel_length&#39; ] = 0
+            layers[layer][&#39;kernel_channel&#39;] = 0
+            layers[layer][&#39;kernel_number&#39; ] = 0
+            layers[layer][&#39;stride&#39;        ] = 0
+            layers[layer][&#39;output_length&#39; ] = input_length
+            layers[layer][&#39;output_channel&#39;] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;output_q_scale&#39;] = scale
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+
+        input_length = layers[layer][&#39;output_length&#39;]
+        layer += 1
+
+    layers.append({})
+    layers[layer][&#39;rrams&#39;         ] = []
+    layers[layer][&#39;weights&#39;       ] = []
+    layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_ARGMAX
+    layers[layer][&#39;input_length&#39;  ] = input_length
+    layers[layer][&#39;input_channel&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+    layers[layer][&#39;kernel_length&#39; ] = 0
+    layers[layer][&#39;kernel_channel&#39;] = 0
+    layers[layer][&#39;kernel_number&#39; ] = 0
+    layers[layer][&#39;stride&#39;        ] = 0
+    layers[layer][&#39;output_length&#39; ] = 0
+    layers[layer][&#39;output_channel&#39;] = 0
+    layers[layer][&#39;output_q_scale&#39;] = 1
+    layers[layer][&#39;output_q_zp&#39;   ] = 0
+
+    DNN.nn_clear(False)
+    for layer_index, layer_info in enumerate(layers):
+        for index_r, row in enumerate(layer_info[&#39;rrams&#39;]):
+            for index_c, col in enumerate(row):
+                DNN.nn_conf_rrams   (str(layer_index), str(index_r), str(index_c), str(layer_info[&#39;rrams&#39;][index_r][index_c]), False)
+        DNN.nn_conf_type    (str(layer_index), str(layer_info[&#39;type&#39;]), False)
+        DNN.nn_conf_input   (str(layer_index), str(layer_info[&#39;input_length&#39;]), str(layer_info[&#39;input_channel&#39;]), False)
+        DNN.nn_conf_kernel  (str(layer_index), str(layer_info[&#39;kernel_length&#39;]), str(layer_info[&#39;kernel_channel&#39;]), str(layer_info[&#39;kernel_number&#39;]), str(layer_info[&#39;stride&#39;]), False)
+        DNN.nn_conf_output  (str(layer_index), str(layer_info[&#39;output_length&#39;]), str(layer_info[&#39;output_channel&#39;]), False)
+        DNN.nn_conf_output_q(str(layer_index), str(layer_info[&#39;output_q_scale&#39;]), str(layer_info[&#39;output_q_zp&#39;]), False)
+    if verbal:
+        DNN.nn_print(True)
+
+
+def upload_weights(verbal):
+    &#34;&#34;&#34; Upload MNIST weights on the current network
+
+    Args:
+        verbal (bool): Whether to print the uploading progress or not.
+    &#34;&#34;&#34;
+    def write_weights_to_rram(weights, type, rram_indices):
+        if type == 0: # MLP
+            np_weights = np.int8(weights.int_repr())
+            (k_number, k_channel) = np_weights.shape
+
+            for tile_ch in range(math.ceil(k_channel/256)):
+                for tile_n in range(math.ceil(k_number/32)):
+                    ch_offset = tile_ch*256
+                    n_offset = tile_n*32
+                    print(f&#39;Writing Type \&#39;{type}\&#39; weights[{tile_ch}][{tile_n}] to RRAM #{rram_indices[tile_ch][tile_n]}&#39;)
+                    RRAM.switch(str(rram_indices[tile_ch][tile_n]), False)
+
+                    if verbal:
+                        print(&#39;╔════════════╦══════╦══════╦══════╗&#39;)
+                        print(&#39;║ (row, col) ║ Gold ║ Read ║ Diff ║&#39;)
+                        print(&#39;╟────────────╫──────╫──────╫──────╢&#39;)
+                    for ch in range(min(256, k_channel-tile_ch*256)):
+                        for n in range(min(32, k_number-tile_n*32)):
+                            golden = int(np_weights[n_offset+n][ch_offset+ch])
+                            #print(f&#39;Write {golden:&gt;5} @ ({n:&gt;2}, {ch:&gt;2}) to ({row:&gt;3}, {col:&gt;3})&#39;)
+                            local_addr = ch * 256 + n
+                            RRAM.write_byte_iter(str(local_addr), str(golden), True)
+                            if verbal:
+                                readout = int(RRAM.read_byte(str(local_addr), &#39;0&#39;, &#39;0x1&#39;, False))
+                                if readout != golden:
+                                    print(f&#39;║ ({ch:&gt;3}, {n:&gt;3}) ║ {golden:&gt;4} ║ {readout:&gt;4} ║ {golden-readout:&gt;4} ║&#39;)
+                    if verbal:
+                        print(&#39;╚════════════╩══════╩══════╩══════╝&#39;)
+
+        elif type == 1: # CONV
+            np_weights = np.int8(weights.int_repr())
+            (k_number, k_channel, k_width, k_height) = np_weights.shape
+            blocks_per_row = int(32 / (k_width*k_height))
+
+            if verbal:
+                print(&#39;╔════════════╦══════╦══════╦══════╗&#39;)
+                print(&#39;║ (row, col) ║ Gold ║ Read ║ Diff ║&#39;)
+                print(&#39;╟────────────╫──────╫──────╫──────╢&#39;)
+            for n in range(k_number):
+                brow = int(n / blocks_per_row)
+                bcol = int(n % blocks_per_row)
+                for krow in range(k_width):
+                    for kcol in range(k_height):
+                        for ch in range(k_channel):
+                            row = brow * k_channel + ch
+                            col = bcol * (k_width*k_height) + krow * k_width + kcol
+                            local_addr = row * 256 + col
+                            golden = int(np_weights[n][ch][krow][kcol])
+                            #print(f&#39;Write {golden:&gt;5} @ ({n:&gt;2}, {ch:&gt;2}, {krow:&gt;2}, {kcol:&gt;2}) to ({row:&gt;3}, {col:&gt;3})&#39;)
+                            RRAM.write_byte_iter(str(local_addr), str(golden), True)
+                            if verbal:
+                                readout = int(RRAM.read_byte(str(local_addr), &#39;0&#39;, &#39;0x1&#39;, False))
+                                if readout != golden:
+                                    print(f&#39;║ ({row:&gt;3}, {col:&gt;3}) ║ {golden:&gt;4} ║ {readout:&gt;4} ║ {golden-readout:&gt;4} ║&#39;)
+            if verbal:
+                    print(&#39;╚════════════╩══════╩══════╩══════╝&#39;)
+
+    for layer_index, layer_info in enumerate(layers):
+        write_weights_to_rram(layer_info[&#39;weights&#39;], layer_info[&#39;type&#39;], layer_info[&#39;rrams&#39;])
+
+
+def upload_image(index, verbal):
+    &#34;&#34;&#34; Upload a MNIST image on the current network
+
+    Args:
+        index (str): Index of the image
+        verbal (bool): Whether to print the uploaded image or not.
+    &#34;&#34;&#34;
+    image = images[int(index)]
+
+    # Upload the image
+    DNN.in_conf_len(str(image_len), True)
+    for i in range(image_len):
+        for j in range(image_len):
+            if image[i][j] != 0:
+                DNN.in_fill(str(i*image_len + j), str(image[i][j]), True)
+
+    # Print the image if required
+    if verbal:
+        DNN.in_print(True)
+
+
+def test_inference(network, WL_start, WL_end, count, verbal):
+    &#34;&#34;&#34; Test MNIST inference
+
+    Args:
+        network (str): Network type
+        WL_start (str): Starting WL Scheme (1~9)
+        WL_end (str): Endding WL Scheme (WL_start~9)
+        count (str): Number of images that want to inference on
+        verbal (bool): Whether to print the result for each image or not.
+    &#34;&#34;&#34;
+    verbal = eval(verbal)
+    WL_start = int(WL_start)
+    WL_end = int(WL_end)
+    conf_network(network, True)
+
+    for WL in range(WL_start, WL_end+1):
+        print(f&#39;WL Scheme: {WL}&#39;)
+        # Read the image and do th inference
+        if verbal:
+            print( &#39;╔═══════╦══════╦═════╦════╗&#39;)
+            print(f&#39;║ Index ║ Gold ║ Sim ║ TC ║&#39;)
+            print( &#39;╟───────╫──────╫─────╫────╢&#39;)
+        count = int(count)
+        ltargets = np.resize(targets,  count)
+        lsim_preds = np.resize(sim_preds,  count)
+        tc_preds = np.empty(count, dtype=np.uint8)
+        tick = time.time()
+        for index in range(count):
+            if not verbal:
+                print(f&#39;\r\tImage {index}&#39;, end=&#39;&#39;)
+
+            # Upload image
+            upload_image(index, False)
+
+            # Inference
+            tc_preds[index] = int(DNN.forward(str(WL), False))
+
+            # Print the result
+            if verbal:
+                print(f&#39;║ {index:&gt;5} ║ {ltargets[index]:&gt;4} ║ {lsim_preds[index]:&gt;3} ║ {tc_preds[index]:&gt;2} ║&#39;)
+        passed_time = time.time()-tick
+        if verbal:
+            print( &#39;╟───────╨──────╨─────╨────╢&#39;)
+        else:
+            print(&#39;&#39;)
+            print( &#39;╔═════════════════════════╗&#39;)
+        print(f&#39;║ Pred Acc:   {np.sum(lsim_preds == ltargets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║   TC Acc:   {np.sum(tc_preds == ltargets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║ Duration: {passed_time:9.2f} sec ║&#39;)
+        print( &#39;╚═════════════════════════╝&#39;)
+
+
+
+def decode(parameters):
+    &#34;&#34;&#34; Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    &#34;&#34;&#34;
+    if   parameters[1] == &#39;conf_network&#39;  : conf_network(parameters[2], True         )
+    elif parameters[1] == &#39;upload_weights&#39;: upload_weights(True                        )
+    elif parameters[1] == &#39;upload_image&#39;  : upload_image  (parameters[2], True         )
+    elif parameters[1] == &#39;test_inference&#39;: test_inference(parameters[2], parameters[3], parameters[4], parameters[5], parameters[6])
+    elif parameters[1] == &#39;gui&#39;           : GUI           (                            )
+    else: PT.unknown(parameters)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MNIST.conf_network"><code class="name flex">
+<span>def <span class="ident">conf_network</span></span>(<span>network, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configure MNIST network type</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>network</code></strong> :&ensp;<code>str</code></dt>
+<dd>Network type</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the configured network or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def conf_network(network, verbal):
+    &#34;&#34;&#34; Configure MNIST network type
+
+    Args:
+        network (str): Network type
+        verbal (bool): Whether to print the configured network or not.
+    &#34;&#34;&#34;
+
+    # Some global variabls
+    global folder_dir
+    global weights, targets, sim_preds
+    global images, image_len
+    global mapping
+    global layers
+
+    # Folder directory
+    if &#39;folder_dir&#39; in globals():
+        sys.path.remove(folder_dir)
+
+    if network == &#39;MLP&#39;:
+        folder_dir = &#39;D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST\data_256_fc32_fc10&#39;
+    elif network == &#39;MLP2&#39;:
+        folder_dir = &#39;D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST\data_484_fc64_fc10&#39;
+    elif network == &#39;CONV&#39;:
+        folder_dir = &#39;D:\Dropbox (GaTech)\GaTech\ICSRL\Projects\9. RRAM\Evaluation Board\MNIST\data_256_conv16_conv32_fc10&#39;
+
+    sys.path.append(folder_dir)
+
+    # Load network model
+    weights = torch.load(folder_dir + &#39;\\weights.pt&#39;)
+
+    # Read the mapping and run sanity check against weights
+    f = open(folder_dir + &#39;\\mapping.txt&#39;, &#39;r&#39;)
+    mapping = eval(f.readline())
+
+    # Load input data
+    images = np.uint8(torch.load(folder_dir + &#39;\\images.pt&#39;))
+    image_len = images.shape[1]
+
+    # Load targets
+    targets = np.uint8(torch.load(folder_dir + &#39;\\targets.pt&#39;))
+
+    # Load predictions
+    sim_preds = np.uint8(torch.load(folder_dir + &#39;\\sim_preds.pt&#39;))
+
+    # Load the model and configure the network
+    import model
+    model = importlib.reload(model)
+
+    layer = 0
+    layers = []
+    trainable_layer = 0
+    input_length = image_len
+    scale = 1
+
+    for name, module in model.Net.named_modules(model.Net()):
+        if isinstance(module, torch.ao.quantization.stubs.QuantStub) or \
+           isinstance(module, torch.ao.quantization.stubs.DeQuantStub) or \
+           isinstance(module, model.Net):
+            continue
+
+        layers.append({})
+        #print(f&#39;Name: {name}, Module: {module}&#39;)
+
+        # If it&#39;s a trainable layer (containing weights)
+        if hasattr(module, &#39;weight&#39;):
+            #print(f&#39;\tmapping layer {layer} to rram {mapping[trainable_layer][0]}&#39;)
+            layers[layer][&#39;rrams&#39;] = mapping[trainable_layer]
+            trainable_layer += 1
+            if isinstance(module, torch.nn.modules.linear.Linear):
+                layers[layer][&#39;weights&#39;] = weights[name + &#39;._packed_params._packed_params&#39;][0]
+                scale = int(weights[name + &#39;.scale&#39;]/weights[name + &#39;._packed_params._packed_params&#39;][0].q_scale())
+            elif isinstance(module, torch.nn.modules.conv.Conv2d):
+                layers[layer][&#39;weights&#39;] = weights[name + &#39;.weight&#39;]
+                scale = int(weights[name + &#39;.scale&#39;]/weights[name + &#39;.weight&#39;].q_scale())
+        else:
+            layers[layer][&#39;rrams&#39;] = []
+            layers[layer][&#39;weights&#39;] = []
+
+        if isinstance(module, torch.nn.modules.linear.Linear):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_LINEAR
+            layers[layer][&#39;input_length&#39;  ] = module.in_features
+            layers[layer][&#39;input_channel&#39; ] = 0
+            layers[layer][&#39;kernel_length&#39; ] = module.in_features
+            layers[layer][&#39;kernel_channel&#39;] = 0
+            layers[layer][&#39;kernel_number&#39; ] = module.out_features
+            layers[layer][&#39;stride&#39;        ] = 0
+            layers[layer][&#39;output_length&#39; ] = module.out_features
+            layers[layer][&#39;output_channel&#39;] = 0
+            layers[layer][&#39;output_q_scale&#39;] = 1
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+        elif isinstance(module, torch.nn.modules.conv.Conv2d):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_CONV
+            layers[layer][&#39;input_length&#39;  ] = input_length
+            layers[layer][&#39;input_channel&#39; ] = module.in_channels
+            layers[layer][&#39;kernel_length&#39; ] = module.kernel_size[0]
+            layers[layer][&#39;kernel_channel&#39;] = module.in_channels
+            layers[layer][&#39;kernel_number&#39; ] = module.out_channels
+            layers[layer][&#39;stride&#39;        ] = module.stride[0]
+            layers[layer][&#39;output_length&#39; ] = int((input_length - module.kernel_size[0])/module.stride[0] + 1)
+            layers[layer][&#39;output_channel&#39;] = module.out_channels
+            layers[layer][&#39;output_q_scale&#39;] = 1
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+        elif isinstance(module, torch.nn.modules.pooling.MaxPool2d):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_MAXPOOL
+            layers[layer][&#39;input_length&#39;  ] = input_length
+            layers[layer][&#39;input_channel&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;kernel_length&#39; ] = module.kernel_size
+            layers[layer][&#39;kernel_channel&#39;] = 1
+            layers[layer][&#39;kernel_number&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;stride&#39;        ] = module.stride
+            layers[layer][&#39;output_length&#39; ] = int((input_length - module.kernel_size)/module.stride + 1)
+            layers[layer][&#39;output_channel&#39;] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;output_q_scale&#39;] = 1
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+        elif isinstance(module, torch.nn.modules.activation.ReLU):
+            layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_RELU
+            layers[layer][&#39;input_length&#39;  ] = input_length
+            layers[layer][&#39;input_channel&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;kernel_length&#39; ] = 0
+            layers[layer][&#39;kernel_channel&#39;] = 0
+            layers[layer][&#39;kernel_number&#39; ] = 0
+            layers[layer][&#39;stride&#39;        ] = 0
+            layers[layer][&#39;output_length&#39; ] = input_length
+            layers[layer][&#39;output_channel&#39;] = layers[layer-1][&#39;output_channel&#39;]
+            layers[layer][&#39;output_q_scale&#39;] = scale
+            layers[layer][&#39;output_q_zp&#39;   ] = 0
+
+        input_length = layers[layer][&#39;output_length&#39;]
+        layer += 1
+
+    layers.append({})
+    layers[layer][&#39;rrams&#39;         ] = []
+    layers[layer][&#39;weights&#39;       ] = []
+    layers[layer][&#39;type&#39;          ] = CM.CM_DNN_TYPE_ARGMAX
+    layers[layer][&#39;input_length&#39;  ] = input_length
+    layers[layer][&#39;input_channel&#39; ] = layers[layer-1][&#39;output_channel&#39;]
+    layers[layer][&#39;kernel_length&#39; ] = 0
+    layers[layer][&#39;kernel_channel&#39;] = 0
+    layers[layer][&#39;kernel_number&#39; ] = 0
+    layers[layer][&#39;stride&#39;        ] = 0
+    layers[layer][&#39;output_length&#39; ] = 0
+    layers[layer][&#39;output_channel&#39;] = 0
+    layers[layer][&#39;output_q_scale&#39;] = 1
+    layers[layer][&#39;output_q_zp&#39;   ] = 0
+
+    DNN.nn_clear(False)
+    for layer_index, layer_info in enumerate(layers):
+        for index_r, row in enumerate(layer_info[&#39;rrams&#39;]):
+            for index_c, col in enumerate(row):
+                DNN.nn_conf_rrams   (str(layer_index), str(index_r), str(index_c), str(layer_info[&#39;rrams&#39;][index_r][index_c]), False)
+        DNN.nn_conf_type    (str(layer_index), str(layer_info[&#39;type&#39;]), False)
+        DNN.nn_conf_input   (str(layer_index), str(layer_info[&#39;input_length&#39;]), str(layer_info[&#39;input_channel&#39;]), False)
+        DNN.nn_conf_kernel  (str(layer_index), str(layer_info[&#39;kernel_length&#39;]), str(layer_info[&#39;kernel_channel&#39;]), str(layer_info[&#39;kernel_number&#39;]), str(layer_info[&#39;stride&#39;]), False)
+        DNN.nn_conf_output  (str(layer_index), str(layer_info[&#39;output_length&#39;]), str(layer_info[&#39;output_channel&#39;]), False)
+        DNN.nn_conf_output_q(str(layer_index), str(layer_info[&#39;output_q_scale&#39;]), str(layer_info[&#39;output_q_zp&#39;]), False)
+    if verbal:
+        DNN.nn_print(True)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.decode"><code class="name flex">
+<span>def <span class="ident">decode</span></span>(<span>parameters)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decode the split version of the command</p>
+<p>Keyword arguments:
+pyterminal &ndash; current connected COM port
+parameters &ndash; split version of the command</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decode(parameters):
+    &#34;&#34;&#34; Decode the split version of the command
+
+    Keyword arguments:
+    pyterminal -- current connected COM port
+    parameters -- split version of the command
+    &#34;&#34;&#34;
+    if   parameters[1] == &#39;conf_network&#39;  : conf_network(parameters[2], True         )
+    elif parameters[1] == &#39;upload_weights&#39;: upload_weights(True                        )
+    elif parameters[1] == &#39;upload_image&#39;  : upload_image  (parameters[2], True         )
+    elif parameters[1] == &#39;test_inference&#39;: test_inference(parameters[2], parameters[3], parameters[4], parameters[5], parameters[6])
+    elif parameters[1] == &#39;gui&#39;           : GUI           (                            )
+    else: PT.unknown(parameters)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.test_inference"><code class="name flex">
+<span>def <span class="ident">test_inference</span></span>(<span>network, WL_start, WL_end, count, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test MNIST inference</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>network</code></strong> :&ensp;<code>str</code></dt>
+<dd>Network type</dd>
+<dt><strong><code>WL_start</code></strong> :&ensp;<code>str</code></dt>
+<dd>Starting WL Scheme (1~9)</dd>
+<dt><strong><code>WL_end</code></strong> :&ensp;<code>str</code></dt>
+<dd>Endding WL Scheme (WL_start~9)</dd>
+<dt><strong><code>count</code></strong> :&ensp;<code>str</code></dt>
+<dd>Number of images that want to inference on</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the result for each image or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_inference(network, WL_start, WL_end, count, verbal):
+    &#34;&#34;&#34; Test MNIST inference
+
+    Args:
+        network (str): Network type
+        WL_start (str): Starting WL Scheme (1~9)
+        WL_end (str): Endding WL Scheme (WL_start~9)
+        count (str): Number of images that want to inference on
+        verbal (bool): Whether to print the result for each image or not.
+    &#34;&#34;&#34;
+    verbal = eval(verbal)
+    WL_start = int(WL_start)
+    WL_end = int(WL_end)
+    conf_network(network, True)
+
+    for WL in range(WL_start, WL_end+1):
+        print(f&#39;WL Scheme: {WL}&#39;)
+        # Read the image and do th inference
+        if verbal:
+            print( &#39;╔═══════╦══════╦═════╦════╗&#39;)
+            print(f&#39;║ Index ║ Gold ║ Sim ║ TC ║&#39;)
+            print( &#39;╟───────╫──────╫─────╫────╢&#39;)
+        count = int(count)
+        ltargets = np.resize(targets,  count)
+        lsim_preds = np.resize(sim_preds,  count)
+        tc_preds = np.empty(count, dtype=np.uint8)
+        tick = time.time()
+        for index in range(count):
+            if not verbal:
+                print(f&#39;\r\tImage {index}&#39;, end=&#39;&#39;)
+
+            # Upload image
+            upload_image(index, False)
+
+            # Inference
+            tc_preds[index] = int(DNN.forward(str(WL), False))
+
+            # Print the result
+            if verbal:
+                print(f&#39;║ {index:&gt;5} ║ {ltargets[index]:&gt;4} ║ {lsim_preds[index]:&gt;3} ║ {tc_preds[index]:&gt;2} ║&#39;)
+        passed_time = time.time()-tick
+        if verbal:
+            print( &#39;╟───────╨──────╨─────╨────╢&#39;)
+        else:
+            print(&#39;&#39;)
+            print( &#39;╔═════════════════════════╗&#39;)
+        print(f&#39;║ Pred Acc:   {np.sum(lsim_preds == ltargets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║   TC Acc:   {np.sum(tc_preds == ltargets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║ Duration: {passed_time:9.2f} sec ║&#39;)
+        print( &#39;╚═════════════════════════╝&#39;)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.upload_image"><code class="name flex">
+<span>def <span class="ident">upload_image</span></span>(<span>index, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Upload a MNIST image on the current network</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>str</code></dt>
+<dd>Index of the image</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the uploaded image or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def upload_image(index, verbal):
+    &#34;&#34;&#34; Upload a MNIST image on the current network
+
+    Args:
+        index (str): Index of the image
+        verbal (bool): Whether to print the uploaded image or not.
+    &#34;&#34;&#34;
+    image = images[int(index)]
+
+    # Upload the image
+    DNN.in_conf_len(str(image_len), True)
+    for i in range(image_len):
+        for j in range(image_len):
+            if image[i][j] != 0:
+                DNN.in_fill(str(i*image_len + j), str(image[i][j]), True)
+
+    # Print the image if required
+    if verbal:
+        DNN.in_print(True)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.upload_weights"><code class="name flex">
+<span>def <span class="ident">upload_weights</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Upload MNIST weights on the current network</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the uploading progress or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def upload_weights(verbal):
+    &#34;&#34;&#34; Upload MNIST weights on the current network
+
+    Args:
+        verbal (bool): Whether to print the uploading progress or not.
+    &#34;&#34;&#34;
+    def write_weights_to_rram(weights, type, rram_indices):
+        if type == 0: # MLP
+            np_weights = np.int8(weights.int_repr())
+            (k_number, k_channel) = np_weights.shape
+
+            for tile_ch in range(math.ceil(k_channel/256)):
+                for tile_n in range(math.ceil(k_number/32)):
+                    ch_offset = tile_ch*256
+                    n_offset = tile_n*32
+                    print(f&#39;Writing Type \&#39;{type}\&#39; weights[{tile_ch}][{tile_n}] to RRAM #{rram_indices[tile_ch][tile_n]}&#39;)
+                    RRAM.switch(str(rram_indices[tile_ch][tile_n]), False)
+
+                    if verbal:
+                        print(&#39;╔════════════╦══════╦══════╦══════╗&#39;)
+                        print(&#39;║ (row, col) ║ Gold ║ Read ║ Diff ║&#39;)
+                        print(&#39;╟────────────╫──────╫──────╫──────╢&#39;)
+                    for ch in range(min(256, k_channel-tile_ch*256)):
+                        for n in range(min(32, k_number-tile_n*32)):
+                            golden = int(np_weights[n_offset+n][ch_offset+ch])
+                            #print(f&#39;Write {golden:&gt;5} @ ({n:&gt;2}, {ch:&gt;2}) to ({row:&gt;3}, {col:&gt;3})&#39;)
+                            local_addr = ch * 256 + n
+                            RRAM.write_byte_iter(str(local_addr), str(golden), True)
+                            if verbal:
+                                readout = int(RRAM.read_byte(str(local_addr), &#39;0&#39;, &#39;0x1&#39;, False))
+                                if readout != golden:
+                                    print(f&#39;║ ({ch:&gt;3}, {n:&gt;3}) ║ {golden:&gt;4} ║ {readout:&gt;4} ║ {golden-readout:&gt;4} ║&#39;)
+                    if verbal:
+                        print(&#39;╚════════════╩══════╩══════╩══════╝&#39;)
+
+        elif type == 1: # CONV
+            np_weights = np.int8(weights.int_repr())
+            (k_number, k_channel, k_width, k_height) = np_weights.shape
+            blocks_per_row = int(32 / (k_width*k_height))
+
+            if verbal:
+                print(&#39;╔════════════╦══════╦══════╦══════╗&#39;)
+                print(&#39;║ (row, col) ║ Gold ║ Read ║ Diff ║&#39;)
+                print(&#39;╟────────────╫──────╫──────╫──────╢&#39;)
+            for n in range(k_number):
+                brow = int(n / blocks_per_row)
+                bcol = int(n % blocks_per_row)
+                for krow in range(k_width):
+                    for kcol in range(k_height):
+                        for ch in range(k_channel):
+                            row = brow * k_channel + ch
+                            col = bcol * (k_width*k_height) + krow * k_width + kcol
+                            local_addr = row * 256 + col
+                            golden = int(np_weights[n][ch][krow][kcol])
+                            #print(f&#39;Write {golden:&gt;5} @ ({n:&gt;2}, {ch:&gt;2}, {krow:&gt;2}, {kcol:&gt;2}) to ({row:&gt;3}, {col:&gt;3})&#39;)
+                            RRAM.write_byte_iter(str(local_addr), str(golden), True)
+                            if verbal:
+                                readout = int(RRAM.read_byte(str(local_addr), &#39;0&#39;, &#39;0x1&#39;, False))
+                                if readout != golden:
+                                    print(f&#39;║ ({row:&gt;3}, {col:&gt;3}) ║ {golden:&gt;4} ║ {readout:&gt;4} ║ {golden-readout:&gt;4} ║&#39;)
+            if verbal:
+                    print(&#39;╚════════════╩══════╩══════╩══════╝&#39;)
+
+    for layer_index, layer_info in enumerate(layers):
+        write_weights_to_rram(layer_info[&#39;weights&#39;], layer_info[&#39;type&#39;], layer_info[&#39;rrams&#39;])</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="MNIST.GUI"><code class="flex name class">
+<span>class <span class="ident">GUI</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GUI:
+    def __init__(self):
+        self.master = Tk()
+        self.initUI()
+        self.master.resizable(False, False)
+        self.center(self.master)
+        self.master.mainloop()
+
+
+    def initUI(self):
+        self.master.title(&#34;MNIST GUI&#34;)
+
+        # Change default font
+        self.defaultFont = font.nametofont(&#34;TkDefaultFont&#34;)
+        self.defaultFont.configure(family=&#34;Arial&#34;, size=12)
+
+        # Control Panel
+        frm_controls = Frame(self.master, padx=5)
+        frm_controls.pack(side=LEFT)
+
+
+        frm_data_index = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_data_index.pack(pady=5)
+
+        lbl_data_index = Label(frm_data_index, text=&#39;Image Index&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_data_index.pack()
+
+        self.txt_data_index = Entry(frm_data_index, width=5, font=&#39;Arial 14&#39;)
+        self.txt_data_index.pack(side=LEFT, padx=5)
+
+        self.btn_random_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_random.png&#39;).resize((20, 20)))
+        btn_random = Button(frm_data_index, image=self.btn_random_icon, command=self.random_image)
+        btn_random.pack(side=RIGHT, padx=5)
+
+        self.btn_load_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
+        btn_load = Button(frm_data_index, image=self.btn_load_icon, command=self.load_image)
+        btn_load.pack(side=RIGHT, padx=5)
+
+
+        frm_network = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_network.pack(pady=5)
+
+        lbl_network = Label(frm_network, text=&#39;Network Type&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_network.pack()
+
+        networks = (&#39;MLP&#39;, &#39;MLP2&#39;)
+        #networks = (&#39;MLP&#39;)
+        self.network_var = StringVar(value=networks[0])
+        self.change_network(False)
+        op_network = OptionMenu(frm_network, self.network_var, *networks)
+        op_network.pack(side=LEFT, padx=5)
+
+        self.btn_display_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_display_network_icon.png&#39;).resize((20, 20)))
+        btn_print_network = Button(frm_network, image=self.btn_display_network_icon, command=partial(self.print_network, &#39;Current Network Architecture&#39;))
+        btn_print_network.pack(side=RIGHT, padx=5)
+
+        self.btn_config_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
+        btn_config_network = Button(frm_network, image=self.btn_config_network_icon, command=partial(self.change_network, True))
+        btn_config_network.pack(side=RIGHT, padx=5)
+
+
+        frm_wl_scheme = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_wl_scheme.pack(pady=5)
+
+        lbl_WL = Label(frm_wl_scheme, text=&#39;WL Scheme&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_WL.pack()
+
+        self.sld_WL = Scale(frm_wl_scheme, from_=1, to=9, orient=HORIZONTAL)
+        self.sld_WL.pack()
+
+
+        frm_operation = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_operation.pack(pady=5)
+
+        lbl_operation = Label(frm_operation, text=&#39;Operation&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+        lbl_operation.pack()
+
+        self.btn_clear_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_clear.png&#39;).resize((20, 20)))
+        btn_clear = Button(frm_operation, image=self.btn_clear_icon, command=self.clear)
+        btn_clear.pack(side=LEFT, padx=5)
+
+        btn_inference = Button(frm_operation, text=&#34;Inference&#34;, command=self.inference, font=&#39;Arial 12&#39;)
+        btn_inference.pack(side=RIGHT, padx=5)
+
+
+        # Result Panel
+        frm_results = Frame(self.master, padx=5)
+        frm_results.pack(side=RIGHT)
+
+
+        frm_golden = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_golden.pack(pady=5)
+
+        lbl_golden = Label(frm_golden, text=&#39;Golden&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+        lbl_golden.pack()
+
+        self.text_golden = StringVar(value=&#39;N/A&#39;)
+        lbl_golden_var = Label(frm_golden, textvariable=self.text_golden, font=(&#39;Arial&#39;, 48))
+        lbl_golden_var.pack()
+
+
+        frm_duration = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_duration.pack(pady=5)
+
+        lbl_duration = Label(frm_duration, text=&#39;Duration (s)&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+        lbl_duration.pack()
+
+        self.text_duration = StringVar(value=&#39;N/A&#39;)
+        lbl_duration_var = Label(frm_duration, textvariable=self.text_duration, font=(&#39;Arial&#39;, 32))
+        lbl_duration_var.pack()
+
+
+        frm_prediction = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+        frm_prediction.pack(pady=5)
+
+        lbl_prediction = Label(frm_prediction, text=&#39;Prediction&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+        lbl_prediction.pack()
+
+        self.text_prediction = StringVar(value=&#39;N/A&#39;)
+        lbl_prediction_var = Label(frm_prediction, textvariable=self.text_prediction, font=(&#39;Arial&#39;, 48))
+        lbl_prediction_var.pack()
+
+
+        # Canvas Panel
+        self.old_x = None
+        self.old_y = None
+        self.c = Canvas(self.master, width=400, height=400, bg=&#39;white&#39;, borderwidth=10, relief=&#39;ridge&#39;)
+        self.c.bind(&#39;&lt;B1-Motion&gt;&#39;, self.paint)
+        self.c.bind(&#39;&lt;ButtonRelease-1&gt;&#39;, self.reset)
+        self.c.pack()
+
+
+    def center(self, win):
+        &#34;&#34;&#34;
+        centers a tkinter window
+        :param win: the main window or Toplevel window to center
+        &#34;&#34;&#34;
+        win.update_idletasks()
+        width = win.winfo_width()
+        frm_width = win.winfo_rootx() - win.winfo_x()
+        win_width = width + 2 * frm_width
+        height = win.winfo_height()
+        titlebar_height = win.winfo_rooty() - win.winfo_y()
+        win_height = height + titlebar_height + frm_width
+        x = win.winfo_screenwidth() // 2 - win_width // 2
+        y = win.winfo_screenheight() // 2 - win_height // 2
+        win.geometry(&#39;{}x{}+{}+{}&#39;.format(width, height, x, y))
+        win.deiconify()
+
+
+    def paint(self, e):
+        if self.old_x and self.old_y:
+            self.c.create_line(self.old_x, self.old_y, e.x, e.y, width=40, stipple=&#39;gray50&#39;, capstyle=ROUND)
+        self.old_x = e.x
+        self.old_y = e.y
+
+
+    def reset(self, e):
+        self.old_x = None
+        self.old_y = None
+
+
+    def clear(self):
+        self.c.delete(ALL)
+        self.text_golden.set(&#39;N/A&#39;)
+        self.text_prediction.set(&#39;N/A&#39;)
+        self.text_duration.set(&#39;N/A&#39;)
+        self.txt_data_index.delete(0, &#39;end&#39;)
+
+
+    def change_network(self, verbal):
+        network = self.network_var.get()
+        conf_network(network, False)
+        if verbal:
+            self.print_network(&#39;Network Architecture Updated&#39;)
+
+
+    def print_network(self, win_title):
+        win_network = Toplevel()
+        win_network.wm_title(win_title)
+        #self.master.eval(f&#39;tk::PlaceWindow {str(win_network)} center&#39;)
+
+        lbl_network_architecture = Label(win_network, text=DNN.nn_print(False), justify= LEFT, font=&#39;Courier 14 bold&#39;)
+        lbl_network_architecture.pack(fill=&#39;both&#39;, pady=5)
+
+        btn_clear = Button(win_network, text=&#34;Okay&#34;, command=win_network.destroy)
+        btn_clear.pack(pady=5)
+
+        self.center(win_network)
+
+
+    def load_image(self):
+        index = int(self.txt_data_index.get())
+
+        # Paint the image onto the canvas
+        tkimage = np.invert(4*images[index])
+        tkimage = Image.fromarray(tkimage)
+        tkimage = tkimage.resize((self.c.winfo_width(), self.c.winfo_height()))
+        self.tkimage = ImageTk.PhotoImage(image=tkimage)
+        self.c.create_image(0, 0, anchor=&#34;nw&#34;, image=self.tkimage)
+
+        # Load golden and clear prediction/duration
+        self.text_golden.set(targets[index])
+        self.text_prediction.set(&#39;N/A&#39;)
+        self.text_duration.set(&#39;N/A&#39;)
+
+
+    def random_image(self):
+        self.txt_data_index.delete(0, &#39;end&#39;)
+        self.txt_data_index.insert(0, str(random.randint(0, 10000)))
+        self.load_image()
+
+
+    def capture_image(self):
+        # Capture the image from Canvas
+        ps = self.c.postscript(colormode=&#39;gray&#39;)
+        image = Image.open(io.BytesIO(ps.encode(&#39;utf-8&#39;)))
+        image = image.convert(mode=&#39;L&#39;).resize((image_len, image_len))
+        image = np.uint8(image.getdata())
+        image = np.floor_divide(np.invert(image), 4)
+        image = np.reshape(image, (image_len, image_len))
+        return image
+
+
+    def inference(self):
+        # Clear the prediction and duration first
+        self.text_prediction.set(&#39;N/A&#39;)
+        self.text_duration.set(&#39;N/A&#39;)
+        self.master.update()
+
+        # Upload the image
+        if self.txt_data_index.get() != &#39;&#39;:
+            upload_image(str(self.txt_data_index.get()), False)
+        else:
+            image = self.capture_image()
+            DNN.in_conf_len(str(image_len), True)
+            for i in range(image_len):
+                for j in range(image_len):
+                    if image[i][j] != 0:
+                        DNN.in_fill(str(i*image_len+j), str(image[i][j]), True)
+
+        # Print the result
+        tick = time.time()
+        pred = DNN.forward(str(self.sld_WL.get()), False)
+        passed_time = time.time()-tick
+        self.text_duration.set(f&#39;{passed_time:.2f}&#39;)
+        self.text_prediction.set(pred)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="MNIST.GUI.capture_image"><code class="name flex">
+<span>def <span class="ident">capture_image</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def capture_image(self):
+    # Capture the image from Canvas
+    ps = self.c.postscript(colormode=&#39;gray&#39;)
+    image = Image.open(io.BytesIO(ps.encode(&#39;utf-8&#39;)))
+    image = image.convert(mode=&#39;L&#39;).resize((image_len, image_len))
+    image = np.uint8(image.getdata())
+    image = np.floor_divide(np.invert(image), 4)
+    image = np.reshape(image, (image_len, image_len))
+    return image</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.center"><code class="name flex">
+<span>def <span class="ident">center</span></span>(<span>self, win)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>centers a tkinter window
+:param win: the main window or Toplevel window to center</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def center(self, win):
+    &#34;&#34;&#34;
+    centers a tkinter window
+    :param win: the main window or Toplevel window to center
+    &#34;&#34;&#34;
+    win.update_idletasks()
+    width = win.winfo_width()
+    frm_width = win.winfo_rootx() - win.winfo_x()
+    win_width = width + 2 * frm_width
+    height = win.winfo_height()
+    titlebar_height = win.winfo_rooty() - win.winfo_y()
+    win_height = height + titlebar_height + frm_width
+    x = win.winfo_screenwidth() // 2 - win_width // 2
+    y = win.winfo_screenheight() // 2 - win_height // 2
+    win.geometry(&#39;{}x{}+{}+{}&#39;.format(width, height, x, y))
+    win.deiconify()</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.change_network"><code class="name flex">
+<span>def <span class="ident">change_network</span></span>(<span>self, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_network(self, verbal):
+    network = self.network_var.get()
+    conf_network(network, False)
+    if verbal:
+        self.print_network(&#39;Network Architecture Updated&#39;)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.clear"><code class="name flex">
+<span>def <span class="ident">clear</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear(self):
+    self.c.delete(ALL)
+    self.text_golden.set(&#39;N/A&#39;)
+    self.text_prediction.set(&#39;N/A&#39;)
+    self.text_duration.set(&#39;N/A&#39;)
+    self.txt_data_index.delete(0, &#39;end&#39;)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.inference"><code class="name flex">
+<span>def <span class="ident">inference</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def inference(self):
+    # Clear the prediction and duration first
+    self.text_prediction.set(&#39;N/A&#39;)
+    self.text_duration.set(&#39;N/A&#39;)
+    self.master.update()
+
+    # Upload the image
+    if self.txt_data_index.get() != &#39;&#39;:
+        upload_image(str(self.txt_data_index.get()), False)
+    else:
+        image = self.capture_image()
+        DNN.in_conf_len(str(image_len), True)
+        for i in range(image_len):
+            for j in range(image_len):
+                if image[i][j] != 0:
+                    DNN.in_fill(str(i*image_len+j), str(image[i][j]), True)
+
+    # Print the result
+    tick = time.time()
+    pred = DNN.forward(str(self.sld_WL.get()), False)
+    passed_time = time.time()-tick
+    self.text_duration.set(f&#39;{passed_time:.2f}&#39;)
+    self.text_prediction.set(pred)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.initUI"><code class="name flex">
+<span>def <span class="ident">initUI</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def initUI(self):
+    self.master.title(&#34;MNIST GUI&#34;)
+
+    # Change default font
+    self.defaultFont = font.nametofont(&#34;TkDefaultFont&#34;)
+    self.defaultFont.configure(family=&#34;Arial&#34;, size=12)
+
+    # Control Panel
+    frm_controls = Frame(self.master, padx=5)
+    frm_controls.pack(side=LEFT)
+
+
+    frm_data_index = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_data_index.pack(pady=5)
+
+    lbl_data_index = Label(frm_data_index, text=&#39;Image Index&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+    lbl_data_index.pack()
+
+    self.txt_data_index = Entry(frm_data_index, width=5, font=&#39;Arial 14&#39;)
+    self.txt_data_index.pack(side=LEFT, padx=5)
+
+    self.btn_random_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_random.png&#39;).resize((20, 20)))
+    btn_random = Button(frm_data_index, image=self.btn_random_icon, command=self.random_image)
+    btn_random.pack(side=RIGHT, padx=5)
+
+    self.btn_load_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
+    btn_load = Button(frm_data_index, image=self.btn_load_icon, command=self.load_image)
+    btn_load.pack(side=RIGHT, padx=5)
+
+
+    frm_network = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_network.pack(pady=5)
+
+    lbl_network = Label(frm_network, text=&#39;Network Type&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+    lbl_network.pack()
+
+    networks = (&#39;MLP&#39;, &#39;MLP2&#39;)
+    #networks = (&#39;MLP&#39;)
+    self.network_var = StringVar(value=networks[0])
+    self.change_network(False)
+    op_network = OptionMenu(frm_network, self.network_var, *networks)
+    op_network.pack(side=LEFT, padx=5)
+
+    self.btn_display_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_display_network_icon.png&#39;).resize((20, 20)))
+    btn_print_network = Button(frm_network, image=self.btn_display_network_icon, command=partial(self.print_network, &#39;Current Network Architecture&#39;))
+    btn_print_network.pack(side=RIGHT, padx=5)
+
+    self.btn_config_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
+    btn_config_network = Button(frm_network, image=self.btn_config_network_icon, command=partial(self.change_network, True))
+    btn_config_network.pack(side=RIGHT, padx=5)
+
+
+    frm_wl_scheme = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_wl_scheme.pack(pady=5)
+
+    lbl_WL = Label(frm_wl_scheme, text=&#39;WL Scheme&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+    lbl_WL.pack()
+
+    self.sld_WL = Scale(frm_wl_scheme, from_=1, to=9, orient=HORIZONTAL)
+    self.sld_WL.pack()
+
+
+    frm_operation = Frame(frm_controls, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_operation.pack(pady=5)
+
+    lbl_operation = Label(frm_operation, text=&#39;Operation&#39;, width=14, font=&#39;Arial 14 bold&#39;)
+    lbl_operation.pack()
+
+    self.btn_clear_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_clear.png&#39;).resize((20, 20)))
+    btn_clear = Button(frm_operation, image=self.btn_clear_icon, command=self.clear)
+    btn_clear.pack(side=LEFT, padx=5)
+
+    btn_inference = Button(frm_operation, text=&#34;Inference&#34;, command=self.inference, font=&#39;Arial 12&#39;)
+    btn_inference.pack(side=RIGHT, padx=5)
+
+
+    # Result Panel
+    frm_results = Frame(self.master, padx=5)
+    frm_results.pack(side=RIGHT)
+
+
+    frm_golden = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_golden.pack(pady=5)
+
+    lbl_golden = Label(frm_golden, text=&#39;Golden&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+    lbl_golden.pack()
+
+    self.text_golden = StringVar(value=&#39;N/A&#39;)
+    lbl_golden_var = Label(frm_golden, textvariable=self.text_golden, font=(&#39;Arial&#39;, 48))
+    lbl_golden_var.pack()
+
+
+    frm_duration = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_duration.pack(pady=5)
+
+    lbl_duration = Label(frm_duration, text=&#39;Duration (s)&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+    lbl_duration.pack()
+
+    self.text_duration = StringVar(value=&#39;N/A&#39;)
+    lbl_duration_var = Label(frm_duration, textvariable=self.text_duration, font=(&#39;Arial&#39;, 32))
+    lbl_duration_var.pack()
+
+
+    frm_prediction = Frame(frm_results, borderwidth=5, relief=&#39;ridge&#39;)
+    frm_prediction.pack(pady=5)
+
+    lbl_prediction = Label(frm_prediction, text=&#39;Prediction&#39;, width=12, font=&#39;Arial 14 bold&#39;)
+    lbl_prediction.pack()
+
+    self.text_prediction = StringVar(value=&#39;N/A&#39;)
+    lbl_prediction_var = Label(frm_prediction, textvariable=self.text_prediction, font=(&#39;Arial&#39;, 48))
+    lbl_prediction_var.pack()
+
+
+    # Canvas Panel
+    self.old_x = None
+    self.old_y = None
+    self.c = Canvas(self.master, width=400, height=400, bg=&#39;white&#39;, borderwidth=10, relief=&#39;ridge&#39;)
+    self.c.bind(&#39;&lt;B1-Motion&gt;&#39;, self.paint)
+    self.c.bind(&#39;&lt;ButtonRelease-1&gt;&#39;, self.reset)
+    self.c.pack()</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.load_image"><code class="name flex">
+<span>def <span class="ident">load_image</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_image(self):
+    index = int(self.txt_data_index.get())
+
+    # Paint the image onto the canvas
+    tkimage = np.invert(4*images[index])
+    tkimage = Image.fromarray(tkimage)
+    tkimage = tkimage.resize((self.c.winfo_width(), self.c.winfo_height()))
+    self.tkimage = ImageTk.PhotoImage(image=tkimage)
+    self.c.create_image(0, 0, anchor=&#34;nw&#34;, image=self.tkimage)
+
+    # Load golden and clear prediction/duration
+    self.text_golden.set(targets[index])
+    self.text_prediction.set(&#39;N/A&#39;)
+    self.text_duration.set(&#39;N/A&#39;)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.paint"><code class="name flex">
+<span>def <span class="ident">paint</span></span>(<span>self, e)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def paint(self, e):
+    if self.old_x and self.old_y:
+        self.c.create_line(self.old_x, self.old_y, e.x, e.y, width=40, stipple=&#39;gray50&#39;, capstyle=ROUND)
+    self.old_x = e.x
+    self.old_y = e.y</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.print_network"><code class="name flex">
+<span>def <span class="ident">print_network</span></span>(<span>self, win_title)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_network(self, win_title):
+    win_network = Toplevel()
+    win_network.wm_title(win_title)
+    #self.master.eval(f&#39;tk::PlaceWindow {str(win_network)} center&#39;)
+
+    lbl_network_architecture = Label(win_network, text=DNN.nn_print(False), justify= LEFT, font=&#39;Courier 14 bold&#39;)
+    lbl_network_architecture.pack(fill=&#39;both&#39;, pady=5)
+
+    btn_clear = Button(win_network, text=&#34;Okay&#34;, command=win_network.destroy)
+    btn_clear.pack(pady=5)
+
+    self.center(win_network)</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.random_image"><code class="name flex">
+<span>def <span class="ident">random_image</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def random_image(self):
+    self.txt_data_index.delete(0, &#39;end&#39;)
+    self.txt_data_index.insert(0, str(random.randint(0, 10000)))
+    self.load_image()</code></pre>
+</details>
+</dd>
+<dt id="MNIST.GUI.reset"><code class="name flex">
+<span>def <span class="ident">reset</span></span>(<span>self, e)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset(self, e):
+    self.old_x = None
+    self.old_y = None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="MNIST.conf_network" href="#MNIST.conf_network">conf_network</a></code></li>
+<li><code><a title="MNIST.decode" href="#MNIST.decode">decode</a></code></li>
+<li><code><a title="MNIST.test_inference" href="#MNIST.test_inference">test_inference</a></code></li>
+<li><code><a title="MNIST.upload_image" href="#MNIST.upload_image">upload_image</a></code></li>
+<li><code><a title="MNIST.upload_weights" href="#MNIST.upload_weights">upload_weights</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="MNIST.GUI" href="#MNIST.GUI">GUI</a></code></h4>
+<ul class="two-column">
+<li><code><a title="MNIST.GUI.capture_image" href="#MNIST.GUI.capture_image">capture_image</a></code></li>
+<li><code><a title="MNIST.GUI.center" href="#MNIST.GUI.center">center</a></code></li>
+<li><code><a title="MNIST.GUI.change_network" href="#MNIST.GUI.change_network">change_network</a></code></li>
+<li><code><a title="MNIST.GUI.clear" href="#MNIST.GUI.clear">clear</a></code></li>
+<li><code><a title="MNIST.GUI.inference" href="#MNIST.GUI.inference">inference</a></code></li>
+<li><code><a title="MNIST.GUI.initUI" href="#MNIST.GUI.initUI">initUI</a></code></li>
+<li><code><a title="MNIST.GUI.load_image" href="#MNIST.GUI.load_image">load_image</a></code></li>
+<li><code><a title="MNIST.GUI.paint" href="#MNIST.GUI.paint">paint</a></code></li>
+<li><code><a title="MNIST.GUI.print_network" href="#MNIST.GUI.print_network">print_network</a></code></li>
+<li><code><a title="MNIST.GUI.random_image" href="#MNIST.GUI.random_image">random_image</a></code></li>
+<li><code><a title="MNIST.GUI.reset" href="#MNIST.GUI.reset">reset</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
