@@ -6,7 +6,7 @@ import time
 import RRAM
 
 def check_chip_VRef():
-    """ **[Utilization]** Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty
+    """ Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty
 
     """
     for module in range(0, 288):
@@ -27,7 +27,7 @@ def check_chip_VRef():
     RRAM.mod_status(True)
 
 def sweep_chip_VRef():
-    """ **[Utilization]** Sweep VRef for the whole chip
+    """ Sweep VRef for the whole chip
 
     """
     print('╔════════╦════════╦══════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╗')
@@ -44,7 +44,7 @@ def sweep_chip_VRef():
 
         # Config the ADC and Sweep the VRef
         RRAM.conf_ADC(str(offset), str(step), '0x7FFF', False)
-        RRAM.sweep_VRef('0', '900', '2', False)
+        RRAM.sweep_VRef('0', '800', '2', False)
 
         # Find the VRef
         response = RRAM.list_VRef(False)
@@ -59,7 +59,7 @@ def sweep_chip_VRef():
 
 
 def write_byte(row, num):
-    """ **[Utilization]** Test function for writing a byte at (row, col)
+    """ Test function for writing a byte at (row, col)
 
     Args:
         row (str): from 0~255
@@ -80,7 +80,7 @@ def write_byte(row, num):
 
 
 def cim_bit(row, col):
-    """ **[Utilization]** Test function for computer in memory (CIM) at bit level
+    """ Test function for computer in memory (CIM) at bit level
 
     Args:
         row (str): from 0~255
@@ -122,7 +122,7 @@ def cim_bit(row, col):
 
 
 def cim_byte(row, col, num):
-    """ **[Utilization]** Test function for computer in memory (CIM) at byte level
+    """ Test function for computer in memory (CIM) at byte level
 
     Args:
         row (str): from 0~255

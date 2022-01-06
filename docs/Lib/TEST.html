@@ -34,7 +34,7 @@ import time
 import RRAM
 
 def check_chip_VRef():
-    &#34;&#34;&#34; **[Utilization]** Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty
+    &#34;&#34;&#34; Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty
 
     &#34;&#34;&#34;
     for module in range(0, 288):
@@ -55,7 +55,7 @@ def check_chip_VRef():
     RRAM.mod_status(True)
 
 def sweep_chip_VRef():
-    &#34;&#34;&#34; **[Utilization]** Sweep VRef for the whole chip
+    &#34;&#34;&#34; Sweep VRef for the whole chip
 
     &#34;&#34;&#34;
     print(&#39;╔════════╦════════╦══════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╗&#39;)
@@ -72,7 +72,7 @@ def sweep_chip_VRef():
 
         # Config the ADC and Sweep the VRef
         RRAM.conf_ADC(str(offset), str(step), &#39;0x7FFF&#39;, False)
-        RRAM.sweep_VRef(&#39;0&#39;, &#39;900&#39;, &#39;2&#39;, False)
+        RRAM.sweep_VRef(&#39;0&#39;, &#39;800&#39;, &#39;2&#39;, False)
 
         # Find the VRef
         response = RRAM.list_VRef(False)
@@ -87,7 +87,7 @@ def sweep_chip_VRef():
 
 
 def write_byte(row, num):
-    &#34;&#34;&#34; **[Utilization]** Test function for writing a byte at (row, col)
+    &#34;&#34;&#34; Test function for writing a byte at (row, col)
 
     Args:
         row (str): from 0~255
@@ -108,7 +108,7 @@ def write_byte(row, num):
 
 
 def cim_bit(row, col):
-    &#34;&#34;&#34; **[Utilization]** Test function for computer in memory (CIM) at bit level
+    &#34;&#34;&#34; Test function for computer in memory (CIM) at bit level
 
     Args:
         row (str): from 0~255
@@ -150,7 +150,7 @@ def cim_bit(row, col):
 
 
 def cim_byte(row, col, num):
-    &#34;&#34;&#34; **[Utilization]** Test function for computer in memory (CIM) at byte level
+    &#34;&#34;&#34; Test function for computer in memory (CIM) at byte level
 
     Args:
         row (str): from 0~255
@@ -215,13 +215,13 @@ def decode(parameters):
 <span>def <span class="ident">check_chip_VRef</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Utilization]</strong> Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty</p></div>
+<div class="desc"><p>Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def check_chip_VRef():
-    &#34;&#34;&#34; **[Utilization]** Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty
+    &#34;&#34;&#34; Check ADC settings (i.e. Offset/Step) for the whole chip and mark the ones that are faulty
 
     &#34;&#34;&#34;
     for module in range(0, 288):
@@ -246,7 +246,7 @@ def decode(parameters):
 <span>def <span class="ident">cim_bit</span></span>(<span>row, col)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Utilization]</strong> Test function for computer in memory (CIM) at bit level</p>
+<div class="desc"><p>Test function for computer in memory (CIM) at bit level</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>row</code></strong> :&ensp;<code>str</code></dt>
@@ -259,7 +259,7 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def cim_bit(row, col):
-    &#34;&#34;&#34; **[Utilization]** Test function for computer in memory (CIM) at bit level
+    &#34;&#34;&#34; Test function for computer in memory (CIM) at bit level
 
     Args:
         row (str): from 0~255
@@ -304,7 +304,7 @@ def decode(parameters):
 <span>def <span class="ident">cim_byte</span></span>(<span>row, col, num)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Utilization]</strong> Test function for computer in memory (CIM) at byte level</p>
+<div class="desc"><p>Test function for computer in memory (CIM) at byte level</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>row</code></strong> :&ensp;<code>str</code></dt>
@@ -319,7 +319,7 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def cim_byte(row, col, num):
-    &#34;&#34;&#34; **[Utilization]** Test function for computer in memory (CIM) at byte level
+    &#34;&#34;&#34; Test function for computer in memory (CIM) at byte level
 
     Args:
         row (str): from 0~255
@@ -391,13 +391,13 @@ def decode(parameters):
 <span>def <span class="ident">sweep_chip_VRef</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Utilization]</strong> Sweep VRef for the whole chip</p></div>
+<div class="desc"><p>Sweep VRef for the whole chip</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def sweep_chip_VRef():
-    &#34;&#34;&#34; **[Utilization]** Sweep VRef for the whole chip
+    &#34;&#34;&#34; Sweep VRef for the whole chip
 
     &#34;&#34;&#34;
     print(&#39;╔════════╦════════╦══════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╗&#39;)
@@ -414,7 +414,7 @@ def decode(parameters):
 
         # Config the ADC and Sweep the VRef
         RRAM.conf_ADC(str(offset), str(step), &#39;0x7FFF&#39;, False)
-        RRAM.sweep_VRef(&#39;0&#39;, &#39;900&#39;, &#39;2&#39;, False)
+        RRAM.sweep_VRef(&#39;0&#39;, &#39;800&#39;, &#39;2&#39;, False)
 
         # Find the VRef
         response = RRAM.list_VRef(False)
@@ -432,7 +432,7 @@ def decode(parameters):
 <span>def <span class="ident">write_byte</span></span>(<span>row, num)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[Utilization]</strong> Test function for writing a byte at (row, col)</p>
+<div class="desc"><p>Test function for writing a byte at (row, col)</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>row</code></strong> :&ensp;<code>str</code></dt>
@@ -445,7 +445,7 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def write_byte(row, num):
-    &#34;&#34;&#34; **[Utilization]** Test function for writing a byte at (row, col)
+    &#34;&#34;&#34; Test function for writing a byte at (row, col)
 
     Args:
         row (str): from 0~255
