@@ -317,8 +317,8 @@ def test_inference(network, WL_start, WL_end, count, verbal):
             print(f&#39;║ Index ║ Gold ║ Sim ║ TC ║&#39;)
             print( &#39;╟───────╫──────╫─────╫────╢&#39;)
         count = int(count)
-        ltargets = np.resize(targets,  count)
-        lsim_preds = np.resize(sim_preds,  count)
+        local_targets = np.resize(targets,  count)
+        local_sim_preds = np.resize(sim_preds,  count)
         tc_preds = np.empty(count, dtype=np.uint8)
         tick = time.time()
         for index in range(count):
@@ -333,15 +333,15 @@ def test_inference(network, WL_start, WL_end, count, verbal):
 
             # Print the result
             if verbal:
-                print(f&#39;║ {index:&gt;5} ║ {ltargets[index]:&gt;4} ║ {lsim_preds[index]:&gt;3} ║ {tc_preds[index]:&gt;2} ║&#39;)
+                print(f&#39;║ {index:&gt;5} ║ {local_targets[index]:&gt;4} ║ {local_sim_preds[index]:&gt;3} ║ {tc_preds[index]:&gt;2} ║&#39;)
         passed_time = time.time()-tick
         if verbal:
             print( &#39;╟───────╨──────╨─────╨────╢&#39;)
         else:
             print(&#39;&#39;)
             print( &#39;╔═════════════════════════╗&#39;)
-        print(f&#39;║ Pred Acc:   {np.sum(lsim_preds == ltargets):5d}/{count:5d} ║&#39;)
-        print(f&#39;║   TC Acc:   {np.sum(tc_preds == ltargets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║ Pred Acc:   {np.sum(local_sim_preds == local_targets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║   TC Acc:   {np.sum(tc_preds == local_targets):5d}/{count:5d} ║&#39;)
         print(f&#39;║ Duration: {passed_time:9.2f} sec ║&#39;)
         print( &#39;╚═════════════════════════╝&#39;)
 
@@ -870,8 +870,8 @@ def decode(parameters):
             print(f&#39;║ Index ║ Gold ║ Sim ║ TC ║&#39;)
             print( &#39;╟───────╫──────╫─────╫────╢&#39;)
         count = int(count)
-        ltargets = np.resize(targets,  count)
-        lsim_preds = np.resize(sim_preds,  count)
+        local_targets = np.resize(targets,  count)
+        local_sim_preds = np.resize(sim_preds,  count)
         tc_preds = np.empty(count, dtype=np.uint8)
         tick = time.time()
         for index in range(count):
@@ -886,15 +886,15 @@ def decode(parameters):
 
             # Print the result
             if verbal:
-                print(f&#39;║ {index:&gt;5} ║ {ltargets[index]:&gt;4} ║ {lsim_preds[index]:&gt;3} ║ {tc_preds[index]:&gt;2} ║&#39;)
+                print(f&#39;║ {index:&gt;5} ║ {local_targets[index]:&gt;4} ║ {local_sim_preds[index]:&gt;3} ║ {tc_preds[index]:&gt;2} ║&#39;)
         passed_time = time.time()-tick
         if verbal:
             print( &#39;╟───────╨──────╨─────╨────╢&#39;)
         else:
             print(&#39;&#39;)
             print( &#39;╔═════════════════════════╗&#39;)
-        print(f&#39;║ Pred Acc:   {np.sum(lsim_preds == ltargets):5d}/{count:5d} ║&#39;)
-        print(f&#39;║   TC Acc:   {np.sum(tc_preds == ltargets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║ Pred Acc:   {np.sum(local_sim_preds == local_targets):5d}/{count:5d} ║&#39;)
+        print(f&#39;║   TC Acc:   {np.sum(tc_preds == local_targets):5d}/{count:5d} ║&#39;)
         print(f&#39;║ Duration: {passed_time:9.2f} sec ║&#39;)
         print( &#39;╚═════════════════════════╝&#39;)</code></pre>
 </details>

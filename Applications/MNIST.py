@@ -289,8 +289,8 @@ def test_inference(network, WL_start, WL_end, count, verbal):
             print(f'║ Index ║ Gold ║ Sim ║ TC ║')
             print( '╟───────╫──────╫─────╫────╢')
         count = int(count)
-        ltargets = np.resize(targets,  count)
-        lsim_preds = np.resize(sim_preds,  count)
+        local_targets = np.resize(targets,  count)
+        local_sim_preds = np.resize(sim_preds,  count)
         tc_preds = np.empty(count, dtype=np.uint8)
         tick = time.time()
         for index in range(count):
@@ -305,15 +305,15 @@ def test_inference(network, WL_start, WL_end, count, verbal):
 
             # Print the result
             if verbal:
-                print(f'║ {index:>5} ║ {ltargets[index]:>4} ║ {lsim_preds[index]:>3} ║ {tc_preds[index]:>2} ║')
+                print(f'║ {index:>5} ║ {local_targets[index]:>4} ║ {local_sim_preds[index]:>3} ║ {tc_preds[index]:>2} ║')
         passed_time = time.time()-tick
         if verbal:
             print( '╟───────╨──────╨─────╨────╢')
         else:
             print('')
             print( '╔═════════════════════════╗')
-        print(f'║ Pred Acc:   {np.sum(lsim_preds == ltargets):5d}/{count:5d} ║')
-        print(f'║   TC Acc:   {np.sum(tc_preds == ltargets):5d}/{count:5d} ║')
+        print(f'║ Pred Acc:   {np.sum(local_sim_preds == local_targets):5d}/{count:5d} ║')
+        print(f'║   TC Acc:   {np.sum(tc_preds == local_targets):5d}/{count:5d} ║')
         print(f'║ Duration: {passed_time:9.2f} sec ║')
         print( '╚═════════════════════════╝')
 

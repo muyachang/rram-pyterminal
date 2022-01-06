@@ -300,7 +300,16 @@ def mod_conf(status, verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_MOD_CONF + ' ' + status, verbal)
+    status_dict = {
+        'C': CM.CM_RRAM_API_MOD_STATUS_CLEAN,
+        'F': CM.CM_RRAM_API_MOD_STATUS_FORMED,
+        'P': CM.CM_RRAM_API_MOD_STATUS_PARTIALLY_FORMED,
+        'U': CM.CM_RRAM_API_MOD_STATUS_USED,
+        'B': CM.CM_RRAM_API_MOD_STATUS_BROKEN,
+        'A': CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL,
+        '?': CM.CM_RRAM_API_MOD_STATUS_UNKNOWN,
+    }
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_MOD_CONF + ' ' + str(status_dict[status]), verbal)
 
 
 def switch(index, verbal):
