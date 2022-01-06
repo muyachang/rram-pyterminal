@@ -283,7 +283,16 @@ def reg_status(verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_REG_STATUS, verbal)
+
+
+def env_init(verbal):
+    &#34;&#34;&#34; **[High Level]** Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_INIT, verbal)
 
 
 def env_status(verbal):
@@ -292,7 +301,16 @@ def env_status(verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal)
+
+
+def mod_init(verbal):
+    &#34;&#34;&#34; **[High Level]** Initialize the module floorplan status
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_INIT, verbal)
 
 
 def mod_status(verbal):
@@ -301,7 +319,16 @@ def mod_status(verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_STATUS, verbal)
+
+
+def mod_conf(status, verbal):
+    &#34;&#34;&#34; **[High Level]** Configure the current module floorplan status
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_CONF + &#39; &#39; + status, verbal)
 
 
 def switch(index, verbal):
@@ -312,6 +339,7 @@ def switch(index, verbal):
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWITCH + &#39; &#39; + index, verbal)
+
 
 def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal):
     &#34;&#34;&#34; **[High Level]** Configure FORM operation
@@ -544,6 +572,15 @@ def list_VRef(verbal):
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VREF, verbal)
 
 
+def clear_VRef(verbal):
+    &#34;&#34;&#34; **[High Level]** Clear 15 internally generated reference voltages of the current module
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VREF, verbal)
+
+
 def calibrate_VTGT_BL(verbal):
     &#34;&#34;&#34; **[High Level]** Calibrate VTGT_BL for the current module
 
@@ -577,6 +614,16 @@ def list_VTGT_BL(verbal):
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VTGT_BL, verbal)
 
+
+def clear_VTGT_BL(verbal):
+    &#34;&#34;&#34; **[High Level]** Clear saved VTGT_BL of the current module
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VTGT_BL, verbal)
+
+
 def sweep_DRef(ones, verbal):
     &#34;&#34;&#34; **[High Level]** Calibrate decoder reference levels.
 
@@ -598,6 +645,16 @@ def list_DRef(verbal):
         The current decoder reference of the selected RRAM Module.
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_DREF, verbal)
+
+
+def clear_DRef(ones, verbal):
+    &#34;&#34;&#34; **[High Level]** Clear decoder reference levels.
+
+    Args:
+        ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_DREF + &#39; &#39; + ones, verbal)
 
 
 def check(level, number, verbal):
@@ -654,8 +711,11 @@ def decode(parameters):
     elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],                True)
     # API functions
     elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                            True)
+    elif parameters[1] == &#39;env_init&#39;         : env_init         (                                                            True)
     elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                            True)
+    elif parameters[1] == &#39;mod_init&#39;         : mod_init         (                                                            True)
     elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                            True)
+    elif parameters[1] == &#39;mod_conf&#39;         : mod_conf         (parameters[2],                                              True)
     elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                              True)
     elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                               True)
@@ -674,11 +734,14 @@ def decode(parameters):
     elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                            True)
+    elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                            True)
     elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                            True)
     elif parameters[1] == &#39;conf_VTGT_BL&#39;     : conf_VTGT_BL     (parameters[2],                                              True)
     elif parameters[1] == &#39;list_VTGT_BL&#39;     : list_VTGT_BL     (                                                            True)
+    elif parameters[1] == &#39;clear_VTGT_BL&#39;    : clear_VTGT_BL    (                                                            True)
     elif parameters[1] == &#39;sweep_DRef&#39;       : sweep_DRef       (parameters[2],                                              True)
     elif parameters[1] == &#39;list_DRef&#39;        : list_DRef        (                                                            True)
+    elif parameters[1] == &#39;clear_DRef&#39;       : clear_DRef       (parameters[2],                                              True)
     elif parameters[1] == &#39;check&#39;            : check            (parameters[2], parameters[3],                               True)
     else: PT.unknown(parameters)</code></pre>
 </details>
@@ -896,6 +959,78 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
                 address = row*256 + col
                 response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
                 print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)</code></pre>
+</details>
+</dd>
+<dt id="RRAM.clear_DRef"><code class="name flex">
+<span>def <span class="ident">clear_DRef</span></span>(<span>ones, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Clear decoder reference levels.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>ones</code></strong> :&ensp;<code>str</code></dt>
+<dd>Could be omit or <em>1</em>~<em>9</em>, omit means do the calibration for all <em>1</em>~<em>9</em></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_DRef(ones, verbal):
+    &#34;&#34;&#34; **[High Level]** Clear decoder reference levels.
+
+    Args:
+        ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_DREF + &#39; &#39; + ones, verbal)</code></pre>
+</details>
+</dd>
+<dt id="RRAM.clear_VRef"><code class="name flex">
+<span>def <span class="ident">clear_VRef</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Clear 15 internally generated reference voltages of the current module</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_VRef(verbal):
+    &#34;&#34;&#34; **[High Level]** Clear 15 internally generated reference voltages of the current module
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VREF, verbal)</code></pre>
+</details>
+</dd>
+<dt id="RRAM.clear_VTGT_BL"><code class="name flex">
+<span>def <span class="ident">clear_VTGT_BL</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Clear saved VTGT_BL of the current module</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_VTGT_BL(verbal):
+    &#34;&#34;&#34; **[High Level]** Clear saved VTGT_BL of the current module
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VTGT_BL, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_ADC"><code class="name flex">
@@ -1151,8 +1286,11 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],                True)
     # API functions
     elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                            True)
+    elif parameters[1] == &#39;env_init&#39;         : env_init         (                                                            True)
     elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                            True)
+    elif parameters[1] == &#39;mod_init&#39;         : mod_init         (                                                            True)
     elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                            True)
+    elif parameters[1] == &#39;mod_conf&#39;         : mod_conf         (parameters[2],                                              True)
     elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                              True)
     elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                               True)
@@ -1171,11 +1309,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                            True)
+    elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                            True)
     elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                            True)
     elif parameters[1] == &#39;conf_VTGT_BL&#39;     : conf_VTGT_BL     (parameters[2],                                              True)
     elif parameters[1] == &#39;list_VTGT_BL&#39;     : list_VTGT_BL     (                                                            True)
+    elif parameters[1] == &#39;clear_VTGT_BL&#39;    : clear_VTGT_BL    (                                                            True)
     elif parameters[1] == &#39;sweep_DRef&#39;       : sweep_DRef       (parameters[2],                                              True)
     elif parameters[1] == &#39;list_DRef&#39;        : list_DRef        (                                                            True)
+    elif parameters[1] == &#39;clear_DRef&#39;       : clear_DRef       (parameters[2],                                              True)
     elif parameters[1] == &#39;check&#39;            : check            (parameters[2], parameters[3],                               True)
     else: PT.unknown(parameters)</code></pre>
 </details>
@@ -1228,6 +1369,29 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     else: PT.unknown([&#39;RRAM&#39;, &#39;ecc&#39;, action, action_type, target])</code></pre>
 </details>
 </dd>
+<dt id="RRAM.env_init"><code class="name flex">
+<span>def <span class="ident">env_init</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def env_init(verbal):
+    &#34;&#34;&#34; **[High Level]** Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_INIT, verbal)</code></pre>
+</details>
+</dd>
 <dt id="RRAM.env_status"><code class="name flex">
 <span>def <span class="ident">env_status</span></span>(<span>verbal)</span>
 </code></dt>
@@ -1248,7 +1412,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     Args:
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ENV_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.form"><code class="name flex">
@@ -1547,6 +1711,52 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     else: PT.unknown([&#39;RRAM&#39;, &#39;mask&#39;, action, target])</code></pre>
 </details>
 </dd>
+<dt id="RRAM.mod_conf"><code class="name flex">
+<span>def <span class="ident">mod_conf</span></span>(<span>status, verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Configure the current module floorplan status</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mod_conf(status, verbal):
+    &#34;&#34;&#34; **[High Level]** Configure the current module floorplan status
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_CONF + &#39; &#39; + status, verbal)</code></pre>
+</details>
+</dd>
+<dt id="RRAM.mod_init"><code class="name flex">
+<span>def <span class="ident">mod_init</span></span>(<span>verbal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Initialize the module floorplan status</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print the response or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mod_init(verbal):
+    &#34;&#34;&#34; **[High Level]** Initialize the module floorplan status
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    &#34;&#34;&#34;
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_INIT, verbal)</code></pre>
+</details>
+</dd>
 <dt id="RRAM.mod_status"><code class="name flex">
 <span>def <span class="ident">mod_status</span></span>(<span>verbal)</span>
 </code></dt>
@@ -1567,7 +1777,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     Args:
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MOD_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.module"><code class="name flex">
@@ -1791,7 +2001,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     Args:
         verbal (bool): Whether to print the response or not.
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_REG_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_REG_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.reset"><code class="name flex">
@@ -2118,6 +2328,9 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <li><code><a title="RRAM.calibrate_VRef" href="#RRAM.calibrate_VRef">calibrate_VRef</a></code></li>
 <li><code><a title="RRAM.calibrate_VTGT_BL" href="#RRAM.calibrate_VTGT_BL">calibrate_VTGT_BL</a></code></li>
 <li><code><a title="RRAM.check" href="#RRAM.check">check</a></code></li>
+<li><code><a title="RRAM.clear_DRef" href="#RRAM.clear_DRef">clear_DRef</a></code></li>
+<li><code><a title="RRAM.clear_VRef" href="#RRAM.clear_VRef">clear_VRef</a></code></li>
+<li><code><a title="RRAM.clear_VTGT_BL" href="#RRAM.clear_VTGT_BL">clear_VTGT_BL</a></code></li>
 <li><code><a title="RRAM.conf_ADC" href="#RRAM.conf_ADC">conf_ADC</a></code></li>
 <li><code><a title="RRAM.conf_MAC" href="#RRAM.conf_MAC">conf_MAC</a></code></li>
 <li><code><a title="RRAM.conf_VTGT_BL" href="#RRAM.conf_VTGT_BL">conf_VTGT_BL</a></code></li>
@@ -2127,6 +2340,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <li><code><a title="RRAM.conf_set" href="#RRAM.conf_set">conf_set</a></code></li>
 <li><code><a title="RRAM.decode" href="#RRAM.decode">decode</a></code></li>
 <li><code><a title="RRAM.ecc" href="#RRAM.ecc">ecc</a></code></li>
+<li><code><a title="RRAM.env_init" href="#RRAM.env_init">env_init</a></code></li>
 <li><code><a title="RRAM.env_status" href="#RRAM.env_status">env_status</a></code></li>
 <li><code><a title="RRAM.form" href="#RRAM.form">form</a></code></li>
 <li><code><a title="RRAM.group" href="#RRAM.group">group</a></code></li>
@@ -2137,6 +2351,8 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <li><code><a title="RRAM.list_VTGT_BL" href="#RRAM.list_VTGT_BL">list_VTGT_BL</a></code></li>
 <li><code><a title="RRAM.mac" href="#RRAM.mac">mac</a></code></li>
 <li><code><a title="RRAM.mask" href="#RRAM.mask">mask</a></code></li>
+<li><code><a title="RRAM.mod_conf" href="#RRAM.mod_conf">mod_conf</a></code></li>
+<li><code><a title="RRAM.mod_init" href="#RRAM.mod_init">mod_init</a></code></li>
 <li><code><a title="RRAM.mod_status" href="#RRAM.mod_status">mod_status</a></code></li>
 <li><code><a title="RRAM.module" href="#RRAM.module">module</a></code></li>
 <li><code><a title="RRAM.pg" href="#RRAM.pg">pg</a></code></li>
