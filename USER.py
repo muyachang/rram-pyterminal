@@ -1,6 +1,6 @@
 import PyTerminal as PT
 
-def example_function1():
+def example_function():
     """ Example function
 
     """
@@ -13,5 +13,5 @@ def decode(parameters):
     Args:
         parameters (list): Command in List form.
     """
-    if   parameters[1] == 'example_function1'  : example_function1()
+    if   parameters[1] == 'example_function'  : example_function()
     else: PT.unknown(parameters)
