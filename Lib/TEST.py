@@ -62,8 +62,8 @@ def write_byte(row, num):
     """ **[Utilization]** Test function for writing a byte at (row, col)
 
     Args:
-        row (str): from '0'~'255'
-        col (str): from '0'~'255'
+        row (str): from 0~255
+        col (str): from 0~255
     """
     row = int(row)
     num = int(num)
@@ -83,8 +83,8 @@ def cim_bit(row, col):
     """ **[Utilization]** Test function for computer in memory (CIM) at bit level
 
     Args:
-        row (str): from '0'~'255'
-        col (str): from '0'~'255'
+        row (str): from 0~255
+        col (str): from 0~255
     """
     row = int(row)
     col = int(col)
@@ -125,9 +125,9 @@ def cim_byte(row, col, num):
     """ **[Utilization]** Test function for computer in memory (CIM) at byte level
 
     Args:
-        row (str): from '0'~'255'
-        col (str): from '0'~'255'
-        num (str): from '1'~'9'
+        row (str): from 0~255
+        col (str): from 0~255
+        num (str): from 1~9
     """
     row = int(row)
     col = int(col)
