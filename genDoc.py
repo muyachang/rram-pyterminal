@@ -1,6 +1,6 @@
 import pdoc
 
-Libs = ['DEMO', 'DNN', 'RRAM', 'VECTOR']
+Libs = ['USER', 'TEST', 'DEMO', 'DNN', 'RRAM', 'VECTOR']
 Parts = ['BOARD', 'DAC', 'DF', 'EEPROM', 'LED', 'PM', 'TC']
 context = pdoc.Context()
 

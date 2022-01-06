@@ -1,9 +1,8 @@
 import serial
 import CommandMap as CM
-import MNIST
+import MNIST, TEST, USER
 import DEMO, UTF8, RRAM, VECTOR, DNN
 import EEPROM, PM, LED, DF, DAC, TC, BOARD
-import USER
 
 VID = '0x03EB'    # Atmel
 PID = '0x204B'    # LUFA USB to Serial Demo Application
@@ -113,6 +112,7 @@ def decode_command(command):
         elif parameters[0] == "RRAM"  :   RRAM.decode(parameters)
         elif parameters[0] == "VECTOR": VECTOR.decode(parameters)
         elif parameters[0] == "DNN"   :    DNN.decode(parameters)
+        elif parameters[0] == "TEST"  :   TEST.decode(parameters)
         elif parameters[0] == "USER"  :   USER.decode(parameters)
         elif parameters[0] == "MNIST" :  MNIST.decode(parameters)
         else: unknown(parameters)
