@@ -18,255 +18,6 @@ from functools import partial
 from PIL import Image, ImageTk
 
 
-class GUI:
-    def __init__(self):
-        self.master = Tk()
-        self.initUI()
-        self.master.resizable(False, False)
-        self.center(self.master)
-        self.master.mainloop()
-
-
-    def initUI(self):
-        self.master.title("MNIST GUI")
-
-        # Change default font
-        self.defaultFont = font.nametofont("TkDefaultFont")
-        self.defaultFont.configure(family="Arial", size=12)
-
-        # Control Panel
-        frm_controls = Frame(self.master, padx=5)
-        frm_controls.pack(side=LEFT)
-
-
-        frm_data_index = Frame(frm_controls, borderwidth=5, relief='ridge')
-        frm_data_index.pack(pady=5)
-
-        lbl_data_index = Label(frm_data_index, text='Image Index', width=14, font='Arial 14 bold')
-        lbl_data_index.pack()
-
-        self.txt_data_index = Entry(frm_data_index, width=5, font='Arial 14')
-        self.txt_data_index.pack(side=LEFT, padx=5)
-
-        self.btn_random_icon = ImageTk.PhotoImage(Image.open('Applications/btn_random.png').resize((20, 20)))
-        btn_random = Button(frm_data_index, image=self.btn_random_icon, command=self.random_image)
-        btn_random.pack(side=RIGHT, padx=5)
-
-        self.btn_load_icon = ImageTk.PhotoImage(Image.open('Applications/btn_load.png').resize((20, 20)))
-        btn_load = Button(frm_data_index, image=self.btn_load_icon, command=self.load_image)
-        btn_load.pack(side=RIGHT, padx=5)
-
-
-        frm_network = Frame(frm_controls, borderwidth=5, relief='ridge')
-        frm_network.pack(pady=5)
-
-        lbl_network = Label(frm_network, text='Network Type', width=14, font='Arial 14 bold')
-        lbl_network.pack()
-
-        networks = ('MLP', 'MLP2')
-        #networks = ('MLP')
-        self.network_var = StringVar(value=networks[0])
-        self.change_network(False)
-        op_network = OptionMenu(frm_network, self.network_var, *networks)
-        op_network.pack(side=LEFT, padx=5)
-
-        self.btn_display_network_icon = ImageTk.PhotoImage(Image.open('Applications/btn_display_network_icon.png').resize((20, 20)))
-        btn_print_network = Button(frm_network, image=self.btn_display_network_icon, command=partial(self.print_network, 'Current Network Architecture'))
-        btn_print_network.pack(side=RIGHT, padx=5)
-
-        self.btn_config_network_icon = ImageTk.PhotoImage(Image.open('Applications/btn_load.png').resize((20, 20)))
-        btn_config_network = Button(frm_network, image=self.btn_config_network_icon, command=partial(self.change_network, True))
-        btn_config_network.pack(side=RIGHT, padx=5)
-
-
-        frm_wl_scheme = Frame(frm_controls, borderwidth=5, relief='ridge')
-        frm_wl_scheme.pack(pady=5)
-
-        lbl_WL = Label(frm_wl_scheme, text='WL Scheme', width=14, font='Arial 14 bold')
-        lbl_WL.pack()
-
-        self.sld_WL = Scale(frm_wl_scheme, from_=1, to=9, orient=HORIZONTAL)
-        self.sld_WL.pack()
-
-
-        frm_operation = Frame(frm_controls, borderwidth=5, relief='ridge')
-        frm_operation.pack(pady=5)
-
-        lbl_operation = Label(frm_operation, text='Operation', width=14, font='Arial 14 bold')
-        lbl_operation.pack()
-
-        self.btn_clear_icon = ImageTk.PhotoImage(Image.open('Applications/btn_clear.png').resize((20, 20)))
-        btn_clear = Button(frm_operation, image=self.btn_clear_icon, command=self.clear)
-        btn_clear.pack(side=LEFT, padx=5)
-
-        btn_inference = Button(frm_operation, text="Inference", command=self.inference, font='Arial 12')
-        btn_inference.pack(side=RIGHT, padx=5)
-
-
-        # Result Panel
-        frm_results = Frame(self.master, padx=5)
-        frm_results.pack(side=RIGHT)
-
-
-        frm_golden = Frame(frm_results, borderwidth=5, relief='ridge')
-        frm_golden.pack(pady=5)
-
-        lbl_golden = Label(frm_golden, text='Golden', width=12, font='Arial 14 bold')
-        lbl_golden.pack()
-
-        self.text_golden = StringVar(value='N/A')
-        lbl_golden_var = Label(frm_golden, textvariable=self.text_golden, font=('Arial', 48))
-        lbl_golden_var.pack()
-
-
-        frm_duration = Frame(frm_results, borderwidth=5, relief='ridge')
-        frm_duration.pack(pady=5)
-
-        lbl_duration = Label(frm_duration, text='Duration (s)', width=12, font='Arial 14 bold')
-        lbl_duration.pack()
-
-        self.text_duration = StringVar(value='N/A')
-        lbl_duration_var = Label(frm_duration, textvariable=self.text_duration, font=('Arial', 32))
-        lbl_duration_var.pack()
-
-
-        frm_prediction = Frame(frm_results, borderwidth=5, relief='ridge')
-        frm_prediction.pack(pady=5)
-
-        lbl_prediction = Label(frm_prediction, text='Prediction', width=12, font='Arial 14 bold')
-        lbl_prediction.pack()
-
-        self.text_prediction = StringVar(value='N/A')
-        lbl_prediction_var = Label(frm_prediction, textvariable=self.text_prediction, font=('Arial', 48))
-        lbl_prediction_var.pack()
-
-
-        # Canvas Panel
-        self.old_x = None
-        self.old_y = None
-        self.c = Canvas(self.master, width=400, height=400, bg='white', borderwidth=10, relief='ridge')
-        self.c.bind('<B1-Motion>', self.paint)
-        self.c.bind('<ButtonRelease-1>', self.reset)
-        self.c.pack()
-
-
-    def center(self, win):
-        """
-        centers a tkinter window
-        :param win: the main window or Toplevel window to center
-        """
-        win.update_idletasks()
-        width = win.winfo_width()
-        frm_width = win.winfo_rootx() - win.winfo_x()
-        win_width = width + 2 * frm_width
-        height = win.winfo_height()
-        titlebar_height = win.winfo_rooty() - win.winfo_y()
-        win_height = height + titlebar_height + frm_width
-        x = win.winfo_screenwidth() // 2 - win_width // 2
-        y = win.winfo_screenheight() // 2 - win_height // 2
-        win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
-        win.deiconify()
-
-
-    def paint(self, e):
-        if self.old_x and self.old_y:
-            self.c.create_line(self.old_x, self.old_y, e.x, e.y, width=40, stipple='gray50', capstyle=ROUND)
-        self.old_x = e.x
-        self.old_y = e.y
-
-
-    def reset(self, e):
-        self.old_x = None
-        self.old_y = None
-
-
-    def clear(self):
-        self.c.delete(ALL)
-        self.text_golden.set('N/A')
-        self.text_prediction.set('N/A')
-        self.text_duration.set('N/A')
-        self.txt_data_index.delete(0, 'end')
-
-
-    def change_network(self, verbal):
-        network = self.network_var.get()
-        conf_network(network, False)
-        if verbal:
-            self.print_network('Network Architecture Updated')
-
-
-    def print_network(self, win_title):
-        win_network = Toplevel()
-        win_network.wm_title(win_title)
-        #self.master.eval(f'tk::PlaceWindow {str(win_network)} center')
-
-        lbl_network_architecture = Label(win_network, text=DNN.nn_print(False), justify= LEFT, font='Courier 14 bold')
-        lbl_network_architecture.pack(fill='both', pady=5)
-
-        btn_clear = Button(win_network, text="Okay", command=win_network.destroy)
-        btn_clear.pack(pady=5)
-
-        self.center(win_network)
-
-
-    def load_image(self):
-        index = int(self.txt_data_index.get())
-
-        # Paint the image onto the canvas
-        tkimage = np.invert(4*images[index])
-        tkimage = Image.fromarray(tkimage)
-        tkimage = tkimage.resize((self.c.winfo_width(), self.c.winfo_height()))
-        self.tkimage = ImageTk.PhotoImage(image=tkimage)
-        self.c.create_image(0, 0, anchor="nw", image=self.tkimage)
-
-        # Load golden and clear prediction/duration
-        self.text_golden.set(targets[index])
-        self.text_prediction.set('N/A')
-        self.text_duration.set('N/A')
-
-
-    def random_image(self):
-        self.txt_data_index.delete(0, 'end')
-        self.txt_data_index.insert(0, str(random.randint(0, 10000)))
-        self.load_image()
-
-
-    def capture_image(self):
-        # Capture the image from Canvas
-        ps = self.c.postscript(colormode='gray')
-        image = Image.open(io.BytesIO(ps.encode('utf-8')))
-        image = image.convert(mode='L').resize((image_len, image_len))
-        image = np.uint8(image.getdata())
-        image = np.floor_divide(np.invert(image), 4)
-        image = np.reshape(image, (image_len, image_len))
-        return image
-
-
-    def inference(self):
-        # Clear the prediction and duration first
-        self.text_prediction.set('N/A')
-        self.text_duration.set('N/A')
-        self.master.update()
-
-        # Upload the image
-        if self.txt_data_index.get() != '':
-            upload_image(str(self.txt_data_index.get()), False)
-        else:
-            image = self.capture_image()
-            DNN.in_conf_len(str(image_len), True)
-            for i in range(image_len):
-                for j in range(image_len):
-                    if image[i][j] != 0:
-                        DNN.in_fill(str(i*image_len+j), str(image[i][j]), True)
-
-        # Print the result
-        tick = time.time()
-        pred = DNN.forward(str(self.sld_WL.get()), False)
-        passed_time = time.time()-tick
-        self.text_duration.set(f'{passed_time:.2f}')
-        self.text_prediction.set(pred)
-
-
 def conf_network(network, verbal):
     """ Configure MNIST network type
 
@@ -567,13 +318,265 @@ def test_inference(network, WL_start, WL_end, count, verbal):
         print( '╚═════════════════════════╝')
 
 
+class GUI:
+    def __init__(self):
+        """ MNIST GUI Demo Class
+
+        """
+
+        # Initialize the main Panel
+        self.master = Tk()
+        self.master.title("MNIST GUI")
+
+        # Change default font
+        font.nametofont("TkDefaultFont").configure(family="Arial", size=12)
+
+        # Sub panels
+        frm_controls = Frame(self.master, padx=5)
+        frm_canvas = Frame(self.master, padx=5)
+        frm_results = Frame(self.master, padx=5)
+        frm_controls.pack(side=LEFT)
+        frm_canvas.pack(side=LEFT)
+        frm_results.pack(side=LEFT)
+
+        # Sub frames in Control Panel
+        frm_image_index = Frame(frm_controls, borderwidth=5, relief='ridge')
+        frm_network = Frame(frm_controls, borderwidth=5, relief='ridge')
+        frm_wl_scheme = Frame(frm_controls, borderwidth=5, relief='ridge')
+        frm_operation = Frame(frm_controls, borderwidth=5, relief='ridge')
+        frm_image_index.pack(pady=5)
+        frm_network.pack(pady=5)
+        frm_wl_scheme.pack(pady=5)
+        frm_operation.pack(pady=5)
+
+        # Sub frames in Result Panel
+        frm_golden = Frame(frm_results, borderwidth=5, relief='ridge')
+        frm_duration = Frame(frm_results, borderwidth=5, relief='ridge')
+        frm_prediction = Frame(frm_results, borderwidth=5, relief='ridge')
+        frm_golden.pack(pady=5)
+        frm_duration.pack(pady=5)
+        frm_prediction.pack(pady=5)
+
+        # In Image Index Frame
+        Label(frm_image_index, text='Image Index', width=14, font='Arial 14 bold').pack()
+
+        self.txt_image_index = Entry(frm_image_index, width=6, font='Arial 14')
+        self.txt_image_index.pack(side=LEFT, padx=5)
+
+        self.btn_random_icon = ImageTk.PhotoImage(Image.open('Applications/btn_random.png').resize((20, 20)))
+        Button(frm_image_index, image=self.btn_random_icon, command=self.image_random).pack(side=RIGHT, padx=5)
+
+        self.btn_load_icon = ImageTk.PhotoImage(Image.open('Applications/btn_load.png').resize((20, 20)))
+        Button(frm_image_index, image=self.btn_load_icon, command=self.image_load).pack(side=RIGHT, padx=5)
+
+        # In Network Type Frame
+        Label(frm_network, text='Network Type', width=14, font='Arial 14 bold').pack()
+
+        networks = ('MLP', 'MLP2')
+        self.network_var = StringVar(value=networks[0])
+        OptionMenu(frm_network, self.network_var, *networks).pack(side=LEFT, padx=5)
+        self.network_change(False)
+
+        self.btn_display_network_icon = ImageTk.PhotoImage(Image.open('Applications/btn_display_network_icon.png').resize((20, 20)))
+        Button(frm_network, image=self.btn_display_network_icon, command=partial(self.network_print, 'Current Network Architecture')).pack(side=RIGHT, padx=5)
+
+        self.btn_config_network_icon = ImageTk.PhotoImage(Image.open('Applications/btn_load.png').resize((20, 20)))
+        Button(frm_network, image=self.btn_config_network_icon, command=partial(self.network_change, True)).pack(side=RIGHT, padx=5)
+
+        # In WL Scheme Frame
+        Label(frm_wl_scheme, text='WL Scheme', width=14, font='Arial 14 bold').pack()
+
+        self.sld_WL = Scale(frm_wl_scheme, from_=1, to=9, orient=HORIZONTAL)
+        self.sld_WL.pack()
+
+        # In Operation Frame
+        Label(frm_operation, text='Operation', width=14, font='Arial 14 bold').pack()
+
+        self.btn_clear_icon = ImageTk.PhotoImage(Image.open('Applications/btn_clear.png').resize((20, 20)))
+        Button(frm_operation, image=self.btn_clear_icon, command=self.clear).pack(side=LEFT, padx=5)
+
+        Button(frm_operation, text="Inference", command=self.image_inference, font='Arial 12').pack(side=RIGHT, padx=5)
+
+        # In Canvas Panel
+        self.old_xy = None
+        self.canvas = Canvas(frm_canvas, width=400, height=400, bg='white', borderwidth=10, relief='ridge')
+        self.canvas.bind('<B1-Motion>', self.canvas_paint)
+        self.canvas.bind('<ButtonRelease-1>', self.canvas_reset)
+        self.canvas.pack()
+
+        # In Golden Result Frame
+        Label(frm_golden, text='Golden', width=12, font='Arial 14 bold').pack()
+
+        self.text_golden = StringVar(value='N/A')
+        Label(frm_golden, textvariable=self.text_golden, font=('Arial', 48)).pack()
+
+        # In Duration Frame
+        Label(frm_duration, text='Duration (s)', width=12, font='Arial 14 bold').pack()
+
+        self.text_duration = StringVar(value='N/A')
+        Label(frm_duration, textvariable=self.text_duration, font=('Arial', 32)).pack()
+
+        # In Prediction Frame
+        Label(frm_prediction, text='Prediction', width=12, font='Arial 14 bold').pack()
+
+        self.text_prediction = StringVar(value='N/A')
+        Label(frm_prediction, textvariable=self.text_prediction, font=('Arial', 48)).pack()
+
+        # Make it not resizable and place it at center
+        self.master.resizable(False, False)
+        self.window_center(self.master)
+        self.master.mainloop()
+
+    def window_center(self, window):
+        """ Place the window at the center of the monitor
+
+        Args:
+            window (Tk or Toplevel): The target window
+        """
+        window.update_idletasks()
+        width = window.winfo_width()
+        height = window.winfo_height()
+        frm_width = window.winfo_rootx() - window.winfo_x()
+        win_width = width + 2 * frm_width
+        titlebar_height = window.winfo_rooty() - window.winfo_y()
+        win_height = height + titlebar_height + frm_width
+        x = window.winfo_screenwidth() // 2 - win_width // 2
+        y = window.winfo_screenheight() // 2 - win_height // 2
+        window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        window.deiconify()
+
+
+    def canvas_paint(self, new_xy):
+        """ Callback for canvas painting
+
+        Args:
+            new_xy: new (x, y)
+        """
+        if self.old_xy:
+            self.canvas.create_line(self.old_xy.x, self.old_xy.y, new_xy.x, new_xy.y, width=40, stipple='gray50', capstyle=ROUND)
+        self.old_xy = new_xy
+
+
+    def canvas_reset(self, new_xy):
+        """ Callback for canvas reset
+
+        """
+        self.old_xy = None
+
+
+    def canvas_capture(self):
+        """ Capture what's on the canvas
+
+        Returns:
+            2D numpy array
+        """
+        # Capture the image from Canvas
+        ps = self.canvas.postscript(colormode='gray')
+        image = Image.open(io.BytesIO(ps.encode('utf-8')))
+        image = image.convert(mode='L').resize((image_len, image_len))
+        image = np.uint8(image.getdata())
+        image = np.floor_divide(np.invert(image), 4)
+        image = np.reshape(image, (image_len, image_len))
+        return image
+
+
+    def clear(self):
+        """ Clean the canvas and other related information
+
+        """
+        self.canvas.delete(ALL)
+        self.text_golden.set('N/A')
+        self.text_prediction.set('N/A')
+        self.text_duration.set('N/A')
+        self.txt_image_index.delete(0, 'end')
+
+
+    def network_change(self, verbal):
+        """ Change the network type
+
+        Args:
+            verbal: Whether to print the updated network or not
+        """
+        network = self.network_var.get()
+        conf_network(network, False)
+        if verbal:
+            self.network_print('Network Architecture Updated')
+
+
+    def network_print(self, win_title):
+        """ Pop up a new window showing the updated network
+
+        Args:
+            win_title: Title of the popped up window
+        """
+        win_network = Toplevel()
+        win_network.title(win_title)
+        Label(win_network, text=DNN.nn_print(False), justify= LEFT, font='Courier 14 bold').pack(fill='both', pady=5)
+        Button(win_network, text="Okay", command=win_network.destroy).pack(pady=5)
+        self.window_center(win_network)
+
+
+    def image_load(self):
+        """ Load image index from 'txt_image_index'
+
+        """
+        index = int(self.txt_image_index.get())
+
+        # Paint the image onto the canvas
+        tkimage = np.invert(4*images[index])
+        tkimage = Image.fromarray(tkimage)
+        tkimage = tkimage.resize((self.canvas.winfo_width(), self.canvas.winfo_height()))
+        self.tkimage = ImageTk.PhotoImage(image=tkimage)
+        self.canvas.create_image(0, 0, anchor="nw", image=self.tkimage)
+
+        # Load golden and clear prediction/duration
+        self.text_golden.set(targets[index])
+        self.text_prediction.set('N/A')
+        self.text_duration.set('N/A')
+
+
+    def image_random(self):
+        """ Choose a random image
+
+        """
+        self.txt_image_index.delete(0, 'end')
+        self.txt_image_index.insert(0, str(random.randint(0, 10000)))
+        self.image_load()
+
+
+    def image_inference(self):
+        """ Upload the image and run inference
+
+        """
+        # Clear the prediction and duration first
+        self.text_prediction.set('N/A')
+        self.text_duration.set('N/A')
+        self.master.update()
+
+        # Upload the image
+        if self.txt_image_index.get() != '':
+            upload_image(str(self.txt_image_index.get()), False)
+        else:
+            image = self.canvas_capture()
+            DNN.in_conf_len(str(image_len), True)
+            for i in range(image_len):
+                for j in range(image_len):
+                    if image[i][j] != 0:
+                        DNN.in_fill(str(i*image_len+j), str(image[i][j]), True)
+
+        # Print the result
+        tick = time.time()
+        pred = DNN.forward(str(self.sld_WL.get()), False)
+        passed_time = time.time()-tick
+        self.text_duration.set(f'{passed_time:.2f}')
+        self.text_prediction.set(pred)
+
 
 def decode(parameters):
-    """ Decode the split version of the command
+    """ Decode the command
 
-    Keyword arguments:
-    pyterminal -- current connected COM port
-    parameters -- split version of the command
+    Args:
+        parameters (list): Command in List form.
     """
     if   parameters[1] == 'conf_network'  : conf_network(parameters[2], True         )
     elif parameters[1] == 'upload_weights': upload_weights(True                        )

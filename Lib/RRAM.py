@@ -556,7 +556,9 @@ def clear_VRef(verbal):
 def calibrate_VTGT_BL(verbal):
     """ **[High Level]** Calibrate VTGT_BL for the current module
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         verbal (bool): Whether to print the response or not.
@@ -599,7 +601,9 @@ def clear_VTGT_BL(verbal):
 def sweep_DRef(ones, verbal):
     """ **[High Level]** Calibrate decoder reference levels.
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
@@ -633,7 +637,9 @@ def check(level, number, verbal):
     """ **[High Level]** Check the health of RRAM cells, this function essentially consists of SET->READ->RESET->READ.
         If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*

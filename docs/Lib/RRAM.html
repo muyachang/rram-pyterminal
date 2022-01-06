@@ -584,7 +584,9 @@ def clear_VRef(verbal):
 def calibrate_VTGT_BL(verbal):
     &#34;&#34;&#34; **[High Level]** Calibrate VTGT_BL for the current module
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         verbal (bool): Whether to print the response or not.
@@ -627,7 +629,9 @@ def clear_VTGT_BL(verbal):
 def sweep_DRef(ones, verbal):
     &#34;&#34;&#34; **[High Level]** Calibrate decoder reference levels.
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
@@ -661,7 +665,9 @@ def check(level, number, verbal):
     &#34;&#34;&#34; **[High Level]** Check the health of RRAM cells, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
         If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
@@ -881,8 +887,10 @@ def decode(parameters):
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Calibrate VTGT_BL for the current module</p>
-<pre><code>**[Note]** This function destroys the values inside some cells
-</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function destroys the values inside some cells</p>
+</div>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
@@ -897,7 +905,9 @@ def decode(parameters):
 <pre><code class="python">def calibrate_VTGT_BL(verbal):
     &#34;&#34;&#34; **[High Level]** Calibrate VTGT_BL for the current module
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         verbal (bool): Whether to print the response or not.
@@ -913,8 +923,10 @@ def decode(parameters):
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Check the health of RRAM cells, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
 If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.</p>
-<pre><code>**[Note]** This function destroys the values inside some cells
-</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function destroys the values inside some cells</p>
+</div>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>level</code></strong> :&ensp;<code>str</code></dt>
@@ -932,7 +944,9 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     &#34;&#34;&#34; **[High Level]** Check the health of RRAM cells, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
         If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
@@ -2120,8 +2134,10 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Calibrate decoder reference levels.</p>
-<pre><code>**[Note]** This function destroys the values inside some cells
-</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function destroys the values inside some cells</p>
+</div>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>ones</code></strong> :&ensp;<code>str</code></dt>
@@ -2136,7 +2152,9 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <pre><code class="python">def sweep_DRef(ones, verbal):
     &#34;&#34;&#34; **[High Level]** Calibrate decoder reference levels.
 
-        **[Note]** This function destroys the values inside some cells
+    .. note::
+
+        This function destroys the values inside some cells
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
