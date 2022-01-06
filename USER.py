@@ -1,42 +1,59 @@
+import CommandMap as CM
 import PyTerminal as PT
 import random
 import time
 
 import RRAM
 
+def check_chip_VRef():
+    for module in range(0, 288):
+        print(f'\rChecking Module {module} ... ', end='')
+
+        # Set to the new module and clear it
+        RRAM.switch(str(module), False)
+
+        # Find the (offset, step)
+        response = RRAM.calibrate_VRef('120', '700', '5', False)
+        offset = int(response.split()[0])
+        step = int(response.split()[1])
+
+        if offset == 0 or offset == 63 or step == 0 or step == 63:
+            RRAM.mod_conf(str(CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL), False)
+
+    print('')
+    RRAM.mod_status(True)
 
 def sweep_chip_VRef():
     """ Sweep reference voltages for the whole chip
 
     Keyword arguments:
     """
-    print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    print('| Module | Offset | Step |  VRef[0] |  VRef[1] |  VRef[2] |  VRef[3] |  VRef[4] |  VRef[5] |  VRef[6] |  VRef[7] |  VRef[8] |  VRef[9] | VRef[10] | VRef[11] | VRef[12] | VRef[13] | VRef[14] |')
-    print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
+    print('╔════════╦════════╦══════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╦══════════╗')
+    print('║ Module ║ Offset ║ Step ║  VRef[0] ║  VRef[1] ║  VRef[2] ║  VRef[3] ║  VRef[4] ║  VRef[5] ║  VRef[6] ║  VRef[7] ║  VRef[8] ║  VRef[9] ║ VRef[10] ║ VRef[11] ║ VRef[12] ║ VRef[13] ║ VRef[14] ║')
+    print('╟────────╫────────╫──────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╫──────────╢')
     for module in range(0, 288):
         # Set to the new module and clear it
-        RRAM.switch(str(module), True)
-        time.sleep(1)
+        RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_voltage_references(str(module), '120', '700', '5', False)
+        response = RRAM.calibrate_VRef('120', '700', '5', False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
         # Config the ADC and Sweep the VRef
         RRAM.conf_ADC(str(offset), str(step), '0x7FFF', False)
-        RRAM.sweep_voltage_references(str(module), '0', '900', '2', False)
+        RRAM.sweep_VRef('0', '900', '2', False)
 
         # Find the VRef
-        response = RRAM.list_voltage_references(str(module), False)
-        vrefs = response.split('\n')[3].split('|')[2:17]
+        response = RRAM.list_VRef(False)
+        vrefs = response.split('\n')[3].split('║')[2:17]
 
         # Print out the result
-        print(f'| {module:>6} | {offset:>6} | {step:>4} |', end='')
+        print(f'║ {module:>6} ║ {offset:>6} ║ {step:>4} ║', end='')
         for i in range(0, 15):
-            print(f' {vrefs[i]:>8} |', end='')
+            print(f' {vrefs[i]:>8} ║', end='')
         print('')
-    print('-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
+    print('╚════════╩════════╩══════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╩══════════╝')
 
 
 def test_write_byte(row, num):
@@ -48,16 +65,16 @@ def test_write_byte(row, num):
     """
     row = int(row)
     num = int(num)
-    print('-----------------------------------------------')
-    print('| ( row, col) | Golden | Readout | Difference |')
-    print('-----------------------------------------------')
+    print('╔═════════════╦════════╦═════════╦════════════╗')
+    print('║ ( row, col) ║ Golden ║ Readout ║ Difference ║')
+    print('╟─────────────╫────────╫─────────╫────────────╢')
     for col in range(0, num):
         addr = row * 256 + col
         golden = random.randint(-128, 127)
         RRAM.write_byte_iter(str(addr), str(golden), False)
         readout = int(RRAM.read_byte(str(addr), '0', '0x1', False))
-        print(f'| ( {row:>3}, {col:>3}) | {golden:>6} | {readout:>7} | {golden-readout:>10} |')
-    print('-----------------------------------------------')
+        print(f'║ ( {row:>3}, {col:>3}) ║ {golden:>6} ║ {readout:>7} ║ {golden-readout:>10} ║')
+    print('╚═════════════╩════════╩═════════╩════════════╝')
 
 
 def test_bit_cim(row, col):
@@ -89,15 +106,15 @@ def test_bit_cim(row, col):
             raws[value][ones] = RRAM.read_lane(str(addr), str(hex(2**ones - 1)), False)
 
     # Print it out nicely
-    print('-----------------------------------------------------------------------------------------------')
-    print('| Value\Ones |      1 |      2 |      3 |      4 |      5 |      6 |      7 |      8 |      9 |')
-    print('-----------------------------------------------------------------------------------------------')
+    print('╔════════════╦════════╦════════╦════════╦════════╦════════╦════════╦════════╦════════╦════════╗')
+    print('║ Value\Ones ║      1 ║      2 ║      3 ║      4 ║      5 ║      6 ║      7 ║      8 ║      9 ║')
+    print('╟────────────╫────────╫────────╫────────╫────────╫────────╫────────╫────────╫────────╫────────╢')
     for value in reversed(range(0, 10)):
-        print(f'| {value:>10} |', end='')
+        print(f'║ {value:>10} ║', end='')
         for ones in range(1, 10):
-            print(f' {raws[value][ones]:>6} |', end='')
+            print(f' {raws[value][ones]:>6} ║', end='')
         print('')
-    print('-----------------------------------------------------------------------------------------------')
+    print('╚════════════╩════════╩════════╩════════╩════════╩════════╩════════╩════════╩════════╩════════╝')
 
     return raws
 
@@ -135,12 +152,12 @@ def test_byte_cim(row, col, num):
         readouts[n] = int(RRAM.read_byte(str(row*256 + col), '0', hex(n), False))
 
     # Print the result nicely
-    print('----------------------------------------')
-    print('| Data | Readout | Golden | Difference |')
-    print('----------------------------------------')
+    print('╔══════╦═════════╦════════╦════════════╗')
+    print('║ Data ║ Readout ║ Golden ║ Difference ║')
+    print('╟──────╫─────────╫────────╫────────────╢')
     for n in range(1, 2**num):
-        print(f'| {hex(n):>4} | {readouts[n]:>7} | {goldens[n]:>6} | {goldens[n]-readouts[n]:>10} |')
-    print('----------------------------------------')
+        print(f'║ {hex(n):>4} ║ {readouts[n]:>7} ║ {goldens[n]:>6} ║ {goldens[n]-readouts[n]:>10} ║')
+    print('╚══════╩═════════╩════════╩════════════╝')
 
 
 def decode(parameters):
@@ -150,7 +167,8 @@ def decode(parameters):
     pyterminal -- current connected COM port
     parameters -- split version of the command
     """
-    if   parameters[1] == 'sweep_chip_VRef'    : sweep_chip_VRef    (                                           )
+    if   parameters[1] == 'check_chip_VRef'    : check_chip_VRef    (                                           )
+    elif parameters[1] == 'sweep_chip_VRef'    : sweep_chip_VRef    (                                           )
     elif parameters[1] == 'test_write_byte'    : test_write_byte    (parameters[2], parameters[3]               )
     elif parameters[1] == 'test_bit_cim'       : test_bit_cim       (parameters[2], parameters[3]               )
     elif parameters[1] == 'test_byte_cim'      : test_byte_cim      (parameters[2], parameters[3], parameters[4])
