@@ -89,38 +89,52 @@ CM_RRAM_ADC                 = b'\x4C'.decode('utf-8')
 CM_RRAM_PG                  = b'\x4F'.decode('utf-8')
 CM_RRAM_ECC                 = b'\x50'.decode('utf-8')
 
-CM_RRAM_REG_STATUS          = b'\x51'.decode('utf-8')
-CM_RRAM_ENV_STATUS          = b'\x52'.decode('utf-8')
-CM_RRAM_MOD_STATUS          = b'\x53'.decode('utf-8')
-CM_RRAM_API_SWITCH          = b'\x54'.decode('utf-8')
-CM_RRAM_API_CONF_FORM       = b'\x55'.decode('utf-8')
-CM_RRAM_API_FORM            = b'\x56'.decode('utf-8')
-CM_RRAM_API_CONF_SET        = b'\x57'.decode('utf-8')
-CM_RRAM_API_SET             = b'\x58'.decode('utf-8')
-CM_RRAM_API_CONF_RESET      = b'\x59'.decode('utf-8')
-CM_RRAM_API_RESET           = b'\x5A'.decode('utf-8')
-CM_RRAM_API_SET_RESET       = b'\x5B'.decode('utf-8')
-CM_RRAM_API_WRITE_BYTE      = b'\x5C'.decode('utf-8')
-CM_RRAM_API_WRITE_BYTE_ITER = b'\x5D'.decode('utf-8')
-CM_RRAM_API_CONF_READ       = b'\x5E'.decode('utf-8')
-CM_RRAM_API_READ_LANE       = b'\x5F'.decode('utf-8')
-CM_RRAM_API_READ_BYTE       = b'\x60'.decode('utf-8')
-CM_RRAM_API_CONF_ADC        = b'\x61'.decode('utf-8')
-CM_RRAM_API_CONF_MAC        = b'\x62'.decode('utf-8')
-CM_RRAM_API_CAL_VREF        = b'\x63'.decode('utf-8')
-CM_RRAM_API_SWEEP_VREF      = b'\x64'.decode('utf-8')
-CM_RRAM_API_LIST_VREF       = b'\x65'.decode('utf-8')
-CM_RRAM_API_CAL_VTGT_BL     = b'\x66'.decode('utf-8')
-CM_RRAM_API_CONF_VTGT_BL    = b'\x67'.decode('utf-8')
-CM_RRAM_API_LIST_VTGT_BL    = b'\x68'.decode('utf-8')
-CM_RRAM_API_SWEEP_DREF      = b'\x69'.decode('utf-8')
-CM_RRAM_API_LIST_DREF       = b'\x70'.decode('utf-8')
-CM_RRAM_API_CHECK_CELL      = b'\x71'.decode('utf-8')
+CM_RRAM_API_REG_STATUS      = b'\x51'.decode('utf-8')
+CM_RRAM_API_ENV_INIT        = b'\x52'.decode('utf-8')
+CM_RRAM_API_ENV_STATUS      = b'\x53'.decode('utf-8')
+CM_RRAM_API_MOD_INIT        = b'\x54'.decode('utf-8')
+CM_RRAM_API_MOD_STATUS      = b'\x55'.decode('utf-8')
+CM_RRAM_API_MOD_CONF        = b'\x56'.decode('utf-8')
+CM_RRAM_API_SWITCH          = b'\x57'.decode('utf-8')
+CM_RRAM_API_CONF_FORM       = b'\x58'.decode('utf-8')
+CM_RRAM_API_FORM            = b'\x59'.decode('utf-8')
+CM_RRAM_API_CONF_SET        = b'\x5A'.decode('utf-8')
+CM_RRAM_API_SET             = b'\x5B'.decode('utf-8')
+CM_RRAM_API_CONF_RESET      = b'\x5C'.decode('utf-8')
+CM_RRAM_API_RESET           = b'\x5D'.decode('utf-8')
+CM_RRAM_API_SET_RESET       = b'\x5E'.decode('utf-8')
+CM_RRAM_API_WRITE_BYTE      = b'\x5F'.decode('utf-8')
+CM_RRAM_API_WRITE_BYTE_ITER = b'\x60'.decode('utf-8')
+CM_RRAM_API_CONF_READ       = b'\x61'.decode('utf-8')
+CM_RRAM_API_READ_LANE       = b'\x62'.decode('utf-8')
+CM_RRAM_API_READ_BYTE       = b'\x63'.decode('utf-8')
+CM_RRAM_API_CONF_ADC        = b'\x64'.decode('utf-8')
+CM_RRAM_API_CONF_MAC        = b'\x65'.decode('utf-8')
+CM_RRAM_API_CAL_VREF        = b'\x66'.decode('utf-8')
+CM_RRAM_API_SWEEP_VREF      = b'\x67'.decode('utf-8')
+CM_RRAM_API_LIST_VREF       = b'\x68'.decode('utf-8')
+CM_RRAM_API_CLEAR_VREF      = b'\x69'.decode('utf-8')
+CM_RRAM_API_CAL_VTGT_BL     = b'\x70'.decode('utf-8')
+CM_RRAM_API_CONF_VTGT_BL    = b'\x71'.decode('utf-8')
+CM_RRAM_API_LIST_VTGT_BL    = b'\x72'.decode('utf-8')
+CM_RRAM_API_CLEAR_VTGT_BL   = b'\x73'.decode('utf-8')
+CM_RRAM_API_SWEEP_DREF      = b'\x74'.decode('utf-8')
+CM_RRAM_API_LIST_DREF       = b'\x75'.decode('utf-8')
+CM_RRAM_API_CLEAR_DREF      = b'\x76'.decode('utf-8')
+CM_RRAM_API_CHECK_CELL      = b'\x77'.decode('utf-8')
 
 CM_RRAM_API_LEVEL_CELL      = b'\x41'.decode('utf-8')
 CM_RRAM_API_LEVEL_ROW       = b'\x42'.decode('utf-8')
 CM_RRAM_API_LEVEL_COL       = b'\x43'.decode('utf-8')
 CM_RRAM_API_LEVEL_MODULE    = b'\x44'.decode('utf-8')
+
+CM_RRAM_API_MOD_STATUS_CLEAN            = 0
+CM_RRAM_API_MOD_STATUS_FORMED           = 1
+CM_RRAM_API_MOD_STATUS_PARTIALLY_FORMED = 2
+CM_RRAM_API_MOD_STATUS_USED             = 3
+CM_RRAM_API_MOD_STATUS_BROKEN           = 4
+CM_RRAM_API_MOD_STATUS_ADC_FATAL        = 5
+CM_RRAM_API_MOD_STATUS_DONT_KNOW        = 6
 
 CM_VECTOR_PID               = b'\x41'.decode('utf-8')
 
@@ -139,7 +153,14 @@ CM_DNN_NN_CONF_ECC          = b'\x52'.decode('utf-8')
 CM_DNN_NN_PRINT             = b'\x53'.decode('utf-8')
 CM_DNN_FORWARD              = b'\x54'.decode('utf-8')
 
-# argv[2]             
+CM_DNN_TYPE_LINEAR          = 0
+CM_DNN_TYPE_CONV            = 1
+CM_DNN_TYPE_MAXPOOL         = 2
+CM_DNN_TYPE_RELU            = 3
+CM_DNN_TYPE_ARGMAX          = 4
+CM_DNN_TYPE_EON             = 5
+
+# argv[2]
 CM_RRAM_SET                 = b'\x41'.decode('utf-8')
 CM_RRAM_GET                 = b'\x42'.decode('utf-8')
 CM_RRAM_TOGGLE              = b'\x43'.decode('utf-8')

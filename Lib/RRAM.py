@@ -255,7 +255,16 @@ def reg_status(verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_REG_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_REG_STATUS, verbal)
+
+
+def env_init(verbal):
+    """ **[High Level]** Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    """
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_ENV_INIT, verbal)
 
 
 def env_status(verbal):
@@ -264,7 +273,16 @@ def env_status(verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_ENV_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_ENV_STATUS, verbal)
+
+
+def mod_init(verbal):
+    """ **[High Level]** Initialize the module floorplan status
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    """
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_MOD_INIT, verbal)
 
 
 def mod_status(verbal):
@@ -273,7 +291,16 @@ def mod_status(verbal):
     Args:
         verbal (bool): Whether to print the response or not.
     """
-    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_MOD_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_MOD_STATUS, verbal)
+
+
+def mod_conf(status, verbal):
+    """ **[High Level]** Configure the current module floorplan status
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    """
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_MOD_CONF + ' ' + status, verbal)
 
 
 def switch(index, verbal):
@@ -284,6 +311,7 @@ def switch(index, verbal):
         verbal (bool): Whether to print the response or not.
     """
     PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWITCH + ' ' + index, verbal)
+
 
 def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal):
     """ **[High Level]** Configure FORM operation
@@ -516,6 +544,15 @@ def list_VRef(verbal):
     return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VREF, verbal)
 
 
+def clear_VRef(verbal):
+    """ **[High Level]** Clear 15 internally generated reference voltages of the current module
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    """
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CLEAR_VREF, verbal)
+
+
 def calibrate_VTGT_BL(verbal):
     """ **[High Level]** Calibrate VTGT_BL for the current module
 
@@ -549,6 +586,16 @@ def list_VTGT_BL(verbal):
     """
     return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_VTGT_BL, verbal)
 
+
+def clear_VTGT_BL(verbal):
+    """ **[High Level]** Clear saved VTGT_BL of the current module
+
+    Args:
+        verbal (bool): Whether to print the response or not.
+    """
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CLEAR_VTGT_BL, verbal)
+
+
 def sweep_DRef(ones, verbal):
     """ **[High Level]** Calibrate decoder reference levels.
 
@@ -570,6 +617,16 @@ def list_DRef(verbal):
         The current decoder reference of the selected RRAM Module.
     """
     return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_LIST_DREF, verbal)
+
+
+def clear_DRef(ones, verbal):
+    """ **[High Level]** Clear decoder reference levels.
+
+    Args:
+        ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
+        verbal (bool): Whether to print the response or not.
+    """
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CLEAR_DREF + ' ' + ones, verbal)
 
 
 def check(level, number, verbal):
@@ -626,8 +683,11 @@ def decode(parameters):
     elif parameters[1] == 'ecc'              : ecc              (parameters[2], parameters[3], parameters[4],                True)
     # API functions
     elif parameters[1] == 'reg_status'       : reg_status       (                                                            True)
+    elif parameters[1] == 'env_init'         : env_init         (                                                            True)
     elif parameters[1] == 'env_status'       : env_status       (                                                            True)
+    elif parameters[1] == 'mod_init'         : mod_init         (                                                            True)
     elif parameters[1] == 'mod_status'       : mod_status       (                                                            True)
+    elif parameters[1] == 'mod_conf'         : mod_conf         (parameters[2],                                              True)
     elif parameters[1] == 'switch'           : switch           (parameters[2],                                              True)
     elif parameters[1] == 'conf_form'        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
     elif parameters[1] == 'form'             : form             (parameters[2], parameters[3],                               True)
@@ -646,10 +706,13 @@ def decode(parameters):
     elif parameters[1] == 'calibrate_VRef'   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'sweep_VRef'       : sweep_VRef       (parameters[2], parameters[3], parameters[4],                True)
     elif parameters[1] == 'list_VRef'        : list_VRef        (                                                            True)
+    elif parameters[1] == 'clear_VRef'       : clear_VRef       (                                                            True)
     elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(                                                            True)
     elif parameters[1] == 'conf_VTGT_BL'     : conf_VTGT_BL     (parameters[2],                                              True)
     elif parameters[1] == 'list_VTGT_BL'     : list_VTGT_BL     (                                                            True)
+    elif parameters[1] == 'clear_VTGT_BL'    : clear_VTGT_BL    (                                                            True)
     elif parameters[1] == 'sweep_DRef'       : sweep_DRef       (parameters[2],                                              True)
     elif parameters[1] == 'list_DRef'        : list_DRef        (                                                            True)
+    elif parameters[1] == 'clear_DRef'       : clear_DRef       (parameters[2],                                              True)
     elif parameters[1] == 'check'            : check            (parameters[2], parameters[3],                               True)
     else: PT.unknown(parameters)
