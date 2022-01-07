@@ -59,7 +59,7 @@ platform for end users to get hands on our RRAM test chip.
 
     | Type   | AVDD_WR (mV) | AVDD_WL (mV) | Cycles | Times
     | :----: | :----:       | :----:       | :----: | :----:      
-    | FORM   | 3200         | 1600         | 20     | 2     
+    | FORM   | 3200         | 1600         | 20     | 4     
     | SET    | 2200         | 2200         | 100    | 2        
     | RESET  | 2800         | 2800         | 200    | 8        
     | READ   | N/A          | N/A          | 5      | N/A
