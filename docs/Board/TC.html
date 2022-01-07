@@ -31,72 +31,80 @@ import CommandMap as CM
 import PyTerminal as PT
 
 
-def connect(verbal):
+def connect(verbal=True):
     &#34;&#34;&#34; Connect to the testchip, halt it, and get its ID (should be `0x2BA01477`)
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID if the testchip (should be `0x2BA01477`)
+        str: The ID if the testchip (should be `0x2BA01477`)
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_CONNECT, verbal)
 
 
-def disconnect(verbal):
+def disconnect(verbal=True):
     &#34;&#34;&#34; Unhalt the testchip and disconnect from it
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_DISCONNECT, verbal)
 
 
-def read(address, verbal):
+def read(address, verbal=True):
     &#34;&#34;&#34; Read the value from `address`
 
     Args:
         address (str): Address to be read from
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_READ + &#39; &#39; + address, verbal)
 
 
-def write(address, value, verbal):
+def write(address, value, verbal=True):
     &#34;&#34;&#34; Write `value` to `address`
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_WRITE + &#39; &#39; + address + &#39; &#39; + value, verbal)
 
 
-def list_configs(verbal):
+def list_configs(verbal=True):
     &#34;&#34;&#34; List the testchip configurations
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LIST, verbal)
 
 
-def save_config(number, verbal):
+def save_config(number, verbal=True):
     &#34;&#34;&#34; Save the testchip configuration to slot `number`
 
     Args:
         number (str): Slot number, from `0`~`9`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)
 
 
-def load_config(number, verbal):
+def load_config(number, verbal=True):
     &#34;&#34;&#34; Load the testchip configuration from slot `number`
 
     Args:
         number (str): Slot number, from `0`~`9`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LOAD + &#39; &#39; + number, verbal)
 
@@ -106,14 +114,15 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;connect&#39;   : connect     (                              True)
-    elif parameters[1] == &#39;disconnect&#39;: disconnect  (                              True)
-    elif parameters[1] == &#39;read&#39;      : read        (parameters[2],                True)
-    elif parameters[1] == &#39;write&#39;     : write       (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;list&#39;      : list_configs(                              True)
-    elif parameters[1] == &#39;save&#39;      : save_config (parameters[2],                True)
-    elif parameters[1] == &#39;load&#39;      : load_config (parameters[2],                True)
+    if   parameters[1] == &#39;connect&#39;   : connect     (                            )
+    elif parameters[1] == &#39;disconnect&#39;: disconnect  (                            )
+    elif parameters[1] == &#39;read&#39;      : read        (parameters[2],              )
+    elif parameters[1] == &#39;write&#39;     : write       (parameters[2], parameters[3])
+    elif parameters[1] == &#39;list&#39;      : list_configs(                            )
+    elif parameters[1] == &#39;save&#39;      : save_config (parameters[2],              )
+    elif parameters[1] == &#39;load&#39;      : load_config (parameters[2],              )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -125,28 +134,33 @@ def decode(parameters):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="TC.connect"><code class="name flex">
-<span>def <span class="ident">connect</span></span>(<span>verbal)</span>
+<span>def <span class="ident">connect</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Connect to the testchip, halt it, and get its ID (should be <code>0x2BA01477</code>)</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The ID if the testchip (should be <code>0x2BA01477</code>)</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID if the testchip (should be <code>0x2BA01477</code>)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def connect(verbal):
+<pre><code class="python">def connect(verbal=True):
     &#34;&#34;&#34; Connect to the testchip, halt it, and get its ID (should be `0x2BA01477`)
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID if the testchip (should be `0x2BA01477`)
+        str: The ID if the testchip (should be `0x2BA01477`)
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_CONNECT, verbal)</code></pre>
 </details>
@@ -170,65 +184,68 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;connect&#39;   : connect     (                              True)
-    elif parameters[1] == &#39;disconnect&#39;: disconnect  (                              True)
-    elif parameters[1] == &#39;read&#39;      : read        (parameters[2],                True)
-    elif parameters[1] == &#39;write&#39;     : write       (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;list&#39;      : list_configs(                              True)
-    elif parameters[1] == &#39;save&#39;      : save_config (parameters[2],                True)
-    elif parameters[1] == &#39;load&#39;      : load_config (parameters[2],                True)
+    if   parameters[1] == &#39;connect&#39;   : connect     (                            )
+    elif parameters[1] == &#39;disconnect&#39;: disconnect  (                            )
+    elif parameters[1] == &#39;read&#39;      : read        (parameters[2],              )
+    elif parameters[1] == &#39;write&#39;     : write       (parameters[2], parameters[3])
+    elif parameters[1] == &#39;list&#39;      : list_configs(                            )
+    elif parameters[1] == &#39;save&#39;      : save_config (parameters[2],              )
+    elif parameters[1] == &#39;load&#39;      : load_config (parameters[2],              )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="TC.disconnect"><code class="name flex">
-<span>def <span class="ident">disconnect</span></span>(<span>verbal)</span>
+<span>def <span class="ident">disconnect</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Unhalt the testchip and disconnect from it</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def disconnect(verbal):
+<pre><code class="python">def disconnect(verbal=True):
     &#34;&#34;&#34; Unhalt the testchip and disconnect from it
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_DISCONNECT, verbal)</code></pre>
 </details>
 </dd>
 <dt id="TC.list_configs"><code class="name flex">
-<span>def <span class="ident">list_configs</span></span>(<span>verbal)</span>
+<span>def <span class="ident">list_configs</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>List the testchip configurations</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def list_configs(verbal):
+<pre><code class="python">def list_configs(verbal=True):
     &#34;&#34;&#34; List the testchip configurations
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LIST, verbal)</code></pre>
 </details>
 </dd>
 <dt id="TC.load_config"><code class="name flex">
-<span>def <span class="ident">load_config</span></span>(<span>number, verbal)</span>
+<span>def <span class="ident">load_config</span></span>(<span>number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Load the testchip configuration from slot <code>number</code></p>
@@ -236,25 +253,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Slot number, from <code>0</code>~<code>9</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def load_config(number, verbal):
+<pre><code class="python">def load_config(number, verbal=True):
     &#34;&#34;&#34; Load the testchip configuration from slot `number`
 
     Args:
         number (str): Slot number, from `0`~`9`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LOAD + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="TC.read"><code class="name flex">
-<span>def <span class="ident">read</span></span>(<span>address, verbal)</span>
+<span>def <span class="ident">read</span></span>(<span>address, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read the value from <code>address</code></p>
@@ -262,25 +280,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
 <dd>Address to be read from</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read(address, verbal):
+<pre><code class="python">def read(address, verbal=True):
     &#34;&#34;&#34; Read the value from `address`
 
     Args:
         address (str): Address to be read from
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_READ + &#39; &#39; + address, verbal)</code></pre>
 </details>
 </dd>
 <dt id="TC.save_config"><code class="name flex">
-<span>def <span class="ident">save_config</span></span>(<span>number, verbal)</span>
+<span>def <span class="ident">save_config</span></span>(<span>number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Save the testchip configuration to slot <code>number</code></p>
@@ -288,25 +307,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Slot number, from <code>0</code>~<code>9</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def save_config(number, verbal):
+<pre><code class="python">def save_config(number, verbal=True):
     &#34;&#34;&#34; Save the testchip configuration to slot `number`
 
     Args:
         number (str): Slot number, from `0`~`9`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)</code></pre>
 </details>
 </dd>
 <dt id="TC.write"><code class="name flex">
-<span>def <span class="ident">write</span></span>(<span>address, value, verbal)</span>
+<span>def <span class="ident">write</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Write <code>value</code> to <code>address</code></p>
@@ -316,20 +336,21 @@ def decode(parameters):
 <dd>Address to be written to</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write(address, value, verbal):
+<pre><code class="python">def write(address, value, verbal=True):
     &#34;&#34;&#34; Write `value` to `address`
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_WRITE + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
 </details>

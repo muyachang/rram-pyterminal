@@ -29,67 +29,72 @@
 <pre><code class="python">import CommandMap as CM
 import PyTerminal as PT
 
-def in_clear(verbal):
+def in_clear(verbal=True):
     &#34;&#34;&#34; Clear the input image
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CLEAR, verbal)
 
 
-def in_conf_len(length, verbal):
+def in_conf_len(length, verbal=True):
     &#34;&#34;&#34; Configure the length of input image
 
     Args:
         length (str): The length of input picture (assume the picture is square)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CONF_LEN + &#39; &#39; + length, verbal)
 
 
-
-def in_fill(address, value, verbal):
+def in_fill(address, value, verbal=True):
     &#34;&#34;&#34; Write `value` to `address`
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_FILL + &#39; &#39; + address + &#39; &#39; + value, verbal)
 
 
-def in_print(verbal):
+def in_print(verbal=True):
     &#34;&#34;&#34; Print the input image
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_PRINT, verbal)
 
 
-def nn_clear(verbal):
+def nn_clear(verbal=True):
     &#34;&#34;&#34; Clear the network
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CLEAR, verbal)
 
 
-def nn_conf_type(layer, type, verbal):
+def nn_conf_type(layer, type, verbal=True):
     &#34;&#34;&#34; Configure layer type for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         type (str): Layer type, could be `0` for FC or `1` for Convolution
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_TYPE + &#39; &#39; + layer + &#39; &#39; + type, verbal)
 
 
-def nn_conf_rrams(layer, row, col, rrams, verbal):
+def nn_conf_rrams(layer, row, col, rrams, verbal=True):
     &#34;&#34;&#34; Configure RRAM module location for `layer`
 
     Args:
@@ -97,24 +102,26 @@ def nn_conf_rrams(layer, row, col, rrams, verbal):
         row (str): row index of the rram tiles
         col (str): col index of the rram tiles
         rrams (str): RRAM Module number that this layer resides at
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_RRAMS + &#39; &#39; + layer + &#39; &#39; + row + &#39; &#39; + col + &#39; &#39; + rrams, verbal)
 
 
-def nn_conf_input(layer, input_length, input_channel, verbal):
+def nn_conf_input(layer, input_length, input_channel, verbal=True):
     &#34;&#34;&#34; Configure input for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         input_length (str): The length of input activation at `layer` (assume the intput is square)
         input_channel (str): The channel of input activation at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_INPUT + &#39; &#39; + layer + &#39; &#39; + input_length + &#39; &#39; + input_channel, verbal)
 
 
-def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal):
+def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True):
     &#34;&#34;&#34; Configure kernel for `layer`
 
     Args:
@@ -123,65 +130,73 @@ def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, 
         kernel_channel (str): The channel of kernel at `layer`
         kernel_number (str): The number of kernel at `layer`
         stride (str): The stride of kernel at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_channel + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)
 
 
-def nn_conf_output(layer, output_length, output_channel, verbal):
+def nn_conf_output(layer, output_length, output_channel, verbal=True):
     &#34;&#34;&#34; Configure activation setting for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         output_length (str): The length of output at `layer`  (assume the output is square)
         output_channel (str): The channel of output at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT + &#39; &#39; + layer + &#39; &#39; + output_length + &#39; &#39; + output_channel, verbal)
 
 
-def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal):
+def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
     &#34;&#34;&#34; Configure Quantization for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         output_q_scale (str): Output quantization scale at `layer`
         output_q_zp (str): Output quantization zero point at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT_Q + &#39; &#39; + layer + &#39; &#39; + output_q_scale + &#39; &#39; + output_q_zp, verbal)
 
 
-def nn_conf_ecc(layer, ecc, verbal):
+def nn_conf_ecc(layer, ecc, verbal=True):
     &#34;&#34;&#34; Configure ECC for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         ecc (str): Whether the weights at `layer` is ECC enabled.
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ECC + &#39; &#39; + layer + &#39; &#39; + ecc, verbal)
 
 
-def nn_print       (verbal):
+def nn_print(verbal=True):
     &#34;&#34;&#34; Print the network
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Return:
         String version of the network architecture
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_PRINT, verbal)
 
 
-def forward(WL, verbal):
+def forward(WL, verbal=True):
     &#34;&#34;&#34; Run 1 forward inference
 
     Args:
         WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
         The prediction of inference
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_FORWARD + &#39; &#39; + WL, verbal)
 
@@ -191,23 +206,24 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;in_clear&#39;        : in_clear        (True)
-    elif parameters[1] == &#39;in_conf_len&#39;     : in_conf_len     (parameters[2], True)
-    elif parameters[1] == &#39;in_fill&#39;         : in_fill         (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;in_print&#39;        : in_print        (True)
+    if   parameters[1] == &#39;in_clear&#39;        : in_clear        ()
+    elif parameters[1] == &#39;in_conf_len&#39;     : in_conf_len     (parameters[2])
+    elif parameters[1] == &#39;in_fill&#39;         : in_fill         (parameters[2], parameters[3])
+    elif parameters[1] == &#39;in_print&#39;        : in_print        ()
 
-    elif parameters[1] == &#39;nn_clear&#39;        : nn_clear        (True)
-    elif parameters[1] == &#39;nn_conf_type&#39;    : nn_conf_type    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_rrams&#39;   : nn_conf_rrams   (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;nn_conf_input&#39;   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_kernel&#39;  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
-    elif parameters[1] == &#39;nn_conf_output&#39;  : nn_conf_output  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_output_q&#39;: nn_conf_output_q(parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_ecc&#39;     : nn_conf_ecc     (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_print&#39;        : nn_print        (True)
+    elif parameters[1] == &#39;nn_clear&#39;        : nn_clear        ()
+    elif parameters[1] == &#39;nn_conf_type&#39;    : nn_conf_type    (parameters[2], parameters[3])
+    elif parameters[1] == &#39;nn_conf_rrams&#39;   : nn_conf_rrams   (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;nn_conf_input&#39;   : nn_conf_input   (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;nn_conf_kernel&#39;  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6])
+    elif parameters[1] == &#39;nn_conf_output&#39;  : nn_conf_output  (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;nn_conf_output_q&#39;: nn_conf_output_q(parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;nn_conf_ecc&#39;     : nn_conf_ecc     (parameters[2], parameters[3])
+    elif parameters[1] == &#39;nn_print&#39;        : nn_print        ()
 
-    elif parameters[1] == &#39;forward&#39;         : forward         (parameters[2], True)
+    elif parameters[1] == &#39;forward&#39;         : forward         (parameters[2])
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -237,28 +253,29 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;in_clear&#39;        : in_clear        (True)
-    elif parameters[1] == &#39;in_conf_len&#39;     : in_conf_len     (parameters[2], True)
-    elif parameters[1] == &#39;in_fill&#39;         : in_fill         (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;in_print&#39;        : in_print        (True)
+    if   parameters[1] == &#39;in_clear&#39;        : in_clear        ()
+    elif parameters[1] == &#39;in_conf_len&#39;     : in_conf_len     (parameters[2])
+    elif parameters[1] == &#39;in_fill&#39;         : in_fill         (parameters[2], parameters[3])
+    elif parameters[1] == &#39;in_print&#39;        : in_print        ()
 
-    elif parameters[1] == &#39;nn_clear&#39;        : nn_clear        (True)
-    elif parameters[1] == &#39;nn_conf_type&#39;    : nn_conf_type    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_conf_rrams&#39;   : nn_conf_rrams   (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;nn_conf_input&#39;   : nn_conf_input   (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_kernel&#39;  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], True)
-    elif parameters[1] == &#39;nn_conf_output&#39;  : nn_conf_output  (parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_output_q&#39;: nn_conf_output_q(parameters[2], parameters[3], parameters[4], True)
-    elif parameters[1] == &#39;nn_conf_ecc&#39;     : nn_conf_ecc     (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;nn_print&#39;        : nn_print        (True)
+    elif parameters[1] == &#39;nn_clear&#39;        : nn_clear        ()
+    elif parameters[1] == &#39;nn_conf_type&#39;    : nn_conf_type    (parameters[2], parameters[3])
+    elif parameters[1] == &#39;nn_conf_rrams&#39;   : nn_conf_rrams   (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;nn_conf_input&#39;   : nn_conf_input   (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;nn_conf_kernel&#39;  : nn_conf_kernel  (parameters[2], parameters[3], parameters[4], parameters[5], parameters[6])
+    elif parameters[1] == &#39;nn_conf_output&#39;  : nn_conf_output  (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;nn_conf_output_q&#39;: nn_conf_output_q(parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;nn_conf_ecc&#39;     : nn_conf_ecc     (parameters[2], parameters[3])
+    elif parameters[1] == &#39;nn_print&#39;        : nn_print        ()
 
-    elif parameters[1] == &#39;forward&#39;         : forward         (parameters[2], True)
+    elif parameters[1] == &#39;forward&#39;         : forward         (parameters[2])
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="DNN.forward"><code class="name flex">
-<span>def <span class="ident">forward</span></span>(<span>WL, verbal)</span>
+<span>def <span class="ident">forward</span></span>(<span>WL, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run 1 forward inference</p>
@@ -266,8 +283,8 @@ def decode(parameters):
 <dl>
 <dt><strong><code>WL</code></strong> :&ensp;<code>str</code></dt>
 <dd>The Compute-In-Memory (CIM) scheme, could be <code>1</code>~<code>9</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The prediction of inference</p></div>
@@ -275,43 +292,46 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def forward(WL, verbal):
+<pre><code class="python">def forward(WL, verbal=True):
     &#34;&#34;&#34; Run 1 forward inference
 
     Args:
         WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
         The prediction of inference
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_FORWARD + &#39; &#39; + WL, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.in_clear"><code class="name flex">
-<span>def <span class="ident">in_clear</span></span>(<span>verbal)</span>
+<span>def <span class="ident">in_clear</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Clear the input image</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def in_clear(verbal):
+<pre><code class="python">def in_clear(verbal=True):
     &#34;&#34;&#34; Clear the input image
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CLEAR, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.in_conf_len"><code class="name flex">
-<span>def <span class="ident">in_conf_len</span></span>(<span>length, verbal)</span>
+<span>def <span class="ident">in_conf_len</span></span>(<span>length, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure the length of input image</p>
@@ -319,25 +339,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>length</code></strong> :&ensp;<code>str</code></dt>
 <dd>The length of input picture (assume the picture is square)</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def in_conf_len(length, verbal):
+<pre><code class="python">def in_conf_len(length, verbal=True):
     &#34;&#34;&#34; Configure the length of input image
 
     Args:
         length (str): The length of input picture (assume the picture is square)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_CONF_LEN + &#39; &#39; + length, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.in_fill"><code class="name flex">
-<span>def <span class="ident">in_fill</span></span>(<span>address, value, verbal)</span>
+<span>def <span class="ident">in_fill</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Write <code>value</code> to <code>address</code></p>
@@ -347,72 +368,75 @@ def decode(parameters):
 <dd>Address to be written to</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def in_fill(address, value, verbal):
+<pre><code class="python">def in_fill(address, value, verbal=True):
     &#34;&#34;&#34; Write `value` to `address`
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_FILL + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.in_print"><code class="name flex">
-<span>def <span class="ident">in_print</span></span>(<span>verbal)</span>
+<span>def <span class="ident">in_print</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Print the input image</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def in_print(verbal):
+<pre><code class="python">def in_print(verbal=True):
     &#34;&#34;&#34; Print the input image
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_IN_PRINT, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_clear"><code class="name flex">
-<span>def <span class="ident">nn_clear</span></span>(<span>verbal)</span>
+<span>def <span class="ident">nn_clear</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Clear the network</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_clear(verbal):
+<pre><code class="python">def nn_clear(verbal=True):
     &#34;&#34;&#34; Clear the network
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CLEAR, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_ecc"><code class="name flex">
-<span>def <span class="ident">nn_conf_ecc</span></span>(<span>layer, ecc, verbal)</span>
+<span>def <span class="ident">nn_conf_ecc</span></span>(<span>layer, ecc, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure ECC for <code>layer</code></p>
@@ -422,26 +446,27 @@ def decode(parameters):
 <dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
 <dt><strong><code>ecc</code></strong> :&ensp;<code>str</code></dt>
 <dd>Whether the weights at <code>layer</code> is ECC enabled.</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_ecc(layer, ecc, verbal):
+<pre><code class="python">def nn_conf_ecc(layer, ecc, verbal=True):
     &#34;&#34;&#34; Configure ECC for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         ecc (str): Whether the weights at `layer` is ECC enabled.
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_ECC + &#39; &#39; + layer + &#39; &#39; + ecc, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_input"><code class="name flex">
-<span>def <span class="ident">nn_conf_input</span></span>(<span>layer, input_length, input_channel, verbal)</span>
+<span>def <span class="ident">nn_conf_input</span></span>(<span>layer, input_length, input_channel, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure input for <code>layer</code></p>
@@ -453,27 +478,28 @@ def decode(parameters):
 <dd>The length of input activation at <code>layer</code> (assume the intput is square)</dd>
 <dt><strong><code>input_channel</code></strong> :&ensp;<code>str</code></dt>
 <dd>The channel of input activation at <code>layer</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_input(layer, input_length, input_channel, verbal):
+<pre><code class="python">def nn_conf_input(layer, input_length, input_channel, verbal=True):
     &#34;&#34;&#34; Configure input for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         input_length (str): The length of input activation at `layer` (assume the intput is square)
         input_channel (str): The channel of input activation at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_INPUT + &#39; &#39; + layer + &#39; &#39; + input_length + &#39; &#39; + input_channel, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_kernel"><code class="name flex">
-<span>def <span class="ident">nn_conf_kernel</span></span>(<span>layer, kernel_length, kernel_channel, kernel_number, stride, verbal)</span>
+<span>def <span class="ident">nn_conf_kernel</span></span>(<span>layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure kernel for <code>layer</code></p>
@@ -490,14 +516,14 @@ def decode(parameters):
 <dd>The number of kernel at <code>layer</code></dd>
 <dt><strong><code>stride</code></strong> :&ensp;<code>str</code></dt>
 <dd>The stride of kernel at <code>layer</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal):
+<pre><code class="python">def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True):
     &#34;&#34;&#34; Configure kernel for `layer`
 
     Args:
@@ -506,13 +532,14 @@ def decode(parameters):
         kernel_channel (str): The channel of kernel at `layer`
         kernel_number (str): The number of kernel at `layer`
         stride (str): The stride of kernel at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_KERNEL + &#39; &#39; + layer + &#39; &#39; + kernel_length + &#39; &#39; + kernel_channel + &#39; &#39; + kernel_number + &#39; &#39; + stride, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_output"><code class="name flex">
-<span>def <span class="ident">nn_conf_output</span></span>(<span>layer, output_length, output_channel, verbal)</span>
+<span>def <span class="ident">nn_conf_output</span></span>(<span>layer, output_length, output_channel, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure activation setting for <code>layer</code></p>
@@ -525,27 +552,28 @@ def decode(parameters):
 (assume the output is square)</dd>
 <dt><strong><code>output_channel</code></strong> :&ensp;<code>str</code></dt>
 <dd>The channel of output at <code>layer</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_output(layer, output_length, output_channel, verbal):
+<pre><code class="python">def nn_conf_output(layer, output_length, output_channel, verbal=True):
     &#34;&#34;&#34; Configure activation setting for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         output_length (str): The length of output at `layer`  (assume the output is square)
         output_channel (str): The channel of output at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT + &#39; &#39; + layer + &#39; &#39; + output_length + &#39; &#39; + output_channel, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_output_q"><code class="name flex">
-<span>def <span class="ident">nn_conf_output_q</span></span>(<span>layer, output_q_scale, output_q_zp, verbal)</span>
+<span>def <span class="ident">nn_conf_output_q</span></span>(<span>layer, output_q_scale, output_q_zp, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure Quantization for <code>layer</code></p>
@@ -557,27 +585,28 @@ def decode(parameters):
 <dd>Output quantization scale at <code>layer</code></dd>
 <dt><strong><code>output_q_zp</code></strong> :&ensp;<code>str</code></dt>
 <dd>Output quantization zero point at <code>layer</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal):
+<pre><code class="python">def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
     &#34;&#34;&#34; Configure Quantization for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         output_q_scale (str): Output quantization scale at `layer`
         output_q_zp (str): Output quantization zero point at `layer`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_OUTPUT_Q + &#39; &#39; + layer + &#39; &#39; + output_q_scale + &#39; &#39; + output_q_zp, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_rrams"><code class="name flex">
-<span>def <span class="ident">nn_conf_rrams</span></span>(<span>layer, row, col, rrams, verbal)</span>
+<span>def <span class="ident">nn_conf_rrams</span></span>(<span>layer, row, col, rrams, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure RRAM module location for <code>layer</code></p>
@@ -591,14 +620,14 @@ def decode(parameters):
 <dd>col index of the rram tiles</dd>
 <dt><strong><code>rrams</code></strong> :&ensp;<code>str</code></dt>
 <dd>RRAM Module number that this layer resides at</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_rrams(layer, row, col, rrams, verbal):
+<pre><code class="python">def nn_conf_rrams(layer, row, col, rrams, verbal=True):
     &#34;&#34;&#34; Configure RRAM module location for `layer`
 
     Args:
@@ -606,13 +635,14 @@ def decode(parameters):
         row (str): row index of the rram tiles
         col (str): col index of the rram tiles
         rrams (str): RRAM Module number that this layer resides at
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_RRAMS + &#39; &#39; + layer + &#39; &#39; + row + &#39; &#39; + col + &#39; &#39; + rrams, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_conf_type"><code class="name flex">
-<span>def <span class="ident">nn_conf_type</span></span>(<span>layer, type, verbal)</span>
+<span>def <span class="ident">nn_conf_type</span></span>(<span>layer, type, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure layer type for <code>layer</code></p>
@@ -622,33 +652,34 @@ def decode(parameters):
 <dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
 <dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
 <dd>Layer type, could be <code>0</code> for FC or <code>1</code> for Convolution</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_conf_type(layer, type, verbal):
+<pre><code class="python">def nn_conf_type(layer, type, verbal=True):
     &#34;&#34;&#34; Configure layer type for `layer`
 
     Args:
         layer (str): Layer number, could be `0` ~ `19`
         type (str): Layer type, could be `0` for FC or `1` for Convolution
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_CONF_TYPE + &#39; &#39; + layer + &#39; &#39; + type, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DNN.nn_print"><code class="name flex">
-<span>def <span class="ident">nn_print</span></span>(<span>verbal)</span>
+<span>def <span class="ident">nn_print</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Print the network</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="return">Return</h2>
 <p>String version of the network architecture</p></div>
@@ -656,13 +687,15 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nn_print       (verbal):
+<pre><code class="python">def nn_print(verbal=True):
     &#34;&#34;&#34; Print the network
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Return:
         String version of the network architecture
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DNN + &#39; &#39; + CM.CM_DNN_NN_PRINT, verbal)</code></pre>
 </details>

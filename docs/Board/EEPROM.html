@@ -30,25 +30,28 @@
 import PyTerminal as PT
 
 
-def read(address, verbal):
-    &#34;&#34;&#34; Read the value from *address*
+def read(address, verbal=True):
+    &#34;&#34;&#34; Read the value from *address* in EEPROM
 
     Args:
         address (str): Address to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The status of dataflash
+        int: The value at *address* in EEPROM
+
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_EEPROM + &#39; &#39; + CM.CM_EEPROM_READ + &#39; &#39; + address, verbal)
+    return int(PT.send_command(CM.CM_EEPROM + &#39; &#39; + CM.CM_EEPROM_READ + &#39; &#39; + address, verbal))
 
 
-def write(address, value, verbal):
-    &#34;&#34;&#34; Write *value* to *address*
+def write(address, value, verbal=True):
+    &#34;&#34;&#34; Write *value* to *address* in EEPROM
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_EEPROM + &#39; &#39; + CM.CM_EEPROM_WRITE + &#39; &#39; + address + &#39; &#39; + value, verbal)
 
@@ -58,9 +61,10 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;read&#39; : read (parameters[2],                True)
-    elif parameters[1] == &#39;write&#39;: write(parameters[2], parameters[3], True)
+    if   parameters[1] == &#39;read&#39; : read (parameters[2],              )
+    elif parameters[1] == &#39;write&#39;: write(parameters[2], parameters[3])
     else: PT.unknown(parameters)
         </code></pre>
 </details>
@@ -91,67 +95,74 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;read&#39; : read (parameters[2],                True)
-    elif parameters[1] == &#39;write&#39;: write(parameters[2], parameters[3], True)
+    if   parameters[1] == &#39;read&#39; : read (parameters[2],              )
+    elif parameters[1] == &#39;write&#39;: write(parameters[2], parameters[3])
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="EEPROM.read"><code class="name flex">
-<span>def <span class="ident">read</span></span>(<span>address, verbal)</span>
+<span>def <span class="ident">read</span></span>(<span>address, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Read the value from <em>address</em></p>
+<div class="desc"><p>Read the value from <em>address</em> in EEPROM</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
 <dd>Address to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The status of dataflash</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The value at <em>address</em> in EEPROM</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read(address, verbal):
-    &#34;&#34;&#34; Read the value from *address*
+<pre><code class="python">def read(address, verbal=True):
+    &#34;&#34;&#34; Read the value from *address* in EEPROM
 
     Args:
         address (str): Address to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The status of dataflash
+        int: The value at *address* in EEPROM
+
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_EEPROM + &#39; &#39; + CM.CM_EEPROM_READ + &#39; &#39; + address, verbal)</code></pre>
+    return int(PT.send_command(CM.CM_EEPROM + &#39; &#39; + CM.CM_EEPROM_READ + &#39; &#39; + address, verbal))</code></pre>
 </details>
 </dd>
 <dt id="EEPROM.write"><code class="name flex">
-<span>def <span class="ident">write</span></span>(<span>address, value, verbal)</span>
+<span>def <span class="ident">write</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Write <em>value</em> to <em>address</em></p>
+<div class="desc"><p>Write <em>value</em> to <em>address</em> in EEPROM</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
 <dd>Address to be written to</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write(address, value, verbal):
-    &#34;&#34;&#34; Write *value* to *address*
+<pre><code class="python">def write(address, value, verbal=True):
+    &#34;&#34;&#34; Write *value* to *address* in EEPROM
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_EEPROM + &#39; &#39; + CM.CM_EEPROM_WRITE + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
 </details>

@@ -30,13 +30,15 @@
 import PyTerminal as PT
 
 
-def id(verbal):
+def id(verbal=True):
     &#34;&#34;&#34; Get the ID of Vector module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of Vector module
+        str: The ID of Vector module (should be `0x03020121`)
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_VECTOR + &#39; &#39; + CM.CM_VECTOR_PID, verbal)
 
@@ -46,8 +48,9 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;id&#39;     : id(True)
+    if   parameters[1] == &#39;id&#39;     : id()
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -77,34 +80,40 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;id&#39;     : id(True)
+    if   parameters[1] == &#39;id&#39;     : id()
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="VECTOR.id"><code class="name flex">
-<span>def <span class="ident">id</span></span>(<span>verbal)</span>
+<span>def <span class="ident">id</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the ID of Vector module</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The ID of Vector module</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID of Vector module (should be <code>0x03020121</code>)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def id(verbal):
+<pre><code class="python">def id(verbal=True):
     &#34;&#34;&#34; Get the ID of Vector module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of Vector module
+        str: The ID of Vector module (should be `0x03020121`)
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_VECTOR + &#39; &#39; + CM.CM_VECTOR_PID, verbal)</code></pre>
 </details>

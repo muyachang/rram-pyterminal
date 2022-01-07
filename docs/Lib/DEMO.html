@@ -30,39 +30,43 @@
 import PyTerminal as PT
 
 
-def list_demos(verbal):
+def list_demos(verbal=True):
     &#34;&#34;&#34; List the available DEMO applications
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_LIST, verbal)
 
 
-def load(number, verbal):
+def load(number, verbal=True):
     &#34;&#34;&#34; Load DEMO application #*number*
 
     Args:
         number (str): DEMO application number, from *0*~*23*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_LOAD + &#39; &#39; + number, verbal)
 
 
-def run(verbal):
+def run(verbal=True):
     &#34;&#34;&#34; Run the application on the testchip. (i.e. reset the testchip)
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_RUN, verbal)
 
 
-def analyze(verbal):
+def analyze(verbal=True):
     &#34;&#34;&#34; Analyze the sizes of DEMO applications to speedup the loading process
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_ANALYZE, verbal)
 
@@ -72,11 +76,12 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;list&#39;   : list_demos(               True)
-    elif parameters[1] == &#39;load&#39;   : load      (parameters[2], True)
-    elif parameters[1] == &#39;run&#39;    : run       (               True)
-    elif parameters[1] == &#39;analyze&#39;: analyze   (               True)
+    if   parameters[1] == &#39;list&#39;   : list_demos(             )
+    elif parameters[1] == &#39;load&#39;   : load      (parameters[2])
+    elif parameters[1] == &#39;run&#39;    : run       (             )
+    elif parameters[1] == &#39;analyze&#39;: analyze   (             )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -88,24 +93,25 @@ def decode(parameters):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="DEMO.analyze"><code class="name flex">
-<span>def <span class="ident">analyze</span></span>(<span>verbal)</span>
+<span>def <span class="ident">analyze</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Analyze the sizes of DEMO applications to speedup the loading process</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def analyze(verbal):
+<pre><code class="python">def analyze(verbal=True):
     &#34;&#34;&#34; Analyze the sizes of DEMO applications to speedup the loading process
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_ANALYZE, verbal)</code></pre>
 </details>
@@ -129,39 +135,41 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;list&#39;   : list_demos(               True)
-    elif parameters[1] == &#39;load&#39;   : load      (parameters[2], True)
-    elif parameters[1] == &#39;run&#39;    : run       (               True)
-    elif parameters[1] == &#39;analyze&#39;: analyze   (               True)
+    if   parameters[1] == &#39;list&#39;   : list_demos(             )
+    elif parameters[1] == &#39;load&#39;   : load      (parameters[2])
+    elif parameters[1] == &#39;run&#39;    : run       (             )
+    elif parameters[1] == &#39;analyze&#39;: analyze   (             )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="DEMO.list_demos"><code class="name flex">
-<span>def <span class="ident">list_demos</span></span>(<span>verbal)</span>
+<span>def <span class="ident">list_demos</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>List the available DEMO applications</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def list_demos(verbal):
+<pre><code class="python">def list_demos(verbal=True):
     &#34;&#34;&#34; List the available DEMO applications
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_LIST, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DEMO.load"><code class="name flex">
-<span>def <span class="ident">load</span></span>(<span>number, verbal)</span>
+<span>def <span class="ident">load</span></span>(<span>number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Load DEMO application #<em>number</em></p>
@@ -169,42 +177,44 @@ def decode(parameters):
 <dl>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>DEMO application number, from <em>0</em>~<em>23</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def load(number, verbal):
+<pre><code class="python">def load(number, verbal=True):
     &#34;&#34;&#34; Load DEMO application #*number*
 
     Args:
         number (str): DEMO application number, from *0*~*23*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_LOAD + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DEMO.run"><code class="name flex">
-<span>def <span class="ident">run</span></span>(<span>verbal)</span>
+<span>def <span class="ident">run</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run the application on the testchip. (i.e. reset the testchip)</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def run(verbal):
+<pre><code class="python">def run(verbal=True):
     &#34;&#34;&#34; Run the application on the testchip. (i.e. reset the testchip)
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DEMO + &#39; &#39; + CM.CM_DEMO_RUN, verbal)</code></pre>
 </details>

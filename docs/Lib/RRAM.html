@@ -30,103 +30,116 @@
 import PyTerminal as PT
 
 
-def id (verbal):
+def id (verbal=True):
     &#34;&#34;&#34; **[Low Level]** Get the ID of the RRAM Modules
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of the RRAM Modules.
+        str: The ID of the RRAM Modules. (should be `0x01314520`)
 
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PID, verbal)
 
 
-def lane(action, target, verbal):
+def lane(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected ADC lane
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target lane number, from *0*~*7*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The selected lane.
+        int: The selected lane.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_LANE + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_LANE + &#39; &#39; + CM.CM_RRAM_GET, verbal))
     else: PT.unknown([&#39;RRAM&#39;, &#39;lane&#39;, action, target])
 
 
-def group(action, target, verbal):
+def group(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected group for the Vector module
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target group number, from *0*~*35*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The selected group.
+        int: The selected group.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_GROUP + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_GROUP + &#39; &#39; + CM.CM_RRAM_GET, verbal))
     else: PT.unknown([&#39;RRAM&#39;, &#39;group&#39;, action, target])
 
 
-def module(action, target, verbal):
+def module(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected RRAM module
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target RRAM module number, from *0*~*287*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The selected module.
+        int: The selected module.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MODULE + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MODULE + &#39; &#39; + CM.CM_RRAM_GET, verbal))
     else: PT.unknown([&#39;RRAM&#39;, &#39;module&#39;, action, target])
 
 
-def mask(action, target, verbal):
+def mask(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module selection mask register
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target RRAM module selection mask, from *0x00000001*~*0xFFFFFFFF*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current mask.
+        str: The current mask.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MASK + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MASK + &#39; &#39; + CM.CM_RRAM_GET, verbal)
     else: PT.unknown([&#39;RRAM&#39;, &#39;mask&#39;, action, target])
 
 
-def address(action, target, verbal):
+def address(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module address register
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target address, from *0*~*65535*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current address.
+        int: The current address.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ADDRESS + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ADDRESS + &#39; &#39; + CM.CM_RRAM_GET, verbal))
     else: PT.unknown([&#39;RRAM&#39;, &#39;address&#39;, action, target])
 
 
-def read(action, action_type, target, verbal):
+def read(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *status*, *enable*, *cycle*, *source*, *counter*, *data*
         target (str): Target number, *0*~*1* for *enable* *source*, *0*~*255* for *cycle*, and *0x1*~*0x1FF* for *data*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        str or int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;enable&#39; :        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_READ + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_READ_ENABLE  + &#39; &#39; + target, verbal)
@@ -148,16 +161,18 @@ def read(action, action_type, target, verbal):
     else: PT.unknown([&#39;RRAM&#39;, &#39;read&#39;, action, action_type, target])
 
 
-def mac(action, action_type, target, verbal):
+def mac(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure mac related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *status*, *result*, *mode*, *resolution*
         target (str): Target number, *0*~*1* for *mode*, *0*~*3* for *resolution*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;mode&#39;      :            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MAC + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_MAC_MODE       + &#39; &#39; + target, verbal)
@@ -172,16 +187,17 @@ def mac(action, action_type, target, verbal):
     else: PT.unknown([&#39;RRAM&#39;, &#39;mac&#39;, action, action_type, target])
 
 
-def write(action, action_type, target, verbal):
+def write(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *status*, *enable*, *cycle*, *mode*
         target (str): Target number, *0*~*1* for *enable* *mode*, *0*~*65535* for *cycle*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
     Returns:
-        The current value of *action_type*.
+        int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;enable&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_WRITE + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_WRITE_ENABLE + &#39; &#39; + target, verbal)
@@ -199,16 +215,18 @@ def write(action, action_type, target, verbal):
     else: PT.unknown([&#39;RRAM&#39;, &#39;write&#39;, action, action_type, target])
 
 
-def adc(action, action_type, target, verbal):
+def adc(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure ADC related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *raw*, *step*, *offset*, *comp*, *hbias*, *cal*
         target (str): Target number, *0*~*1* for *hbias* *cal*, *0*~*63* for *step* *offset*, *0x0000*~*0x7FFF* for *comp*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        str or int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;step&#39;  :            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ADC + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_ADC_STEP   + &#39; &#39; + target, verbal)
@@ -229,16 +247,18 @@ def adc(action, action_type, target, verbal):
     else: PT.unknown([&#39;RRAM&#39;, &#39;adc&#39;, action, action_type, target])
 
 
-def pg(action, action_type, target, verbal):
+def pg(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *disable*
         target (str): Target number, *0*~*1* for *disable*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;disable&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PG + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_PG_DISABLE + &#39; &#39; + target, verbal)
@@ -251,16 +271,18 @@ def pg(action, action_type, target, verbal):
     else: PT.unknown([&#39;RRAM&#39;, &#39;pg&#39;, action, action_type, target])
 
 
-def ecc(action, action_type, target, verbal):
+def ecc(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set*, *get*, *clear*, or *check*
         action_type (str): Could be *enable*
         target (str): Target number, *0*~*1* for *enable*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        str or int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;enable&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ECC + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_ECC_ENABLE + &#39; &#39; + target, verbal)
@@ -277,71 +299,87 @@ def ecc(action, action_type, target, verbal):
     else: PT.unknown([&#39;RRAM&#39;, &#39;ecc&#39;, action, action_type, target])
 
 
-def reg_status(verbal):
+def reg_status(verbal=True):
     &#34;&#34;&#34; **[High Level]** Print the register status of the RRAM accelerator
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_REG_STATUS, verbal)
 
 
-def env_init(verbal):
+def env_init(verbal=True):
     &#34;&#34;&#34; **[High Level]** Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_INIT, verbal)
 
 
-def env_status(verbal):
+def env_status(verbal=True):
     &#34;&#34;&#34; **[High Level]** Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal=True)
 
 
-def mod_init(verbal):
+def mod_init(verbal=True):
     &#34;&#34;&#34; **[High Level]** Initialize the module floorplan status
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_INIT, verbal)
 
 
-def mod_status(verbal):
+def mod_status(verbal=True):
     &#34;&#34;&#34; **[High Level]** Print the module floorplan status
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_STATUS, verbal)
 
 
-def mod_conf(status, verbal):
+def mod_conf(status, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure the current module floorplan status
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_CONF + &#39; &#39; + status, verbal)
+    status_dict = {
+        &#39;C&#39;: CM.CM_RRAM_API_MOD_STATUS_CLEAN,
+        &#39;F&#39;: CM.CM_RRAM_API_MOD_STATUS_FORMED,
+        &#39;P&#39;: CM.CM_RRAM_API_MOD_STATUS_PARTIALLY_FORMED,
+        &#39;U&#39;: CM.CM_RRAM_API_MOD_STATUS_USED,
+        &#39;B&#39;: CM.CM_RRAM_API_MOD_STATUS_BROKEN,
+        &#39;A&#39;: CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL,
+        &#39;?&#39;: CM.CM_RRAM_API_MOD_STATUS_UNKNOWN,
+    }
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_CONF + &#39; &#39; + str(status_dict[status]), verbal)
 
 
-def switch(index, verbal):
+def switch(index, verbal=True):
     &#34;&#34;&#34; **[High Level]** Switch to module *index* and configure related things. (ex. ADC, VTGT_BL ... etc)
 
     Args:
         index (str): Target RRAM Module, from *0* ~ *287*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWITCH + &#39; &#39; + index, verbal)
 
 
-def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal):
+def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure FORM operation
 
     Args:
@@ -349,18 +387,20 @@ def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal):
         AVDD_WL (str): AVDD_WL voltage for FORM
         cycle (str): number of clock cycles per pulse for FORM
         times (str): number of pulses for FORM
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_FORM + &#39; &#39; + AVDD_WR + &#39; &#39; + AVDD_WL + &#39; &#39; + cycle + &#39; &#39; + times, verbal)
 
 
-def form(level, number, verbal):
+def form(level, number, verbal=True):
     &#34;&#34;&#34; **[High Level]** FORM the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_FORM + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number, verbal)
@@ -372,7 +412,7 @@ def form(level, number, verbal):
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_FORM + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number, verbal)
 
 
-def conf_set(AVDD_WR, AVDD_WL, cycle, times, verbal):
+def conf_set(AVDD_WR, AVDD_WL, cycle, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure SET operation
 
     Args:
@@ -380,30 +420,32 @@ def conf_set(AVDD_WR, AVDD_WL, cycle, times, verbal):
         AVDD_WL (str): AVDD_WL voltage for SET
         cycle (str): number of clock cycles per pulse for SET
         times (str): number of pulses for SET
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_SET + &#39; &#39; + AVDD_WR + &#39; &#39; + AVDD_WL + &#39; &#39; + cycle + &#39; &#39; + times, verbal)
 
 
-def set(level, number, verbal):
+def set(level, number, verbal=True):
     &#34;&#34;&#34; **[High Level]** SET the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL   + &#39; &#39; + number, verbal)
     elif level == &#39;row&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW    + &#39; &#39; + number, verbal)
     elif level == &#39;col&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL    + &#39; &#39; + number, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number, verbal)
 
 
-def conf_reset(AVDD_WR, AVDD_WL, cycle, times, verbal):
+def conf_reset(AVDD_WR, AVDD_WL, cycle, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure RESET operation
 
     Args:
@@ -411,289 +453,296 @@ def conf_reset(AVDD_WR, AVDD_WL, cycle, times, verbal):
         AVDD_WL (str): AVDD_WL voltage for RESET
         cycle (str): number of clock cycles per pulse for RESET
         times (str): number of pulses for RESET
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_RESET + &#39; &#39; + AVDD_WR + &#39; &#39; + AVDD_WL + &#39; &#39; + cycle + &#39; &#39; + times, verbal)
 
 
-def reset(level, number, verbal):
+def reset(level, number, verbal=True):
     &#34;&#34;&#34; **[High Level]** RESET the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL   + &#39; &#39; + number, verbal)
     elif level == &#39;row&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW    + &#39; &#39; + number, verbal)
     elif level == &#39;col&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL    + &#39; &#39; + number, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number, verbal)
 
 
-def set_reset(level, number, times, verbal):
+def set_reset(level, number, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** SET and RESET the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
         times (str): How many loops per set&amp;reset
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number + &#39; &#39; + times, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL   + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;row&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW + &#39; &#39; + number + &#39; &#39; + times, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW    + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;col&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number + &#39; &#39; + times, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL    + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number + &#39; &#39; + times, verbal)
 
 
-def write_byte(address, value, verbal):
+def write_byte(address, value, verbal=True):
     &#34;&#34;&#34; **[High Level]** Write *value* to *address*
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_WRITE_BYTE + &#39; &#39; + address + &#39; &#39; + value, verbal)
 
 
-def write_byte_iter(address, value, verbal):
+def write_byte_iter(address, value, verbal=True):
     &#34;&#34;&#34; **[High Level]** Write *value* to *address* iteratively, this function is more robust than `write_byte` but takes longer
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_WRITE_BYTE_ITER + &#39; &#39; + address + &#39; &#39; + value, verbal)
 
 
-def conf_read(cycle, verbal):
+def conf_read(cycle, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure READ operation
 
     Args:
         cycle (str): Number of clock cycles per pulse for READ
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_READ + &#39; &#39; + cycle, verbal)
 
 
-def read_lane(address, data, verbal):
+def read_lane(address, data, verbal=True):
     &#34;&#34;&#34; **[High Level]** Read the *address* cell with *data* fed to the WLs
 
     Args:
         address (str): Address to be read from
         data (str): Value to be fed to the WLs
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The readout value of one lane.
+        str: The readout value of one lane.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_READ_LANE + &#39; &#39; + address + &#39; &#39; + data, verbal)
 
 
-def read_byte(address, counter, data, verbal):
+def read_byte(address, counter, data, verbal=True):
     &#34;&#34;&#34; **[High Level]** Read the whole byte from *address* with *data* fed to the WLs and *counter* for the MAC unit
 
     Args:
         address (str): Address to be read from
         counter (str): so the MAC unit knows which bit the *data* is currently at
         data (str): Value to be fed to the WLs
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The readout value of one byte (8 lanes).
+        str: The readout value of one byte (8 lanes).
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_READ_BYTE + &#39; &#39; + address + &#39; &#39; + counter + &#39; &#39; + data, verbal)
 
 
-def conf_ADC(offset, step, comp, verbal):
+def conf_ADC(offset, step, comp=&#39;0x7FFF&#39;, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure ADC settings
 
     Args:
         offset (str): ADC offset, from *0*~*63*, *0* for minimum offset and *63* for maximum offset
         step (str): ADC step size, from *0*~*63*, *0* for minimum step and *63* for maximum step
         comp (str): Comparator enables, from *0x0001*~*0x7FFF*, each bit controls a comparator
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_ADC + &#39; &#39; + offset + &#39; &#39; + step + &#39; &#39; + comp, verbal)
 
 
-def conf_MAC(mode, resolution, verbal):
+def conf_MAC(mode, resolution, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure MAC settings
 
     Args:
         mode (str): MAC mode, *0* for unsigned and *1* for *signed*
         resolution (str): MAC resolution *0* for 1 bit, *1* for 2 bits, *2* for 4 bits, and *3* for 8 bits
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_MAC + &#39; &#39; + mode + &#39; &#39; + resolution, verbal)
 
 
-def calibrate_VRef(low, high, tolerance, verbal):
+def calibrate_VRef(low, high, tolerance, verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate the internally generated reference voltages so the range would be approx. (*low*, *high*) for the current module
 
     Args:
         low (str): Target lower bound of the reference voltages
         high (str): Target upper bound of the reference voltages
         tolerance (str): Target tolerance from either *low* or *high*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        (offset, step) which makes ADC fit the desired range.
+        (int, int): (offset, step) which makes ADC fit the desired range.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + tolerance, verbal)
 
 
-def sweep_VRef(low, high, step, verbal):
+def sweep_VRef(low, high, step, verbal=True):
     &#34;&#34;&#34; **[High Level]** Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Args:
         low (str): Starting voltage for ADC_CAL
         high (str): Ending voltage for ADC_CAL
         step (str): Step for ADC_CAL
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + step, verbal)
 
 
-def list_VRef(verbal):
+def list_VRef(verbal=True):
     &#34;&#34;&#34; **[High Level]** List 15 internally generated reference voltages of the current module, sweep_VRef needs to be done in advance
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        15 internally generated reference voltages of the selected RRAM Module.
+        str: 15 internally generated reference voltages of the selected RRAM Module.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VREF, verbal)
 
 
-def clear_VRef(verbal):
+def clear_VRef(verbal=True):
     &#34;&#34;&#34; **[High Level]** Clear 15 internally generated reference voltages of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VREF, verbal)
 
 
-def calibrate_VTGT_BL(verbal):
+def calibrate_VTGT_BL(verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate VTGT_BL for the current module
 
     .. note::
-
-        This function destroys the values inside some cells
+        This function changes the values inside some cells
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
     Returns:
         VTGT_BL which makes readout from 9 parallel HRS cells to be 0x4000.
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VTGT_BL, verbal)
 
 
-def conf_VTGT_BL(vtgt_bl, verbal):
+def conf_VTGT_BL(vtgt_bl, verbal=True):
     &#34;&#34;&#34; **[High Level]** Save the VTGT_BL for the current module
 
     Args:
         vtgt_bl (str): Voltage value for VTGT_BL.
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_VTGT_BL + &#39; &#39; + vtgt_bl, verbal)
 
 
-def list_VTGT_BL(verbal):
+def list_VTGT_BL(verbal=True):
     &#34;&#34;&#34; **[High Level]** List saved VTGT_BL of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current VTGT_BL of the selected RRAM Module.
+        int: The current VTGT_BL of the selected RRAM Module.
+
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VTGT_BL, verbal)
+    return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VTGT_BL, verbal))
 
 
-def clear_VTGT_BL(verbal):
+def clear_VTGT_BL(verbal=True):
     &#34;&#34;&#34; **[High Level]** Clear saved VTGT_BL of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VTGT_BL, verbal)
 
 
-def sweep_DRef(ones, verbal):
+def sweep_DRef(ones, verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate decoder reference levels.
 
     .. note::
-
-        This function destroys the values inside some cells
+        This function changes the values inside some cells
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_DREF + &#39; &#39; + ones, verbal)
 
 
-def list_DRef(verbal):
+def list_DRef(verbal=True):
     &#34;&#34;&#34; **[High Level]** List decoder reference levels of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current decoder reference of the selected RRAM Module.
+        str: The current decoder reference of the selected RRAM Module.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_DREF, verbal)
 
 
-def clear_DRef(ones, verbal):
+def clear_DRef(ones, verbal=True):
     &#34;&#34;&#34; **[High Level]** Clear decoder reference levels.
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_DREF + &#39; &#39; + ones, verbal)
 
 
-def check(level, number, verbal):
-    &#34;&#34;&#34; **[High Level]** Check the health of RRAM cells, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
+def check_cell(address, verbal=True):
+    &#34;&#34;&#34; **[High Level]** Check the health of the RRAM cell, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
         If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.
 
     .. note::
-
-        This function destroys the values inside some cells
+        This function changes the values inside the cell value of &#39;address&#39;
 
     Args:
-        level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
-        number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        address (str): Target address, could be *0*~*65535*
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    Returns:
+        (str, str): (the ADC raw value after set, the ADC raw value after reset)
+
     &#34;&#34;&#34;
-    if level == &#39;cell&#39;:
-        address = int(number)
-        response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-        print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
-    elif level == &#39;row&#39;:
-        for col in range(0, 256):
-            address = int(number)*256 + col
-            response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-            print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
-    elif level == &#39;col&#39;:
-        for row in range(0, 256):
-            address = row*256 + int(number)
-            response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-            print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
-    elif level == &#39;module&#39;:
-        for row in range(0, 256):
-            for col in range(0, 256):
-                address = row*256 + col
-                response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-                print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + address, verbal)
 
 
 def decode(parameters):
@@ -701,54 +750,55 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
     # Driver functions
-    if   parameters[1] == &#39;id&#39;               : id               (                                                            True)
-    elif parameters[1] == &#39;lane&#39;             : lane             (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;group&#39;            : group            (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;module&#39;           : module           (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;mask&#39;             : mask             (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;address&#39;          : address          (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;read&#39;             : read             (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;mac&#39;              : mac              (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;write&#39;            : write            (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;adc&#39;              : adc              (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;pg&#39;               : pg               (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],                True)
+    if   parameters[1] == &#39;id&#39;               : id               (                                                          )
+    elif parameters[1] == &#39;lane&#39;             : lane             (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;group&#39;            : group            (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;module&#39;           : module           (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;mask&#39;             : mask             (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;address&#39;          : address          (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;read&#39;             : read             (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;mac&#39;              : mac              (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;write&#39;            : write            (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;adc&#39;              : adc              (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;pg&#39;               : pg               (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],              )
     # API functions
-    elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                            True)
-    elif parameters[1] == &#39;env_init&#39;         : env_init         (                                                            True)
-    elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                            True)
-    elif parameters[1] == &#39;mod_init&#39;         : mod_init         (                                                            True)
-    elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                            True)
-    elif parameters[1] == &#39;mod_conf&#39;         : mod_conf         (parameters[2],                                              True)
-    elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                              True)
-    elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;conf_set&#39;         : conf_set         (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;set&#39;              : set              (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;set_reset&#39;        : set_reset        (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;conf_reset&#39;       : conf_reset       (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;reset&#39;            : reset            (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;write_byte&#39;       : write_byte       (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;write_byte_iter&#39;  : write_byte_iter  (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;conf_read&#39;        : conf_read        (parameters[2],                                              True)
-    elif parameters[1] == &#39;read_lane&#39;        : read_lane        (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;read_byte&#39;        : read_byte        (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;conf_ADC&#39;         : conf_ADC         (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;conf_MAC&#39;         : conf_MAC         (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                            True)
-    elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                            True)
-    elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                            True)
-    elif parameters[1] == &#39;conf_VTGT_BL&#39;     : conf_VTGT_BL     (parameters[2],                                              True)
-    elif parameters[1] == &#39;list_VTGT_BL&#39;     : list_VTGT_BL     (                                                            True)
-    elif parameters[1] == &#39;clear_VTGT_BL&#39;    : clear_VTGT_BL    (                                                            True)
-    elif parameters[1] == &#39;sweep_DRef&#39;       : sweep_DRef       (parameters[2],                                              True)
-    elif parameters[1] == &#39;list_DRef&#39;        : list_DRef        (                                                            True)
-    elif parameters[1] == &#39;clear_DRef&#39;       : clear_DRef       (parameters[2],                                              True)
-    elif parameters[1] == &#39;check&#39;            : check            (parameters[2], parameters[3],                               True)
+    elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                          )
+    elif parameters[1] == &#39;env_init&#39;         : env_init         (                                                          )
+    elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                          )
+    elif parameters[1] == &#39;mod_init&#39;         : mod_init         (                                                          )
+    elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                          )
+    elif parameters[1] == &#39;mod_conf&#39;         : mod_conf         (parameters[2],                                            )
+    elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                            )
+    elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;conf_set&#39;         : conf_set         (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;set&#39;              : set              (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;set_reset&#39;        : set_reset        (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;conf_reset&#39;       : conf_reset       (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;reset&#39;            : reset            (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;write_byte&#39;       : write_byte       (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;write_byte_iter&#39;  : write_byte_iter  (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;conf_read&#39;        : conf_read        (parameters[2],                                            )
+    elif parameters[1] == &#39;read_lane&#39;        : read_lane        (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;read_byte&#39;        : read_byte        (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;conf_ADC&#39;         : conf_ADC         (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;conf_MAC&#39;         : conf_MAC         (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                          )
+    elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                          )
+    elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                          )
+    elif parameters[1] == &#39;conf_VTGT_BL&#39;     : conf_VTGT_BL     (parameters[2],                                            )
+    elif parameters[1] == &#39;list_VTGT_BL&#39;     : list_VTGT_BL     (                                                          )
+    elif parameters[1] == &#39;clear_VTGT_BL&#39;    : clear_VTGT_BL    (                                                          )
+    elif parameters[1] == &#39;sweep_DRef&#39;       : sweep_DRef       (parameters[2],                                            )
+    elif parameters[1] == &#39;list_DRef&#39;        : list_DRef        (                                                          )
+    elif parameters[1] == &#39;clear_DRef&#39;       : clear_DRef       (parameters[2],                                            )
+    elif parameters[1] == &#39;check_cell&#39;       : check_cell       (parameters[2],                                            )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -760,7 +810,7 @@ def decode(parameters):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="RRAM.adc"><code class="name flex">
-<span>def <span class="ident">adc</span></span>(<span>action, action_type, target, verbal)</span>
+<span>def <span class="ident">adc</span></span>(<span>action, action_type, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Configure ADC related settings</p>
@@ -772,25 +822,30 @@ def decode(parameters):
 <dd>Could be <em>raw</em>, <em>step</em>, <em>offset</em>, <em>comp</em>, <em>hbias</em>, <em>cal</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, <em>0</em>~<em>1</em> for <em>hbias</em> <em>cal</em>, <em>0</em>~<em>63</em> for <em>step</em> <em>offset</em>, <em>0x0000</em>~<em>0x7FFF</em> for <em>comp</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current value of <em>action_type</em>.</p></div>
+<dl>
+<dt><code>str</code> or <code>int</code></dt>
+<dd>The current value of <em>action_type</em>.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def adc(action, action_type, target, verbal):
+<pre><code class="python">def adc(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure ADC related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *raw*, *step*, *offset*, *comp*, *hbias*, *cal*
         target (str): Target number, *0*~*1* for *hbias* *cal*, *0*~*63* for *step* *offset*, *0x0000*~*0x7FFF* for *comp*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        str or int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;step&#39;  :            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ADC + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_ADC_STEP   + &#39; &#39; + target, verbal)
@@ -812,7 +867,7 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="RRAM.address"><code class="name flex">
-<span>def <span class="ident">address</span></span>(<span>action, target, verbal)</span>
+<span>def <span class="ident">address</span></span>(<span>action, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Set/Get the RRAM module address register</p>
@@ -822,24 +877,29 @@ def decode(parameters):
 <dd>Could be <em>set</em> or <em>get</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target address, from <em>0</em>~<em>65535</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current address.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The current address.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def address(action, target, verbal):
+<pre><code class="python">def address(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module address register
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target address, from *0*~*65535*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current address.
+        int: The current address.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ADDRESS + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ADDRESS + &#39; &#39; + CM.CM_RRAM_GET, verbal))
@@ -847,7 +907,7 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="RRAM.calibrate_VRef"><code class="name flex">
-<span>def <span class="ident">calibrate_VRef</span></span>(<span>low, high, tolerance, verbal)</span>
+<span>def <span class="ident">calibrate_VRef</span></span>(<span>low, high, tolerance, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Calibrate the internally generated reference voltages so the range would be approx. (<em>low</em>, <em>high</em>) for the current module</p>
@@ -859,42 +919,44 @@ def decode(parameters):
 <dd>Target upper bound of the reference voltages</dd>
 <dt><strong><code>tolerance</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target tolerance from either <em>low</em> or <em>high</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>(offset, step) which makes ADC fit the desired range.</p></div>
+<p>(int, int): (offset, step) which makes ADC fit the desired range.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def calibrate_VRef(low, high, tolerance, verbal):
+<pre><code class="python">def calibrate_VRef(low, high, tolerance, verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate the internally generated reference voltages so the range would be approx. (*low*, *high*) for the current module
 
     Args:
         low (str): Target lower bound of the reference voltages
         high (str): Target upper bound of the reference voltages
         tolerance (str): Target tolerance from either *low* or *high*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        (offset, step) which makes ADC fit the desired range.
+        (int, int): (offset, step) which makes ADC fit the desired range.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + tolerance, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.calibrate_VTGT_BL"><code class="name flex">
-<span>def <span class="ident">calibrate_VTGT_BL</span></span>(<span>verbal)</span>
+<span>def <span class="ident">calibrate_VTGT_BL</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Calibrate VTGT_BL for the current module</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function destroys the values inside some cells</p>
+<p>This function changes the values inside some cells</p>
 </div>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>VTGT_BL which makes readout from 9 parallel HRS cells to be 0x4000.</p></div>
@@ -902,81 +964,63 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def calibrate_VTGT_BL(verbal):
+<pre><code class="python">def calibrate_VTGT_BL(verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate VTGT_BL for the current module
 
     .. note::
-
-        This function destroys the values inside some cells
+        This function changes the values inside some cells
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
     Returns:
         VTGT_BL which makes readout from 9 parallel HRS cells to be 0x4000.
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VTGT_BL, verbal)</code></pre>
 </details>
 </dd>
-<dt id="RRAM.check"><code class="name flex">
-<span>def <span class="ident">check</span></span>(<span>level, number, verbal)</span>
+<dt id="RRAM.check_cell"><code class="name flex">
+<span>def <span class="ident">check_cell</span></span>(<span>address, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[High Level]</strong> Check the health of RRAM cells, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
+<div class="desc"><p><strong>[High Level]</strong> Check the health of the RRAM cell, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
 If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function destroys the values inside some cells</p>
+<p>This function changes the values inside the cell value of 'address'</p>
 </div>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>level</code></strong> :&ensp;<code>str</code></dt>
-<dd>Hierarchy level, could be <em>cell</em>, <em>row</em>, <em>col</em>, <em>module</em></dd>
-<dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target number, could be <em>0</em>~<em>65535</em> for <em>cell</em>, <em>0</em>~<em>255</em> for <em>row</em> and <em>col</em>, <em>0</em> for <em>module</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
-</dl></div>
+<dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
+<dd>Target address, could be <em>0</em>~<em>65535</em></dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>(str, str): (the ADC raw value after set, the ADC raw value after reset)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def check(level, number, verbal):
-    &#34;&#34;&#34; **[High Level]** Check the health of RRAM cells, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
+<pre><code class="python">def check_cell(address, verbal=True):
+    &#34;&#34;&#34; **[High Level]** Check the health of the RRAM cell, this function essentially consists of SET-&gt;READ-&gt;RESET-&gt;READ.
         If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.
 
     .. note::
-
-        This function destroys the values inside some cells
+        This function changes the values inside the cell value of &#39;address&#39;
 
     Args:
-        level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
-        number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        address (str): Target address, could be *0*~*65535*
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    Returns:
+        (str, str): (the ADC raw value after set, the ADC raw value after reset)
+
     &#34;&#34;&#34;
-    if level == &#39;cell&#39;:
-        address = int(number)
-        response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-        print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
-    elif level == &#39;row&#39;:
-        for col in range(0, 256):
-            address = int(number)*256 + col
-            response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-            print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
-    elif level == &#39;col&#39;:
-        for row in range(0, 256):
-            address = row*256 + int(number)
-            response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-            print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)
-    elif level == &#39;module&#39;:
-        for row in range(0, 256):
-            for col in range(0, 256):
-                address = row*256 + col
-                response = PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + str(address), False)
-                print(f&#39;{address:&gt;6} : {response:&gt;10}&#39;)</code></pre>
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CHECK_CELL + &#39; &#39; + address, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.clear_DRef"><code class="name flex">
-<span>def <span class="ident">clear_DRef</span></span>(<span>ones, verbal)</span>
+<span>def <span class="ident">clear_DRef</span></span>(<span>ones, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Clear decoder reference levels.</p>
@@ -984,71 +1028,74 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dl>
 <dt><strong><code>ones</code></strong> :&ensp;<code>str</code></dt>
 <dd>Could be omit or <em>1</em>~<em>9</em>, omit means do the calibration for all <em>1</em>~<em>9</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def clear_DRef(ones, verbal):
+<pre><code class="python">def clear_DRef(ones, verbal=True):
     &#34;&#34;&#34; **[High Level]** Clear decoder reference levels.
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_DREF + &#39; &#39; + ones, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.clear_VRef"><code class="name flex">
-<span>def <span class="ident">clear_VRef</span></span>(<span>verbal)</span>
+<span>def <span class="ident">clear_VRef</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Clear 15 internally generated reference voltages of the current module</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def clear_VRef(verbal):
+<pre><code class="python">def clear_VRef(verbal=True):
     &#34;&#34;&#34; **[High Level]** Clear 15 internally generated reference voltages of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VREF, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.clear_VTGT_BL"><code class="name flex">
-<span>def <span class="ident">clear_VTGT_BL</span></span>(<span>verbal)</span>
+<span>def <span class="ident">clear_VTGT_BL</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Clear saved VTGT_BL of the current module</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def clear_VTGT_BL(verbal):
+<pre><code class="python">def clear_VTGT_BL(verbal=True):
     &#34;&#34;&#34; **[High Level]** Clear saved VTGT_BL of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CLEAR_VTGT_BL, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_ADC"><code class="name flex">
-<span>def <span class="ident">conf_ADC</span></span>(<span>offset, step, comp, verbal)</span>
+<span>def <span class="ident">conf_ADC</span></span>(<span>offset, step, comp='0x7FFF', verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure ADC settings</p>
@@ -1060,27 +1107,28 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>ADC step size, from <em>0</em>~<em>63</em>, <em>0</em> for minimum step and <em>63</em> for maximum step</dd>
 <dt><strong><code>comp</code></strong> :&ensp;<code>str</code></dt>
 <dd>Comparator enables, from <em>0x0001</em>~<em>0x7FFF</em>, each bit controls a comparator</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_ADC(offset, step, comp, verbal):
+<pre><code class="python">def conf_ADC(offset, step, comp=&#39;0x7FFF&#39;, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure ADC settings
 
     Args:
         offset (str): ADC offset, from *0*~*63*, *0* for minimum offset and *63* for maximum offset
         step (str): ADC step size, from *0*~*63*, *0* for minimum step and *63* for maximum step
         comp (str): Comparator enables, from *0x0001*~*0x7FFF*, each bit controls a comparator
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_ADC + &#39; &#39; + offset + &#39; &#39; + step + &#39; &#39; + comp, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_MAC"><code class="name flex">
-<span>def <span class="ident">conf_MAC</span></span>(<span>mode, resolution, verbal)</span>
+<span>def <span class="ident">conf_MAC</span></span>(<span>mode, resolution, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure MAC settings</p>
@@ -1090,26 +1138,27 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>MAC mode, <em>0</em> for unsigned and <em>1</em> for <em>signed</em></dd>
 <dt><strong><code>resolution</code></strong> :&ensp;<code>str</code></dt>
 <dd>MAC resolution <em>0</em> for 1 bit, <em>1</em> for 2 bits, <em>2</em> for 4 bits, and <em>3</em> for 8 bits</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_MAC(mode, resolution, verbal):
+<pre><code class="python">def conf_MAC(mode, resolution, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure MAC settings
 
     Args:
         mode (str): MAC mode, *0* for unsigned and *1* for *signed*
         resolution (str): MAC resolution *0* for 1 bit, *1* for 2 bits, *2* for 4 bits, and *3* for 8 bits
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_MAC + &#39; &#39; + mode + &#39; &#39; + resolution, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_VTGT_BL"><code class="name flex">
-<span>def <span class="ident">conf_VTGT_BL</span></span>(<span>vtgt_bl, verbal)</span>
+<span>def <span class="ident">conf_VTGT_BL</span></span>(<span>vtgt_bl, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Save the VTGT_BL for the current module</p>
@@ -1117,25 +1166,26 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dl>
 <dt><strong><code>vtgt_bl</code></strong> :&ensp;<code>str</code></dt>
 <dd>Voltage value for VTGT_BL.</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_VTGT_BL(vtgt_bl, verbal):
+<pre><code class="python">def conf_VTGT_BL(vtgt_bl, verbal=True):
     &#34;&#34;&#34; **[High Level]** Save the VTGT_BL for the current module
 
     Args:
         vtgt_bl (str): Voltage value for VTGT_BL.
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_VTGT_BL + &#39; &#39; + vtgt_bl, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_form"><code class="name flex">
-<span>def <span class="ident">conf_form</span></span>(<span>AVDD_WR, AVDD_WL, cycle, times, verbal)</span>
+<span>def <span class="ident">conf_form</span></span>(<span>AVDD_WR, AVDD_WL, cycle, times, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure FORM operation</p>
@@ -1149,14 +1199,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>number of clock cycles per pulse for FORM</dd>
 <dt><strong><code>times</code></strong> :&ensp;<code>str</code></dt>
 <dd>number of pulses for FORM</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal):
+<pre><code class="python">def conf_form(AVDD_WR, AVDD_WL, cycle, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure FORM operation
 
     Args:
@@ -1164,13 +1214,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
         AVDD_WL (str): AVDD_WL voltage for FORM
         cycle (str): number of clock cycles per pulse for FORM
         times (str): number of pulses for FORM
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_FORM + &#39; &#39; + AVDD_WR + &#39; &#39; + AVDD_WL + &#39; &#39; + cycle + &#39; &#39; + times, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_read"><code class="name flex">
-<span>def <span class="ident">conf_read</span></span>(<span>cycle, verbal)</span>
+<span>def <span class="ident">conf_read</span></span>(<span>cycle, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure READ operation</p>
@@ -1178,25 +1229,26 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dl>
 <dt><strong><code>cycle</code></strong> :&ensp;<code>str</code></dt>
 <dd>Number of clock cycles per pulse for READ</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_read(cycle, verbal):
+<pre><code class="python">def conf_read(cycle, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure READ operation
 
     Args:
         cycle (str): Number of clock cycles per pulse for READ
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_READ + &#39; &#39; + cycle, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_reset"><code class="name flex">
-<span>def <span class="ident">conf_reset</span></span>(<span>AVDD_WR, AVDD_WL, cycle, times, verbal)</span>
+<span>def <span class="ident">conf_reset</span></span>(<span>AVDD_WR, AVDD_WL, cycle, times, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure RESET operation</p>
@@ -1210,14 +1262,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>number of clock cycles per pulse for RESET</dd>
 <dt><strong><code>times</code></strong> :&ensp;<code>str</code></dt>
 <dd>number of pulses for RESET</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_reset(AVDD_WR, AVDD_WL, cycle, times, verbal):
+<pre><code class="python">def conf_reset(AVDD_WR, AVDD_WL, cycle, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure RESET operation
 
     Args:
@@ -1225,13 +1277,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
         AVDD_WL (str): AVDD_WL voltage for RESET
         cycle (str): number of clock cycles per pulse for RESET
         times (str): number of pulses for RESET
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_RESET + &#39; &#39; + AVDD_WR + &#39; &#39; + AVDD_WL + &#39; &#39; + cycle + &#39; &#39; + times, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.conf_set"><code class="name flex">
-<span>def <span class="ident">conf_set</span></span>(<span>AVDD_WR, AVDD_WL, cycle, times, verbal)</span>
+<span>def <span class="ident">conf_set</span></span>(<span>AVDD_WR, AVDD_WL, cycle, times, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure SET operation</p>
@@ -1245,14 +1298,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>number of clock cycles per pulse for SET</dd>
 <dt><strong><code>times</code></strong> :&ensp;<code>str</code></dt>
 <dd>number of pulses for SET</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def conf_set(AVDD_WR, AVDD_WL, cycle, times, verbal):
+<pre><code class="python">def conf_set(AVDD_WR, AVDD_WL, cycle, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure SET operation
 
     Args:
@@ -1260,7 +1313,8 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
         AVDD_WL (str): AVDD_WL voltage for SET
         cycle (str): number of clock cycles per pulse for SET
         times (str): number of pulses for SET
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_SET + &#39; &#39; + AVDD_WR + &#39; &#39; + AVDD_WL + &#39; &#39; + cycle + &#39; &#39; + times, verbal)</code></pre>
 </details>
@@ -1284,59 +1338,60 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
     # Driver functions
-    if   parameters[1] == &#39;id&#39;               : id               (                                                            True)
-    elif parameters[1] == &#39;lane&#39;             : lane             (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;group&#39;            : group            (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;module&#39;           : module           (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;mask&#39;             : mask             (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;address&#39;          : address          (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;read&#39;             : read             (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;mac&#39;              : mac              (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;write&#39;            : write            (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;adc&#39;              : adc              (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;pg&#39;               : pg               (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],                True)
+    if   parameters[1] == &#39;id&#39;               : id               (                                                          )
+    elif parameters[1] == &#39;lane&#39;             : lane             (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;group&#39;            : group            (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;module&#39;           : module           (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;mask&#39;             : mask             (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;address&#39;          : address          (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;read&#39;             : read             (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;mac&#39;              : mac              (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;write&#39;            : write            (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;adc&#39;              : adc              (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;pg&#39;               : pg               (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;ecc&#39;              : ecc              (parameters[2], parameters[3], parameters[4],              )
     # API functions
-    elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                            True)
-    elif parameters[1] == &#39;env_init&#39;         : env_init         (                                                            True)
-    elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                            True)
-    elif parameters[1] == &#39;mod_init&#39;         : mod_init         (                                                            True)
-    elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                            True)
-    elif parameters[1] == &#39;mod_conf&#39;         : mod_conf         (parameters[2],                                              True)
-    elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                              True)
-    elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;conf_set&#39;         : conf_set         (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;set&#39;              : set              (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;set_reset&#39;        : set_reset        (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;conf_reset&#39;       : conf_reset       (parameters[2], parameters[3], parameters[4], parameters[5], True)
-    elif parameters[1] == &#39;reset&#39;            : reset            (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;write_byte&#39;       : write_byte       (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;write_byte_iter&#39;  : write_byte_iter  (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;conf_read&#39;        : conf_read        (parameters[2],                                              True)
-    elif parameters[1] == &#39;read_lane&#39;        : read_lane        (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;read_byte&#39;        : read_byte        (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;conf_ADC&#39;         : conf_ADC         (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;conf_MAC&#39;         : conf_MAC         (parameters[2], parameters[3],                               True)
-    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],                True)
-    elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                            True)
-    elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                            True)
-    elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                            True)
-    elif parameters[1] == &#39;conf_VTGT_BL&#39;     : conf_VTGT_BL     (parameters[2],                                              True)
-    elif parameters[1] == &#39;list_VTGT_BL&#39;     : list_VTGT_BL     (                                                            True)
-    elif parameters[1] == &#39;clear_VTGT_BL&#39;    : clear_VTGT_BL    (                                                            True)
-    elif parameters[1] == &#39;sweep_DRef&#39;       : sweep_DRef       (parameters[2],                                              True)
-    elif parameters[1] == &#39;list_DRef&#39;        : list_DRef        (                                                            True)
-    elif parameters[1] == &#39;clear_DRef&#39;       : clear_DRef       (parameters[2],                                              True)
-    elif parameters[1] == &#39;check&#39;            : check            (parameters[2], parameters[3],                               True)
+    elif parameters[1] == &#39;reg_status&#39;       : reg_status       (                                                          )
+    elif parameters[1] == &#39;env_init&#39;         : env_init         (                                                          )
+    elif parameters[1] == &#39;env_status&#39;       : env_status       (                                                          )
+    elif parameters[1] == &#39;mod_init&#39;         : mod_init         (                                                          )
+    elif parameters[1] == &#39;mod_status&#39;       : mod_status       (                                                          )
+    elif parameters[1] == &#39;mod_conf&#39;         : mod_conf         (parameters[2],                                            )
+    elif parameters[1] == &#39;switch&#39;           : switch           (parameters[2],                                            )
+    elif parameters[1] == &#39;conf_form&#39;        : conf_form        (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;form&#39;             : form             (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;conf_set&#39;         : conf_set         (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;set&#39;              : set              (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;set_reset&#39;        : set_reset        (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;conf_reset&#39;       : conf_reset       (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;reset&#39;            : reset            (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;write_byte&#39;       : write_byte       (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;write_byte_iter&#39;  : write_byte_iter  (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;conf_read&#39;        : conf_read        (parameters[2],                                            )
+    elif parameters[1] == &#39;read_lane&#39;        : read_lane        (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;read_byte&#39;        : read_byte        (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;conf_ADC&#39;         : conf_ADC         (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;conf_MAC&#39;         : conf_MAC         (parameters[2], parameters[3],                             )
+    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                          )
+    elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                          )
+    elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                          )
+    elif parameters[1] == &#39;conf_VTGT_BL&#39;     : conf_VTGT_BL     (parameters[2],                                            )
+    elif parameters[1] == &#39;list_VTGT_BL&#39;     : list_VTGT_BL     (                                                          )
+    elif parameters[1] == &#39;clear_VTGT_BL&#39;    : clear_VTGT_BL    (                                                          )
+    elif parameters[1] == &#39;sweep_DRef&#39;       : sweep_DRef       (parameters[2],                                            )
+    elif parameters[1] == &#39;list_DRef&#39;        : list_DRef        (                                                          )
+    elif parameters[1] == &#39;clear_DRef&#39;       : clear_DRef       (parameters[2],                                            )
+    elif parameters[1] == &#39;check_cell&#39;       : check_cell       (parameters[2],                                            )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.ecc"><code class="name flex">
-<span>def <span class="ident">ecc</span></span>(<span>action, action_type, target, verbal)</span>
+<span>def <span class="ident">ecc</span></span>(<span>action, action_type, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Configure power gating related settings</p>
@@ -1348,25 +1403,30 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>enable</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, <em>0</em>~<em>1</em> for <em>enable</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current value of <em>action_type</em>.</p></div>
+<dl>
+<dt><code>str</code> or <code>int</code></dt>
+<dd>The current value of <em>action_type</em>.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ecc(action, action_type, target, verbal):
+<pre><code class="python">def ecc(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set*, *get*, *clear*, or *check*
         action_type (str): Could be *enable*
         target (str): Target number, *0*~*1* for *enable*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        str or int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;enable&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_ECC + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_ECC_ENABLE + &#39; &#39; + target, verbal)
@@ -1384,53 +1444,55 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.env_init"><code class="name flex">
-<span>def <span class="ident">env_init</span></span>(<span>verbal)</span>
+<span>def <span class="ident">env_init</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def env_init(verbal):
+<pre><code class="python">def env_init(verbal=True):
     &#34;&#34;&#34; **[High Level]** Initialize the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_INIT, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.env_status"><code class="name flex">
-<span>def <span class="ident">env_status</span></span>(<span>verbal)</span>
+<span>def <span class="ident">env_status</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def env_status(verbal):
+<pre><code class="python">def env_status(verbal=True):
     &#34;&#34;&#34; **[High Level]** Print the environment configurations of the RRAM accelerator and the currently selected RRAM modules
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal=True)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.form"><code class="name flex">
-<span>def <span class="ident">form</span></span>(<span>level, number, verbal)</span>
+<span>def <span class="ident">form</span></span>(<span>level, number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> FORM the cells</p>
@@ -1440,20 +1502,21 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Hierarchy level, could be <em>cell</em>, <em>row</em>, <em>col</em>, <em>module</em></dd>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, could be <em>0</em>~<em>65535</em> for <em>cell</em>, <em>0</em>~<em>255</em> for <em>row</em> and <em>col</em>, <em>0</em> for <em>module</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def form(level, number, verbal):
+<pre><code class="python">def form(level, number, verbal=True):
     &#34;&#34;&#34; **[High Level]** FORM the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_FORM + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number, verbal)
@@ -1466,7 +1529,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.group"><code class="name flex">
-<span>def <span class="ident">group</span></span>(<span>action, target, verbal)</span>
+<span>def <span class="ident">group</span></span>(<span>action, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Set/Get the selected group for the Vector module</p>
@@ -1476,24 +1539,29 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>set</em> or <em>get</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target group number, from <em>0</em>~<em>35</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The selected group.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The selected group.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def group(action, target, verbal):
+<pre><code class="python">def group(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected group for the Vector module
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target group number, from *0*~*35*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The selected group.
+        int: The selected group.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_GROUP + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_GROUP + &#39; &#39; + CM.CM_RRAM_GET, verbal))
@@ -1501,35 +1569,39 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.id"><code class="name flex">
-<span>def <span class="ident">id</span></span>(<span>verbal)</span>
+<span>def <span class="ident">id</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Get the ID of the RRAM Modules</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The ID of the RRAM Modules.</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID of the RRAM Modules. (should be <code>0x01314520</code>)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def id (verbal):
+<pre><code class="python">def id (verbal=True):
     &#34;&#34;&#34; **[Low Level]** Get the ID of the RRAM Modules
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of the RRAM Modules.
+        str: The ID of the RRAM Modules. (should be `0x01314520`)
 
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PID, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.lane"><code class="name flex">
-<span>def <span class="ident">lane</span></span>(<span>action, target, verbal)</span>
+<span>def <span class="ident">lane</span></span>(<span>action, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Set/Get the selected ADC lane</p>
@@ -1539,24 +1611,29 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>set</em> or <em>get</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target lane number, from <em>0</em>~<em>7</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The selected lane.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The selected lane.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def lane(action, target, verbal):
+<pre><code class="python">def lane(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected ADC lane
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target lane number, from *0*~*7*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The selected lane.
+        int: The selected lane.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_LANE + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_LANE + &#39; &#39; + CM.CM_RRAM_GET, verbal))
@@ -1564,88 +1641,103 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.list_DRef"><code class="name flex">
-<span>def <span class="ident">list_DRef</span></span>(<span>verbal)</span>
+<span>def <span class="ident">list_DRef</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> List decoder reference levels of the current module</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current decoder reference of the selected RRAM Module.</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The current decoder reference of the selected RRAM Module.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def list_DRef(verbal):
+<pre><code class="python">def list_DRef(verbal=True):
     &#34;&#34;&#34; **[High Level]** List decoder reference levels of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current decoder reference of the selected RRAM Module.
+        str: The current decoder reference of the selected RRAM Module.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_DREF, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.list_VRef"><code class="name flex">
-<span>def <span class="ident">list_VRef</span></span>(<span>verbal)</span>
+<span>def <span class="ident">list_VRef</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> List 15 internally generated reference voltages of the current module, sweep_VRef needs to be done in advance</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>15 internally generated reference voltages of the selected RRAM Module.</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>15 internally generated reference voltages of the selected RRAM Module.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def list_VRef(verbal):
+<pre><code class="python">def list_VRef(verbal=True):
     &#34;&#34;&#34; **[High Level]** List 15 internally generated reference voltages of the current module, sweep_VRef needs to be done in advance
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        15 internally generated reference voltages of the selected RRAM Module.
+        str: 15 internally generated reference voltages of the selected RRAM Module.
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VREF, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.list_VTGT_BL"><code class="name flex">
-<span>def <span class="ident">list_VTGT_BL</span></span>(<span>verbal)</span>
+<span>def <span class="ident">list_VTGT_BL</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> List saved VTGT_BL of the current module</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current VTGT_BL of the selected RRAM Module.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The current VTGT_BL of the selected RRAM Module.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def list_VTGT_BL(verbal):
+<pre><code class="python">def list_VTGT_BL(verbal=True):
     &#34;&#34;&#34; **[High Level]** List saved VTGT_BL of the current module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current VTGT_BL of the selected RRAM Module.
+        int: The current VTGT_BL of the selected RRAM Module.
+
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VTGT_BL, verbal)</code></pre>
+    return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_LIST_VTGT_BL, verbal))</code></pre>
 </details>
 </dd>
 <dt id="RRAM.mac"><code class="name flex">
-<span>def <span class="ident">mac</span></span>(<span>action, action_type, target, verbal)</span>
+<span>def <span class="ident">mac</span></span>(<span>action, action_type, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Configure mac related settings</p>
@@ -1657,25 +1749,30 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>status</em>, <em>result</em>, <em>mode</em>, <em>resolution</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, <em>0</em>~<em>1</em> for <em>mode</em>, <em>0</em>~<em>3</em> for <em>resolution</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current value of <em>action_type</em>.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The current value of <em>action_type</em>.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mac(action, action_type, target, verbal):
+<pre><code class="python">def mac(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure mac related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *status*, *result*, *mode*, *resolution*
         target (str): Target number, *0*~*1* for *mode*, *0*~*3* for *resolution*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;mode&#39;      :            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MAC + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_MAC_MODE       + &#39; &#39; + target, verbal)
@@ -1691,7 +1788,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.mask"><code class="name flex">
-<span>def <span class="ident">mask</span></span>(<span>action, target, verbal)</span>
+<span>def <span class="ident">mask</span></span>(<span>action, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Set/Get the RRAM module selection mask register</p>
@@ -1701,24 +1798,29 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>set</em> or <em>get</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target RRAM module selection mask, from <em>0x00000001</em>~<em>0xFFFFFFFF</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current mask.</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The current mask.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mask(action, target, verbal):
+<pre><code class="python">def mask(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the RRAM module selection mask register
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target RRAM module selection mask, from *0x00000001*~*0xFFFFFFFF*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current mask.
+        str: The current mask.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MASK + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MASK + &#39; &#39; + CM.CM_RRAM_GET, verbal)
@@ -1726,76 +1828,88 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.mod_conf"><code class="name flex">
-<span>def <span class="ident">mod_conf</span></span>(<span>status, verbal)</span>
+<span>def <span class="ident">mod_conf</span></span>(<span>status, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Configure the current module floorplan status</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mod_conf(status, verbal):
+<pre><code class="python">def mod_conf(status, verbal=True):
     &#34;&#34;&#34; **[High Level]** Configure the current module floorplan status
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_CONF + &#39; &#39; + status, verbal)</code></pre>
+    status_dict = {
+        &#39;C&#39;: CM.CM_RRAM_API_MOD_STATUS_CLEAN,
+        &#39;F&#39;: CM.CM_RRAM_API_MOD_STATUS_FORMED,
+        &#39;P&#39;: CM.CM_RRAM_API_MOD_STATUS_PARTIALLY_FORMED,
+        &#39;U&#39;: CM.CM_RRAM_API_MOD_STATUS_USED,
+        &#39;B&#39;: CM.CM_RRAM_API_MOD_STATUS_BROKEN,
+        &#39;A&#39;: CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL,
+        &#39;?&#39;: CM.CM_RRAM_API_MOD_STATUS_UNKNOWN,
+    }
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_CONF + &#39; &#39; + str(status_dict[status]), verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.mod_init"><code class="name flex">
-<span>def <span class="ident">mod_init</span></span>(<span>verbal)</span>
+<span>def <span class="ident">mod_init</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Initialize the module floorplan status</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mod_init(verbal):
+<pre><code class="python">def mod_init(verbal=True):
     &#34;&#34;&#34; **[High Level]** Initialize the module floorplan status
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_INIT, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.mod_status"><code class="name flex">
-<span>def <span class="ident">mod_status</span></span>(<span>verbal)</span>
+<span>def <span class="ident">mod_status</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Print the module floorplan status</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def mod_status(verbal):
+<pre><code class="python">def mod_status(verbal=True):
     &#34;&#34;&#34; **[High Level]** Print the module floorplan status
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_MOD_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.module"><code class="name flex">
-<span>def <span class="ident">module</span></span>(<span>action, target, verbal)</span>
+<span>def <span class="ident">module</span></span>(<span>action, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Set/Get the selected RRAM module</p>
@@ -1805,24 +1919,29 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>set</em> or <em>get</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target RRAM module number, from <em>0</em>~<em>287</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The selected module.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The selected module.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def module(action, target, verbal):
+<pre><code class="python">def module(action, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Set/Get the selected RRAM module
 
     Args:
         action (str): Could be *set* or *get*
         target (str): Target RRAM module number, from *0*~*287*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The selected module.
+        int: The selected module.
+
     &#34;&#34;&#34;
     if   action == &#39;set&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MODULE + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + target, verbal)
     elif action == &#39;get&#39;: return int(PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_MODULE + &#39; &#39; + CM.CM_RRAM_GET, verbal))
@@ -1830,7 +1949,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.pg"><code class="name flex">
-<span>def <span class="ident">pg</span></span>(<span>action, action_type, target, verbal)</span>
+<span>def <span class="ident">pg</span></span>(<span>action, action_type, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Configure power gating related settings</p>
@@ -1842,25 +1961,30 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>disable</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, <em>0</em>~<em>1</em> for <em>disable</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current value of <em>action_type</em>.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The current value of <em>action_type</em>.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def pg(action, action_type, target, verbal):
+<pre><code class="python">def pg(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure power gating related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *disable*
         target (str): Target number, *0*~*1* for *disable*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;disable&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PG + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_PG_DISABLE + &#39; &#39; + target, verbal)
@@ -1874,7 +1998,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.read"><code class="name flex">
-<span>def <span class="ident">read</span></span>(<span>action, action_type, target, verbal)</span>
+<span>def <span class="ident">read</span></span>(<span>action, action_type, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Configure read related settings</p>
@@ -1886,25 +2010,30 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>status</em>, <em>enable</em>, <em>cycle</em>, <em>source</em>, <em>counter</em>, <em>data</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, <em>0</em>~<em>1</em> for <em>enable</em> <em>source</em>, <em>0</em>~<em>255</em> for <em>cycle</em>, and <em>0x1</em>~<em>0x1FF</em> for <em>data</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current value of <em>action_type</em>.</p></div>
+<dl>
+<dt><code>str</code> or <code>int</code></dt>
+<dd>The current value of <em>action_type</em>.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read(action, action_type, target, verbal):
+<pre><code class="python">def read(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *status*, *enable*, *cycle*, *source*, *counter*, *data*
         target (str): Target number, *0*~*1* for *enable* *source*, *0*~*255* for *cycle*, and *0x1*~*0x1FF* for *data*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current value of *action_type*.
+        str or int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;enable&#39; :        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_READ + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_READ_ENABLE  + &#39; &#39; + target, verbal)
@@ -1927,7 +2056,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.read_byte"><code class="name flex">
-<span>def <span class="ident">read_byte</span></span>(<span>address, counter, data, verbal)</span>
+<span>def <span class="ident">read_byte</span></span>(<span>address, counter, data, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Read the whole byte from <em>address</em> with <em>data</em> fed to the WLs and <em>counter</em> for the MAC unit</p>
@@ -1939,31 +2068,36 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>so the MAC unit knows which bit the <em>data</em> is currently at</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be fed to the WLs</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The readout value of one byte (8 lanes).</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The readout value of one byte (8 lanes).</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read_byte(address, counter, data, verbal):
+<pre><code class="python">def read_byte(address, counter, data, verbal=True):
     &#34;&#34;&#34; **[High Level]** Read the whole byte from *address* with *data* fed to the WLs and *counter* for the MAC unit
 
     Args:
         address (str): Address to be read from
         counter (str): so the MAC unit knows which bit the *data* is currently at
         data (str): Value to be fed to the WLs
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The readout value of one byte (8 lanes).
+        str: The readout value of one byte (8 lanes).
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_READ_BYTE + &#39; &#39; + address + &#39; &#39; + counter + &#39; &#39; + data, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.read_lane"><code class="name flex">
-<span>def <span class="ident">read_lane</span></span>(<span>address, data, verbal)</span>
+<span>def <span class="ident">read_lane</span></span>(<span>address, data, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Read the <em>address</em> cell with <em>data</em> fed to the WLs</p>
@@ -1973,53 +2107,59 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Address to be read from</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be fed to the WLs</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The readout value of one lane.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def read_lane(address, data, verbal):
-    &#34;&#34;&#34; **[High Level]** Read the *address* cell with *data* fed to the WLs
-
-    Args:
-        address (str): Address to be read from
-        data (str): Value to be fed to the WLs
-        verbal (bool): Whether to print the response or not.
-    Returns:
-        The readout value of one lane.
-    &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_READ_LANE + &#39; &#39; + address + &#39; &#39; + data, verbal)</code></pre>
-</details>
-</dd>
-<dt id="RRAM.reg_status"><code class="name flex">
-<span>def <span class="ident">reg_status</span></span>(<span>verbal)</span>
-</code></dt>
-<dd>
-<div class="desc"><p><strong>[High Level]</strong> Print the register status of the RRAM accelerator</p>
-<h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><code>str</code></dt>
+<dd>The readout value of one lane.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def reg_status(verbal):
+<pre><code class="python">def read_lane(address, data, verbal=True):
+    &#34;&#34;&#34; **[High Level]** Read the *address* cell with *data* fed to the WLs
+
+    Args:
+        address (str): Address to be read from
+        data (str): Value to be fed to the WLs
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    Returns:
+        str: The readout value of one lane.
+
+    &#34;&#34;&#34;
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_READ_LANE + &#39; &#39; + address + &#39; &#39; + data, verbal)</code></pre>
+</details>
+</dd>
+<dt id="RRAM.reg_status"><code class="name flex">
+<span>def <span class="ident">reg_status</span></span>(<span>verbal=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><strong>[High Level]</strong> Print the register status of the RRAM accelerator</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reg_status(verbal=True):
     &#34;&#34;&#34; **[High Level]** Print the register status of the RRAM accelerator
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_REG_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.reset"><code class="name flex">
-<span>def <span class="ident">reset</span></span>(<span>level, number, verbal)</span>
+<span>def <span class="ident">reset</span></span>(<span>level, number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> RESET the cells</p>
@@ -2029,33 +2169,34 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Hierarchy level, could be <em>cell</em>, <em>row</em>, <em>col</em>, <em>module</em></dd>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, could be <em>0</em>~<em>65535</em> for <em>cell</em>, <em>0</em>~<em>255</em> for <em>row</em> and <em>col</em>, <em>0</em> for <em>module</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def reset(level, number, verbal):
+<pre><code class="python">def reset(level, number, verbal=True):
     &#34;&#34;&#34; **[High Level]** RESET the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL   + &#39; &#39; + number, verbal)
     elif level == &#39;row&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW    + &#39; &#39; + number, verbal)
     elif level == &#39;col&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL    + &#39; &#39; + number, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.set"><code class="name flex">
-<span>def <span class="ident">set</span></span>(<span>level, number, verbal)</span>
+<span>def <span class="ident">set</span></span>(<span>level, number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> SET the cells</p>
@@ -2065,33 +2206,34 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Hierarchy level, could be <em>cell</em>, <em>row</em>, <em>col</em>, <em>module</em></dd>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, could be <em>0</em>~<em>65535</em> for <em>cell</em>, <em>0</em>~<em>255</em> for <em>row</em> and <em>col</em>, <em>0</em> for <em>module</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set(level, number, verbal):
+<pre><code class="python">def set(level, number, verbal=True):
     &#34;&#34;&#34; **[High Level]** SET the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL   + &#39; &#39; + number, verbal)
     elif level == &#39;row&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW    + &#39; &#39; + number, verbal)
     elif level == &#39;col&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL    + &#39; &#39; + number, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.set_reset"><code class="name flex">
-<span>def <span class="ident">set_reset</span></span>(<span>level, number, times, verbal)</span>
+<span>def <span class="ident">set_reset</span></span>(<span>level, number, times, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> SET and RESET the cells</p>
@@ -2103,68 +2245,69 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Target number, could be <em>0</em>~<em>65535</em> for <em>cell</em>, <em>0</em>~<em>255</em> for <em>row</em> and <em>col</em>, <em>0</em> for <em>module</em></dd>
 <dt><strong><code>times</code></strong> :&ensp;<code>str</code></dt>
 <dd>How many loops per set&amp;reset</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_reset(level, number, times, verbal):
+<pre><code class="python">def set_reset(level, number, times, verbal=True):
     &#34;&#34;&#34; **[High Level]** SET and RESET the cells
 
     Args:
         level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
         number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
         times (str): How many loops per set&amp;reset
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if level == &#39;cell&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL + &#39; &#39; + number + &#39; &#39; + times, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_CELL   + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;row&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW + &#39; &#39; + number + &#39; &#39; + times, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_ROW    + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;col&#39;:
-        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL + &#39; &#39; + number + &#39; &#39; + times, verbal)
+        PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_COL    + &#39; &#39; + number + &#39; &#39; + times, verbal)
     elif level == &#39;module&#39;:
         PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SET_RESET + &#39; &#39; + CM.CM_RRAM_API_LEVEL_MODULE + &#39; &#39; + number + &#39; &#39; + times, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.sweep_DRef"><code class="name flex">
-<span>def <span class="ident">sweep_DRef</span></span>(<span>ones, verbal)</span>
+<span>def <span class="ident">sweep_DRef</span></span>(<span>ones, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Calibrate decoder reference levels.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function destroys the values inside some cells</p>
+<p>This function changes the values inside some cells</p>
 </div>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>ones</code></strong> :&ensp;<code>str</code></dt>
 <dd>Could be omit or <em>1</em>~<em>9</em>, omit means do the calibration for all <em>1</em>~<em>9</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def sweep_DRef(ones, verbal):
+<pre><code class="python">def sweep_DRef(ones, verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate decoder reference levels.
 
     .. note::
-
-        This function destroys the values inside some cells
+        This function changes the values inside some cells
 
     Args:
         ones (str): Could be omit or *1*~*9*, omit means do the calibration for all *1*~*9*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_DREF + &#39; &#39; + ones, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.sweep_VRef"><code class="name flex">
-<span>def <span class="ident">sweep_VRef</span></span>(<span>low, high, step, verbal)</span>
+<span>def <span class="ident">sweep_VRef</span></span>(<span>low, high, step, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module</p>
@@ -2176,27 +2319,28 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Ending voltage for ADC_CAL</dd>
 <dt><strong><code>step</code></strong> :&ensp;<code>str</code></dt>
 <dd>Step for ADC_CAL</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def sweep_VRef(low, high, step, verbal):
+<pre><code class="python">def sweep_VRef(low, high, step, verbal=True):
     &#34;&#34;&#34; **[High Level]** Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Args:
         low (str): Starting voltage for ADC_CAL
         high (str): Ending voltage for ADC_CAL
         step (str): Step for ADC_CAL
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + step, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.switch"><code class="name flex">
-<span>def <span class="ident">switch</span></span>(<span>index, verbal)</span>
+<span>def <span class="ident">switch</span></span>(<span>index, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Switch to module <em>index</em> and configure related things. (ex. ADC, VTGT_BL &hellip; etc)</p>
@@ -2204,25 +2348,26 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dl>
 <dt><strong><code>index</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target RRAM Module, from <em>0</em> ~ <em>287</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def switch(index, verbal):
+<pre><code class="python">def switch(index, verbal=True):
     &#34;&#34;&#34; **[High Level]** Switch to module *index* and configure related things. (ex. ADC, VTGT_BL ... etc)
 
     Args:
         index (str): Target RRAM Module, from *0* ~ *287*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWITCH + &#39; &#39; + index, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.write"><code class="name flex">
-<span>def <span class="ident">write</span></span>(<span>action, action_type, target, verbal)</span>
+<span>def <span class="ident">write</span></span>(<span>action, action_type, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[Low Level]</strong> Configure read related settings</p>
@@ -2234,25 +2379,29 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Could be <em>status</em>, <em>enable</em>, <em>cycle</em>, <em>mode</em></dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number, <em>0</em>~<em>1</em> for <em>enable</em> <em>mode</em>, <em>0</em>~<em>65535</em> for <em>cycle</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current value of <em>action_type</em>.</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The current value of <em>action_type</em>.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write(action, action_type, target, verbal):
+<pre><code class="python">def write(action, action_type, target, verbal=True):
     &#34;&#34;&#34; **[Low Level]** Configure read related settings
 
     Args:
         action (str): Could be *set* or *get*
         action_type (str): Could be *status*, *enable*, *cycle*, *mode*
         target (str): Target number, *0*~*1* for *enable* *mode*, *0*~*65535* for *cycle*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
     Returns:
-        The current value of *action_type*.
+        int: The current value of *action_type*.
+
     &#34;&#34;&#34;
     if action == &#39;set&#39;:
         if   action_type == &#39;enable&#39;:            PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_WRITE + &#39; &#39; + CM.CM_RRAM_SET + &#39; &#39; + CM.CM_RRAM_WRITE_ENABLE + &#39; &#39; + target, verbal)
@@ -2271,7 +2420,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.write_byte"><code class="name flex">
-<span>def <span class="ident">write_byte</span></span>(<span>address, value, verbal)</span>
+<span>def <span class="ident">write_byte</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Write <em>value</em> to <em>address</em></p>
@@ -2281,26 +2430,27 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Address to be written to</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write_byte(address, value, verbal):
+<pre><code class="python">def write_byte(address, value, verbal=True):
     &#34;&#34;&#34; **[High Level]** Write *value* to *address*
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_WRITE_BYTE + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.write_byte_iter"><code class="name flex">
-<span>def <span class="ident">write_byte_iter</span></span>(<span>address, value, verbal)</span>
+<span>def <span class="ident">write_byte_iter</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Write <em>value</em> to <em>address</em> iteratively, this function is more robust than <code><a title="RRAM.write_byte" href="#RRAM.write_byte">write_byte()</a></code> but takes longer</p>
@@ -2310,20 +2460,21 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <dd>Address to be written to</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write_byte_iter(address, value, verbal):
+<pre><code class="python">def write_byte_iter(address, value, verbal=True):
     &#34;&#34;&#34; **[High Level]** Write *value* to *address* iteratively, this function is more robust than `write_byte` but takes longer
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_WRITE_BYTE_ITER + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
 </details>
@@ -2345,7 +2496,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <li><code><a title="RRAM.address" href="#RRAM.address">address</a></code></li>
 <li><code><a title="RRAM.calibrate_VRef" href="#RRAM.calibrate_VRef">calibrate_VRef</a></code></li>
 <li><code><a title="RRAM.calibrate_VTGT_BL" href="#RRAM.calibrate_VTGT_BL">calibrate_VTGT_BL</a></code></li>
-<li><code><a title="RRAM.check" href="#RRAM.check">check</a></code></li>
+<li><code><a title="RRAM.check_cell" href="#RRAM.check_cell">check_cell</a></code></li>
 <li><code><a title="RRAM.clear_DRef" href="#RRAM.clear_DRef">clear_DRef</a></code></li>
 <li><code><a title="RRAM.clear_VRef" href="#RRAM.clear_VRef">clear_VRef</a></code></li>
 <li><code><a title="RRAM.clear_VTGT_BL" href="#RRAM.clear_VTGT_BL">clear_VTGT_BL</a></code></li>

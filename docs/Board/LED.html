@@ -30,32 +30,35 @@
 import PyTerminal as PT
 
 
-def enable(target, verbal):
+def enable(target, verbal=True):
     &#34;&#34;&#34; Enable *target*
 
     Args:
         target (str): The target LED source (could be *TX* or *RX*)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_LED + &#39; &#39; + CM.CM_LED_ENABLE + &#39; &#39; + target, verbal)
 
 
-def disable(target, verbal):
+def disable(target, verbal=True):
     &#34;&#34;&#34; Disable *target*
 
     Args:
         target (str): The target LED source (could be *TX* or *RX*)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_LED + &#39; &#39; + CM.CM_LED_DISABLE + &#39; &#39; + target, verbal)
 
 
-def toggle(target, verbal):
+def toggle(target, verbal=True):
     &#34;&#34;&#34; Toggle *target*
 
     Args:
         target (str): The target LED source (could be *TX* or *RX*)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_LED + &#39; &#39; + CM.CM_LED_TOGGLE + &#39; &#39; + target, verbal)
 
@@ -65,10 +68,11 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;enable&#39; : enable (parameters[2], True)
-    elif parameters[1] == &#39;disable&#39;: disable(parameters[2], True)
-    elif parameters[1] == &#39;toggle&#39; : toggle (parameters[2], True)
+    if   parameters[1] == &#39;enable&#39; : enable (parameters[2])
+    elif parameters[1] == &#39;disable&#39;: disable(parameters[2])
+    elif parameters[1] == &#39;toggle&#39; : toggle (parameters[2])
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -98,15 +102,16 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;enable&#39; : enable (parameters[2], True)
-    elif parameters[1] == &#39;disable&#39;: disable(parameters[2], True)
-    elif parameters[1] == &#39;toggle&#39; : toggle (parameters[2], True)
+    if   parameters[1] == &#39;enable&#39; : enable (parameters[2])
+    elif parameters[1] == &#39;disable&#39;: disable(parameters[2])
+    elif parameters[1] == &#39;toggle&#39; : toggle (parameters[2])
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="LED.disable"><code class="name flex">
-<span>def <span class="ident">disable</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">disable</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Disable <em>target</em></p>
@@ -114,25 +119,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target LED source (could be <em>TX</em> or <em>RX</em>)</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def disable(target, verbal):
+<pre><code class="python">def disable(target, verbal=True):
     &#34;&#34;&#34; Disable *target*
 
     Args:
         target (str): The target LED source (could be *TX* or *RX*)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_LED + &#39; &#39; + CM.CM_LED_DISABLE + &#39; &#39; + target, verbal)</code></pre>
 </details>
 </dd>
 <dt id="LED.enable"><code class="name flex">
-<span>def <span class="ident">enable</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">enable</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Enable <em>target</em></p>
@@ -140,25 +146,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target LED source (could be <em>TX</em> or <em>RX</em>)</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def enable(target, verbal):
+<pre><code class="python">def enable(target, verbal=True):
     &#34;&#34;&#34; Enable *target*
 
     Args:
         target (str): The target LED source (could be *TX* or *RX*)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_LED + &#39; &#39; + CM.CM_LED_ENABLE + &#39; &#39; + target, verbal)</code></pre>
 </details>
 </dd>
 <dt id="LED.toggle"><code class="name flex">
-<span>def <span class="ident">toggle</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">toggle</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Toggle <em>target</em></p>
@@ -166,19 +173,20 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target LED source (could be <em>TX</em> or <em>RX</em>)</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def toggle(target, verbal):
+<pre><code class="python">def toggle(target, verbal=True):
     &#34;&#34;&#34; Toggle *target*
 
     Args:
         target (str): The target LED source (could be *TX* or *RX*)
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_LED + &#39; &#39; + CM.CM_LED_TOGGLE + &#39; &#39; + target, verbal)</code></pre>
 </details>

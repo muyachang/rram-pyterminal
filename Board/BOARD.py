@@ -2,13 +2,15 @@ import CommandMap as CM
 import PyTerminal as PT
 
 
-def version(verbal):
+def version(verbal=True):
     """ Return the version of Atmel firmware
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The version of Atmel firmware.
+        str: The version of Atmel firmware.
+
     """
     return PT.send_command(CM.CM_BOARD + ' ' + CM.CM_BOARD_VERSION, verbal)
 
@@ -19,5 +21,5 @@ def decode(parameters):
     Args:
         parameters (list): Command in *List* form.
     """
-    if   parameters[1] == 'version': version(True)
+    if   parameters[1] == 'version': version()
     else: PT.unknown(parameters)

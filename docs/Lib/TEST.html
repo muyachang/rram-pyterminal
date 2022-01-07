@@ -44,12 +44,12 @@ def check_chip_VRef():
         RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;700&#39;, &#39;5&#39;, False)
+        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;750&#39;, &#39;5&#39;, False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
         if offset == 0 or offset == 63 or step == 0 or step == 63:
-            RRAM.mod_conf(str(CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL), False)
+            RRAM.mod_conf(&#39;A&#39;, False)
     print(&#39;&#39;)
 
     RRAM.mod_status(True)
@@ -66,7 +66,7 @@ def sweep_chip_VRef():
         RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;700&#39;, &#39;5&#39;, False)
+        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;750&#39;, &#39;5&#39;, False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
@@ -190,6 +190,41 @@ def cim_byte(row, col, num):
     print(&#39;╚══════╩═════════╩════════╩════════════╝&#39;)
 
 
+def profile():
+    &#34;&#34;&#34; Test function for computer in memory (CIM) at byte level
+
+    Args:
+    &#34;&#34;&#34;
+    set = [[0 for x in range(256)] for y in range(256)]
+    reset = [[0 for x in range(256)] for y in range(256)]
+    condition = [[0 for x in range(256)] for y in range(256)]
+
+    print(&#39;Setting&#39;)
+    RRAM.set(&#39;module&#39;, &#39;0&#39;, False)
+    for row in range(256):
+        for col in range(256):
+            address = row*256 + col
+            set[row][col] = int(RRAM.read_lane(str(address), &#39;1&#39;, False), 16)
+
+    print(&#39;Resetting&#39;)
+    RRAM.reset(&#39;module&#39;, &#39;0&#39;, False)
+    for row in range(256):
+        for col in range(256):
+            address = row*256 + col
+            reset[row][col] = int(RRAM.read_lane(str(address), &#39;1&#39;, False), 16)
+
+    print(&#39;Analyzing&#39;)
+    for row in range(256):
+        for col in range(256):
+            condition[row][col] = 1 if set[row][col] &lt; reset[row][col] else 0
+
+    print(&#39;Printing&#39;)
+    for row in range(256):
+        for col in range(256):
+            if condition[row][col] == 0:
+                print(f&#39;({row}, {col}) not healthy&#39;)
+
+
 def decode(parameters):
     &#34;&#34;&#34; Decode the command
 
@@ -201,6 +236,7 @@ def decode(parameters):
     elif parameters[1] == &#39;write_byte&#39;     : write_byte     (parameters[2], parameters[3]               )
     elif parameters[1] == &#39;cim_bit&#39;        : cim_bit        (parameters[2], parameters[3]               )
     elif parameters[1] == &#39;cim_byte&#39;       : cim_byte       (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;profile&#39;        : profile        (                                           )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -231,12 +267,12 @@ def decode(parameters):
         RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;700&#39;, &#39;5&#39;, False)
+        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;750&#39;, &#39;5&#39;, False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
         if offset == 0 or offset == 63 or step == 0 or step == 63:
-            RRAM.mod_conf(str(CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL), False)
+            RRAM.mod_conf(&#39;A&#39;, False)
     print(&#39;&#39;)
 
     RRAM.mod_status(True)</code></pre>
@@ -384,7 +420,53 @@ def decode(parameters):
     elif parameters[1] == &#39;write_byte&#39;     : write_byte     (parameters[2], parameters[3]               )
     elif parameters[1] == &#39;cim_bit&#39;        : cim_bit        (parameters[2], parameters[3]               )
     elif parameters[1] == &#39;cim_byte&#39;       : cim_byte       (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == &#39;profile&#39;        : profile        (                                           )
     else: PT.unknown(parameters)</code></pre>
+</details>
+</dd>
+<dt id="TEST.profile"><code class="name flex">
+<span>def <span class="ident">profile</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test function for computer in memory (CIM) at byte level</p>
+<p>Args:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def profile():
+    &#34;&#34;&#34; Test function for computer in memory (CIM) at byte level
+
+    Args:
+    &#34;&#34;&#34;
+    set = [[0 for x in range(256)] for y in range(256)]
+    reset = [[0 for x in range(256)] for y in range(256)]
+    condition = [[0 for x in range(256)] for y in range(256)]
+
+    print(&#39;Setting&#39;)
+    RRAM.set(&#39;module&#39;, &#39;0&#39;, False)
+    for row in range(256):
+        for col in range(256):
+            address = row*256 + col
+            set[row][col] = int(RRAM.read_lane(str(address), &#39;1&#39;, False), 16)
+
+    print(&#39;Resetting&#39;)
+    RRAM.reset(&#39;module&#39;, &#39;0&#39;, False)
+    for row in range(256):
+        for col in range(256):
+            address = row*256 + col
+            reset[row][col] = int(RRAM.read_lane(str(address), &#39;1&#39;, False), 16)
+
+    print(&#39;Analyzing&#39;)
+    for row in range(256):
+        for col in range(256):
+            condition[row][col] = 1 if set[row][col] &lt; reset[row][col] else 0
+
+    print(&#39;Printing&#39;)
+    for row in range(256):
+        for col in range(256):
+            if condition[row][col] == 0:
+                print(f&#39;({row}, {col}) not healthy&#39;)</code></pre>
 </details>
 </dd>
 <dt id="TEST.sweep_chip_VRef"><code class="name flex">
@@ -408,7 +490,7 @@ def decode(parameters):
         RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;700&#39;, &#39;5&#39;, False)
+        response = RRAM.calibrate_VRef(&#39;120&#39;, &#39;750&#39;, &#39;5&#39;, False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
@@ -482,6 +564,7 @@ def decode(parameters):
 <li><code><a title="TEST.cim_bit" href="#TEST.cim_bit">cim_bit</a></code></li>
 <li><code><a title="TEST.cim_byte" href="#TEST.cim_byte">cim_byte</a></code></li>
 <li><code><a title="TEST.decode" href="#TEST.decode">decode</a></code></li>
+<li><code><a title="TEST.profile" href="#TEST.profile">profile</a></code></li>
 <li><code><a title="TEST.sweep_chip_VRef" href="#TEST.sweep_chip_VRef">sweep_chip_VRef</a></code></li>
 <li><code><a title="TEST.write_byte" href="#TEST.write_byte">write_byte</a></code></li>
 </ul>

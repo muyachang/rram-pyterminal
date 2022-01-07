@@ -35,180 +35,201 @@ VoltDict = {&#39;3V3&#39;      : b&#39;\x41&#39;.decode(&#39;utf-8&#39;),
             &#39;AVDD_RRAM&#39;: b&#39;\x44&#39;.decode(&#39;utf-8&#39;),
             &#39;VDD&#39;      : b&#39;\x45&#39;.decode(&#39;utf-8&#39;),
             &#39;AVDD_SRAM&#39;: b&#39;\x46&#39;.decode(&#39;utf-8&#39;)}
+&#34;&#34;&#34;Voltage output dictionary from *string* to *ASCII*&#34;&#34;&#34;
             
 
 def list_sources():
-    &#34;&#34;&#34; List the available voltage sources &#34;&#34;&#34;
-    print(&#39;-------------------------------------&#39;)
-    print(&#39;| Output Name | Status | Value (mV) |&#39;)
-    print(&#39;-------------------------------------&#39;)
+    &#34;&#34;&#34; List the available voltage sources
+
+    &#34;&#34;&#34;
+    print(&#39;╔═════════════╦════════╦════════════╗&#39;)
+    print(&#39;║ Output Name ║ Status ║ Value (mV) ║&#39;)
+    print(&#39;╟─────────────╫────────╫────────────╢&#39;)
     for key, value in VoltDict.items():
         response = PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_GET + &#39; &#39; + value, False)
         output_status = &#39;On&#39; if response.split()[0] == &#39;1&#39; else &#39;Off&#39;
         output_value = &#39;Analog&#39; if response.split()[1] == &#39;-1&#39; else response.split()[1]
-        print(f&#39;| {key:&gt;11} | {output_status:&gt;6} | {output_value:&gt;10} |&#39;)
-    print(&#39;-------------------------------------&#39;)
+        print(f&#39;║ {key:&gt;11} ║ {output_status:&gt;6} ║ {output_value:&gt;10} ║&#39;)
+    print(&#39;╚═════════════╩════════╩════════════╝&#39;)
 
 
-def clear(verbal):
+def clear(verbal=True):
     &#34;&#34;&#34; Clear the interrupt register in the voltage regulator
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_CLEAR, verbal)
 
 
-def status(verbal):
+def status(verbal=True):
     &#34;&#34;&#34; Get the current status of the voltage regulator
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current status of the voltage regulator
+        str: The current status of the voltage regulator
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_STATUS, verbal)
 
 
-def save(verbal):
+def save(verbal=True):
     &#34;&#34;&#34; Save the current configuration of the voltage regulator to the EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_SAVE, verbal)
     
 
-def load(verbal):
+def load(verbal=True):
     &#34;&#34;&#34; Load the configuration of the voltage regulator from the EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_LOAD, verbal)
     
 
-def allon(verbal):
+def enable_all(verbal=True):
     &#34;&#34;&#34; Enable all the voltage sources
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     for k, v in VoltDict.items():
         PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_ENABLE + &#39; &#39; + v, verbal)
         
 
-def alloff(verbal):
+def disable_all(verbal=True):
     &#34;&#34;&#34; Disable all the voltage sources
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     for k, v in VoltDict.items():
         PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DISABLE + &#39; &#39; + v, verbal)
     
 
-def reset(verbal):
+def reset(verbal=True):
     &#34;&#34;&#34; Reset the voltage regulator, this will cause the board to disconnect
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_RESET, verbal)
     
 
-def enable(target, verbal):
+def enable(target, verbal=True):
     &#34;&#34;&#34; Enable `target`
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_ENABLE + &#39; &#39; + VoltDict[target], verbal)
     
 
-def disable(target, verbal):
+def disable(target, verbal=True):
     &#34;&#34;&#34; Disable `target`
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DISABLE + &#39; &#39; + VoltDict[target], verbal)
     
 
-def increment(target, verbal):
+def increment(target, verbal=True):
     &#34;&#34;&#34; Increase `target` by 1 in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_INCR + &#39; &#39; + VoltDict[target], verbal)
     
 
-def decrement(target, verbal):
+def decrement(target, verbal=True):
     &#34;&#34;&#34; Decrease `target` in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DECR + &#39; &#39; + VoltDict[target], verbal)
     
 
-def plus(value, target, verbal):
+def plus(value, target, verbal=True):
     &#34;&#34;&#34; Increase `target` by `value` mV
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_PLUS + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)
     
 
-def minus(value, target, verbal):
+def minus(value, target, verbal=True):
     &#34;&#34;&#34; Decrease `target` by `value` mV
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_MINUS + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)
     
 
-def set_source(value, target, verbal):
+def set_source(value, target, verbal=True):
     &#34;&#34;&#34; Set `target` to `value` mV
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_SET + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)
 
 
-def set_source_safe(value, target, verbal):
+def set_source_safe(value, target, verbal=True):
     &#34;&#34;&#34; Set `target` to `value` mV **safely** by disabling it first, and enabling last to avoid overshoot
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_SET_SAFE + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)
 
 
-def get_source(target, verbal):
+def get_source(target, verbal=True):
     &#34;&#34;&#34; Get the current voltage value of `target`
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current voltage value of *target*
+        (str, str): The current status and voltage value of *target*
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_GET + &#39; &#39; + VoltDict[target], verbal).split()
 
@@ -218,102 +239,62 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;list&#39;    : list_sources   (                                  )
-    elif parameters[1] == &#39;clear&#39;   : clear          (                              True)
-    elif parameters[1] == &#39;status&#39;  : status         (                              True)
-    elif parameters[1] == &#39;save&#39;    : save           (                              True)
-    elif parameters[1] == &#39;load&#39;    : load           (                              True)
-    elif parameters[1] == &#39;allon&#39;   : allon          (                              True)
-    elif parameters[1] == &#39;alloff&#39;  : alloff         (                              True)
-    elif parameters[1] == &#39;reset&#39;   : reset          (                              True)
-    elif parameters[1] == &#39;enable&#39;  : enable         (parameters[2],                True)
-    elif parameters[1] == &#39;disable&#39; : disable        (parameters[2],                True)
-    elif parameters[1] == &#39;++&#39;      : increment      (parameters[2],                True)
-    elif parameters[1] == &#39;--&#39;      : decrement      (parameters[2],                True)
-    elif parameters[1] == &#39;+&#39;       : plus           (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;-&#39;       : minus          (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;set&#39;     : set_source     (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;set_safe&#39;: set_source_safe(parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;get&#39;     : get_source     (parameters[2],                True)
-    else: PT.unknown(parameters)
-    </code></pre>
+    if   parameters[1] == &#39;list&#39;       : list_sources   (                            )
+    elif parameters[1] == &#39;clear&#39;      : clear          (                            )
+    elif parameters[1] == &#39;status&#39;     : status         (                            )
+    elif parameters[1] == &#39;save&#39;       : save           (                            )
+    elif parameters[1] == &#39;load&#39;       : load           (                            )
+    elif parameters[1] == &#39;reset&#39;      : reset          (                            )
+    elif parameters[1] == &#39;enable_all&#39; : enable_all     (                            )
+    elif parameters[1] == &#39;disable_all&#39;: disable_all    (                            )
+    elif parameters[1] == &#39;enable&#39;     : enable         (parameters[2],              )
+    elif parameters[1] == &#39;disable&#39;    : disable        (parameters[2],              )
+    elif parameters[1] == &#39;++&#39;         : increment      (parameters[2],              )
+    elif parameters[1] == &#39;--&#39;         : decrement      (parameters[2],              )
+    elif parameters[1] == &#39;+&#39;          : plus           (parameters[2], parameters[3])
+    elif parameters[1] == &#39;-&#39;          : minus          (parameters[2], parameters[3])
+    elif parameters[1] == &#39;set&#39;        : set_source     (parameters[2], parameters[3])
+    elif parameters[1] == &#39;set_safe&#39;   : set_source_safe(parameters[2], parameters[3])
+    elif parameters[1] == &#39;get&#39;        : get_source     (parameters[2],              )
+    else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="PM.VoltDict"><code class="name">var <span class="ident">VoltDict</span></code></dt>
+<dd>
+<div class="desc"><p>Voltage output dictionary from <em>string</em> to <em>ASCII</em></p></div>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="PM.alloff"><code class="name flex">
-<span>def <span class="ident">alloff</span></span>(<span>verbal)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Disable all the voltage sources</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def alloff(verbal):
-    &#34;&#34;&#34; Disable all the voltage sources
-
-    Args:
-        verbal (bool): Whether to print the response or not.
-    &#34;&#34;&#34;
-    for k, v in VoltDict.items():
-        PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DISABLE + &#39; &#39; + v, verbal)</code></pre>
-</details>
-</dd>
-<dt id="PM.allon"><code class="name flex">
-<span>def <span class="ident">allon</span></span>(<span>verbal)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Enable all the voltage sources</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def allon(verbal):
-    &#34;&#34;&#34; Enable all the voltage sources
-
-    Args:
-        verbal (bool): Whether to print the response or not.
-    &#34;&#34;&#34;
-    for k, v in VoltDict.items():
-        PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_ENABLE + &#39; &#39; + v, verbal)</code></pre>
-</details>
-</dd>
 <dt id="PM.clear"><code class="name flex">
-<span>def <span class="ident">clear</span></span>(<span>verbal)</span>
+<span>def <span class="ident">clear</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Clear the interrupt register in the voltage regulator</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def clear(verbal):
+<pre><code class="python">def clear(verbal=True):
     &#34;&#34;&#34; Clear the interrupt register in the voltage regulator
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_CLEAR, verbal)</code></pre>
 </details>
@@ -337,29 +318,30 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;list&#39;    : list_sources   (                                  )
-    elif parameters[1] == &#39;clear&#39;   : clear          (                              True)
-    elif parameters[1] == &#39;status&#39;  : status         (                              True)
-    elif parameters[1] == &#39;save&#39;    : save           (                              True)
-    elif parameters[1] == &#39;load&#39;    : load           (                              True)
-    elif parameters[1] == &#39;allon&#39;   : allon          (                              True)
-    elif parameters[1] == &#39;alloff&#39;  : alloff         (                              True)
-    elif parameters[1] == &#39;reset&#39;   : reset          (                              True)
-    elif parameters[1] == &#39;enable&#39;  : enable         (parameters[2],                True)
-    elif parameters[1] == &#39;disable&#39; : disable        (parameters[2],                True)
-    elif parameters[1] == &#39;++&#39;      : increment      (parameters[2],                True)
-    elif parameters[1] == &#39;--&#39;      : decrement      (parameters[2],                True)
-    elif parameters[1] == &#39;+&#39;       : plus           (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;-&#39;       : minus          (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;set&#39;     : set_source     (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;set_safe&#39;: set_source_safe(parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;get&#39;     : get_source     (parameters[2],                True)
+    if   parameters[1] == &#39;list&#39;       : list_sources   (                            )
+    elif parameters[1] == &#39;clear&#39;      : clear          (                            )
+    elif parameters[1] == &#39;status&#39;     : status         (                            )
+    elif parameters[1] == &#39;save&#39;       : save           (                            )
+    elif parameters[1] == &#39;load&#39;       : load           (                            )
+    elif parameters[1] == &#39;reset&#39;      : reset          (                            )
+    elif parameters[1] == &#39;enable_all&#39; : enable_all     (                            )
+    elif parameters[1] == &#39;disable_all&#39;: disable_all    (                            )
+    elif parameters[1] == &#39;enable&#39;     : enable         (parameters[2],              )
+    elif parameters[1] == &#39;disable&#39;    : disable        (parameters[2],              )
+    elif parameters[1] == &#39;++&#39;         : increment      (parameters[2],              )
+    elif parameters[1] == &#39;--&#39;         : decrement      (parameters[2],              )
+    elif parameters[1] == &#39;+&#39;          : plus           (parameters[2], parameters[3])
+    elif parameters[1] == &#39;-&#39;          : minus          (parameters[2], parameters[3])
+    elif parameters[1] == &#39;set&#39;        : set_source     (parameters[2], parameters[3])
+    elif parameters[1] == &#39;set_safe&#39;   : set_source_safe(parameters[2], parameters[3])
+    elif parameters[1] == &#39;get&#39;        : get_source     (parameters[2],              )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="PM.decrement"><code class="name flex">
-<span>def <span class="ident">decrement</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">decrement</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Decrease <code>target</code> in it's binary format. (The real voltage change will depend on the feedback ratio)</p>
@@ -367,25 +349,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def decrement(target, verbal):
+<pre><code class="python">def decrement(target, verbal=True):
     &#34;&#34;&#34; Decrease `target` in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DECR + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.disable"><code class="name flex">
-<span>def <span class="ident">disable</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">disable</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Disable <code>target</code></p>
@@ -393,25 +376,51 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def disable(target, verbal):
+<pre><code class="python">def disable(target, verbal=True):
     &#34;&#34;&#34; Disable `target`
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DISABLE + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
+<dt id="PM.disable_all"><code class="name flex">
+<span>def <span class="ident">disable_all</span></span>(<span>verbal=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Disable all the voltage sources</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def disable_all(verbal=True):
+    &#34;&#34;&#34; Disable all the voltage sources
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    for k, v in VoltDict.items():
+        PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_DISABLE + &#39; &#39; + v, verbal)</code></pre>
+</details>
+</dd>
 <dt id="PM.enable"><code class="name flex">
-<span>def <span class="ident">enable</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">enable</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Enable <code>target</code></p>
@@ -419,25 +428,51 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def enable(target, verbal):
+<pre><code class="python">def enable(target, verbal=True):
     &#34;&#34;&#34; Enable `target`
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_ENABLE + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
+<dt id="PM.enable_all"><code class="name flex">
+<span>def <span class="ident">enable_all</span></span>(<span>verbal=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable all the voltage sources</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enable_all(verbal=True):
+    &#34;&#34;&#34; Enable all the voltage sources
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    for k, v in VoltDict.items():
+        PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_ENABLE + &#39; &#39; + v, verbal)</code></pre>
+</details>
+</dd>
 <dt id="PM.get_source"><code class="name flex">
-<span>def <span class="ident">get_source</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">get_source</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the current voltage value of <code>target</code></p>
@@ -445,29 +480,31 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current voltage value of <em>target</em></p></div>
+<p>(str, str): The current status and voltage value of <em>target</em></p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_source(target, verbal):
+<pre><code class="python">def get_source(target, verbal=True):
     &#34;&#34;&#34; Get the current voltage value of `target`
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current voltage value of *target*
+        (str, str): The current status and voltage value of *target*
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_GET + &#39; &#39; + VoltDict[target], verbal).split()</code></pre>
 </details>
 </dd>
 <dt id="PM.increment"><code class="name flex">
-<span>def <span class="ident">increment</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">increment</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Increase <code>target</code> by 1 in it's binary format. (The real voltage change will depend on the feedback ratio)</p>
@@ -475,19 +512,20 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def increment(target, verbal):
+<pre><code class="python">def increment(target, verbal=True):
     &#34;&#34;&#34; Increase `target` by 1 in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_INCR + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
@@ -502,43 +540,46 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def list_sources():
-    &#34;&#34;&#34; List the available voltage sources &#34;&#34;&#34;
-    print(&#39;-------------------------------------&#39;)
-    print(&#39;| Output Name | Status | Value (mV) |&#39;)
-    print(&#39;-------------------------------------&#39;)
+    &#34;&#34;&#34; List the available voltage sources
+
+    &#34;&#34;&#34;
+    print(&#39;╔═════════════╦════════╦════════════╗&#39;)
+    print(&#39;║ Output Name ║ Status ║ Value (mV) ║&#39;)
+    print(&#39;╟─────────────╫────────╫────────────╢&#39;)
     for key, value in VoltDict.items():
         response = PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_GET + &#39; &#39; + value, False)
         output_status = &#39;On&#39; if response.split()[0] == &#39;1&#39; else &#39;Off&#39;
         output_value = &#39;Analog&#39; if response.split()[1] == &#39;-1&#39; else response.split()[1]
-        print(f&#39;| {key:&gt;11} | {output_status:&gt;6} | {output_value:&gt;10} |&#39;)
-    print(&#39;-------------------------------------&#39;)</code></pre>
+        print(f&#39;║ {key:&gt;11} ║ {output_status:&gt;6} ║ {output_value:&gt;10} ║&#39;)
+    print(&#39;╚═════════════╩════════╩════════════╝&#39;)</code></pre>
 </details>
 </dd>
 <dt id="PM.load"><code class="name flex">
-<span>def <span class="ident">load</span></span>(<span>verbal)</span>
+<span>def <span class="ident">load</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Load the configuration of the voltage regulator from the EEPROM</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def load(verbal):
+<pre><code class="python">def load(verbal=True):
     &#34;&#34;&#34; Load the configuration of the voltage regulator from the EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_LOAD, verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.minus"><code class="name flex">
-<span>def <span class="ident">minus</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">minus</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Decrease <code>target</code> by <code>value</code> mV</p>
@@ -548,26 +589,27 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def minus(value, target, verbal):
+<pre><code class="python">def minus(value, target, verbal=True):
     &#34;&#34;&#34; Decrease `target` by `value` mV
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_MINUS + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.plus"><code class="name flex">
-<span>def <span class="ident">plus</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">plus</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Increase <code>target</code> by <code>value</code> mV</p>
@@ -577,72 +619,75 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def plus(value, target, verbal):
+<pre><code class="python">def plus(value, target, verbal=True):
     &#34;&#34;&#34; Increase `target` by `value` mV
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_PLUS + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.reset"><code class="name flex">
-<span>def <span class="ident">reset</span></span>(<span>verbal)</span>
+<span>def <span class="ident">reset</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Reset the voltage regulator, this will cause the board to disconnect</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def reset(verbal):
+<pre><code class="python">def reset(verbal=True):
     &#34;&#34;&#34; Reset the voltage regulator, this will cause the board to disconnect
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_RESET, verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.save"><code class="name flex">
-<span>def <span class="ident">save</span></span>(<span>verbal)</span>
+<span>def <span class="ident">save</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Save the current configuration of the voltage regulator to the EEPROM</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def save(verbal):
+<pre><code class="python">def save(verbal=True):
     &#34;&#34;&#34; Save the current configuration of the voltage regulator to the EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_SAVE, verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.set_source"><code class="name flex">
-<span>def <span class="ident">set_source</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">set_source</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Set <code>target</code> to <code>value</code> mV</p>
@@ -652,26 +697,27 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_source(value, target, verbal):
+<pre><code class="python">def set_source(value, target, verbal=True):
     &#34;&#34;&#34; Set `target` to `value` mV
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_SET + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.set_source_safe"><code class="name flex">
-<span>def <span class="ident">set_source_safe</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">set_source_safe</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Set <code>target</code> to <code>value</code> mV <strong>safely</strong> by disabling it first, and enabling last to avoid overshoot</p>
@@ -681,47 +727,53 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_source_safe(value, target, verbal):
+<pre><code class="python">def set_source_safe(value, target, verbal=True):
     &#34;&#34;&#34; Set `target` to `value` mV **safely** by disabling it first, and enabling last to avoid overshoot
 
     Args:
         value (str): Voltage (mV)
         target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_SET_SAFE + &#39; &#39; + value + &#39; &#39; + VoltDict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="PM.status"><code class="name flex">
-<span>def <span class="ident">status</span></span>(<span>verbal)</span>
+<span>def <span class="ident">status</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the current status of the voltage regulator</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current status of the voltage regulator</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The current status of the voltage regulator</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def status(verbal):
+<pre><code class="python">def status(verbal=True):
     &#34;&#34;&#34; Get the current status of the voltage regulator
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current status of the voltage regulator
+        str: The current status of the voltage regulator
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_PM + &#39; &#39; + CM.CM_PM_STATUS, verbal)</code></pre>
 </details>
@@ -737,15 +789,20 @@ def decode(parameters):
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="PM.VoltDict" href="#PM.VoltDict">VoltDict</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="PM.alloff" href="#PM.alloff">alloff</a></code></li>
-<li><code><a title="PM.allon" href="#PM.allon">allon</a></code></li>
 <li><code><a title="PM.clear" href="#PM.clear">clear</a></code></li>
 <li><code><a title="PM.decode" href="#PM.decode">decode</a></code></li>
 <li><code><a title="PM.decrement" href="#PM.decrement">decrement</a></code></li>
 <li><code><a title="PM.disable" href="#PM.disable">disable</a></code></li>
+<li><code><a title="PM.disable_all" href="#PM.disable_all">disable_all</a></code></li>
 <li><code><a title="PM.enable" href="#PM.enable">enable</a></code></li>
+<li><code><a title="PM.enable_all" href="#PM.enable_all">enable_all</a></code></li>
 <li><code><a title="PM.get_source" href="#PM.get_source">get_source</a></code></li>
 <li><code><a title="PM.increment" href="#PM.increment">increment</a></code></li>
 <li><code><a title="PM.list_sources" href="#PM.list_sources">list_sources</a></code></li>

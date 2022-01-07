@@ -37,77 +37,89 @@ dict = {&#39;chip&#39;  : b&#39;\x41&#39;.decode(&#39;utf-8&#39;),
 &#34;&#34;&#34;Dataflash memory hierarchy dictionary from *string* to *ASCII*&#34;&#34;&#34;
 
 
-def status(verbal):
+def status(verbal=True):
     &#34;&#34;&#34; Get the status of dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The status of dataflash
+        str: The status of dataflash
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_STATUS, verbal)
     
 
-def get_id(verbal):
+def get_id(verbal=True):
     &#34;&#34;&#34; Get the ID of dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of dataflash
+        str: The ID of dataflash
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ID, verbal)
 
 
-def reset(verbal):
+def reset(verbal=True):
     &#34;&#34;&#34; Software reset the dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_RESET, verbal)
 
 
-def read(level, number, verbal):
+def read(level, number, verbal=True):
     &#34;&#34;&#34; Read the data from dataflash
 
     Args:
         level (str): Could be *byte*, *page*, *block*, *sector*
         number (str): Target number
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    Returns:
+        str: The ID of dataflash
+
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)
+    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)
 
 
-def write(address, value, verbal):
+def write(address, value, verbal=True):
     &#34;&#34;&#34; Read the data from the dataflash
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_WRITE + &#39; &#39; + address + &#39; &#39; + value, verbal)
 
 
-def erase(level, number, verbal):
+def erase(level, number, verbal=True):
     &#34;&#34;&#34; Erase the data in dataflash
 
     Args:
         level (str): Could be *byte*, *page*, *block*, *sector*
         number (str): Target number
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ERASE + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)
 
 
-def protect(action, sector, verbal):
+def protect(action, sector, verbal=True):
     &#34;&#34;&#34; Configure the protect function in the dataflash
 
     Args:
         action (str): Could be *enable*, *disable*, *status*, *all*, *none*, *add*, and *remove*
         sector (str): Target sector number, could be *0a*, *0b*, or *1*~*63*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if   action == &#39;enable&#39;:
         PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_PROTECT + &#39; &#39; + CM.CM_DF_PROTECT_ENABLE, verbal)
@@ -127,15 +139,17 @@ def protect(action, sector, verbal):
         PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_PROTECT + &#39; &#39; + CM.CM_DF_PROTECT_REMOVE + &#39; &#39; + sector, verbal)
 
 
-def blank_check(verbal):
+def blank_check(verbal=True):
     &#34;&#34;&#34; Get the first nonzero address in dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The first nonzero address in dataflash
+        int: The first nonzero address in dataflash
+
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_BLANKCHECK, verbal)
+    return int(PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_BLANKCHECK, verbal))
           
 
 def decode(parameters):
@@ -143,15 +157,16 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;status&#39;     : status     (                              True)
-    elif parameters[1] == &#39;id&#39;         : get_id     (                              True)
-    elif parameters[1] == &#39;reset&#39;      : reset      (                              True)
-    elif parameters[1] == &#39;read&#39;       : read       (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;write&#39;      : write      (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;erase&#39;      : erase      (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;protect&#39;    : protect    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;blank_check&#39;: blank_check(                              True)
+    if   parameters[1] == &#39;status&#39;     : status     (                            )
+    elif parameters[1] == &#39;id&#39;         : get_id     (                            )
+    elif parameters[1] == &#39;reset&#39;      : reset      (                            )
+    elif parameters[1] == &#39;read&#39;       : read       (parameters[2], parameters[3])
+    elif parameters[1] == &#39;write&#39;      : write      (parameters[2], parameters[3])
+    elif parameters[1] == &#39;erase&#39;      : erase      (parameters[2], parameters[3])
+    elif parameters[1] == &#39;protect&#39;    : protect    (parameters[2], parameters[3])
+    elif parameters[1] == &#39;blank_check&#39;: blank_check(                            )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -170,30 +185,35 @@ def decode(parameters):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="DF.blank_check"><code class="name flex">
-<span>def <span class="ident">blank_check</span></span>(<span>verbal)</span>
+<span>def <span class="ident">blank_check</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the first nonzero address in dataflash</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The first nonzero address in dataflash</p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The first nonzero address in dataflash</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def blank_check(verbal):
+<pre><code class="python">def blank_check(verbal=True):
     &#34;&#34;&#34; Get the first nonzero address in dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The first nonzero address in dataflash
+        int: The first nonzero address in dataflash
+
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_BLANKCHECK, verbal)</code></pre>
+    return int(PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_BLANKCHECK, verbal))</code></pre>
 </details>
 </dd>
 <dt id="DF.decode"><code class="name flex">
@@ -215,20 +235,21 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;status&#39;     : status     (                              True)
-    elif parameters[1] == &#39;id&#39;         : get_id     (                              True)
-    elif parameters[1] == &#39;reset&#39;      : reset      (                              True)
-    elif parameters[1] == &#39;read&#39;       : read       (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;write&#39;      : write      (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;erase&#39;      : erase      (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;protect&#39;    : protect    (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;blank_check&#39;: blank_check(                              True)
+    if   parameters[1] == &#39;status&#39;     : status     (                            )
+    elif parameters[1] == &#39;id&#39;         : get_id     (                            )
+    elif parameters[1] == &#39;reset&#39;      : reset      (                            )
+    elif parameters[1] == &#39;read&#39;       : read       (parameters[2], parameters[3])
+    elif parameters[1] == &#39;write&#39;      : write      (parameters[2], parameters[3])
+    elif parameters[1] == &#39;erase&#39;      : erase      (parameters[2], parameters[3])
+    elif parameters[1] == &#39;protect&#39;    : protect    (parameters[2], parameters[3])
+    elif parameters[1] == &#39;blank_check&#39;: blank_check(                            )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="DF.erase"><code class="name flex">
-<span>def <span class="ident">erase</span></span>(<span>level, number, verbal)</span>
+<span>def <span class="ident">erase</span></span>(<span>level, number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Erase the data in dataflash</p>
@@ -238,53 +259,59 @@ def decode(parameters):
 <dd>Could be <em>byte</em>, <em>page</em>, <em>block</em>, <em>sector</em></dd>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def erase(level, number, verbal):
+<pre><code class="python">def erase(level, number, verbal=True):
     &#34;&#34;&#34; Erase the data in dataflash
 
     Args:
         level (str): Could be *byte*, *page*, *block*, *sector*
         number (str): Target number
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ERASE + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DF.get_id"><code class="name flex">
-<span>def <span class="ident">get_id</span></span>(<span>verbal)</span>
+<span>def <span class="ident">get_id</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the ID of dataflash</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The ID of dataflash</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID of dataflash</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_id(verbal):
+<pre><code class="python">def get_id(verbal=True):
     &#34;&#34;&#34; Get the ID of dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of dataflash
+        str: The ID of dataflash
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ID, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DF.protect"><code class="name flex">
-<span>def <span class="ident">protect</span></span>(<span>action, sector, verbal)</span>
+<span>def <span class="ident">protect</span></span>(<span>action, sector, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configure the protect function in the dataflash</p>
@@ -294,20 +321,21 @@ def decode(parameters):
 <dd>Could be <em>enable</em>, <em>disable</em>, <em>status</em>, <em>all</em>, <em>none</em>, <em>add</em>, and <em>remove</em></dd>
 <dt><strong><code>sector</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target sector number, could be <em>0a</em>, <em>0b</em>, or <em>1</em>~<em>63</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def protect(action, sector, verbal):
+<pre><code class="python">def protect(action, sector, verbal=True):
     &#34;&#34;&#34; Configure the protect function in the dataflash
 
     Args:
         action (str): Could be *enable*, *disable*, *status*, *all*, *none*, *add*, and *remove*
         sector (str): Target sector number, could be *0a*, *0b*, or *1*~*63*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     if   action == &#39;enable&#39;:
         PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_PROTECT + &#39; &#39; + CM.CM_DF_PROTECT_ENABLE, verbal)
@@ -328,7 +356,7 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="DF.read"><code class="name flex">
-<span>def <span class="ident">read</span></span>(<span>level, number, verbal)</span>
+<span>def <span class="ident">read</span></span>(<span>level, number, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read the data from dataflash</p>
@@ -338,76 +366,91 @@ def decode(parameters):
 <dd>Could be <em>byte</em>, <em>page</em>, <em>block</em>, <em>sector</em></dd>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target number</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID of dataflash</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read(level, number, verbal):
+<pre><code class="python">def read(level, number, verbal=True):
     &#34;&#34;&#34; Read the data from dataflash
 
     Args:
         level (str): Could be *byte*, *page*, *block*, *sector*
         number (str): Target number
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    Returns:
+        str: The ID of dataflash
+
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)</code></pre>
+    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DF.reset"><code class="name flex">
-<span>def <span class="ident">reset</span></span>(<span>verbal)</span>
+<span>def <span class="ident">reset</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Software reset the dataflash</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def reset(verbal):
+<pre><code class="python">def reset(verbal=True):
     &#34;&#34;&#34; Software reset the dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_RESET, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DF.status"><code class="name flex">
-<span>def <span class="ident">status</span></span>(<span>verbal)</span>
+<span>def <span class="ident">status</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the status of dataflash</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The status of dataflash</p></div>
+<dl>
+<dt><code>str</code></dt>
+<dd>The status of dataflash</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def status(verbal):
+<pre><code class="python">def status(verbal=True):
     &#34;&#34;&#34; Get the status of dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The status of dataflash
+        str: The status of dataflash
+
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DF.write"><code class="name flex">
-<span>def <span class="ident">write</span></span>(<span>address, value, verbal)</span>
+<span>def <span class="ident">write</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read the data from the dataflash</p>
@@ -417,20 +460,21 @@ def decode(parameters):
 <dd>Address to be written to</dd>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Value to be written to</dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write(address, value, verbal):
+<pre><code class="python">def write(address, value, verbal=True):
     &#34;&#34;&#34; Read the data from the dataflash
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_WRITE + &#39; &#39; + address + &#39; &#39; + value, verbal)</code></pre>
 </details>

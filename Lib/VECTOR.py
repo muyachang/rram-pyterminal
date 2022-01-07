@@ -2,13 +2,15 @@ import CommandMap as CM
 import PyTerminal as PT
 
 
-def id(verbal):
+def id(verbal=True):
     """ Get the ID of Vector module
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of Vector module
+        str: The ID of Vector module (should be `0x03020121`)
+
     """
     return PT.send_command(CM.CM_VECTOR + ' ' + CM.CM_VECTOR_PID, verbal)
 
@@ -18,6 +20,7 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     """
-    if   parameters[1] == 'id'     : id(True)
+    if   parameters[1] == 'id'     : id()
     else: PT.unknown(parameters)

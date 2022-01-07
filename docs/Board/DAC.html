@@ -34,95 +34,106 @@ dict = {&#39;VTGT_BL&#39;: b&#39;\x41&#39;.decode(&#39;utf-8&#39;),
 &#34;&#34;&#34;DAC output source dictionary from *string* to *ASCII*&#34;&#34;&#34;
 
 def list_sources():
-    &#34;&#34;&#34; List the available DAC output sources &#34;&#34;&#34;
-    print(&#39;---------------------------&#39;)
-    print(&#39;| Output Name | Value(mV) |&#39;)
-    print(&#39;---------------------------&#39;)
+    &#34;&#34;&#34; List the available DAC output sources
+
+    &#34;&#34;&#34;
+    print(&#39;╔═════════════╦═══════════╗&#39;)
+    print(&#39;║ Output Name ║ Value(mV) ║&#39;)
+    print(&#39;╟─────────────╫───────────╢&#39;)
     for key, value in dict.items():
         response = PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_GET + &#39; &#39; + value, False)
-        print(f&#39;| {key:&gt;11} | {response:&gt;9} |&#39;)
-    print(&#39;---------------------------&#39;)
+        print(f&#39;║ {key:&gt;11} ║ {response:&gt;9} ║&#39;)
+    print(&#39;╚═════════════╩═══════════╝&#39;)
 
 
-def save(verbal):
+def save(verbal=True):
     &#34;&#34;&#34; Save the current levels of the DAC output sources to EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_SAVE, verbal)
 
 
-def load(verbal):
+def load(verbal=True):
     &#34;&#34;&#34; Load the current levels of the DAC output sources from EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_LOAD, verbal)
 
 
-def increment(target, verbal):
+def increment(target, verbal=True):
     &#34;&#34;&#34; Increase *target* by 1 in it&#39;s binary format
 
     Args:
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_INCR + &#39; &#39; + dict[target], verbal)
 
 
-def decrement(target, verbal):
+def decrement(target, verbal=True):
     &#34;&#34;&#34; Decrease *target* by 1 in it&#39;s binary format
 
     Args:
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_DECR + &#39; &#39; + dict[target], verbal)
 
 
-def plus(value, target, verbal):
+def plus(value, target, verbal=True):
     &#34;&#34;&#34; Increase *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_PLUS + &#39; &#39; + value + &#39; &#39; + dict[target], verbal)
 
 
-def minus(value, target, verbal):
+def minus(value, target, verbal=True):
     &#34;&#34;&#34; Decrease *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_MINUS + &#39; &#39; + value + &#39; &#39; + dict[target], verbal)
 
 
-def set_source(value, target, verbal):
+def set_source(value, target, verbal=True):
     &#34;&#34;&#34; Set *target* to *value* mV
 
     Args:
         value (str): Voltage (mV)
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_SET + &#39; &#39; + value + &#39; &#39; + dict[target], verbal)
 
 
-def get_source(target, verbal):
+def get_source(target, verbal=True):
     &#34;&#34;&#34; Get the current voltage value of *target*
 
     Args:
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current voltage value of *target*
+        int: The current voltage value of *target*
+
     &#34;&#34;&#34;
     return int(PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_GET + &#39; &#39; + dict[target], verbal))
             
@@ -132,16 +143,17 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+        
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;list&#39;: list_sources(                                  )
-    elif parameters[1] == &#39;save&#39;: save        (                              True)
-    elif parameters[1] == &#39;load&#39;: load        (                              True)
-    elif parameters[1] == &#39;++&#39;  : increment   (parameters[2],                True)
-    elif parameters[1] == &#39;--&#39;  : decrement   (parameters[2],                True)
-    elif parameters[1] == &#39;+&#39;   : plus        (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;-&#39;   : minus       (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;set&#39; : set_source  (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;get&#39; : get_source  (parameters[2],                True)
+    if   parameters[1] == &#39;list&#39;: list_sources(                            )
+    elif parameters[1] == &#39;save&#39;: save        (                            )
+    elif parameters[1] == &#39;load&#39;: load        (                            )
+    elif parameters[1] == &#39;++&#39;  : increment   (parameters[2],              )
+    elif parameters[1] == &#39;--&#39;  : decrement   (parameters[2],              )
+    elif parameters[1] == &#39;+&#39;   : plus        (parameters[2], parameters[3])
+    elif parameters[1] == &#39;-&#39;   : minus       (parameters[2], parameters[3])
+    elif parameters[1] == &#39;set&#39; : set_source  (parameters[2], parameters[3])
+    elif parameters[1] == &#39;get&#39; : get_source  (parameters[2],              )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -178,21 +190,22 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+        
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;list&#39;: list_sources(                                  )
-    elif parameters[1] == &#39;save&#39;: save        (                              True)
-    elif parameters[1] == &#39;load&#39;: load        (                              True)
-    elif parameters[1] == &#39;++&#39;  : increment   (parameters[2],                True)
-    elif parameters[1] == &#39;--&#39;  : decrement   (parameters[2],                True)
-    elif parameters[1] == &#39;+&#39;   : plus        (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;-&#39;   : minus       (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;set&#39; : set_source  (parameters[2], parameters[3], True)
-    elif parameters[1] == &#39;get&#39; : get_source  (parameters[2],                True)
+    if   parameters[1] == &#39;list&#39;: list_sources(                            )
+    elif parameters[1] == &#39;save&#39;: save        (                            )
+    elif parameters[1] == &#39;load&#39;: load        (                            )
+    elif parameters[1] == &#39;++&#39;  : increment   (parameters[2],              )
+    elif parameters[1] == &#39;--&#39;  : decrement   (parameters[2],              )
+    elif parameters[1] == &#39;+&#39;   : plus        (parameters[2], parameters[3])
+    elif parameters[1] == &#39;-&#39;   : minus       (parameters[2], parameters[3])
+    elif parameters[1] == &#39;set&#39; : set_source  (parameters[2], parameters[3])
+    elif parameters[1] == &#39;get&#39; : get_source  (parameters[2],              )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
 <dt id="DAC.decrement"><code class="name flex">
-<span>def <span class="ident">decrement</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">decrement</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Decrease <em>target</em> by 1 in it's binary format</p>
@@ -200,25 +213,26 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target output source, could be <em>VTGT_BL</em> or <em>ADC_CAL</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def decrement(target, verbal):
+<pre><code class="python">def decrement(target, verbal=True):
     &#34;&#34;&#34; Decrease *target* by 1 in it&#39;s binary format
 
     Args:
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_DECR + &#39; &#39; + dict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="DAC.get_source"><code class="name flex">
-<span>def <span class="ident">get_source</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">get_source</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the current voltage value of <em>target</em></p>
@@ -226,29 +240,34 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target output source, could be <em>VTGT_BL</em> or <em>ADC_CAL</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The current voltage value of <em>target</em></p></div>
+<dl>
+<dt><code>int</code></dt>
+<dd>The current voltage value of <em>target</em></dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_source(target, verbal):
+<pre><code class="python">def get_source(target, verbal=True):
     &#34;&#34;&#34; Get the current voltage value of *target*
 
     Args:
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The current voltage value of *target*
+        int: The current voltage value of *target*
+
     &#34;&#34;&#34;
     return int(PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_GET + &#39; &#39; + dict[target], verbal))</code></pre>
 </details>
 </dd>
 <dt id="DAC.increment"><code class="name flex">
-<span>def <span class="ident">increment</span></span>(<span>target, verbal)</span>
+<span>def <span class="ident">increment</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Increase <em>target</em> by 1 in it's binary format</p>
@@ -256,19 +275,20 @@ def decode(parameters):
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target output source, could be <em>VTGT_BL</em> or <em>ADC_CAL</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def increment(target, verbal):
+<pre><code class="python">def increment(target, verbal=True):
     &#34;&#34;&#34; Increase *target* by 1 in it&#39;s binary format
 
     Args:
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_INCR + &#39; &#39; + dict[target], verbal)</code></pre>
 </details>
@@ -283,41 +303,44 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def list_sources():
-    &#34;&#34;&#34; List the available DAC output sources &#34;&#34;&#34;
-    print(&#39;---------------------------&#39;)
-    print(&#39;| Output Name | Value(mV) |&#39;)
-    print(&#39;---------------------------&#39;)
+    &#34;&#34;&#34; List the available DAC output sources
+
+    &#34;&#34;&#34;
+    print(&#39;╔═════════════╦═══════════╗&#39;)
+    print(&#39;║ Output Name ║ Value(mV) ║&#39;)
+    print(&#39;╟─────────────╫───────────╢&#39;)
     for key, value in dict.items():
         response = PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_GET + &#39; &#39; + value, False)
-        print(f&#39;| {key:&gt;11} | {response:&gt;9} |&#39;)
-    print(&#39;---------------------------&#39;)</code></pre>
+        print(f&#39;║ {key:&gt;11} ║ {response:&gt;9} ║&#39;)
+    print(&#39;╚═════════════╩═══════════╝&#39;)</code></pre>
 </details>
 </dd>
 <dt id="DAC.load"><code class="name flex">
-<span>def <span class="ident">load</span></span>(<span>verbal)</span>
+<span>def <span class="ident">load</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Load the current levels of the DAC output sources from EEPROM</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def load(verbal):
+<pre><code class="python">def load(verbal=True):
     &#34;&#34;&#34; Load the current levels of the DAC output sources from EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_LOAD, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DAC.minus"><code class="name flex">
-<span>def <span class="ident">minus</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">minus</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Decrease <em>target</em> by <em>value</em> mV</p>
@@ -327,26 +350,27 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target output source, could be <em>VTGT_BL</em> or <em>ADC_CAL</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def minus(value, target, verbal):
+<pre><code class="python">def minus(value, target, verbal=True):
     &#34;&#34;&#34; Decrease *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_MINUS + &#39; &#39; + value + &#39; &#39; + dict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="DAC.plus"><code class="name flex">
-<span>def <span class="ident">plus</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">plus</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Increase <em>target</em> by <em>value</em> mV</p>
@@ -356,49 +380,51 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target output source, could be <em>VTGT_BL</em> or <em>ADC_CAL</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def plus(value, target, verbal):
+<pre><code class="python">def plus(value, target, verbal=True):
     &#34;&#34;&#34; Increase *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_PLUS + &#39; &#39; + value + &#39; &#39; + dict[target], verbal)</code></pre>
 </details>
 </dd>
 <dt id="DAC.save"><code class="name flex">
-<span>def <span class="ident">save</span></span>(<span>verbal)</span>
+<span>def <span class="ident">save</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Save the current levels of the DAC output sources to EEPROM</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def save(verbal):
+<pre><code class="python">def save(verbal=True):
     &#34;&#34;&#34; Save the current levels of the DAC output sources to EEPROM
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_SAVE, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DAC.set_source"><code class="name flex">
-<span>def <span class="ident">set_source</span></span>(<span>value, target, verbal)</span>
+<span>def <span class="ident">set_source</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Set <em>target</em> to <em>value</em> mV</p>
@@ -408,20 +434,21 @@ def decode(parameters):
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
 <dd>The target output source, could be <em>VTGT_BL</em> or <em>ADC_CAL</em></dd>
-<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether to print the response or not.</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_source(value, target, verbal):
+<pre><code class="python">def set_source(value, target, verbal=True):
     &#34;&#34;&#34; Set *target* to *value* mV
 
     Args:
         value (str): Voltage (mV)
         target (str): The target output source, could be *VTGT_BL* or *ADC_CAL*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     PT.send_command(CM.CM_DAC + &#39; &#39; + CM.CM_DAC_SET + &#39; &#39; + value + &#39; &#39; + dict[target], verbal)</code></pre>
 </details>

@@ -9,77 +9,89 @@ dict = {'chip'  : b'\x41'.decode('utf-8'),
 """Dataflash memory hierarchy dictionary from *string* to *ASCII*"""
 
 
-def status(verbal):
+def status(verbal=True):
     """ Get the status of dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The status of dataflash
+        str: The status of dataflash
+
     """
     return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_STATUS, verbal)
     
 
-def get_id(verbal):
+def get_id(verbal=True):
     """ Get the ID of dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The ID of dataflash
+        str: The ID of dataflash
+
     """
     return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ID, verbal)
 
 
-def reset(verbal):
+def reset(verbal=True):
     """ Software reset the dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     """
     PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_RESET, verbal)
 
 
-def read(level, number, verbal):
+def read(level, number, verbal=True):
     """ Read the data from dataflash
 
     Args:
         level (str): Could be *byte*, *page*, *block*, *sector*
         number (str): Target number
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    Returns:
+        str: The ID of dataflash
+
     """
-    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + dict[level] + ' ' + number, verbal)
+    return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + dict[level] + ' ' + number, verbal)
 
 
-def write(address, value, verbal):
+def write(address, value, verbal=True):
     """ Read the data from the dataflash
 
     Args:
         address (str): Address to be written to
         value (str): Value to be written to
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     """
     PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_WRITE + ' ' + address + ' ' + value, verbal)
 
 
-def erase(level, number, verbal):
+def erase(level, number, verbal=True):
     """ Erase the data in dataflash
 
     Args:
         level (str): Could be *byte*, *page*, *block*, *sector*
         number (str): Target number
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     """
     PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + dict[level] + ' ' + number, verbal)
 
 
-def protect(action, sector, verbal):
+def protect(action, sector, verbal=True):
     """ Configure the protect function in the dataflash
 
     Args:
         action (str): Could be *enable*, *disable*, *status*, *all*, *none*, *add*, and *remove*
         sector (str): Target sector number, could be *0a*, *0b*, or *1*~*63*
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     """
     if   action == 'enable':
         PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_ENABLE, verbal)
@@ -99,15 +111,17 @@ def protect(action, sector, verbal):
         PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_PROTECT + ' ' + CM.CM_DF_PROTECT_REMOVE + ' ' + sector, verbal)
 
 
-def blank_check(verbal):
+def blank_check(verbal=True):
     """ Get the first nonzero address in dataflash
 
     Args:
-        verbal (bool): Whether to print the response or not.
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     Returns:
-        The first nonzero address in dataflash
+        int: The first nonzero address in dataflash
+
     """
-    return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_BLANKCHECK, verbal)
+    return int(PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_BLANKCHECK, verbal))
           
 
 def decode(parameters):
@@ -115,13 +129,14 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in List form.
+
     """
-    if   parameters[1] == 'status'     : status     (                              True)
-    elif parameters[1] == 'id'         : get_id     (                              True)
-    elif parameters[1] == 'reset'      : reset      (                              True)
-    elif parameters[1] == 'read'       : read       (parameters[2], parameters[3], True)
-    elif parameters[1] == 'write'      : write      (parameters[2], parameters[3], True)
-    elif parameters[1] == 'erase'      : erase      (parameters[2], parameters[3], True)
-    elif parameters[1] == 'protect'    : protect    (parameters[2], parameters[3], True)
-    elif parameters[1] == 'blank_check': blank_check(                              True)
+    if   parameters[1] == 'status'     : status     (                            )
+    elif parameters[1] == 'id'         : get_id     (                            )
+    elif parameters[1] == 'reset'      : reset      (                            )
+    elif parameters[1] == 'read'       : read       (parameters[2], parameters[3])
+    elif parameters[1] == 'write'      : write      (parameters[2], parameters[3])
+    elif parameters[1] == 'erase'      : erase      (parameters[2], parameters[3])
+    elif parameters[1] == 'protect'    : protect    (parameters[2], parameters[3])
+    elif parameters[1] == 'blank_check': blank_check(                            )
     else: PT.unknown(parameters)
