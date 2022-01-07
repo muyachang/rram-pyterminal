@@ -13,7 +13,6 @@ import RRAM, DNN
 
 from tkinter import *
 from tkinter import font
-from functools import partial
 
 from PIL import Image, ImageTk
 
@@ -378,10 +377,10 @@ class GUI:
         self.network_change(False)
 
         self.btn_display_network_icon = ImageTk.PhotoImage(Image.open('Applications/btn_display_network_icon.png').resize((20, 20)))
-        Button(frm_network, image=self.btn_display_network_icon, command=partial(self.network_print, 'Current Network Architecture')).pack(side=RIGHT, padx=5)
+        Button(frm_network, image=self.btn_display_network_icon, command=self.network_print).pack(side=RIGHT, padx=5)
 
         self.btn_config_network_icon = ImageTk.PhotoImage(Image.open('Applications/btn_load.png').resize((20, 20)))
-        Button(frm_network, image=self.btn_config_network_icon, command=partial(self.network_change, True)).pack(side=RIGHT, padx=5)
+        Button(frm_network, image=self.btn_config_network_icon, command=self.network_change).pack(side=RIGHT, padx=5)
 
         # In WL Scheme Frame
         Label(frm_wl_scheme, text='WL Scheme', width=14, font='Arial 14 bold').pack()
@@ -450,7 +449,7 @@ class GUI:
         """ Callback for canvas painting
 
         Args:
-            new_xy: new (x, y)
+            new_xy (tuple): new (x, y)
         """
         if self.old_xy:
             self.canvas.create_line(self.old_xy.x, self.old_xy.y, new_xy.x, new_xy.y, width=40, stipple='gray50', capstyle=ROUND)
@@ -460,15 +459,20 @@ class GUI:
     def canvas_reset(self, new_xy):
         """ Callback for canvas reset
 
+        Args:
+            new_xy (tuple): new (x, y), but not used in this function
+
         """
         self.old_xy = None
+        self.txt_image_index.delete(0, 'end')
 
 
     def canvas_capture(self):
         """ Capture what's on the canvas
 
         Returns:
-            2D numpy array
+            np.uint8: 2D numpy array
+
         """
         # Capture the image from Canvas
         ps = self.canvas.postscript(colormode='gray')
@@ -491,11 +495,12 @@ class GUI:
         self.txt_image_index.delete(0, 'end')
 
 
-    def network_change(self, verbal):
+    def network_change(self, verbal=True):
         """ Change the network type
 
         Args:
-            verbal: Whether to print the updated network or not
+            verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
         """
         network = self.network_var.get()
         conf_network(network, False)
@@ -503,11 +508,12 @@ class GUI:
             self.network_print('Network Architecture Updated')
 
 
-    def network_print(self, win_title):
+    def network_print(self, win_title='Current Network Architecture'):
         """ Pop up a new window showing the updated network
 
         Args:
-            win_title: Title of the popped up window
+            win_title (str): Title of the popped up window
+
         """
         win_network = Toplevel()
         win_network.title(win_title)
