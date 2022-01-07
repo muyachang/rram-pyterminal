@@ -298,7 +298,7 @@ def env_status(verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
-    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_ENV_STATUS, verbal=True)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_ENV_STATUS, verbal)
 
 
 def mod_init(verbal=True):
