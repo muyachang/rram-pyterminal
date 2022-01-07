@@ -101,10 +101,10 @@ def reset(verbal=True):
     
 
 def enable(target, verbal=True):
-    """ Enable `target`
+    """ Enable *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -112,10 +112,10 @@ def enable(target, verbal=True):
     
 
 def disable(target, verbal=True):
-    """ Disable `target`
+    """ Disable *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -123,10 +123,10 @@ def disable(target, verbal=True):
     
 
 def increment(target, verbal=True):
-    """ Increase `target` by 1 in it's binary format. (The real voltage change will depend on the feedback ratio)
+    """ Increase *target* by 1 in it's binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -134,10 +134,10 @@ def increment(target, verbal=True):
     
 
 def decrement(target, verbal=True):
-    """ Decrease `target` in it's binary format. (The real voltage change will depend on the feedback ratio)
+    """ Decrease *target* in it's binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -145,11 +145,11 @@ def decrement(target, verbal=True):
     
 
 def plus(value, target, verbal=True):
-    """ Increase `target` by `value` mV
+    """ Increase *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -157,11 +157,11 @@ def plus(value, target, verbal=True):
     
 
 def minus(value, target, verbal=True):
-    """ Decrease `target` by `value` mV
+    """ Decrease *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -169,11 +169,11 @@ def minus(value, target, verbal=True):
     
 
 def set_source(value, target, verbal=True):
-    """ Set `target` to `value` mV
+    """ Set *target* to *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -181,11 +181,11 @@ def set_source(value, target, verbal=True):
 
 
 def set_source_safe(value, target, verbal=True):
-    """ Set `target` to `value` mV **safely** by disabling it first, and enabling last to avoid overshoot
+    """ Set *target* to *value* mV **safely** by disabling it first, and enabling last to avoid overshoot
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -193,10 +193,10 @@ def set_source_safe(value, target, verbal=True):
 
 
 def get_source(target, verbal=True):
-    """ Get the current voltage value of `target`
+    """ Get the current voltage value of *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:

@@ -29,12 +29,12 @@
 <pre><code class="python">import CommandMap as CM
 import PyTerminal as PT
 
-dict = {&#39;chip&#39;  : b&#39;\x41&#39;.decode(&#39;utf-8&#39;),
-        &#39;sector&#39;: b&#39;\x42&#39;.decode(&#39;utf-8&#39;),
-        &#39;block&#39; : b&#39;\x43&#39;.decode(&#39;utf-8&#39;),
-        &#39;page&#39;  : b&#39;\x44&#39;.decode(&#39;utf-8&#39;),
-        &#39;byte&#39;  : b&#39;\x45&#39;.decode(&#39;utf-8&#39;)}
-&#34;&#34;&#34;Dataflash memory hierarchy dictionary from *string* to *ASCII*&#34;&#34;&#34;
+LevelDict = {&#39;chip&#39;  : b&#39;\x41&#39;.decode(&#39;utf-8&#39;),
+             &#39;sector&#39;: b&#39;\x42&#39;.decode(&#39;utf-8&#39;),
+             &#39;block&#39; : b&#39;\x43&#39;.decode(&#39;utf-8&#39;),
+             &#39;page&#39;  : b&#39;\x44&#39;.decode(&#39;utf-8&#39;),
+             &#39;byte&#39;  : b&#39;\x45&#39;.decode(&#39;utf-8&#39;)}
+&#34;&#34;&#34;Dataflash memory hierarchy level dictionary from *string* to *ASCII*&#34;&#34;&#34;
 
 
 def status(verbal=True):
@@ -50,7 +50,7 @@ def status(verbal=True):
     return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_STATUS, verbal)
     
 
-def get_id(verbal=True):
+def id(verbal=True):
     &#34;&#34;&#34; Get the ID of dataflash
 
     Args:
@@ -82,10 +82,10 @@ def read(level, number, verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
-        str: The ID of dataflash
+        str: The *value* at *level* *number* of dataflash
 
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)
+    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + LevelDict[level] + &#39; &#39; + number, verbal)
 
 
 def write(address, value, verbal=True):
@@ -109,7 +109,7 @@ def erase(level, number, verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ERASE + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)
+    PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ERASE + &#39; &#39; + LevelDict[level] + &#39; &#39; + number, verbal)
 
 
 def protect(action, sector, verbal=True):
@@ -160,7 +160,7 @@ def decode(parameters):
 
     &#34;&#34;&#34;
     if   parameters[1] == &#39;status&#39;     : status     (                            )
-    elif parameters[1] == &#39;id&#39;         : get_id     (                            )
+    elif parameters[1] == &#39;id&#39;         : id         ()
     elif parameters[1] == &#39;reset&#39;      : reset      (                            )
     elif parameters[1] == &#39;read&#39;       : read       (parameters[2], parameters[3])
     elif parameters[1] == &#39;write&#39;      : write      (parameters[2], parameters[3])
@@ -175,9 +175,9 @@ def decode(parameters):
 <section>
 <h2 class="section-title" id="header-variables">Global variables</h2>
 <dl>
-<dt id="DF.dict"><code class="name">var <span class="ident">dict</span></code></dt>
+<dt id="DF.LevelDict"><code class="name">var <span class="ident">LevelDict</span></code></dt>
 <dd>
-<div class="desc"><p>Dataflash memory hierarchy dictionary from <em>string</em> to <em>ASCII</em></p></div>
+<div class="desc"><p>Dataflash memory hierarchy level dictionary from <em>string</em> to <em>ASCII</em></p></div>
 </dd>
 </dl>
 </section>
@@ -238,7 +238,7 @@ def decode(parameters):
 
     &#34;&#34;&#34;
     if   parameters[1] == &#39;status&#39;     : status     (                            )
-    elif parameters[1] == &#39;id&#39;         : get_id     (                            )
+    elif parameters[1] == &#39;id&#39;         : id         ()
     elif parameters[1] == &#39;reset&#39;      : reset      (                            )
     elif parameters[1] == &#39;read&#39;       : read       (parameters[2], parameters[3])
     elif parameters[1] == &#39;write&#39;      : write      (parameters[2], parameters[3])
@@ -275,11 +275,11 @@ def decode(parameters):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ERASE + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)</code></pre>
+    PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_ERASE + &#39; &#39; + LevelDict[level] + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
-<dt id="DF.get_id"><code class="name flex">
-<span>def <span class="ident">get_id</span></span>(<span>verbal=True)</span>
+<dt id="DF.id"><code class="name flex">
+<span>def <span class="ident">id</span></span>(<span>verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Get the ID of dataflash</p>
@@ -297,7 +297,7 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_id(verbal=True):
+<pre><code class="python">def id(verbal=True):
     &#34;&#34;&#34; Get the ID of dataflash
 
     Args:
@@ -372,7 +372,7 @@ def decode(parameters):
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>str</code></dt>
-<dd>The ID of dataflash</dd>
+<dd>The <em>value</em> at <em>level</em> <em>number</em> of dataflash</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -387,10 +387,10 @@ def decode(parameters):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
-        str: The ID of dataflash
+        str: The *value* at *level* *number* of dataflash
 
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + dict[level] + &#39; &#39; + number, verbal)</code></pre>
+    return PT.send_command(CM.CM_DF + &#39; &#39; + CM.CM_DF_READ + &#39; &#39; + LevelDict[level] + &#39; &#39; + number, verbal)</code></pre>
 </details>
 </dd>
 <dt id="DF.reset"><code class="name flex">
@@ -492,7 +492,7 @@ def decode(parameters):
 <ul id="index">
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
-<li><code><a title="DF.dict" href="#DF.dict">dict</a></code></li>
+<li><code><a title="DF.LevelDict" href="#DF.LevelDict">LevelDict</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
@@ -500,7 +500,7 @@ def decode(parameters):
 <li><code><a title="DF.blank_check" href="#DF.blank_check">blank_check</a></code></li>
 <li><code><a title="DF.decode" href="#DF.decode">decode</a></code></li>
 <li><code><a title="DF.erase" href="#DF.erase">erase</a></code></li>
-<li><code><a title="DF.get_id" href="#DF.get_id">get_id</a></code></li>
+<li><code><a title="DF.id" href="#DF.id">id</a></code></li>
 <li><code><a title="DF.protect" href="#DF.protect">protect</a></code></li>
 <li><code><a title="DF.read" href="#DF.read">read</a></code></li>
 <li><code><a title="DF.reset" href="#DF.reset">reset</a></code></li>

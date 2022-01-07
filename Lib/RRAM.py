@@ -9,7 +9,7 @@ def id (verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
-        str: The ID of the RRAM Modules. (should be `0x01314520`)
+        str: The ID of the RRAM Modules. (should be *0x01314520*)
 
     """
     return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_PID, verbal)
@@ -483,7 +483,7 @@ def write_byte(address, value, verbal=True):
 
 
 def write_byte_iter(address, value, verbal=True):
-    """ **[High Level]** Write *value* to *address* iteratively, this function is more robust than `write_byte` but takes longer
+    """ **[High Level]** Write *value* to *address* iteratively, this function is more robust than *write_byte* but takes longer
 
     Args:
         address (str): Address to be written to

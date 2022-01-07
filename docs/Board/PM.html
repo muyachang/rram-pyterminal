@@ -129,10 +129,10 @@ def reset(verbal=True):
     
 
 def enable(target, verbal=True):
-    &#34;&#34;&#34; Enable `target`
+    &#34;&#34;&#34; Enable *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -140,10 +140,10 @@ def enable(target, verbal=True):
     
 
 def disable(target, verbal=True):
-    &#34;&#34;&#34; Disable `target`
+    &#34;&#34;&#34; Disable *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -151,10 +151,10 @@ def disable(target, verbal=True):
     
 
 def increment(target, verbal=True):
-    &#34;&#34;&#34; Increase `target` by 1 in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
+    &#34;&#34;&#34; Increase *target* by 1 in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -162,10 +162,10 @@ def increment(target, verbal=True):
     
 
 def decrement(target, verbal=True):
-    &#34;&#34;&#34; Decrease `target` in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
+    &#34;&#34;&#34; Decrease *target* in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -173,11 +173,11 @@ def decrement(target, verbal=True):
     
 
 def plus(value, target, verbal=True):
-    &#34;&#34;&#34; Increase `target` by `value` mV
+    &#34;&#34;&#34; Increase *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -185,11 +185,11 @@ def plus(value, target, verbal=True):
     
 
 def minus(value, target, verbal=True):
-    &#34;&#34;&#34; Decrease `target` by `value` mV
+    &#34;&#34;&#34; Decrease *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -197,11 +197,11 @@ def minus(value, target, verbal=True):
     
 
 def set_source(value, target, verbal=True):
-    &#34;&#34;&#34; Set `target` to `value` mV
+    &#34;&#34;&#34; Set *target* to *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -209,11 +209,11 @@ def set_source(value, target, verbal=True):
 
 
 def set_source_safe(value, target, verbal=True):
-    &#34;&#34;&#34; Set `target` to `value` mV **safely** by disabling it first, and enabling last to avoid overshoot
+    &#34;&#34;&#34; Set *target* to *value* mV **safely** by disabling it first, and enabling last to avoid overshoot
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -221,10 +221,10 @@ def set_source_safe(value, target, verbal=True):
 
 
 def get_source(target, verbal=True):
-    &#34;&#34;&#34; Get the current voltage value of `target`
+    &#34;&#34;&#34; Get the current voltage value of *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
@@ -344,11 +344,11 @@ def decode(parameters):
 <span>def <span class="ident">decrement</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Decrease <code>target</code> in it's binary format. (The real voltage change will depend on the feedback ratio)</p>
+<div class="desc"><p>Decrease <em>target</em> in it's binary format. (The real voltage change will depend on the feedback ratio)</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -357,10 +357,10 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def decrement(target, verbal=True):
-    &#34;&#34;&#34; Decrease `target` in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
+    &#34;&#34;&#34; Decrease *target* in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -371,11 +371,11 @@ def decode(parameters):
 <span>def <span class="ident">disable</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Disable <code>target</code></p>
+<div class="desc"><p>Disable <em>target</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -384,10 +384,10 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def disable(target, verbal=True):
-    &#34;&#34;&#34; Disable `target`
+    &#34;&#34;&#34; Disable *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -423,11 +423,11 @@ def decode(parameters):
 <span>def <span class="ident">enable</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Enable <code>target</code></p>
+<div class="desc"><p>Enable <em>target</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -436,10 +436,10 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def enable(target, verbal=True):
-    &#34;&#34;&#34; Enable `target`
+    &#34;&#34;&#34; Enable *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -475,11 +475,11 @@ def decode(parameters):
 <span>def <span class="ident">get_source</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Get the current voltage value of <code>target</code></p>
+<div class="desc"><p>Get the current voltage value of <em>target</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
@@ -490,10 +490,10 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_source(target, verbal=True):
-    &#34;&#34;&#34; Get the current voltage value of `target`
+    &#34;&#34;&#34; Get the current voltage value of *target*
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
@@ -507,11 +507,11 @@ def decode(parameters):
 <span>def <span class="ident">increment</span></span>(<span>target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Increase <code>target</code> by 1 in it's binary format. (The real voltage change will depend on the feedback ratio)</p>
+<div class="desc"><p>Increase <em>target</em> by 1 in it's binary format. (The real voltage change will depend on the feedback ratio)</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -520,10 +520,10 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def increment(target, verbal=True):
-    &#34;&#34;&#34; Increase `target` by 1 in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
+    &#34;&#34;&#34; Increase *target* by 1 in it&#39;s binary format. (The real voltage change will depend on the feedback ratio)
 
     Args:
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -582,13 +582,13 @@ def decode(parameters):
 <span>def <span class="ident">minus</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Decrease <code>target</code> by <code>value</code> mV</p>
+<div class="desc"><p>Decrease <em>target</em> by <em>value</em> mV</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -597,11 +597,11 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def minus(value, target, verbal=True):
-    &#34;&#34;&#34; Decrease `target` by `value` mV
+    &#34;&#34;&#34; Decrease *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -612,13 +612,13 @@ def decode(parameters):
 <span>def <span class="ident">plus</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Increase <code>target</code> by <code>value</code> mV</p>
+<div class="desc"><p>Increase <em>target</em> by <em>value</em> mV</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -627,11 +627,11 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def plus(value, target, verbal=True):
-    &#34;&#34;&#34; Increase `target` by `value` mV
+    &#34;&#34;&#34; Increase *target* by *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -690,13 +690,13 @@ def decode(parameters):
 <span>def <span class="ident">set_source</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set <code>target</code> to <code>value</code> mV</p>
+<div class="desc"><p>Set <em>target</em> to <em>value</em> mV</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -705,11 +705,11 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def set_source(value, target, verbal=True):
-    &#34;&#34;&#34; Set `target` to `value` mV
+    &#34;&#34;&#34; Set *target* to *value* mV
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -720,13 +720,13 @@ def decode(parameters):
 <span>def <span class="ident">set_source_safe</span></span>(<span>value, target, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set <code>target</code> to <code>value</code> mV <strong>safely</strong> by disabling it first, and enabling last to avoid overshoot</p>
+<div class="desc"><p>Set <em>target</em> to <em>value</em> mV <strong>safely</strong> by disabling it first, and enabling last to avoid overshoot</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>value</code></strong> :&ensp;<code>str</code></dt>
 <dd>Voltage (mV)</dd>
 <dt><strong><code>target</code></strong> :&ensp;<code>str</code></dt>
-<dd>Target voltage source, could be <code>3V3</code>, <code>AVDD_WR</code>, <code>AVDD_WL</code>, <code>AVDD_RRAM</code>, <code>VDD</code>, <code>AVDD_SRAM</code></dd>
+<dd>Target voltage source, could be <em>3V3</em>, <em>AVDD_WR</em>, <em>AVDD_WL</em>, <em>AVDD_RRAM</em>, <em>VDD</em>, <em>AVDD_SRAM</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -735,11 +735,11 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def set_source_safe(value, target, verbal=True):
-    &#34;&#34;&#34; Set `target` to `value` mV **safely** by disabling it first, and enabling last to avoid overshoot
+    &#34;&#34;&#34; Set *target* to *value* mV **safely** by disabling it first, and enabling last to avoid overshoot
 
     Args:
         value (str): Voltage (mV)
-        target (str): Target voltage source, could be `3V3`, `AVDD_WR`, `AVDD_WL`, `AVDD_RRAM`, `VDD`, `AVDD_SRAM`
+        target (str): Target voltage source, could be *3V3*, *AVDD_WR*, *AVDD_WL*, *AVDD_RRAM*, *VDD*, *AVDD_SRAM*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;

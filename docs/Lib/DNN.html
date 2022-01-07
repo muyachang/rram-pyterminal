@@ -51,7 +51,7 @@ def in_conf_len(length, verbal=True):
 
 
 def in_fill(address, value, verbal=True):
-    &#34;&#34;&#34; Write `value` to `address`
+    &#34;&#34;&#34; Write *value* to *address*
 
     Args:
         address (str): Address to be written to
@@ -83,11 +83,11 @@ def nn_clear(verbal=True):
 
 
 def nn_conf_type(layer, type, verbal=True):
-    &#34;&#34;&#34; Configure layer type for `layer`
+    &#34;&#34;&#34; Configure layer type for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        type (str): Layer type, could be `0` for FC or `1` for Convolution
+        layer (str): Layer number, could be *0* ~ *19*
+        type (str): Layer type, could be *0* for FC or *1* for Convolution
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -95,10 +95,10 @@ def nn_conf_type(layer, type, verbal=True):
 
 
 def nn_conf_rrams(layer, row, col, rrams, verbal=True):
-    &#34;&#34;&#34; Configure RRAM module location for `layer`
+    &#34;&#34;&#34; Configure RRAM module location for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
+        layer (str): Layer number, could be *0* ~ *19*
         row (str): row index of the rram tiles
         col (str): col index of the rram tiles
         rrams (str): RRAM Module number that this layer resides at
@@ -109,12 +109,12 @@ def nn_conf_rrams(layer, row, col, rrams, verbal=True):
 
 
 def nn_conf_input(layer, input_length, input_channel, verbal=True):
-    &#34;&#34;&#34; Configure input for `layer`
+    &#34;&#34;&#34; Configure input for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        input_length (str): The length of input activation at `layer` (assume the intput is square)
-        input_channel (str): The channel of input activation at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        input_length (str): The length of input activation at *layer* (assume the intput is square)
+        input_channel (str): The channel of input activation at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -122,14 +122,14 @@ def nn_conf_input(layer, input_length, input_channel, verbal=True):
 
 
 def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True):
-    &#34;&#34;&#34; Configure kernel for `layer`
+    &#34;&#34;&#34; Configure kernel for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        kernel_length (str): The length of kernel at `layer`  (assume the kernel is square)
-        kernel_channel (str): The channel of kernel at `layer`
-        kernel_number (str): The number of kernel at `layer`
-        stride (str): The stride of kernel at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        kernel_length (str): The length of kernel at *layer*  (assume the kernel is square)
+        kernel_channel (str): The channel of kernel at *layer*
+        kernel_number (str): The number of kernel at *layer*
+        stride (str): The stride of kernel at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -137,12 +137,12 @@ def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, 
 
 
 def nn_conf_output(layer, output_length, output_channel, verbal=True):
-    &#34;&#34;&#34; Configure activation setting for `layer`
+    &#34;&#34;&#34; Configure activation setting for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        output_length (str): The length of output at `layer`  (assume the output is square)
-        output_channel (str): The channel of output at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        output_length (str): The length of output at *layer*  (assume the output is square)
+        output_channel (str): The channel of output at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -150,12 +150,12 @@ def nn_conf_output(layer, output_length, output_channel, verbal=True):
 
 
 def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
-    &#34;&#34;&#34; Configure Quantization for `layer`
+    &#34;&#34;&#34; Configure Quantization for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        output_q_scale (str): Output quantization scale at `layer`
-        output_q_zp (str): Output quantization zero point at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        output_q_scale (str): Output quantization scale at *layer*
+        output_q_zp (str): Output quantization zero point at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -163,11 +163,11 @@ def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
 
 
 def nn_conf_ecc(layer, ecc, verbal=True):
-    &#34;&#34;&#34; Configure ECC for `layer`
+    &#34;&#34;&#34; Configure ECC for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        ecc (str): Whether the weights at `layer` is ECC enabled.
+        layer (str): Layer number, could be *0* ~ *19*
+        ecc (str): Whether the weights at *layer* is ECC enabled.
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -191,7 +191,7 @@ def forward(WL, verbal=True):
     &#34;&#34;&#34; Run 1 forward inference
 
     Args:
-        WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
+        WL (str): The Compute-In-Memory (CIM) scheme, could be *1*~*9*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
@@ -282,7 +282,7 @@ def decode(parameters):
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>WL</code></strong> :&ensp;<code>str</code></dt>
-<dd>The Compute-In-Memory (CIM) scheme, could be <code>1</code>~<code>9</code></dd>
+<dd>The Compute-In-Memory (CIM) scheme, could be <em>1</em>~<em>9</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl>
@@ -296,7 +296,7 @@ def decode(parameters):
     &#34;&#34;&#34; Run 1 forward inference
 
     Args:
-        WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
+        WL (str): The Compute-In-Memory (CIM) scheme, could be *1*~*9*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
@@ -361,7 +361,7 @@ def decode(parameters):
 <span>def <span class="ident">in_fill</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Write <code>value</code> to <code>address</code></p>
+<div class="desc"><p>Write <em>value</em> to <em>address</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
@@ -376,7 +376,7 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def in_fill(address, value, verbal=True):
-    &#34;&#34;&#34; Write `value` to `address`
+    &#34;&#34;&#34; Write *value* to *address*
 
     Args:
         address (str): Address to be written to
@@ -439,13 +439,13 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_ecc</span></span>(<span>layer, ecc, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure ECC for <code>layer</code></p>
+<div class="desc"><p>Configure ECC for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>ecc</code></strong> :&ensp;<code>str</code></dt>
-<dd>Whether the weights at <code>layer</code> is ECC enabled.</dd>
+<dd>Whether the weights at <em>layer</em> is ECC enabled.</dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -454,11 +454,11 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_ecc(layer, ecc, verbal=True):
-    &#34;&#34;&#34; Configure ECC for `layer`
+    &#34;&#34;&#34; Configure ECC for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        ecc (str): Whether the weights at `layer` is ECC enabled.
+        layer (str): Layer number, could be *0* ~ *19*
+        ecc (str): Whether the weights at *layer* is ECC enabled.
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -469,15 +469,15 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_input</span></span>(<span>layer, input_length, input_channel, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure input for <code>layer</code></p>
+<div class="desc"><p>Configure input for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>input_length</code></strong> :&ensp;<code>str</code></dt>
-<dd>The length of input activation at <code>layer</code> (assume the intput is square)</dd>
+<dd>The length of input activation at <em>layer</em> (assume the intput is square)</dd>
 <dt><strong><code>input_channel</code></strong> :&ensp;<code>str</code></dt>
-<dd>The channel of input activation at <code>layer</code></dd>
+<dd>The channel of input activation at <em>layer</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -486,12 +486,12 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_input(layer, input_length, input_channel, verbal=True):
-    &#34;&#34;&#34; Configure input for `layer`
+    &#34;&#34;&#34; Configure input for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        input_length (str): The length of input activation at `layer` (assume the intput is square)
-        input_channel (str): The channel of input activation at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        input_length (str): The length of input activation at *layer* (assume the intput is square)
+        input_channel (str): The channel of input activation at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -502,20 +502,20 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_kernel</span></span>(<span>layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure kernel for <code>layer</code></p>
+<div class="desc"><p>Configure kernel for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>kernel_length</code></strong> :&ensp;<code>str</code></dt>
-<dd>The length of kernel at <code>layer</code>
+<dd>The length of kernel at <em>layer</em>
 (assume the kernel is square)</dd>
 <dt><strong><code>kernel_channel</code></strong> :&ensp;<code>str</code></dt>
-<dd>The channel of kernel at <code>layer</code></dd>
+<dd>The channel of kernel at <em>layer</em></dd>
 <dt><strong><code>kernel_number</code></strong> :&ensp;<code>str</code></dt>
-<dd>The number of kernel at <code>layer</code></dd>
+<dd>The number of kernel at <em>layer</em></dd>
 <dt><strong><code>stride</code></strong> :&ensp;<code>str</code></dt>
-<dd>The stride of kernel at <code>layer</code></dd>
+<dd>The stride of kernel at <em>layer</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -524,14 +524,14 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True):
-    &#34;&#34;&#34; Configure kernel for `layer`
+    &#34;&#34;&#34; Configure kernel for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        kernel_length (str): The length of kernel at `layer`  (assume the kernel is square)
-        kernel_channel (str): The channel of kernel at `layer`
-        kernel_number (str): The number of kernel at `layer`
-        stride (str): The stride of kernel at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        kernel_length (str): The length of kernel at *layer*  (assume the kernel is square)
+        kernel_channel (str): The channel of kernel at *layer*
+        kernel_number (str): The number of kernel at *layer*
+        stride (str): The stride of kernel at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -542,16 +542,16 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_output</span></span>(<span>layer, output_length, output_channel, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure activation setting for <code>layer</code></p>
+<div class="desc"><p>Configure activation setting for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>output_length</code></strong> :&ensp;<code>str</code></dt>
-<dd>The length of output at <code>layer</code>
+<dd>The length of output at <em>layer</em>
 (assume the output is square)</dd>
 <dt><strong><code>output_channel</code></strong> :&ensp;<code>str</code></dt>
-<dd>The channel of output at <code>layer</code></dd>
+<dd>The channel of output at <em>layer</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -560,12 +560,12 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_output(layer, output_length, output_channel, verbal=True):
-    &#34;&#34;&#34; Configure activation setting for `layer`
+    &#34;&#34;&#34; Configure activation setting for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        output_length (str): The length of output at `layer`  (assume the output is square)
-        output_channel (str): The channel of output at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        output_length (str): The length of output at *layer*  (assume the output is square)
+        output_channel (str): The channel of output at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -576,15 +576,15 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_output_q</span></span>(<span>layer, output_q_scale, output_q_zp, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure Quantization for <code>layer</code></p>
+<div class="desc"><p>Configure Quantization for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>output_q_scale</code></strong> :&ensp;<code>str</code></dt>
-<dd>Output quantization scale at <code>layer</code></dd>
+<dd>Output quantization scale at <em>layer</em></dd>
 <dt><strong><code>output_q_zp</code></strong> :&ensp;<code>str</code></dt>
-<dd>Output quantization zero point at <code>layer</code></dd>
+<dd>Output quantization zero point at <em>layer</em></dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -593,12 +593,12 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
-    &#34;&#34;&#34; Configure Quantization for `layer`
+    &#34;&#34;&#34; Configure Quantization for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        output_q_scale (str): Output quantization scale at `layer`
-        output_q_zp (str): Output quantization zero point at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        output_q_scale (str): Output quantization scale at *layer*
+        output_q_zp (str): Output quantization zero point at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
@@ -609,11 +609,11 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_rrams</span></span>(<span>layer, row, col, rrams, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure RRAM module location for <code>layer</code></p>
+<div class="desc"><p>Configure RRAM module location for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>row</code></strong> :&ensp;<code>str</code></dt>
 <dd>row index of the rram tiles</dd>
 <dt><strong><code>col</code></strong> :&ensp;<code>str</code></dt>
@@ -628,10 +628,10 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_rrams(layer, row, col, rrams, verbal=True):
-    &#34;&#34;&#34; Configure RRAM module location for `layer`
+    &#34;&#34;&#34; Configure RRAM module location for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
+        layer (str): Layer number, could be *0* ~ *19*
         row (str): row index of the rram tiles
         col (str): col index of the rram tiles
         rrams (str): RRAM Module number that this layer resides at
@@ -645,13 +645,13 @@ def decode(parameters):
 <span>def <span class="ident">nn_conf_type</span></span>(<span>layer, type, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure layer type for <code>layer</code></p>
+<div class="desc"><p>Configure layer type for <em>layer</em></p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>layer</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer number, could be <code>0</code> ~ <code>19</code></dd>
+<dd>Layer number, could be <em>0</em> ~ <em>19</em></dd>
 <dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>Layer type, could be <code>0</code> for FC or <code>1</code> for Convolution</dd>
+<dd>Layer type, could be <em>0</em> for FC or <em>1</em> for Convolution</dd>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -660,11 +660,11 @@ def decode(parameters):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def nn_conf_type(layer, type, verbal=True):
-    &#34;&#34;&#34; Configure layer type for `layer`
+    &#34;&#34;&#34; Configure layer type for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        type (str): Layer type, could be `0` for FC or `1` for Convolution
+        layer (str): Layer number, could be *0* ~ *19*
+        type (str): Layer type, could be *0* for FC or *1* for Convolution
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;

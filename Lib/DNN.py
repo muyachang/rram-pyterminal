@@ -23,7 +23,7 @@ def in_conf_len(length, verbal=True):
 
 
 def in_fill(address, value, verbal=True):
-    """ Write `value` to `address`
+    """ Write *value* to *address*
 
     Args:
         address (str): Address to be written to
@@ -55,11 +55,11 @@ def nn_clear(verbal=True):
 
 
 def nn_conf_type(layer, type, verbal=True):
-    """ Configure layer type for `layer`
+    """ Configure layer type for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        type (str): Layer type, could be `0` for FC or `1` for Convolution
+        layer (str): Layer number, could be *0* ~ *19*
+        type (str): Layer type, could be *0* for FC or *1* for Convolution
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -67,10 +67,10 @@ def nn_conf_type(layer, type, verbal=True):
 
 
 def nn_conf_rrams(layer, row, col, rrams, verbal=True):
-    """ Configure RRAM module location for `layer`
+    """ Configure RRAM module location for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
+        layer (str): Layer number, could be *0* ~ *19*
         row (str): row index of the rram tiles
         col (str): col index of the rram tiles
         rrams (str): RRAM Module number that this layer resides at
@@ -81,12 +81,12 @@ def nn_conf_rrams(layer, row, col, rrams, verbal=True):
 
 
 def nn_conf_input(layer, input_length, input_channel, verbal=True):
-    """ Configure input for `layer`
+    """ Configure input for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        input_length (str): The length of input activation at `layer` (assume the intput is square)
-        input_channel (str): The channel of input activation at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        input_length (str): The length of input activation at *layer* (assume the intput is square)
+        input_channel (str): The channel of input activation at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -94,14 +94,14 @@ def nn_conf_input(layer, input_length, input_channel, verbal=True):
 
 
 def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, verbal=True):
-    """ Configure kernel for `layer`
+    """ Configure kernel for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        kernel_length (str): The length of kernel at `layer`  (assume the kernel is square)
-        kernel_channel (str): The channel of kernel at `layer`
-        kernel_number (str): The number of kernel at `layer`
-        stride (str): The stride of kernel at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        kernel_length (str): The length of kernel at *layer*  (assume the kernel is square)
+        kernel_channel (str): The channel of kernel at *layer*
+        kernel_number (str): The number of kernel at *layer*
+        stride (str): The stride of kernel at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -109,12 +109,12 @@ def nn_conf_kernel(layer, kernel_length, kernel_channel, kernel_number, stride, 
 
 
 def nn_conf_output(layer, output_length, output_channel, verbal=True):
-    """ Configure activation setting for `layer`
+    """ Configure activation setting for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        output_length (str): The length of output at `layer`  (assume the output is square)
-        output_channel (str): The channel of output at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        output_length (str): The length of output at *layer*  (assume the output is square)
+        output_channel (str): The channel of output at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -122,12 +122,12 @@ def nn_conf_output(layer, output_length, output_channel, verbal=True):
 
 
 def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
-    """ Configure Quantization for `layer`
+    """ Configure Quantization for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        output_q_scale (str): Output quantization scale at `layer`
-        output_q_zp (str): Output quantization zero point at `layer`
+        layer (str): Layer number, could be *0* ~ *19*
+        output_q_scale (str): Output quantization scale at *layer*
+        output_q_zp (str): Output quantization zero point at *layer*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -135,11 +135,11 @@ def nn_conf_output_q(layer, output_q_scale, output_q_zp, verbal=True):
 
 
 def nn_conf_ecc(layer, ecc, verbal=True):
-    """ Configure ECC for `layer`
+    """ Configure ECC for *layer*
 
     Args:
-        layer (str): Layer number, could be `0` ~ `19`
-        ecc (str): Whether the weights at `layer` is ECC enabled.
+        layer (str): Layer number, could be *0* ~ *19*
+        ecc (str): Whether the weights at *layer* is ECC enabled.
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -163,7 +163,7 @@ def forward(WL, verbal=True):
     """ Run 1 forward inference
 
     Args:
-        WL (str): The Compute-In-Memory (CIM) scheme, could be `1`~`9`
+        WL (str): The Compute-In-Memory (CIM) scheme, could be *1*~*9*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:

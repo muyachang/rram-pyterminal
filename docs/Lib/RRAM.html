@@ -37,7 +37,7 @@ def id (verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
-        str: The ID of the RRAM Modules. (should be `0x01314520`)
+        str: The ID of the RRAM Modules. (should be *0x01314520*)
 
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PID, verbal)
@@ -511,7 +511,7 @@ def write_byte(address, value, verbal=True):
 
 
 def write_byte_iter(address, value, verbal=True):
-    &#34;&#34;&#34; **[High Level]** Write *value* to *address* iteratively, this function is more robust than `write_byte` but takes longer
+    &#34;&#34;&#34; **[High Level]** Write *value* to *address* iteratively, this function is more robust than *write_byte* but takes longer
 
     Args:
         address (str): Address to be written to
@@ -1581,7 +1581,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>str</code></dt>
-<dd>The ID of the RRAM Modules. (should be <code>0x01314520</code>)</dd>
+<dd>The ID of the RRAM Modules. (should be <em>0x01314520</em>)</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1594,7 +1594,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
-        str: The ID of the RRAM Modules. (should be `0x01314520`)
+        str: The ID of the RRAM Modules. (should be *0x01314520*)
 
     &#34;&#34;&#34;
     return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_PID, verbal)</code></pre>
@@ -2453,7 +2453,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>def <span class="ident">write_byte_iter</span></span>(<span>address, value, verbal=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p><strong>[High Level]</strong> Write <em>value</em> to <em>address</em> iteratively, this function is more robust than <code><a title="RRAM.write_byte" href="#RRAM.write_byte">write_byte()</a></code> but takes longer</p>
+<div class="desc"><p><strong>[High Level]</strong> Write <em>value</em> to <em>address</em> iteratively, this function is more robust than <em>write_byte</em> but takes longer</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>address</code></strong> :&ensp;<code>str</code></dt>
@@ -2468,7 +2468,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def write_byte_iter(address, value, verbal=True):
-    &#34;&#34;&#34; **[High Level]** Write *value* to *address* iteratively, this function is more robust than `write_byte` but takes longer
+    &#34;&#34;&#34; **[High Level]** Write *value* to *address* iteratively, this function is more robust than *write_byte* but takes longer
 
     Args:
         address (str): Address to be written to

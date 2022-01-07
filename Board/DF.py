@@ -1,12 +1,12 @@
 import CommandMap as CM
 import PyTerminal as PT
 
-dict = {'chip'  : b'\x41'.decode('utf-8'),
-        'sector': b'\x42'.decode('utf-8'),
-        'block' : b'\x43'.decode('utf-8'),
-        'page'  : b'\x44'.decode('utf-8'),
-        'byte'  : b'\x45'.decode('utf-8')}
-"""Dataflash memory hierarchy dictionary from *string* to *ASCII*"""
+LevelDict = {'chip'  : b'\x41'.decode('utf-8'),
+             'sector': b'\x42'.decode('utf-8'),
+             'block' : b'\x43'.decode('utf-8'),
+             'page'  : b'\x44'.decode('utf-8'),
+             'byte'  : b'\x45'.decode('utf-8')}
+"""Dataflash memory hierarchy level dictionary from *string* to *ASCII*"""
 
 
 def status(verbal=True):
@@ -22,7 +22,7 @@ def status(verbal=True):
     return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_STATUS, verbal)
     
 
-def get_id(verbal=True):
+def id(verbal=True):
     """ Get the ID of dataflash
 
     Args:
@@ -54,10 +54,10 @@ def read(level, number, verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     Returns:
-        str: The ID of dataflash
+        str: The *value* at *level* *number* of dataflash
 
     """
-    return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + dict[level] + ' ' + number, verbal)
+    return PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_READ + ' ' + LevelDict[level] + ' ' + number, verbal)
 
 
 def write(address, value, verbal=True):
@@ -81,7 +81,7 @@ def erase(level, number, verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
-    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + dict[level] + ' ' + number, verbal)
+    PT.send_command(CM.CM_DF + ' ' + CM.CM_DF_ERASE + ' ' + LevelDict[level] + ' ' + number, verbal)
 
 
 def protect(action, sector, verbal=True):
@@ -132,7 +132,7 @@ def decode(parameters):
 
     """
     if   parameters[1] == 'status'     : status     (                            )
-    elif parameters[1] == 'id'         : get_id     (                            )
+    elif parameters[1] == 'id'         : id         ()
     elif parameters[1] == 'reset'      : reset      (                            )
     elif parameters[1] == 'read'       : read       (parameters[2], parameters[3])
     elif parameters[1] == 'write'      : write      (parameters[2], parameters[3])

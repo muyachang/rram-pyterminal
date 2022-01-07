@@ -27,7 +27,7 @@ def disconnect(verbal=True):
 
 
 def read(address, verbal=True):
-    """ Read the value from `address`
+    """ Read the value from *address*
 
     Args:
         address (str): Address to be read from
@@ -38,7 +38,7 @@ def read(address, verbal=True):
 
 
 def write(address, value, verbal=True):
-    """ Write `value` to `address`
+    """ Write *value* to *address*
 
     Args:
         address (str): Address to be written to
@@ -60,10 +60,10 @@ def list_configs(verbal=True):
 
 
 def save_config(number, verbal=True):
-    """ Save the testchip configuration to slot `number`
+    """ Save the testchip configuration to slot *number*
 
     Args:
-        number (str): Slot number, from `0`~`9`
+        number (str): Slot number, from *0*~*9*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
@@ -71,10 +71,10 @@ def save_config(number, verbal=True):
 
 
 def load_config(number, verbal=True):
-    """ Load the testchip configuration from slot `number`
+    """ Load the testchip configuration from slot *number*
 
     Args:
-        number (str): Slot number, from `0`~`9`
+        number (str): Slot number, from *0*~*9*
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """

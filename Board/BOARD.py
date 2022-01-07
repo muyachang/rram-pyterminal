@@ -20,6 +20,7 @@ def decode(parameters):
 
     Args:
         parameters (list): Command in *List* form.
+
     """
     if   parameters[1] == 'version': version()
     else: PT.unknown(parameters)
