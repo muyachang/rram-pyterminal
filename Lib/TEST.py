@@ -16,15 +16,15 @@ def check_chip_VRef():
         RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_VRef('120', '700', '5', False)
+        response = RRAM.calibrate_VRef('120', '750', '5', False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
         if offset == 0 or offset == 63 or step == 0 or step == 63:
-            RRAM.mod_conf(str(CM.CM_RRAM_API_MOD_STATUS_ADC_FATAL), False)
+            RRAM.mod_conf('A', False)
     print('')
 
-    RRAM.mod_status(True)
+    RRAM.mod_status()
 
 def sweep_chip_VRef():
     """ Sweep VRef for the whole chip
@@ -38,7 +38,7 @@ def sweep_chip_VRef():
         RRAM.switch(str(module), False)
 
         # Find the (offset, step)
-        response = RRAM.calibrate_VRef('120', '700', '5', False)
+        response = RRAM.calibrate_VRef('120', '750', '5', False)
         offset = int(response.split()[0])
         step = int(response.split()[1])
 
@@ -92,12 +92,12 @@ def cim_bit(row, col):
     # Reset first 9 cells
     for row_offset in range(0, 9):
         addr = (row+row_offset) * 256 + col
-        RRAM.reset('cell', str(addr), True)
+        RRAM.reset('cell', str(addr), False)
 
     # Set second 9 cells
     for row_offset in range(9, 18):
         addr = (row+row_offset) * 256 + col
-        RRAM.set('cell', str(addr), True)
+        RRAM.set('cell', str(addr), False)
 
     # Compute-In-Memory
     raws = [[''] * 10 for i in range(10)]
@@ -162,6 +162,41 @@ def cim_byte(row, col, num):
     print('╚══════╩═════════╩════════╩════════════╝')
 
 
+def profile():
+    """ Test function for computer in memory (CIM) at byte level
+
+    Args:
+    """
+    set = [[0 for x in range(256)] for y in range(256)]
+    reset = [[0 for x in range(256)] for y in range(256)]
+    condition = [[0 for x in range(256)] for y in range(256)]
+
+    print('Setting')
+    RRAM.set('module', '0', False)
+    for row in range(256):
+        for col in range(256):
+            address = row*256 + col
+            set[row][col] = int(RRAM.read_lane(str(address), '1', False), 16)
+
+    print('Resetting')
+    RRAM.reset('module', '0', False)
+    for row in range(256):
+        for col in range(256):
+            address = row*256 + col
+            reset[row][col] = int(RRAM.read_lane(str(address), '1', False), 16)
+
+    print('Analyzing')
+    for row in range(256):
+        for col in range(256):
+            condition[row][col] = 1 if set[row][col] < reset[row][col] else 0
+
+    print('Printing')
+    for row in range(256):
+        for col in range(256):
+            if condition[row][col] == 0:
+                print(f'({row}, {col}) not healthy')
+
+
 def decode(parameters):
     """ Decode the command
 
@@ -173,4 +208,5 @@ def decode(parameters):
     elif parameters[1] == 'write_byte'     : write_byte     (parameters[2], parameters[3]               )
     elif parameters[1] == 'cim_bit'        : cim_bit        (parameters[2], parameters[3]               )
     elif parameters[1] == 'cim_byte'       : cim_byte       (parameters[2], parameters[3], parameters[4])
+    elif parameters[1] == 'profile'        : profile        (                                           )
     else: PT.unknown(parameters)
