@@ -642,8 +642,8 @@ def clear_DRef(ones, verbal):
     PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CLEAR_DREF + ' ' + ones, verbal)
 
 
-def check(level, number, verbal):
-    """ **[High Level]** Check the health of RRAM cells, this function essentially consists of SET->READ->RESET->READ.
+def check_cell(address, verbal):
+    """ **[High Level]** Check the health of the RRAM cell, this function essentially consists of SET->READ->RESET->READ.
         If the cell is healthy, the ADC raw value after SET should be smaller than the value after RESET.
 
     .. note::
@@ -651,30 +651,10 @@ def check(level, number, verbal):
         This function destroys the values inside some cells
 
     Args:
-        level (str): Hierarchy level, could be *cell*, *row*, *col*, *module*
-        number (str): Target number, could be *0*~*65535* for *cell*, *0*~*255* for *row* and *col*, *0* for *module*
+        address (str): Target number, could be *0*~*65535*
         verbal (bool): Whether to print the response or not.
     """
-    if level == 'cell':
-        address = int(number)
-        response = PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CHECK_CELL + ' ' + str(address), False)
-        print(f'{address:>6} : {response:>10}')
-    elif level == 'row':
-        for col in range(0, 256):
-            address = int(number)*256 + col
-            response = PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CHECK_CELL + ' ' + str(address), False)
-            print(f'{address:>6} : {response:>10}')
-    elif level == 'col':
-        for row in range(0, 256):
-            address = row*256 + int(number)
-            response = PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CHECK_CELL + ' ' + str(address), False)
-            print(f'{address:>6} : {response:>10}')
-    elif level == 'module':
-        for row in range(0, 256):
-            for col in range(0, 256):
-                address = row*256 + col
-                response = PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CHECK_CELL + ' ' + str(address), False)
-                print(f'{address:>6} : {response:>10}')
+    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CHECK_CELL + ' ' + str(address), verbal)
 
 
 def decode(parameters):
@@ -729,5 +709,5 @@ def decode(parameters):
     elif parameters[1] == 'sweep_DRef'       : sweep_DRef       (parameters[2],                                              True)
     elif parameters[1] == 'list_DRef'        : list_DRef        (                                                            True)
     elif parameters[1] == 'clear_DRef'       : clear_DRef       (parameters[2],                                              True)
-    elif parameters[1] == 'check'            : check            (parameters[2], parameters[3],                               True)
+    elif parameters[1] == 'check_cell'       : check_cell       (parameters[2],                                              True)
     else: PT.unknown(parameters)
