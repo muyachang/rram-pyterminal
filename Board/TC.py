@@ -59,15 +59,21 @@ def list_configs(verbal=True):
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_LIST, verbal)
 
 
-def save_config(number, verbal=True):
+def save_config(number, force=False, verbal=True):
     """ Save the testchip configuration to slot *number*
 
     Args:
         number (str): Slot number, from *0*~*9*
+        force  (bool, optional): Whether to force the save without confirming. Defaults to False
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
-    PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + number + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
+    if force:
+        PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + number + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
+    else:
+        confirm = input(f'[WARNING] This will overwrite the config for chip #{number}, are you sure? (y/n)')
+        if confirm.lower() == 'y':
+            PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_SAVE + ' ' + number + ' ' + datetime.now().strftime("%m/%d/%Y_%H:%M:%S"), verbal)
 
 
 def load_config(number, verbal=True):
