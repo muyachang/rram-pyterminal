@@ -1,4 +1,5 @@
 from datetime import datetime
+from tkinter import Tk, filedialog
 import CommandMap as CM
 import PyTerminal as PT
 
@@ -97,17 +98,22 @@ def download_config(verbal=True):
     """
     TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
     TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
-    from tkinter import filedialog
+    root = Tk()
+    root.withdraw()
     f = filedialog.asksaveasfile(title = "Save config as",
                                  filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
-    del filedialog
+    if f is None:
+        print('No file specified')
+        return
+
     for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
         if verbal:
-            print(f'\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%', end='')
+            print(f'\r[INFO] Progress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%', end='')
         f.write(read(str(address) + '\n', False))
     if verbal:
-        print(f'\rProgress: 100%')
+        print(f'\r[INFO] Progress: 100%')
     f.close()
+    root.destroy()
 
 
 def upload_config(verbal=True):
@@ -120,17 +126,22 @@ def upload_config(verbal=True):
     """
     TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
     TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
-    from tkinter import filedialog
+    root = Tk()
+    root.withdraw()
     f = filedialog.askopenfile(title = "Open a config",
                                filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
-    del filedialog
+    if f is None:
+        print('No file specified')
+        return
+
     for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
         if verbal:
-            print(f'\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%', end='')
+            print(f'\r[INFO] Progress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%', end='')
         write(str(address), f.readline(), False)
     if verbal:
-        print(f'\rProgress: 100%')
+        print(f'\r[INFO] Progress: 100%')
     f.close()
+    root.destroy()
 
 
 def decode(parameters):
