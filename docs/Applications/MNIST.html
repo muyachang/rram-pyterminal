@@ -41,7 +41,6 @@ import RRAM, DNN
 
 from tkinter import *
 from tkinter import font
-from functools import partial
 
 from PIL import Image, ImageTk
 
@@ -406,10 +405,10 @@ class GUI:
         self.network_change(False)
 
         self.btn_display_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_display_network_icon.png&#39;).resize((20, 20)))
-        Button(frm_network, image=self.btn_display_network_icon, command=partial(self.network_print, &#39;Current Network Architecture&#39;)).pack(side=RIGHT, padx=5)
+        Button(frm_network, image=self.btn_display_network_icon, command=self.network_print).pack(side=RIGHT, padx=5)
 
         self.btn_config_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
-        Button(frm_network, image=self.btn_config_network_icon, command=partial(self.network_change, True)).pack(side=RIGHT, padx=5)
+        Button(frm_network, image=self.btn_config_network_icon, command=self.network_change).pack(side=RIGHT, padx=5)
 
         # In WL Scheme Frame
         Label(frm_wl_scheme, text=&#39;WL Scheme&#39;, width=14, font=&#39;Arial 14 bold&#39;).pack()
@@ -478,7 +477,7 @@ class GUI:
         &#34;&#34;&#34; Callback for canvas painting
 
         Args:
-            new_xy: new (x, y)
+            new_xy (tuple): new (x, y)
         &#34;&#34;&#34;
         if self.old_xy:
             self.canvas.create_line(self.old_xy.x, self.old_xy.y, new_xy.x, new_xy.y, width=40, stipple=&#39;gray50&#39;, capstyle=ROUND)
@@ -488,15 +487,20 @@ class GUI:
     def canvas_reset(self, new_xy):
         &#34;&#34;&#34; Callback for canvas reset
 
+        Args:
+            new_xy (tuple): new (x, y), but not used in this function
+
         &#34;&#34;&#34;
         self.old_xy = None
+        self.txt_image_index.delete(0, &#39;end&#39;)
 
 
     def canvas_capture(self):
         &#34;&#34;&#34; Capture what&#39;s on the canvas
 
         Returns:
-            2D numpy array
+            np.uint8: 2D numpy array
+
         &#34;&#34;&#34;
         # Capture the image from Canvas
         ps = self.canvas.postscript(colormode=&#39;gray&#39;)
@@ -519,11 +523,12 @@ class GUI:
         self.txt_image_index.delete(0, &#39;end&#39;)
 
 
-    def network_change(self, verbal):
+    def network_change(self, verbal=True):
         &#34;&#34;&#34; Change the network type
 
         Args:
-            verbal: Whether to print the updated network or not
+            verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
         &#34;&#34;&#34;
         network = self.network_var.get()
         conf_network(network, False)
@@ -531,11 +536,12 @@ class GUI:
             self.network_print(&#39;Network Architecture Updated&#39;)
 
 
-    def network_print(self, win_title):
+    def network_print(self, win_title=&#39;Current Network Architecture&#39;):
         &#34;&#34;&#34; Pop up a new window showing the updated network
 
         Args:
-            win_title: Title of the popped up window
+            win_title (str): Title of the popped up window
+
         &#34;&#34;&#34;
         win_network = Toplevel()
         win_network.title(win_title)
@@ -1091,10 +1097,10 @@ def decode(parameters):
         self.network_change(False)
 
         self.btn_display_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_display_network_icon.png&#39;).resize((20, 20)))
-        Button(frm_network, image=self.btn_display_network_icon, command=partial(self.network_print, &#39;Current Network Architecture&#39;)).pack(side=RIGHT, padx=5)
+        Button(frm_network, image=self.btn_display_network_icon, command=self.network_print).pack(side=RIGHT, padx=5)
 
         self.btn_config_network_icon = ImageTk.PhotoImage(Image.open(&#39;Applications/btn_load.png&#39;).resize((20, 20)))
-        Button(frm_network, image=self.btn_config_network_icon, command=partial(self.network_change, True)).pack(side=RIGHT, padx=5)
+        Button(frm_network, image=self.btn_config_network_icon, command=self.network_change).pack(side=RIGHT, padx=5)
 
         # In WL Scheme Frame
         Label(frm_wl_scheme, text=&#39;WL Scheme&#39;, width=14, font=&#39;Arial 14 bold&#39;).pack()
@@ -1163,7 +1169,7 @@ def decode(parameters):
         &#34;&#34;&#34; Callback for canvas painting
 
         Args:
-            new_xy: new (x, y)
+            new_xy (tuple): new (x, y)
         &#34;&#34;&#34;
         if self.old_xy:
             self.canvas.create_line(self.old_xy.x, self.old_xy.y, new_xy.x, new_xy.y, width=40, stipple=&#39;gray50&#39;, capstyle=ROUND)
@@ -1173,15 +1179,20 @@ def decode(parameters):
     def canvas_reset(self, new_xy):
         &#34;&#34;&#34; Callback for canvas reset
 
+        Args:
+            new_xy (tuple): new (x, y), but not used in this function
+
         &#34;&#34;&#34;
         self.old_xy = None
+        self.txt_image_index.delete(0, &#39;end&#39;)
 
 
     def canvas_capture(self):
         &#34;&#34;&#34; Capture what&#39;s on the canvas
 
         Returns:
-            2D numpy array
+            np.uint8: 2D numpy array
+
         &#34;&#34;&#34;
         # Capture the image from Canvas
         ps = self.canvas.postscript(colormode=&#39;gray&#39;)
@@ -1204,11 +1215,12 @@ def decode(parameters):
         self.txt_image_index.delete(0, &#39;end&#39;)
 
 
-    def network_change(self, verbal):
+    def network_change(self, verbal=True):
         &#34;&#34;&#34; Change the network type
 
         Args:
-            verbal: Whether to print the updated network or not
+            verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
         &#34;&#34;&#34;
         network = self.network_var.get()
         conf_network(network, False)
@@ -1216,11 +1228,12 @@ def decode(parameters):
             self.network_print(&#39;Network Architecture Updated&#39;)
 
 
-    def network_print(self, win_title):
+    def network_print(self, win_title=&#39;Current Network Architecture&#39;):
         &#34;&#34;&#34; Pop up a new window showing the updated network
 
         Args:
-            win_title: Title of the popped up window
+            win_title (str): Title of the popped up window
+
         &#34;&#34;&#34;
         win_network = Toplevel()
         win_network.title(win_title)
@@ -1292,7 +1305,10 @@ def decode(parameters):
 <dd>
 <div class="desc"><p>Capture what's on the canvas</p>
 <h2 id="returns">Returns</h2>
-<p>2D numpy array</p></div>
+<dl>
+<dt><code>np.uint8</code></dt>
+<dd>2D numpy array</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1301,7 +1317,8 @@ def decode(parameters):
     &#34;&#34;&#34; Capture what&#39;s on the canvas
 
     Returns:
-        2D numpy array
+        np.uint8: 2D numpy array
+
     &#34;&#34;&#34;
     # Capture the image from Canvas
     ps = self.canvas.postscript(colormode=&#39;gray&#39;)
@@ -1320,7 +1337,7 @@ def decode(parameters):
 <div class="desc"><p>Callback for canvas painting</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>new_xy</code></strong></dt>
+<dt><strong><code>new_xy</code></strong> :&ensp;<code>tuple</code></dt>
 <dd>new (x, y)</dd>
 </dl></div>
 <details class="source">
@@ -1331,7 +1348,7 @@ def decode(parameters):
     &#34;&#34;&#34; Callback for canvas painting
 
     Args:
-        new_xy: new (x, y)
+        new_xy (tuple): new (x, y)
     &#34;&#34;&#34;
     if self.old_xy:
         self.canvas.create_line(self.old_xy.x, self.old_xy.y, new_xy.x, new_xy.y, width=40, stipple=&#39;gray50&#39;, capstyle=ROUND)
@@ -1342,7 +1359,12 @@ def decode(parameters):
 <span>def <span class="ident">canvas_reset</span></span>(<span>self, new_xy)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Callback for canvas reset</p></div>
+<div class="desc"><p>Callback for canvas reset</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>new_xy</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>new (x, y), but not used in this function</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1350,8 +1372,12 @@ def decode(parameters):
 <pre><code class="python">def canvas_reset(self, new_xy):
     &#34;&#34;&#34; Callback for canvas reset
 
+    Args:
+        new_xy (tuple): new (x, y), but not used in this function
+
     &#34;&#34;&#34;
-    self.old_xy = None</code></pre>
+    self.old_xy = None
+    self.txt_image_index.delete(0, &#39;end&#39;)</code></pre>
 </details>
 </dd>
 <dt id="MNIST.GUI.clear"><code class="name flex">
@@ -1458,24 +1484,25 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="MNIST.GUI.network_change"><code class="name flex">
-<span>def <span class="ident">network_change</span></span>(<span>self, verbal)</span>
+<span>def <span class="ident">network_change</span></span>(<span>self, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Change the network type</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>verbal</code></strong></dt>
-<dd>Whether to print the updated network or not</dd>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def network_change(self, verbal):
+<pre><code class="python">def network_change(self, verbal=True):
     &#34;&#34;&#34; Change the network type
 
     Args:
-        verbal: Whether to print the updated network or not
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
     &#34;&#34;&#34;
     network = self.network_var.get()
     conf_network(network, False)
@@ -1484,24 +1511,25 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="MNIST.GUI.network_print"><code class="name flex">
-<span>def <span class="ident">network_print</span></span>(<span>self, win_title)</span>
+<span>def <span class="ident">network_print</span></span>(<span>self, win_title='Current Network Architecture')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Pop up a new window showing the updated network</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>win_title</code></strong></dt>
+<dt><strong><code>win_title</code></strong> :&ensp;<code>str</code></dt>
 <dd>Title of the popped up window</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def network_print(self, win_title):
+<pre><code class="python">def network_print(self, win_title=&#39;Current Network Architecture&#39;):
     &#34;&#34;&#34; Pop up a new window showing the updated network
 
     Args:
-        win_title: Title of the popped up window
+        win_title (str): Title of the popped up window
+
     &#34;&#34;&#34;
     win_network = Toplevel()
     win_network.title(win_title)

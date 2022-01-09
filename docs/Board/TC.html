@@ -87,15 +87,21 @@ def list_configs(verbal=True):
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LIST, verbal)
 
 
-def save_config(number, verbal=True):
+def save_config(number, force=False, verbal=True):
     &#34;&#34;&#34; Save the testchip configuration to slot *number*
 
     Args:
         number (str): Slot number, from *0*~*9*
+        force  (bool, optional): Whether to force the save without confirming. Defaults to False
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)
+    if force:
+        PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)
+    else:
+        confirm = input(f&#39;[WARNING] This will overwrite the config for chip #{number}, are you sure? (y/n)&#39;)
+        if confirm.lower() == &#39;y&#39;:
+            PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)
 
 
 def load_config(number, verbal=True):
@@ -109,6 +115,52 @@ def load_config(number, verbal=True):
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LOAD + &#39; &#39; + number, verbal)
 
 
+def download_config(verbal=True):
+    &#34;&#34;&#34; Download and save the testchip configuration to local file.
+         (Pretty slow for now, I&#39;ll see if I want to optimize someday 0u0)
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
+    TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
+    from tkinter import filedialog
+    f = filedialog.asksaveasfile(title = &#34;Save config as&#34;,
+                                 filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
+    del filedialog
+    for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
+        if verbal:
+            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+        f.write(read(str(address) + &#39;\n&#39;, False))
+    if verbal:
+        print(f&#39;\rProgress: 100%&#39;)
+    f.close()
+
+
+def upload_config(verbal=True):
+    &#34;&#34;&#34; Upload the testchip configuration from local file.
+         (Pretty slow for now, I&#39;ll see if I want to optimize someday 0u0)
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
+    TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
+    from tkinter import filedialog
+    f = filedialog.askopenfile(title = &#34;Open a config&#34;,
+                               filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
+    del filedialog
+    for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
+        if verbal:
+            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+        write(str(address), f.readline(), False)
+    if verbal:
+        print(f&#39;\rProgress: 100%&#39;)
+    f.close()
+
+
 def decode(parameters):
     &#34;&#34;&#34; Decode the command
 
@@ -116,13 +168,15 @@ def decode(parameters):
         parameters (list): Command in List form.
 
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;connect&#39;   : connect     (                            )
-    elif parameters[1] == &#39;disconnect&#39;: disconnect  (                            )
-    elif parameters[1] == &#39;read&#39;      : read        (parameters[2],              )
-    elif parameters[1] == &#39;write&#39;     : write       (parameters[2], parameters[3])
-    elif parameters[1] == &#39;list&#39;      : list_configs(                            )
-    elif parameters[1] == &#39;save&#39;      : save_config (parameters[2],              )
-    elif parameters[1] == &#39;load&#39;      : load_config (parameters[2],              )
+    if   parameters[1] == &#39;connect&#39;   : connect        (                            )
+    elif parameters[1] == &#39;disconnect&#39;: disconnect     (                            )
+    elif parameters[1] == &#39;read&#39;      : read           (parameters[2],              )
+    elif parameters[1] == &#39;write&#39;     : write          (parameters[2], parameters[3])
+    elif parameters[1] == &#39;list&#39;      : list_configs   (                            )
+    elif parameters[1] == &#39;save&#39;      : save_config    (parameters[2],              )
+    elif parameters[1] == &#39;load&#39;      : load_config    (parameters[2],              )
+    elif parameters[1] == &#39;download&#39;  : download_config(                            )
+    elif parameters[1] == &#39;upload&#39;    : upload_config  (                            )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </section>
@@ -186,13 +240,15 @@ def decode(parameters):
         parameters (list): Command in List form.
 
     &#34;&#34;&#34;
-    if   parameters[1] == &#39;connect&#39;   : connect     (                            )
-    elif parameters[1] == &#39;disconnect&#39;: disconnect  (                            )
-    elif parameters[1] == &#39;read&#39;      : read        (parameters[2],              )
-    elif parameters[1] == &#39;write&#39;     : write       (parameters[2], parameters[3])
-    elif parameters[1] == &#39;list&#39;      : list_configs(                            )
-    elif parameters[1] == &#39;save&#39;      : save_config (parameters[2],              )
-    elif parameters[1] == &#39;load&#39;      : load_config (parameters[2],              )
+    if   parameters[1] == &#39;connect&#39;   : connect        (                            )
+    elif parameters[1] == &#39;disconnect&#39;: disconnect     (                            )
+    elif parameters[1] == &#39;read&#39;      : read           (parameters[2],              )
+    elif parameters[1] == &#39;write&#39;     : write          (parameters[2], parameters[3])
+    elif parameters[1] == &#39;list&#39;      : list_configs   (                            )
+    elif parameters[1] == &#39;save&#39;      : save_config    (parameters[2],              )
+    elif parameters[1] == &#39;load&#39;      : load_config    (parameters[2],              )
+    elif parameters[1] == &#39;download&#39;  : download_config(                            )
+    elif parameters[1] == &#39;upload&#39;    : upload_config  (                            )
     else: PT.unknown(parameters)</code></pre>
 </details>
 </dd>
@@ -218,6 +274,44 @@ def decode(parameters):
 
     &#34;&#34;&#34;
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_DISCONNECT, verbal)</code></pre>
+</details>
+</dd>
+<dt id="TC.download_config"><code class="name flex">
+<span>def <span class="ident">download_config</span></span>(<span>verbal=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download and save the testchip configuration to local file.
+(Pretty slow for now, I'll see if I want to optimize someday 0u0)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_config(verbal=True):
+    &#34;&#34;&#34; Download and save the testchip configuration to local file.
+         (Pretty slow for now, I&#39;ll see if I want to optimize someday 0u0)
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
+    TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
+    from tkinter import filedialog
+    f = filedialog.asksaveasfile(title = &#34;Save config as&#34;,
+                                 filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
+    del filedialog
+    for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
+        if verbal:
+            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+        f.write(read(str(address) + &#39;\n&#39;, False))
+    if verbal:
+        print(f&#39;\rProgress: 100%&#39;)
+    f.close()</code></pre>
 </details>
 </dd>
 <dt id="TC.list_configs"><code class="name flex">
@@ -299,7 +393,7 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="TC.save_config"><code class="name flex">
-<span>def <span class="ident">save_config</span></span>(<span>number, verbal=True)</span>
+<span>def <span class="ident">save_config</span></span>(<span>number, force=False, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Save the testchip configuration to slot <em>number</em></p>
@@ -307,6 +401,8 @@ def decode(parameters):
 <dl>
 <dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
 <dd>Slot number, from <em>0</em>~<em>9</em></dd>
+<dt>force
+(bool, optional): Whether to force the save without confirming. Defaults to False</dt>
 <dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>Whether to print the response or not. Defaults to True.</dd>
 </dl></div>
@@ -314,15 +410,59 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def save_config(number, verbal=True):
+<pre><code class="python">def save_config(number, force=False, verbal=True):
     &#34;&#34;&#34; Save the testchip configuration to slot *number*
 
     Args:
         number (str): Slot number, from *0*~*9*
+        force  (bool, optional): Whether to force the save without confirming. Defaults to False
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)</code></pre>
+    if force:
+        PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)
+    else:
+        confirm = input(f&#39;[WARNING] This will overwrite the config for chip #{number}, are you sure? (y/n)&#39;)
+        if confirm.lower() == &#39;y&#39;:
+            PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_SAVE + &#39; &#39; + number + &#39; &#39; + datetime.now().strftime(&#34;%m/%d/%Y_%H:%M:%S&#34;), verbal)</code></pre>
+</details>
+</dd>
+<dt id="TC.upload_config"><code class="name flex">
+<span>def <span class="ident">upload_config</span></span>(<span>verbal=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Upload the testchip configuration from local file.
+(Pretty slow for now, I'll see if I want to optimize someday 0u0)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def upload_config(verbal=True):
+    &#34;&#34;&#34; Upload the testchip configuration from local file.
+         (Pretty slow for now, I&#39;ll see if I want to optimize someday 0u0)
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
+    TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
+    from tkinter import filedialog
+    f = filedialog.askopenfile(title = &#34;Open a config&#34;,
+                               filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
+    del filedialog
+    for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
+        if verbal:
+            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+        write(str(address), f.readline(), False)
+    if verbal:
+        print(f&#39;\rProgress: 100%&#39;)
+    f.close()</code></pre>
 </details>
 </dd>
 <dt id="TC.write"><code class="name flex">
@@ -371,10 +511,12 @@ def decode(parameters):
 <li><code><a title="TC.connect" href="#TC.connect">connect</a></code></li>
 <li><code><a title="TC.decode" href="#TC.decode">decode</a></code></li>
 <li><code><a title="TC.disconnect" href="#TC.disconnect">disconnect</a></code></li>
+<li><code><a title="TC.download_config" href="#TC.download_config">download_config</a></code></li>
 <li><code><a title="TC.list_configs" href="#TC.list_configs">list_configs</a></code></li>
 <li><code><a title="TC.load_config" href="#TC.load_config">load_config</a></code></li>
 <li><code><a title="TC.read" href="#TC.read">read</a></code></li>
 <li><code><a title="TC.save_config" href="#TC.save_config">save_config</a></code></li>
+<li><code><a title="TC.upload_config" href="#TC.upload_config">upload_config</a></code></li>
 <li><code><a title="TC.write" href="#TC.write">write</a></code></li>
 </ul>
 </li>

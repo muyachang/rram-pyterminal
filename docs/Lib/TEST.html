@@ -52,7 +52,7 @@ def check_chip_VRef():
             RRAM.mod_conf(&#39;A&#39;, False)
     print(&#39;&#39;)
 
-    RRAM.mod_status(True)
+    RRAM.mod_status()
 
 def sweep_chip_VRef():
     &#34;&#34;&#34; Sweep VRef for the whole chip
@@ -120,12 +120,12 @@ def cim_bit(row, col):
     # Reset first 9 cells
     for row_offset in range(0, 9):
         addr = (row+row_offset) * 256 + col
-        RRAM.reset(&#39;cell&#39;, str(addr), True)
+        RRAM.reset(&#39;cell&#39;, str(addr), False)
 
     # Set second 9 cells
     for row_offset in range(9, 18):
         addr = (row+row_offset) * 256 + col
-        RRAM.set(&#39;cell&#39;, str(addr), True)
+        RRAM.set(&#39;cell&#39;, str(addr), False)
 
     # Compute-In-Memory
     raws = [[&#39;&#39;] * 10 for i in range(10)]
@@ -275,7 +275,7 @@ def decode(parameters):
             RRAM.mod_conf(&#39;A&#39;, False)
     print(&#39;&#39;)
 
-    RRAM.mod_status(True)</code></pre>
+    RRAM.mod_status()</code></pre>
 </details>
 </dd>
 <dt id="TEST.cim_bit"><code class="name flex">
@@ -307,12 +307,12 @@ def decode(parameters):
     # Reset first 9 cells
     for row_offset in range(0, 9):
         addr = (row+row_offset) * 256 + col
-        RRAM.reset(&#39;cell&#39;, str(addr), True)
+        RRAM.reset(&#39;cell&#39;, str(addr), False)
 
     # Set second 9 cells
     for row_offset in range(9, 18):
         addr = (row+row_offset) * 256 + col
-        RRAM.set(&#39;cell&#39;, str(addr), True)
+        RRAM.set(&#39;cell&#39;, str(addr), False)
 
     # Compute-In-Memory
     raws = [[&#39;&#39;] * 10 for i in range(10)]

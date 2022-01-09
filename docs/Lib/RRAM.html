@@ -326,7 +326,7 @@ def env_status(verbal=True):
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal=True)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal)
 
 
 def mod_init(verbal=True):
@@ -1488,7 +1488,7 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal=True)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_ENV_STATUS, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.form"><code class="name flex">
