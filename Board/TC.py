@@ -87,6 +87,52 @@ def load_config(number, verbal=True):
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + number, verbal)
 
 
+def download_config(verbal=True):
+    """ Download and save the testchip configuration to local file.
+         (Pretty slow for now, I'll see if I want to optimize someday 0u0)
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    """
+    TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
+    TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
+    from tkinter import filedialog
+    f = filedialog.asksaveasfile(title = "Save config as",
+                                 filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
+    del filedialog
+    for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
+        if verbal:
+            print(f'\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%', end='')
+        f.write(read(str(address) + '\n', False))
+    if verbal:
+        print(f'\rProgress: 100%')
+    f.close()
+
+
+def upload_config(verbal=True):
+    """ Upload the testchip configuration from local file.
+         (Pretty slow for now, I'll see if I want to optimize someday 0u0)
+
+    Args:
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    """
+    TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
+    TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
+    from tkinter import filedialog
+    f = filedialog.askopenfile(title = "Open a config",
+                               filetypes = (("Text files", "*.txt*"), ("all files", "*.*")))
+    del filedialog
+    for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
+        if verbal:
+            print(f'\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%', end='')
+        write(str(address), f.readline(), False)
+    if verbal:
+        print(f'\rProgress: 100%')
+    f.close()
+
+
 def decode(parameters):
     """ Decode the command
 
@@ -94,11 +140,13 @@ def decode(parameters):
         parameters (list): Command in List form.
 
     """
-    if   parameters[1] == 'connect'   : connect     (                            )
-    elif parameters[1] == 'disconnect': disconnect  (                            )
-    elif parameters[1] == 'read'      : read        (parameters[2],              )
-    elif parameters[1] == 'write'     : write       (parameters[2], parameters[3])
-    elif parameters[1] == 'list'      : list_configs(                            )
-    elif parameters[1] == 'save'      : save_config (parameters[2],              )
-    elif parameters[1] == 'load'      : load_config (parameters[2],              )
+    if   parameters[1] == 'connect'   : connect        (                            )
+    elif parameters[1] == 'disconnect': disconnect     (                            )
+    elif parameters[1] == 'read'      : read           (parameters[2],              )
+    elif parameters[1] == 'write'     : write          (parameters[2], parameters[3])
+    elif parameters[1] == 'list'      : list_configs   (                            )
+    elif parameters[1] == 'save'      : save_config    (parameters[2],              )
+    elif parameters[1] == 'load'      : load_config    (parameters[2],              )
+    elif parameters[1] == 'download'  : download_config(                            )
+    elif parameters[1] == 'upload'    : upload_config  (                            )
     else: PT.unknown(parameters)
