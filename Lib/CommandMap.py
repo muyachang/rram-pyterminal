@@ -70,6 +70,7 @@ CM_TC_WRITE                 = b'\x44'.decode('utf-8')
 CM_TC_LIST                  = b'\x45'.decode('utf-8')
 CM_TC_SAVE                  = b'\x46'.decode('utf-8')
 CM_TC_LOAD                  = b'\x47'.decode('utf-8')
+CM_TC_REMOVE                = b'\x48'.decode('utf-8')
                       
 CM_DEMO_LIST                = b'\x41'.decode('utf-8')
 CM_DEMO_LOAD                = b'\x42'.decode('utf-8')

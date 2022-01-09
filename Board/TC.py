@@ -88,6 +88,23 @@ def load_config(number, verbal=True):
     PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_LOAD + ' ' + number, verbal)
 
 
+def remove_config(number, force=False, verbal=True):
+    """ Remove the testchip configuration from slot *number*
+
+    Args:
+        number (str): Slot number, from *0*~*9*
+        force  (bool, optional): Whether to force the save without confirming. Defaults to False
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    """
+    if force:
+        PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_REMOVE + ' ' + number, verbal)
+    else:
+        confirm = input(f'[WARNING] This will remove the config for chip #{number}, are you sure? (y/n)')
+        if confirm.lower() == 'y':
+            PT.send_command(CM.CM_TC + ' ' + CM.CM_TC_REMOVE + ' ' + number, verbal)
+
+
 def download_config(verbal=True):
     """ Download and save the testchip configuration to local file.
          (Pretty slow for now, I'll see if I want to optimize someday 0u0)
@@ -153,11 +170,12 @@ def decode(parameters):
     """
     if   parameters[1] == 'connect'   : connect        (                            )
     elif parameters[1] == 'disconnect': disconnect     (                            )
-    elif parameters[1] == 'read'      : read           (parameters[2],              )
+    elif parameters[1] == 'read'      : read           (parameters[2]               )
     elif parameters[1] == 'write'     : write          (parameters[2], parameters[3])
     elif parameters[1] == 'list'      : list_configs   (                            )
-    elif parameters[1] == 'save'      : save_config    (parameters[2],              )
-    elif parameters[1] == 'load'      : load_config    (parameters[2],              )
+    elif parameters[1] == 'save'      : save_config    (parameters[2]               )
+    elif parameters[1] == 'load'      : load_config    (parameters[2]               )
+    elif parameters[1] == 'remove'    : remove_config  (parameters[2]               )
     elif parameters[1] == 'download'  : download_config(                            )
     elif parameters[1] == 'upload'    : upload_config  (                            )
     else: PT.unknown(parameters)
