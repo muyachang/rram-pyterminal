@@ -306,10 +306,10 @@ def test_inference(network, WL_start, WL_end, count, verbal):
     verbal = eval(verbal)
     WL_start = int(WL_start)
     WL_end = int(WL_end)
-    conf_network(network, True)
+    conf_network(network, False)
 
     for WL in range(WL_start, WL_end+1):
-        print(f&#39;WL Scheme: {WL}&#39;)
+        print(f&#39;[INFO] WL Scheme: {WL}&#39;)
         # Read the image and do th inference
         if verbal:
             print( &#39;╔═══════╦══════╦═════╦════╗&#39;)
@@ -866,10 +866,10 @@ def decode(parameters):
     verbal = eval(verbal)
     WL_start = int(WL_start)
     WL_end = int(WL_end)
-    conf_network(network, True)
+    conf_network(network, False)
 
     for WL in range(WL_start, WL_end+1):
-        print(f&#39;WL Scheme: {WL}&#39;)
+        print(f&#39;[INFO] WL Scheme: {WL}&#39;)
         # Read the image and do th inference
         if verbal:
             print( &#39;╔═══════╦══════╦═════╦════╗&#39;)

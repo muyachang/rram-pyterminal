@@ -27,6 +27,7 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">from datetime import datetime
+from tkinter import Tk, filedialog
 import CommandMap as CM
 import PyTerminal as PT
 
@@ -125,17 +126,22 @@ def download_config(verbal=True):
     &#34;&#34;&#34;
     TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
     TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
-    from tkinter import filedialog
+    root = Tk()
+    root.withdraw()
     f = filedialog.asksaveasfile(title = &#34;Save config as&#34;,
                                  filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
-    del filedialog
+    if f is None:
+        print(&#39;No file specified&#39;)
+        return
+
     for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
         if verbal:
-            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+            print(f&#39;\r[INFO] Progress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
         f.write(read(str(address) + &#39;\n&#39;, False))
     if verbal:
-        print(f&#39;\rProgress: 100%&#39;)
+        print(f&#39;\r[INFO] Progress: 100%&#39;)
     f.close()
+    root.destroy()
 
 
 def upload_config(verbal=True):
@@ -148,17 +154,22 @@ def upload_config(verbal=True):
     &#34;&#34;&#34;
     TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
     TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
-    from tkinter import filedialog
+    root = Tk()
+    root.withdraw()
     f = filedialog.askopenfile(title = &#34;Open a config&#34;,
                                filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
-    del filedialog
+    if f is None:
+        print(&#39;No file specified&#39;)
+        return
+
     for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
         if verbal:
-            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+            print(f&#39;\r[INFO] Progress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
         write(str(address), f.readline(), False)
     if verbal:
-        print(f&#39;\rProgress: 100%&#39;)
+        print(f&#39;\r[INFO] Progress: 100%&#39;)
     f.close()
+    root.destroy()
 
 
 def decode(parameters):
@@ -301,17 +312,22 @@ def decode(parameters):
     &#34;&#34;&#34;
     TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
     TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
-    from tkinter import filedialog
+    root = Tk()
+    root.withdraw()
     f = filedialog.asksaveasfile(title = &#34;Save config as&#34;,
                                  filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
-    del filedialog
+    if f is None:
+        print(&#39;No file specified&#39;)
+        return
+
     for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
         if verbal:
-            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+            print(f&#39;\r[INFO] Progress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
         f.write(read(str(address) + &#39;\n&#39;, False))
     if verbal:
-        print(f&#39;\rProgress: 100%&#39;)
-    f.close()</code></pre>
+        print(f&#39;\r[INFO] Progress: 100%&#39;)
+    f.close()
+    root.destroy()</code></pre>
 </details>
 </dd>
 <dt id="TC.list_configs"><code class="name flex">
@@ -452,17 +468,22 @@ def decode(parameters):
     &#34;&#34;&#34;
     TC_CONFIG_START_ADDRESS = 0x20070000  # Start at 448 KB
     TC_CONFIG_SIZE          = 0x00010000  # 64 KB for each TC
-    from tkinter import filedialog
+    root = Tk()
+    root.withdraw()
     f = filedialog.askopenfile(title = &#34;Open a config&#34;,
                                filetypes = ((&#34;Text files&#34;, &#34;*.txt*&#34;), (&#34;all files&#34;, &#34;*.*&#34;)))
-    del filedialog
+    if f is None:
+        print(&#39;No file specified&#39;)
+        return
+
     for address in range(TC_CONFIG_START_ADDRESS, TC_CONFIG_START_ADDRESS+TC_CONFIG_SIZE, 4):
         if verbal:
-            print(f&#39;\rProgress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
+            print(f&#39;\r[INFO] Progress: {int((address-TC_CONFIG_START_ADDRESS)*100/TC_CONFIG_SIZE)}%&#39;, end=&#39;&#39;)
         write(str(address), f.readline(), False)
     if verbal:
-        print(f&#39;\rProgress: 100%&#39;)
-    f.close()</code></pre>
+        print(f&#39;\r[INFO] Progress: 100%&#39;)
+    f.close()
+    root.destroy()</code></pre>
 </details>
 </dd>
 <dt id="TC.write"><code class="name flex">
