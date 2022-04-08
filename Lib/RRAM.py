@@ -565,7 +565,7 @@ def calibrate_VRef(lane, low, high, tolerance, verbal=True):
     """ **[High Level]** Calibrate the internally generated reference voltages so the range would be approx. (*low*, *high*) for the current module
 
     Args:
-        lane (str): Target lane ADC for calibration
+        lane (str): Target ADC lane
         low (str): Target lower bound of the reference voltages
         high (str): Target upper bound of the reference voltages
         tolerance (str): Target tolerance from either *low* or *high*
@@ -582,7 +582,7 @@ def sweep_VRef(lane, low, high, step, verbal=True):
     """ **[High Level]** Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Args:
-        lane (str): Target lane ADC for calibration
+        lane (str): Target ADC lane
         low (str): Starting voltage for ADC_CAL
         high (str): Ending voltage for ADC_CAL
         step (str): Step for ADC_CAL

@@ -116,6 +116,23 @@ def load_config(number, verbal=True):
     PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_LOAD + &#39; &#39; + number, verbal)
 
 
+def remove_config(number, force=False, verbal=True):
+    &#34;&#34;&#34; Remove the testchip configuration from slot *number*
+
+    Args:
+        number (str): Slot number, from *0*~*9*
+        force  (bool, optional): Whether to force the save without confirming. Defaults to False
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    if force:
+        PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_REMOVE + &#39; &#39; + number, verbal)
+    else:
+        confirm = input(f&#39;[WARNING] This will remove the config for chip #{number}, are you sure? (y/n)&#39;)
+        if confirm.lower() == &#39;y&#39;:
+            PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_REMOVE + &#39; &#39; + number, verbal)
+
+
 def download_config(verbal=True):
     &#34;&#34;&#34; Download and save the testchip configuration to local file.
          (Pretty slow for now, I&#39;ll see if I want to optimize someday 0u0)
@@ -181,11 +198,12 @@ def decode(parameters):
     &#34;&#34;&#34;
     if   parameters[1] == &#39;connect&#39;   : connect        (                            )
     elif parameters[1] == &#39;disconnect&#39;: disconnect     (                            )
-    elif parameters[1] == &#39;read&#39;      : read           (parameters[2],              )
+    elif parameters[1] == &#39;read&#39;      : read           (parameters[2]               )
     elif parameters[1] == &#39;write&#39;     : write          (parameters[2], parameters[3])
     elif parameters[1] == &#39;list&#39;      : list_configs   (                            )
-    elif parameters[1] == &#39;save&#39;      : save_config    (parameters[2],              )
-    elif parameters[1] == &#39;load&#39;      : load_config    (parameters[2],              )
+    elif parameters[1] == &#39;save&#39;      : save_config    (parameters[2]               )
+    elif parameters[1] == &#39;load&#39;      : load_config    (parameters[2]               )
+    elif parameters[1] == &#39;remove&#39;    : remove_config  (parameters[2]               )
     elif parameters[1] == &#39;download&#39;  : download_config(                            )
     elif parameters[1] == &#39;upload&#39;    : upload_config  (                            )
     else: PT.unknown(parameters)</code></pre>
@@ -253,11 +271,12 @@ def decode(parameters):
     &#34;&#34;&#34;
     if   parameters[1] == &#39;connect&#39;   : connect        (                            )
     elif parameters[1] == &#39;disconnect&#39;: disconnect     (                            )
-    elif parameters[1] == &#39;read&#39;      : read           (parameters[2],              )
+    elif parameters[1] == &#39;read&#39;      : read           (parameters[2]               )
     elif parameters[1] == &#39;write&#39;     : write          (parameters[2], parameters[3])
     elif parameters[1] == &#39;list&#39;      : list_configs   (                            )
-    elif parameters[1] == &#39;save&#39;      : save_config    (parameters[2],              )
-    elif parameters[1] == &#39;load&#39;      : load_config    (parameters[2],              )
+    elif parameters[1] == &#39;save&#39;      : save_config    (parameters[2]               )
+    elif parameters[1] == &#39;load&#39;      : load_config    (parameters[2]               )
+    elif parameters[1] == &#39;remove&#39;    : remove_config  (parameters[2]               )
     elif parameters[1] == &#39;download&#39;  : download_config(                            )
     elif parameters[1] == &#39;upload&#39;    : upload_config  (                            )
     else: PT.unknown(parameters)</code></pre>
@@ -408,6 +427,41 @@ def decode(parameters):
     return PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_READ + &#39; &#39; + address, verbal)</code></pre>
 </details>
 </dd>
+<dt id="TC.remove_config"><code class="name flex">
+<span>def <span class="ident">remove_config</span></span>(<span>number, force=False, verbal=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove the testchip configuration from slot <em>number</em></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>number</code></strong> :&ensp;<code>str</code></dt>
+<dd>Slot number, from <em>0</em>~<em>9</em></dd>
+<dt>force
+(bool, optional): Whether to force the save without confirming. Defaults to False</dt>
+<dt><strong><code>verbal</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to print the response or not. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_config(number, force=False, verbal=True):
+    &#34;&#34;&#34; Remove the testchip configuration from slot *number*
+
+    Args:
+        number (str): Slot number, from *0*~*9*
+        force  (bool, optional): Whether to force the save without confirming. Defaults to False
+        verbal (bool, optional): Whether to print the response or not. Defaults to True.
+
+    &#34;&#34;&#34;
+    if force:
+        PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_REMOVE + &#39; &#39; + number, verbal)
+    else:
+        confirm = input(f&#39;[WARNING] This will remove the config for chip #{number}, are you sure? (y/n)&#39;)
+        if confirm.lower() == &#39;y&#39;:
+            PT.send_command(CM.CM_TC + &#39; &#39; + CM.CM_TC_REMOVE + &#39; &#39; + number, verbal)</code></pre>
+</details>
+</dd>
 <dt id="TC.save_config"><code class="name flex">
 <span>def <span class="ident">save_config</span></span>(<span>number, force=False, verbal=True)</span>
 </code></dt>
@@ -536,6 +590,7 @@ def decode(parameters):
 <li><code><a title="TC.list_configs" href="#TC.list_configs">list_configs</a></code></li>
 <li><code><a title="TC.load_config" href="#TC.load_config">load_config</a></code></li>
 <li><code><a title="TC.read" href="#TC.read">read</a></code></li>
+<li><code><a title="TC.remove_config" href="#TC.remove_config">remove_config</a></code></li>
 <li><code><a title="TC.save_config" href="#TC.save_config">save_config</a></code></li>
 <li><code><a title="TC.upload_config" href="#TC.upload_config">upload_config</a></code></li>
 <li><code><a title="TC.write" href="#TC.write">write</a></code></li>

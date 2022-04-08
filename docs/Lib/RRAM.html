@@ -589,10 +589,11 @@ def conf_MAC(mode, resolution, verbal=True):
     PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CONF_MAC + &#39; &#39; + mode + &#39; &#39; + resolution, verbal)
 
 
-def calibrate_VRef(low, high, tolerance, verbal=True):
+def calibrate_VRef(lane, low, high, tolerance, verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate the internally generated reference voltages so the range would be approx. (*low*, *high*) for the current module
 
     Args:
+        lane (str): Target ADC lane
         low (str): Target lower bound of the reference voltages
         high (str): Target upper bound of the reference voltages
         tolerance (str): Target tolerance from either *low* or *high*
@@ -602,20 +603,21 @@ def calibrate_VRef(low, high, tolerance, verbal=True):
         (int, int): (offset, step) which makes ADC fit the desired range.
 
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + tolerance, verbal)
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VREF + &#39; &#39; + lane + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + tolerance, verbal)
 
 
-def sweep_VRef(low, high, step, verbal=True):
+def sweep_VRef(lane, low, high, step, verbal=True):
     &#34;&#34;&#34; **[High Level]** Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Args:
+        lane (str): Target ADC lane
         low (str): Starting voltage for ADC_CAL
         high (str): Ending voltage for ADC_CAL
         step (str): Step for ADC_CAL
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + step, verbal)
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_VREF + &#39; &#39; + lane + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + step, verbal)
 
 
 def list_VRef(verbal=True):
@@ -787,8 +789,8 @@ def decode(parameters):
     elif parameters[1] == &#39;read_byte&#39;        : read_byte        (parameters[2], parameters[3], parameters[4],              )
     elif parameters[1] == &#39;conf_ADC&#39;         : conf_ADC         (parameters[2], parameters[3], parameters[4],              )
     elif parameters[1] == &#39;conf_MAC&#39;         : conf_MAC         (parameters[2], parameters[3],                             )
-    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],              )
-    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4], parameters[5])
     elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                          )
     elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                          )
     elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                          )
@@ -907,12 +909,14 @@ def decode(parameters):
 </details>
 </dd>
 <dt id="RRAM.calibrate_VRef"><code class="name flex">
-<span>def <span class="ident">calibrate_VRef</span></span>(<span>low, high, tolerance, verbal=True)</span>
+<span>def <span class="ident">calibrate_VRef</span></span>(<span>lane, low, high, tolerance, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Calibrate the internally generated reference voltages so the range would be approx. (<em>low</em>, <em>high</em>) for the current module</p>
 <h2 id="args">Args</h2>
 <dl>
+<dt><strong><code>lane</code></strong> :&ensp;<code>str</code></dt>
+<dd>Target ADC lane</dd>
 <dt><strong><code>low</code></strong> :&ensp;<code>str</code></dt>
 <dd>Target lower bound of the reference voltages</dd>
 <dt><strong><code>high</code></strong> :&ensp;<code>str</code></dt>
@@ -928,10 +932,11 @@ def decode(parameters):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def calibrate_VRef(low, high, tolerance, verbal=True):
+<pre><code class="python">def calibrate_VRef(lane, low, high, tolerance, verbal=True):
     &#34;&#34;&#34; **[High Level]** Calibrate the internally generated reference voltages so the range would be approx. (*low*, *high*) for the current module
 
     Args:
+        lane (str): Target ADC lane
         low (str): Target lower bound of the reference voltages
         high (str): Target upper bound of the reference voltages
         tolerance (str): Target tolerance from either *low* or *high*
@@ -941,7 +946,7 @@ def decode(parameters):
         (int, int): (offset, step) which makes ADC fit the desired range.
 
     &#34;&#34;&#34;
-    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + tolerance, verbal)</code></pre>
+    return PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_CAL_VREF + &#39; &#39; + lane + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + tolerance, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.calibrate_VTGT_BL"><code class="name flex">
@@ -1375,8 +1380,8 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
     elif parameters[1] == &#39;read_byte&#39;        : read_byte        (parameters[2], parameters[3], parameters[4],              )
     elif parameters[1] == &#39;conf_ADC&#39;         : conf_ADC         (parameters[2], parameters[3], parameters[4],              )
     elif parameters[1] == &#39;conf_MAC&#39;         : conf_MAC         (parameters[2], parameters[3],                             )
-    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],              )
-    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == &#39;calibrate_VRef&#39;   : calibrate_VRef   (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == &#39;sweep_VRef&#39;       : sweep_VRef       (parameters[2], parameters[3], parameters[4], parameters[5])
     elif parameters[1] == &#39;list_VRef&#39;        : list_VRef        (                                                          )
     elif parameters[1] == &#39;clear_VRef&#39;       : clear_VRef       (                                                          )
     elif parameters[1] == &#39;calibrate_VTGT_BL&#39;: calibrate_VTGT_BL(                                                          )
@@ -2307,12 +2312,14 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 </details>
 </dd>
 <dt id="RRAM.sweep_VRef"><code class="name flex">
-<span>def <span class="ident">sweep_VRef</span></span>(<span>low, high, step, verbal=True)</span>
+<span>def <span class="ident">sweep_VRef</span></span>(<span>lane, low, high, step, verbal=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p><strong>[High Level]</strong> Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module</p>
 <h2 id="args">Args</h2>
 <dl>
+<dt><strong><code>lane</code></strong> :&ensp;<code>str</code></dt>
+<dd>Target ADC lane</dd>
 <dt><strong><code>low</code></strong> :&ensp;<code>str</code></dt>
 <dd>Starting voltage for ADC_CAL</dd>
 <dt><strong><code>high</code></strong> :&ensp;<code>str</code></dt>
@@ -2326,17 +2333,18 @@ If the cell is healthy, the ADC raw value after SET should be smaller than the v
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def sweep_VRef(low, high, step, verbal=True):
+<pre><code class="python">def sweep_VRef(lane, low, high, step, verbal=True):
     &#34;&#34;&#34; **[High Level]** Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Args:
+        lane (str): Target ADC lane
         low (str): Starting voltage for ADC_CAL
         high (str): Ending voltage for ADC_CAL
         step (str): Step for ADC_CAL
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     &#34;&#34;&#34;
-    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_VREF + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + step, verbal)</code></pre>
+    PT.send_command(CM.CM_RRAM + &#39; &#39; + CM.CM_RRAM_API_SWEEP_VREF + &#39; &#39; + lane + &#39; &#39; + low + &#39; &#39; + high + &#39; &#39; + step, verbal)</code></pre>
 </details>
 </dd>
 <dt id="RRAM.switch"><code class="name flex">
