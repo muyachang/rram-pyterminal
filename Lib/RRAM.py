@@ -561,10 +561,11 @@ def conf_MAC(mode, resolution, verbal=True):
     PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CONF_MAC + ' ' + mode + ' ' + resolution, verbal)
 
 
-def calibrate_VRef(low, high, tolerance, verbal=True):
+def calibrate_VRef(lane, low, high, tolerance, verbal=True):
     """ **[High Level]** Calibrate the internally generated reference voltages so the range would be approx. (*low*, *high*) for the current module
 
     Args:
+        lane (str): Target lane ADC for calibration
         low (str): Target lower bound of the reference voltages
         high (str): Target upper bound of the reference voltages
         tolerance (str): Target tolerance from either *low* or *high*
@@ -574,20 +575,21 @@ def calibrate_VRef(low, high, tolerance, verbal=True):
         (int, int): (offset, step) which makes ADC fit the desired range.
 
     """
-    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_VREF + ' ' + low + ' ' + high + ' ' + tolerance, verbal)
+    return PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_CAL_VREF + ' ' + lane + ' ' + low + ' ' + high + ' ' + tolerance, verbal)
 
 
-def sweep_VRef(low, high, step, verbal=True):
+def sweep_VRef(lane, low, high, step, verbal=True):
     """ **[High Level]** Sweep the ADC_CAL and look for all 15 internally generated reference voltages for the current module
 
     Args:
+        lane (str): Target lane ADC for calibration
         low (str): Starting voltage for ADC_CAL
         high (str): Ending voltage for ADC_CAL
         step (str): Step for ADC_CAL
         verbal (bool, optional): Whether to print the response or not. Defaults to True.
 
     """
-    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWEEP_VREF + ' ' + low + ' ' + high + ' ' + step, verbal)
+    PT.send_command(CM.CM_RRAM + ' ' + CM.CM_RRAM_API_SWEEP_VREF + ' ' + lane + ' ' + low + ' ' + high + ' ' + step, verbal)
 
 
 def list_VRef(verbal=True):
@@ -759,8 +761,8 @@ def decode(parameters):
     elif parameters[1] == 'read_byte'        : read_byte        (parameters[2], parameters[3], parameters[4],              )
     elif parameters[1] == 'conf_ADC'         : conf_ADC         (parameters[2], parameters[3], parameters[4],              )
     elif parameters[1] == 'conf_MAC'         : conf_MAC         (parameters[2], parameters[3],                             )
-    elif parameters[1] == 'calibrate_VRef'   : calibrate_VRef   (parameters[2], parameters[3], parameters[4],              )
-    elif parameters[1] == 'sweep_VRef'       : sweep_VRef       (parameters[2], parameters[3], parameters[4],              )
+    elif parameters[1] == 'calibrate_VRef'   : calibrate_VRef   (parameters[2], parameters[3], parameters[4], parameters[5])
+    elif parameters[1] == 'sweep_VRef'       : sweep_VRef       (parameters[2], parameters[3], parameters[4], parameters[5])
     elif parameters[1] == 'list_VRef'        : list_VRef        (                                                          )
     elif parameters[1] == 'clear_VRef'       : clear_VRef       (                                                          )
     elif parameters[1] == 'calibrate_VTGT_BL': calibrate_VTGT_BL(                                                          )
